@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const pdf = require('html-pdf')
 const cors = require('cors')
 
-const pdfTemplate = require('./documents')
+const pdfTemplate = require('./documents/index')
 
 const app = express();
 

@@ -24,24 +24,16 @@ const DeptRetention = inject("DepartmentStore")(
       }
 
   createAndDownloadPdf = () => {
-    axios.post('/create-pdf', this.state)
+    axios.post('/create-pdf', this.props.DepartmentStore)
       .then(() => axios.get('fetch-pdf', { responseType: 'blob' }))
       .then((res) => {
         const pdfBlob = new Blob([res.data], { type: 'application/pdf' })
 
-        saveAs(pdfBlob, 'newPdf.pdf')
+        saveAs(pdfBlob, 'retention.pdf')
       })
-  }
 
-      // componentDidMount() {
-      //   fetch("../../../drs.json")
-      //     .then(res => res.json())
-      //     .then(json => {
-      //       this.setState({
-      //         departments: json
-      //       });
-      //     });
-      // }
+    console.log(this.props.DepartmentStore.selectedDepartment)
+  }
 
       render() {
         const { DepartmentStore } = this.props;
