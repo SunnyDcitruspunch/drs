@@ -39,7 +39,6 @@ export default class ControlledTabs extends React.Component {
 
 const styles = {
   tabsStyle: {
-    paddingTop: 65,
     fontSize: 12
   }
 };

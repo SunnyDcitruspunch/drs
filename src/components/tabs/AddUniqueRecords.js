@@ -121,6 +121,7 @@ class AddUniqueRecords extends Component {
 
                 <div style={styles.footerStyle}>
                   <Button
+                    variant="outline-primary"
                     type="submit"
                     name="terms"
                     label="submit form"

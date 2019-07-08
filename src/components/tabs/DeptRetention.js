@@ -4,15 +4,12 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import SampleData from "../../../src/drs.json";
+import SampleData from "../../drs.json";
 import { inject, observer } from "mobx-react";
-import axios from 'axios' 
-import { saveAs } from 'file-server' 
 
 const DeptRetention = inject("DepartmentStore")(
   observer(
     class DeptRetnetion extends Component {
-
       constructor(props, context) {
         super(props, context);
 
@@ -215,5 +212,14 @@ const styles = {
   },
   tableFontStyle: {
     fontSize: 11
+  },
+  pageStyle: {
+    flexDirection: "row",
+    backgroundColor: "#E4E4E4"
+  },
+  sectionStyle: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1
   }
 };
