@@ -7,6 +7,10 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 class AddUniqueRecords extends Component {
+  state = {
+    modalShow: false
+  };
+
   render() {
     const schema = yup.object({
       RecordType: yup.string().required(),
@@ -25,15 +29,7 @@ class AddUniqueRecords extends Component {
               RecordType: ""
             }}
           >
-            {({
-              handleSubmit,
-              handleChange,
-              handleBlur,
-              values,
-              touched,
-              isValid,
-              errors
-            }) => (
+            {({ handleSubmit, handleChange, values, touched, errors }) => (
               <Form noValidate onSubmit={handleSubmit} style={styles.formStyle}>
                 <Form.Group controlId="recordtype" style={styles.titleStyle}>
                   <Form.Label>Record Type</Form.Label>
@@ -43,7 +39,7 @@ class AddUniqueRecords extends Component {
                     style={styles.inputStyle}
                     value={values.RecordType}
                     onChange={handleChange}
-                    isValid={touched.RecordType && !errors.RecordType}
+                    isinValid={!touched.RecordType && errors.RecordType}
                   />
                   <span style={styles.errorStyle}>{errors.RecordType}</span>
                 </Form.Group>
@@ -126,10 +122,9 @@ class AddUniqueRecords extends Component {
                     name="terms"
                     label="submit form"
                     style={styles.buttonStyle}
-                    onClick={handleChange}
-                    isInvalid={!!errors.terms}
+                    isinvalid={!!errors.terms}
                     feedback={errors.terms}
-                    onClick={() => this.setState({ smShow: true })}
+                    onClick={() => this.setState({ modalShow: true }) && handleChange}
                   >
                     Submit
                   </Button>

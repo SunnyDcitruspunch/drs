@@ -1,46 +1,74 @@
-[
-  {
-    "departmentnumber": "183",
-    "department":"Records",
-    "code": "CACD1000",
-    "function": "Academic",
-    "recordtype": "Academic unit reviews / educational support unit reviews.",
-    "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-    "recordcategoryid": "common",
-    "status": "Approved",
-    "note" : "there is a librarian in front of me."
-  },
-  {
-    "departmentnumber": "350",
-    "department":"Marriott School",
-    "code": "U5",
-    "function": "Z",
-    "recordtype": "Graduate Student Records.",
-    "description":"Retain 6 years after superseded, then destroy.",
-    "recordcategoryid": "MISC9",
-    "status": "Approved",
-    "note": "They said they have no monty to go to vegas :/ sad."
-  },
-  {
-    "departmentnumber": "118",
-    "department":"Computer Science",
-    "code": "U1",
-    "function": "Z",
-    "recordtype": "Article Requests - Submission Paperwork.",
-    "description": "Retain Indefinitely.",
-    "recordcategoryid": "MISC20",
-    "status": "Approved",
-    "note" : "let's go to vegas :)"
-  },
-  {
-    "departmentnumber": "598",
-    "department":"BYU Catering",
-    "code": "U1",
-    "function": "Legal",
-    "recordtype": "Contracts.",
-    "description": "Retain for current year + 6, then destroy.",
-    "recordcategoryid": "LEG01",
-    "status": "Approved",
-    "note" : "Asia is pretty fun too :D"
-  }
-]
+{
+  "departments": [
+    {
+      "id": "1",
+      "departmentnumber": "183",
+      "department": "Records",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
+      "recordcategoryid": "common",
+      "status": "Approved",
+      "note": "there is a librarian in front of me."
+    },
+    {
+      "id": "2",
+      "departmentnumber": "350",
+      "department": "Marriott School",
+      "code": "U5",
+      "function": "Z",
+      "recordtype": "Graduate Student Records.",
+      "description": "Retain 6 years after superseded, then destroy.",
+      "recordcategoryid": "MISC9",
+      "status": "Approved",
+      "note": "They said they have no money to go to vegas :/ sad."
+    },
+    {
+      "id": "3",
+      "departmentnumber": "118",
+      "department": "Computer Science",
+      "code": "U1",
+      "function": "Z",
+      "recordtype": "Article Requests - Submission Paperwork.",
+      "description": "Retain Indefinitely.",
+      "recordcategoryid": "MISC20",
+      "status": "Approved",
+      "note": "let's go to vegas :)"
+    },
+    {
+      "id": "4",
+      "departmentnumber": "598",
+      "department": "BYU Catering",
+      "code": "U1",
+      "function": "Legal",
+      "recordtype": "Contracts.",
+      "description": "Retain for current year + 6, then destroy.",
+      "recordcategoryid": "LEG01",
+      "status": "Approved",
+      "note": "Asia is pretty fun too :D"
+    }
+  ],
+  "functions": [
+    {
+      "id": "1",
+      "functiontype": "admin"
+    },
+    {
+      "id": "2",
+      "functiontype": "another function"
+    },
+    {
+      "id": "3",
+      "functiontype": "function 123"
+    },
+    {
+      "id": "4",
+      "functiontype": "test function"
+    },
+    {
+      "id": "5",
+      "functiontype": "no function"
+    }
+  ]
+}

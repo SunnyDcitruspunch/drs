@@ -17,6 +17,7 @@ class UniqueStore {
         console.log(value)
         this.uniqueRecords[id] = value
     }
+
   }
 
   decorate(UniqueStore, {

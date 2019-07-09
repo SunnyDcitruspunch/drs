@@ -29,7 +29,7 @@
   "scripts": {
     "start": "set PORT=3006 && react-scripts start",
     "build": "react-scripts build",
-    "json:server": "json-server --watch drs.json",
+    "json:server": "json-server --watch drs.json --port 3004",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

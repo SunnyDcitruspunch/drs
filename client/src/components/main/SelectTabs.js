@@ -4,9 +4,6 @@ import Tab from "react-bootstrap/Tab";
 import DepartmentRetention from "../tabs/DeptRetention";
 import AddCommonRecords from "../tabs/AddCommonRecords";
 import AddUniqueRecords from "../tabs/AddUniqueRecords";
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 
 export default class ControlledTabs extends React.Component {
   constructor(props, context) {

@@ -1,4 +1,4 @@
-module.exports = ({selectedDepartment}) => {
+module.exports = ({ selectedDepartment }) => {
   const today = new Date();
   return `
       <!doctype html>
@@ -93,11 +93,31 @@ module.exports = ({selectedDepartment}) => {
                         </table>
                      </td>
                   </tr>
-                  <tr class="item">
-                     <td>${selectedDepartment}$</td>
-                    
-                  </tr>
+
                </table>
+               
+               <Table striped bordered hover size="sm">
+               <thead>
+                 <tr>
+                   <th>Record Type</th>
+                   <th>Retention Schedule</th>
+                   <th>Notes</th>
+                   <th colSpan="2">Actions</th>
+                   <th>Status</th>
+                 </tr>
+               </thead>
+               <tbody}>
+                       <tr>
+                       <td>${selectedDepartment}$</td>          
+                         <td>{postDetail.description}</td>
+                         <td>{postDetail.note}</td>
+                         <td>{postDetail.status}</td>
+                       </tr>
+               </tbody>
+             </Table>
+
+
+
             </div>
          </body>
       </html>

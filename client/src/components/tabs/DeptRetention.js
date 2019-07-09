@@ -4,12 +4,11 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import SampleData from "../../drs.json";
 import { inject, observer } from "mobx-react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Col from "react-bootstrap/Col";
-import axios from 'axios';
-import { saveAs } from 'file-saver';
+import axios from "axios";
+import { saveAs } from "file-saver";
 
 const DeptRetention = inject("DepartmentStore")(
   observer(
@@ -19,27 +18,36 @@ const DeptRetention = inject("DepartmentStore")(
 
         this.state = {
           smShow: false,
-          formShow: false
+          formShow: false,
+          pdfShow: false
         };
       }
 
-  createAndDownloadPdf = () => {
-    axios.post('/create-pdf', this.props.DepartmentStore)
-      .then(() => axios.get('fetch-pdf', { responseType: 'blob' }))
-      .then((res) => {
-        const pdfBlob = new Blob([res.data], { type: 'application/pdf' })
+      createAndDownloadPdf = () => {
+        if (this.props.DepartmentStore.selectedDepartment !== "") {
+          axios
+            .post("/create-pdf", this.props.DepartmentStore)
+            .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
+            .then(res => {
+              const pdfBlob = new Blob([res.data], { type: "application/pdf" });
 
-        saveAs(pdfBlob, 'retention.pdf')
-      })
+              saveAs(pdfBlob, "retention.pdf");
+            });
+          console.log("department name selected");
+        } else {
+          this.setState({
+            pdfShow: true
+          });
+        }
 
-    console.log(this.props.DepartmentStore.selectedDepartment)
-  }
+        console.log(this.props.DepartmentStore.selectedDepartment);
+      };
 
       render() {
-        const { DepartmentStore } = this.props;
+        // const { DepartmentStore } = this.props;
         let smClose = () => this.setState({ smShow: false });
         let formClose = () => this.setState({ formShow: false });
-        const department = DepartmentStore.selectedDepartment;
+        // const department = DepartmentStore.selectedDepartment;
 
         return (
           <Container style={styles.tableStyle}>
@@ -70,7 +78,7 @@ const DeptRetention = inject("DepartmentStore")(
                 </tr>
               </thead>
               <tbody style={styles.tableFontStyle}>
-                {SampleData.filter(x => x.department === department).map(
+                {/* {SampleData.filter(x => x.department === department).map(
                   (postDetail, index) => {
                     return (
                       <tr key={index}>
@@ -101,7 +109,7 @@ const DeptRetention = inject("DepartmentStore")(
                       </tr>
                     );
                   }
-                )}
+                )} */}
               </tbody>
             </Table>
 
@@ -209,6 +217,26 @@ const DeptRetention = inject("DepartmentStore")(
                 </Button>
               </Modal.Footer>
             </Modal>
+
+            <Modal
+              size="sm"
+              show={this.state.pdfShow}
+              onHide={smClose}
+              aria-labelledby="example-modal-sizes-title-sm"
+            >
+              <Modal.Body style={{ fontSize: 12 }}>
+                Pease select a department.
+              </Modal.Body>
+              <Modal.Footer style={{ height: 20 }}>
+                <Button
+                  style={styles.modalButtonStyle}
+                  variant="outline-secondary"
+                  onClick={() => this.setState({ pdfShow: false })}
+                >
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Container>
         );
       }
@@ -253,5 +281,9 @@ const styles = {
     margin: 10,
     padding: 10,
     flexGrow: 1
+  },
+  modalPositionStyle: {
+    // this does not work
+    paddingTop: 50
   }
 };
