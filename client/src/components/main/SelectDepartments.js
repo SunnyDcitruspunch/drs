@@ -3,7 +3,6 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import { inject, observer } from "mobx-react";
-import { instanceOf } from "prop-types";
 
 const SelectDepartment = inject("DepartmentStore")(
   observer(
@@ -30,7 +29,7 @@ const SelectDepartment = inject("DepartmentStore")(
                   onChange={DepartmentStore.handleSelected}
                 >
                   <option>Please Select a Department...</option>
-                  {this.props.DepartmentStore.allDepartments.slice().map(dept => 
+                  {DepartmentStore.allDepartments.slice().map(dept => 
                       <option key={dept.id} {...dept}>{ dept.department }</option>
                     )}                  
                 </Form.Control>

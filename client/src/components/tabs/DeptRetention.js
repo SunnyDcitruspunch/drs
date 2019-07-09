@@ -37,14 +37,11 @@ const DeptRetention = inject("DepartmentStore")(
 
               saveAs(pdfBlob, "retention.pdf");
             });
-          console.log("department name selected");
         } else {
           this.setState({
             pdfShow: true
           });
         }
-
-        console.log(this.props.DepartmentStore.selectedDepartment);
       };
 
       render() {
@@ -64,10 +61,11 @@ const DeptRetention = inject("DepartmentStore")(
                 <Button
                   variant="outline-primary"
                   onClick={this.createAndDownloadPdf}
+                  style={{fontSize: 12}}
                 >
                   Download as PDF
                 </Button>
-                <Button variant="outline-primary">Email this page</Button>
+                <Button variant="outline-primary" style={{fontSize: 12}}>Email this page</Button>
               </ButtonGroup>
             </Col>
             <br />
@@ -255,10 +253,10 @@ const styles = {
     paddingTop: 14
   },
   buttonStyle: {
-    height: 26,
+    height: 20,
     width: 60,
-    fontSize: 10,
-    padding: 0
+    padding: 0,
+    fontSize: 12
   },
   modalButtonStyle: {
     height: 26,
@@ -286,8 +284,7 @@ const styles = {
     padding: 10,
     flexGrow: 1
   },
-  modalPositionStyle: {
-    // this does not work
-    paddingTop: 50
+  buttongroupStyle: {
+    height: 26
   }
 };

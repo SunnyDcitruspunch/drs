@@ -1,14 +1,13 @@
 import { observable, action, decorate } from "mobx";
 
-class UniqueStore {
-    uniqueRecords = {
-        recordType: '',
-        proposedFunction: '', 
-        proposedCategory: '', 
-        proposedRetention: '',
-        Comment: ''
+class UniqueStore {    
+        recordType= ''
+        proposedFunction= ''
+        proposedCategory= ''
+        proposedRetention= ''
+        Comment= ''
+        functionsDropdown = []
         //do we need repository options for users?  
-    }
 
     handleChange = e => {
         const {id, value} = e.target  
@@ -16,6 +15,15 @@ class UniqueStore {
         // const value = e.target.value       
         console.log(value)
         this.uniqueRecords[id] = value
+    }
+
+    async fetchFunctions(){
+      const response = 
+        await fetch('http://localhost:3004/functions')
+          .then(response => {
+            return response.json()
+          }).then(json => this.functionsDropdown = json)
+
     }
 
   }
@@ -26,10 +34,10 @@ class UniqueStore {
     proposedCategory: observable,
     proposedRetention: observable,
     Comment: observable,
+    functionsDropdown: observable,
     handleChange: action,
-    reset: action,
-    addRecord: action
+    fetchFunctions: action
 })
 
 
-  export default UniqueStore
+  export default new UniqueStore()
