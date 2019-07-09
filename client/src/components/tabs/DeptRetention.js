@@ -23,6 +23,10 @@ const DeptRetention = inject("DepartmentStore")(
         };
       }
 
+      componentWillMount(){
+        this.props.DepartmentStore.fetchAll()        
+      }
+
       createAndDownloadPdf = () => {
         if (this.props.DepartmentStore.selectedDepartment !== "") {
           axios
@@ -44,10 +48,10 @@ const DeptRetention = inject("DepartmentStore")(
       };
 
       render() {
-        // const { DepartmentStore } = this.props;
+        const { DepartmentStore } = this.props;
         let smClose = () => this.setState({ smShow: false });
         let formClose = () => this.setState({ formShow: false });
-        // const department = DepartmentStore.selectedDepartment;
+        const department = DepartmentStore.selectedDepartment;
 
         return (
           <Container style={styles.tableStyle}>
@@ -78,7 +82,7 @@ const DeptRetention = inject("DepartmentStore")(
                 </tr>
               </thead>
               <tbody style={styles.tableFontStyle}>
-                {/* {SampleData.filter(x => x.department === department).map(
+                {this.props.DepartmentStore.allDepartments.slice().filter(x => x.department === department).map(
                   (postDetail, index) => {
                     return (
                       <tr key={index}>
@@ -109,7 +113,7 @@ const DeptRetention = inject("DepartmentStore")(
                       </tr>
                     );
                   }
-                )} */}
+                )}
               </tbody>
             </Table>
 

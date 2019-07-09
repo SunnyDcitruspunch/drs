@@ -16,20 +16,6 @@ const SelectDepartment = inject("DepartmentStore")(
         this.props.history.push(`/DeptRetention`);
       };
 
-      // {SampleData.map((departments) => {
-      //   return (
-      //     <option
-      //       onClick={this.onChange}
-      //       value={departments.department}
-      //       key={departments.id}
-      //     >
-      //       {departments.departmentnumber +
-      //         " - " +
-      //         departments.department}
-      //     </option>
-      //   );
-      // })}
-
       render() {
         const { DepartmentStore } = this.props;
 
