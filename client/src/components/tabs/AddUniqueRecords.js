@@ -11,13 +11,15 @@ const AddUniqueRecords = inject("UniqueStore")(
     class AddUniqueRecords extends Component {
       componentWillMount() {
         this.props.UniqueStore.fetchFunctions();
+        this.props.UniqueStore.fetchCategory()
       }
 
       state = {
         modalShow: false
       };
 
-      submitRecord() {
+      submitRecord(e) {
+        e.preventDefault()
         this.props.UniqueStore.submitRecords();
         console.log("submitted");
       }
@@ -81,10 +83,13 @@ const AddUniqueRecords = inject("UniqueStore")(
                     style={{ fontSize: 12 }}
                   >
                     <option>Choose...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    {this.props.UniqueStore.categoryDropdown
+                      .slice()
+                      .map(category => (
+                        <option key={category.id} {...category}>
+                          {category.recordcategoryid}
+                        </option>
+                      ))}
                   </Form.Control>
                 </Form.Group>
 
@@ -113,7 +118,7 @@ const AddUniqueRecords = inject("UniqueStore")(
                     label="submit form"
                     style={styles.buttonStyle}
                     onClick={() => this.setState({ smShow: true })}
-                    onSubmit={this.submitRecords}
+                    onSubmit={(e) => this.submitRecords(e)}
                   >
                     Submit
                   </Button>

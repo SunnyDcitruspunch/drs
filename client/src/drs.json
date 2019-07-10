@@ -73,7 +73,6 @@
   ],
   "commonrecords": [
     {
-      "id":"1",
       "code": "CACD1000",
       "function": "Academic",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
@@ -81,7 +80,6 @@
       "archival": "Yes"
     },
     {
-      "id":"2",
       "code": "CHUM1100",
       "function": "Employment",
       "recordtype": "Job descriptions.",
@@ -89,7 +87,6 @@
       "archival": "No"
     },
     {
-      "id":"3",
       "code": "CFAC1200",
       "function": "Faculty",
       "recordtype": "Rank & Status records.",
@@ -97,12 +94,41 @@
       "archival": "No"
     },
     {
-      "id":"4",
       "code": "CADM2350",
       "function": "Administrative",
       "recordtype": "Waivers (Risk Management waivers).",
       "retentiondescription": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
       "archival": "Yes"
+    }
+  ],
+  "category":[
+    {
+      "id": "1",
+      "recordcategoryid": "OIT04"
+    },
+    {
+      "id": "2",
+      "recordcategoryid": "common"
+    },
+    {
+      "id": "3",
+      "recordcategoryid": "STU19"
+    },
+    {
+      "id": "4",
+      "recordcategoryid": "FIN10"
+    },
+    {
+      "id": "5",
+      "recordcategoryid": "ADM01"
+    },
+    {
+      "id": "6",
+      "recordcategoryid": "STU02"
+    },
+    {
+      "id": "7",
+      "recordcategoryid": "MISC9"
     }
   ]
 }

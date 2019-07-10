@@ -7,6 +7,7 @@ class UniqueStore {
         proposedRetention= ''
         Comment= ''
         functionsDropdown = []
+        categoryDropdown = []
         //do we need repository options for users?  
 
     handleChange = e => {
@@ -24,6 +25,14 @@ class UniqueStore {
             return response.json()
           }).then(json => this.functionsDropdown = json)
     }
+
+    async fetchCategory(){
+
+      await fetch('http://localhost:3004/category')
+        .then(response => {
+          return response.json()
+        }).then(json => this.categoryDropdown = json)
+  }
 
     async submitRecords(data){
       console.log('submitted')
@@ -52,6 +61,7 @@ class UniqueStore {
     proposedRetention: observable,
     Comment: observable,
     functionsDropdown: observable,
+    categoryDropdown: observable,
     handleChange: action,
     fetchFunctions: action,
     submitRecords: action
