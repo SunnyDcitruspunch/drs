@@ -1,27 +1,37 @@
 import React, { Component } from "react";
+import { inject, observer } from "mobx-react";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Records from "../../../src/commonRecords.json";
 
-class DeptRetnetion extends Component {
-  render() {
-    return (
-      <Container style={styles.tableStyle}>
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>Select</th>
-              <th>Function</th>
-              <th>Record Type</th>
-              <th>Retention Description</th>
-              <th>Archival</th>
-            </tr>
-          </thead>
-          <tbody style={styles.textStyle}>
-            {Records.map((record, index) => {
-              return (
+const CommonRecords = inject("RecordStore")(
+  observer(
+    class CommonRecords extends Component {
+      componentWillMount(){
+        this.props.RecordStore.fetchRecords()
+      }
+
+      render() {
+        const { RecordStore } = this.props
+        //this.props.RecordStore.allRecords.forEach(e=>console.log(e.code))   
+        //console.log(this.props.RecordStore.allRecords) 
+        
+        return (
+          <Container style={styles.tableStyle}>
+            <Table striped bordered hover size="sm">
+              <thead>
                 <tr>
+                  <th>Select</th>
+                  <th>Function</th>
+                  <th>Record Type</th>
+                  <th>Retention Description</th>
+                  <th>Archival</th>
+                </tr>
+              </thead>
+              <tbody style={styles.textStyle}>
+            {RecordStore.allRecords.slice().map(record => {
+              return (
+                <tr key={record.id} {...record}>
                   <td>
                     <Form.Check type="checkbox" />
                   </td>
@@ -33,13 +43,15 @@ class DeptRetnetion extends Component {
               );
             })}
           </tbody>
-        </Table>
-      </Container>
-    );
-  }
-}
+            </Table>
+          </Container>
+        );
+      }
+    }
+  )
+);
 
-export default DeptRetnetion;
+export default CommonRecords;
 
 const styles = {
   tableStyle: {

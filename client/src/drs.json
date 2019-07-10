@@ -70,5 +70,39 @@
       "id": "5",
       "functiontype": "no function"
     }
+  ],
+  "commonrecords": [
+    {
+      "id":"1",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "retentiondescription": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes"
+    },
+    {
+      "id":"2",
+      "code": "CHUM1100",
+      "function": "Employment",
+      "recordtype": "Job descriptions.",
+      "retentiondescription": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
+      "archival": "No"
+    },
+    {
+      "id":"3",
+      "code": "CFAC1200",
+      "function": "Faculty",
+      "recordtype": "Rank & Status records.",
+      "retentiondescription": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
+      "archival": "No"
+    },
+    {
+      "id":"4",
+      "code": "CADM2350",
+      "function": "Administrative",
+      "recordtype": "Waivers (Risk Management waivers).",
+      "retentiondescription": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes"
+    }
   ]
 }

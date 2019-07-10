@@ -18,6 +18,11 @@ const AddUniqueRecords = inject("UniqueStore")(
         modalShow: false
       };
 
+      submitRecord() {
+        this.props.UniqueStore.submitRecords();
+        console.log("submitted");
+      }
+
       render() {
         const schema = yup.object({
           RecordType: yup.string().required(),
@@ -26,129 +31,98 @@ const AddUniqueRecords = inject("UniqueStore")(
           Notes: yup.string()
         });
 
-        //const { UniqueStore } = this.props
+        // const { UniqueStore } = this.props
 
-        //this.props.UniqueStore.functionsDropdown.forEach(e=>console.log(e.functiontype))
+        this.props.UniqueStore.functionsDropdown.forEach(e =>
+          console.log(e.functiontype)
+        );
         return (
           <Container>
-            <Col md={{ span: 8, offset: 2 }}>
-              <Formik
-                validationSchema={schema}
-                onSubmit={console.log}
-                initialValues={{
-                  RecordType: ""
-                }}
-              >
-                {({ handleSubmit, handleChange, values, touched, errors }) => (
-                  <Form
-                    noValidate
-                    onSubmit={handleSubmit}
-                    style={styles.formStyle}
+            <Col>
+              <Form style={styles.formStyle}>
+                <Form.Group controlId="recordtype" style={styles.titleStyle}>
+                  <Form.Label>Record Type</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="RecordType"
+                    style={styles.inputStyle}
+                  />
+                </Form.Group>
+
+                <Form.Group
+                  controlId="proposedfunction"
+                  style={styles.titleStyle}
+                >
+                  <Form.Label>Proposed Function</Form.Label>
+                  <Form.Control
+                    as="select"
+                    type="text"
+                    name="ProposedFunction"
+                    style={styles.inputStyle}
                   >
-                    <Form.Group
-                      controlId="recordtype"
-                      style={styles.titleStyle}
-                    >
-                      <Form.Label>Record Type</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="RecordType"
-                        style={styles.inputStyle}
-                        value={values.RecordType}
-                        onChange={handleChange}
-                        isinValid={!touched.RecordType && errors.RecordType}
-                      />
-                      <span style={styles.errorStyle}>{errors.RecordType}</span>
-                    </Form.Group>
+                    <option>Choose...</option>
+                    {this.props.UniqueStore.functionsDropdown
+                      .slice()
+                      .map(func => (
+                        <option key={func.id} {...func}>
+                          {func.functiontype}
+                        </option>
+                      ))}
+                  </Form.Control>
+                </Form.Group>
 
-                    <Form.Group
-                      controlId="proposedfunction"
-                      style={styles.titleStyle}
-                    >
-                      <Form.Label>Proposed Function</Form.Label>
-                      <Form.Control
-                        as="select"
-                        type="text"
-                        name="ProposedFunction"
-                        value={values.ProposedFunction}
-                        style={styles.inputStyle}
-                        onChange={handleChange}
-                      >
-                        <option>Choose...</option>
-                        {this.props.UniqueStore.functionsDropdown.slice().map(func => 
-                            <option key={func.id} {...func}>{ func.functiontype }</option>
-                          )}
-                      </Form.Control>
-                    </Form.Group>
+                <Form.Group
+                  controlId="proposedcategory"
+                  style={styles.titleStyle}
+                >
+                  <Form.Label>Proposed Category</Form.Label>
+                  <Form.Control
+                    as="select"
+                    type="text"
+                    name="RecordCategory"
+                    style={styles.inputStyle}
+                  >
+                    <option>Choose...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                  </Form.Control>
+                </Form.Group>
 
-                    <Form.Group
-                      controlId="proposedcategory"
-                      style={styles.titleStyle}
-                    >
-                      <Form.Label>Proposed Category</Form.Label>
-                      <Form.Control
-                        as="select"
-                        type="text"
-                        name="RecordCategory"
-                        value={values.Category}
-                        style={styles.inputStyle}
-                        onChange={handleChange}
-                      >
-                        <option>Choose...</option>
-                        <option>...</option>
-                        <option>...</option>
-                        <option>...</option>
-                        <option>...</option>
-                      </Form.Control>
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
+                <Form.Group
+                  style={styles.titleStyle}
+                  controlId="proposedretention"
+                >
+                  <Form.Label>Proposed Retention</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="ProposedRetention"
+                    style={styles.inputStyle}
+                  />
+                </Form.Group>
 
-                    <Form.Group
-                      style={styles.titleStyle}
-                      controlId="proposedretention"
-                    >
-                      <Form.Label>Proposed Retention</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="ProposedRetention"
-                        style={styles.inputStyle}
-                        value={values.ProposedRetention}
-                        onChange={handleChange}
-                      />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
+                <Form.Group style={styles.titleStyle} controlId="notes">
+                  <Form.Label>Notes</Form.Label>
+                  <Form.Control
+                    style={{ fontSize: 12 }}
+                    type="text"
+                    name="Notes"
+                  />
+                </Form.Group>
 
-                    <Form.Group style={styles.titleStyle} controlId="notes">
-                      <Form.Label>Notes</Form.Label>
-                      <Form.Control
-                        style={{ fontSize: 12 }}
-                        type="text"
-                        name="Notes"
-                        value={values.Notes}
-                        onChange={handleChange}
-                      />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-
-                    <div style={styles.footerStyle}>
-                      <Button
-                        variant="outline-primary"
-                        type="submit"
-                        name="terms"
-                        label="submit form"
-                        style={styles.buttonStyle}
-                        isinvalid={!!errors.terms}
-                        feedback={errors.terms}
-                        onClick={() =>
-                          this.setState({ modalShow: true }) && handleChange
-                        }
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+                <div style={styles.footerStyle}>
+                  <Button
+                    variant="outline-primary"
+                    type="submit"
+                    name="terms"
+                    label="submit form"
+                    style={styles.buttonStyle}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </Form>
             </Col>
           </Container>
         );

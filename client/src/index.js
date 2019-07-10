@@ -4,12 +4,17 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "mobx-react";
 import UniqueStore from "./stores/UniqueStore";
 import DepartmentStore from "./stores/DepartmentStore";
-import { Provider } from "mobx-react";
+import RecordStore from "./stores/RecordStore";
 
 ReactDOM.render(
-  <Provider UniqueStore={UniqueStore} DepartmentStore={DepartmentStore}>
+  <Provider
+    UniqueStore={UniqueStore}
+    DepartmentStore={DepartmentStore}
+    RecordStore={RecordStore}
+  >
     <div>
       <Router>
         <App />

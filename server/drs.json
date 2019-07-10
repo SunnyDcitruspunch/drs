@@ -73,7 +73,6 @@
   ],
   "commonrecords": [
     {
-      "id":"1",
       "code": "CACD1000",
       "function": "Academic",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
@@ -81,7 +80,6 @@
       "archival": "Yes"
     },
     {
-      "id":"2",
       "code": "CHUM1100",
       "function": "Employment",
       "recordtype": "Job descriptions.",
@@ -89,7 +87,6 @@
       "archival": "No"
     },
     {
-      "id":"3",
       "code": "CFAC1200",
       "function": "Faculty",
       "recordtype": "Rank & Status records.",
@@ -97,7 +94,6 @@
       "archival": "No"
     },
     {
-      "id":"4",
       "code": "CADM2350",
       "function": "Administrative",
       "recordtype": "Waivers (Risk Management waivers).",

@@ -13,19 +13,35 @@ class UniqueStore {
         const {id, value} = e.target  
         // const id = e.target.id
         // const value = e.target.value       
-        console.log(value)
+        //console.log(value)
         this.uniqueRecords[id] = value
     }
 
     async fetchFunctions(){
-      const response = 
+
         await fetch('http://localhost:3004/functions')
           .then(response => {
             return response.json()
           }).then(json => this.functionsDropdown = json)
-
     }
 
+    async submitRecords(data){
+      console.log('submitted')
+      const headers = new Headers()
+      headers.append('Content-Type', 'application/json')
+
+      const options = {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(data)
+      }
+
+      const request = new Request('http://localhost:3004/functions', options)
+      //const response = await response.status
+
+      console.log(request)
+      //console.log(response)
+    }
   }
 
   decorate(UniqueStore, {
@@ -36,7 +52,8 @@ class UniqueStore {
     Comment: observable,
     functionsDropdown: observable,
     handleChange: action,
-    fetchFunctions: action
+    fetchFunctions: action,
+    submitRecords: action
 })
 
 
