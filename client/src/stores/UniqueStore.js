@@ -39,6 +39,7 @@ class UniqueStore {
       const request = new Request('http://localhost:3004/functions', options)
       //const response = await response.status
 
+      console.log('hey')
       console.log(request)
       //console.log(response)
     }

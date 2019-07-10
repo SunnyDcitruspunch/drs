@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
-import { Formik } from "formik";
 import Form from "react-bootstrap/Form";
 import * as yup from "yup";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import { inject, observer } from "mobx-react";
 
 const AddUniqueRecords = inject("UniqueStore")(
   observer(
@@ -31,15 +30,14 @@ const AddUniqueRecords = inject("UniqueStore")(
           Notes: yup.string()
         });
 
-        // const { UniqueStore } = this.props
-
-        this.props.UniqueStore.functionsDropdown.forEach(e =>
-          console.log(e.functiontype)
-        );
         return (
           <Container>
-            <Col>
-              <Form style={styles.formStyle}>
+            <Col md={{ span: 8, offset: 2 }}>
+              <Form
+                noValidate
+                onSubmit={this.submitRecords}
+                style={styles.formStyle}
+              >
                 <Form.Group controlId="recordtype" style={styles.titleStyle}>
                   <Form.Label>Record Type</Form.Label>
                   <Form.Control
@@ -58,7 +56,7 @@ const AddUniqueRecords = inject("UniqueStore")(
                     as="select"
                     type="text"
                     name="ProposedFunction"
-                    style={styles.inputStyle}
+                    style={{ fontSize: 12 }}
                   >
                     <option>Choose...</option>
                     {this.props.UniqueStore.functionsDropdown
@@ -80,7 +78,7 @@ const AddUniqueRecords = inject("UniqueStore")(
                     as="select"
                     type="text"
                     name="RecordCategory"
-                    style={styles.inputStyle}
+                    style={{ fontSize: 12 }}
                   >
                     <option>Choose...</option>
                     <option>...</option>
@@ -104,11 +102,7 @@ const AddUniqueRecords = inject("UniqueStore")(
 
                 <Form.Group style={styles.titleStyle} controlId="notes">
                   <Form.Label>Notes</Form.Label>
-                  <Form.Control
-                    style={{ fontSize: 12 }}
-                    type="text"
-                    name="Notes"
-                  />
+                  <Form.Control style={{ fontSize: 12 }} type="text" />
                 </Form.Group>
 
                 <div style={styles.footerStyle}>
@@ -118,6 +112,8 @@ const AddUniqueRecords = inject("UniqueStore")(
                     name="terms"
                     label="submit form"
                     style={styles.buttonStyle}
+                    onClick={() => this.setState({ smShow: true })}
+                    onSubmit={this.submitRecords}
                   >
                     Submit
                   </Button>

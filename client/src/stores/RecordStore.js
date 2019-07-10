@@ -1,15 +1,15 @@
 import { observable, action, decorate } from "mobx";
 
 class RecordStore {
-  allRecords = []
+  allRecords = [];
 
-  async fetchRecords(){
-
-    await fetch('http://localhost:3004/commonrecords')
+  async fetchRecords() {
+    await fetch("http://localhost:3004/commonrecords")
       .then(response => {
-        return response.json()
-      }).then(json => this.allRecords = json)
-}
+        return response.json();
+      })
+      .then(json => (this.allRecords = json));
+  }
 }
 
 decorate(RecordStore, {
