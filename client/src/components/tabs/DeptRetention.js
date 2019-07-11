@@ -227,7 +227,7 @@ const DeptRetention = inject("DepartmentStore")(
               aria-labelledby="example-modal-sizes-title-sm"
             >
               <Modal.Body style={{ fontSize: 12 }}>
-                Pease select a department.
+                Please select a department.
               </Modal.Body>
               <Modal.Footer style={{ height: 20 }}>
                 <Button

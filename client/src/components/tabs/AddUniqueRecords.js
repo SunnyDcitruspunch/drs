@@ -1,36 +1,58 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
-import * as yup from "yup";
+// import * as yup from "yup";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { inject, observer } from "mobx-react";
+import Modal from "react-bootstrap/Modal";
 
-const AddUniqueRecords = inject("UniqueStore")(
+const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
     class AddUniqueRecords extends Component {
       componentWillMount() {
         this.props.UniqueStore.fetchFunctions();
-        this.props.UniqueStore.fetchCategory()
+        this.props.UniqueStore.fetchCategory();
       }
 
       state = {
         modalShow: false
       };
 
-      submitRecord(e) {
-        e.preventDefault()
-        this.props.UniqueStore.submitRecords();
-        console.log("submitted");
-      }
+      submitRecords = e => {
+        if (this.props.DepartmentStore.selectedDepartment === "") {
+          this.setState({ smShow: true });
+          console.log("select a department to add an unique record");
+        } else {
+          e.preventDefault();
+
+          this.props.UniqueStore.submitRecords({
+              // id: Math.floor(Math.random()*10),
+              recordType: this.refs.recordtype,
+              proposedFunction: this.refs.proposedfunction,
+              poroposedCategory: this.refs.proposedcategory,
+              proposedRetention: this.refs.proposedretention,
+              Comment: this.refs.notes
+          });
+
+          this.refs.recordtype.value = null;
+          this.refs.proposedfunction.value = "Choose...";
+          this.refs.proposedcategory.value = "Choose...";
+          this.refs.proposedretention.value = null;
+          this.refs.notes.value = null;
+          //console.log("submitted");
+        }
+      };
 
       render() {
-        const schema = yup.object({
-          RecordType: yup.string().required(),
-          ProposedFunction: yup.string(),
-          ProposedCategory: yup.string(),
-          Notes: yup.string()
-        });
+        // const schema = yup.object({
+        //   RecordType: yup.string().required(),
+        //   ProposedFunction: yup.string(),
+        //   ProposedCategory: yup.string(),
+        //   Notes: yup.string()
+        // });
+        //console.log(this.props.DepartmentStore.selectedDepartment)
+        let smClose = () => this.setState({ smShow: false });
 
         return (
           <Container>
@@ -44,7 +66,7 @@ const AddUniqueRecords = inject("UniqueStore")(
                   <Form.Label>Record Type</Form.Label>
                   <Form.Control
                     type="text"
-                    name="RecordType"
+                    ref="recordtype"
                     style={styles.inputStyle}
                   />
                 </Form.Group>
@@ -57,7 +79,7 @@ const AddUniqueRecords = inject("UniqueStore")(
                   <Form.Control
                     as="select"
                     type="text"
-                    name="ProposedFunction"
+                    ref="proposedfunction"
                     style={{ fontSize: 12 }}
                   >
                     <option>Choose...</option>
@@ -79,7 +101,7 @@ const AddUniqueRecords = inject("UniqueStore")(
                   <Form.Control
                     as="select"
                     type="text"
-                    name="RecordCategory"
+                    ref="proposedcategory"
                     style={{ fontSize: 12 }}
                   >
                     <option>Choose...</option>
@@ -100,31 +122,53 @@ const AddUniqueRecords = inject("UniqueStore")(
                   <Form.Label>Proposed Retention</Form.Label>
                   <Form.Control
                     type="text"
-                    name="ProposedRetention"
                     style={styles.inputStyle}
+                    ref="proposedretention"
                   />
                 </Form.Group>
 
                 <Form.Group style={styles.titleStyle} controlId="notes">
                   <Form.Label>Notes</Form.Label>
-                  <Form.Control style={{ fontSize: 12 }} type="text" />
+                  <Form.Control
+                    ref="notes"
+                    style={{ fontSize: 12 }}
+                    type="text"
+                  />
                 </Form.Group>
 
                 <div style={styles.footerStyle}>
                   <Button
                     variant="outline-primary"
-                    type="submit"
-                    name="terms"
+                    type="button"
                     label="submit form"
                     style={styles.buttonStyle}
-                    onClick={() => this.setState({ smShow: true })}
-                    onSubmit={(e) => this.submitRecords(e)}
+                    onClick={e => this.submitRecords(e)}
                   >
                     Submit
                   </Button>
                 </div>
               </Form>
             </Col>
+
+            <Modal
+              size="sm"
+              show={this.state.smShow}
+              onHide={smClose}
+              aria-labelledby="example-modal-sizes-title-sm"
+            >
+              <Modal.Body style={{ fontSize: 12 }}>
+                Please select a department.
+              </Modal.Body>
+              <Modal.Footer style={{ height: 20 }}>
+                <Button
+                  style={styles.modalButtonStyle}
+                  variant="outline-secondary"
+                  onClick={() => this.setState({ smShow: false })}
+                >
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Container>
         );
       }
@@ -158,5 +202,11 @@ const styles = {
   },
   footerStyle: {
     height: 60
+  },
+  modalButtonStyle: {
+    height: 26,
+    width: 84,
+    fontSize: 12,
+    padding: 0
   }
 };

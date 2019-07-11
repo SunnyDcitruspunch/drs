@@ -130,5 +130,15 @@
       "id": "7",
       "recordcategoryid": "MISC9"
     }
+  ],
+  "pendingrecords": [
+    {
+      "id":"1",
+      "recordtype":"test",
+      "proposedfunction": "test",
+      "proposedcategory": "test",
+      "proposedretention": "proposedretention",
+      "notes": "notes"
+    }
   ]
 }
