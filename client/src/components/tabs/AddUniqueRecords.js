@@ -26,20 +26,20 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         } else {
           e.preventDefault();
 
-          this.props.UniqueStore.submitRecords({
-              // id: Math.floor(Math.random()*10),
-              recordType: this.refs.recordtype,
-              proposedFunction: this.refs.proposedfunction,
-              poroposedCategory: this.refs.proposedcategory,
-              proposedRetention: this.refs.proposedretention,
-              Comment: this.refs.notes
-          });
+          // this.props.UniqueStore.addRecords({
+          //     id: Math.floor(Math.random()*10),
+          //     recordType: this.recordtypevalue,
+          //     proposedFunction: this.refs.proposedfunction,
+          //     poroposedCategory: this.refs.proposedcategory,
+          //     proposedRetention: this.refs.proposedretention,
+          //     Comment: this.refs.notes
+          // });
 
-          this.refs.recordtype.value = null;
-          this.refs.proposedfunction.value = "Choose...";
-          this.refs.proposedcategory.value = "Choose...";
-          this.refs.proposedretention.value = null;
-          this.refs.notes.value = null;
+          // this.refs.recordtype.value = null;
+          // this.refs.proposedfunction.value = "Choose...";
+          // this.refs.proposedcategory.value = "Choose...";
+          // this.refs.proposedretention.value = null;
+          // this.refs.notes.value = null;
           //console.log("submitted");
         }
       };
@@ -53,6 +53,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         // });
         //console.log(this.props.DepartmentStore.selectedDepartment)
         let smClose = () => this.setState({ smShow: false });
+        const { UniqueStore } = this.props
 
         return (
           <Container>
@@ -62,12 +63,15 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 onSubmit={this.submitRecords}
                 style={styles.formStyle}
               >
-                <Form.Group controlId="recordtype" style={styles.titleStyle}>
+                <Form.Group style={styles.titleStyle}>
                   <Form.Label>Record Type</Form.Label>
                   <Form.Control
                     type="text"
+                    id="recordType"
                     ref="recordtype"
                     style={styles.inputStyle}
+                    value={UniqueStore.recordType}
+                    onChange={UniqueStore.handleChange}
                   />
                 </Form.Group>
 

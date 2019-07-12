@@ -147,6 +147,22 @@
       "proposedretention": "safdfd",
       "notes": "asdfasdf",
       "id": "GLOdPCU"
+    },
+    {
+      "recordtype": "",
+      "proposedfunction": "example",
+      "proposedcategory": "example",
+      "proposedretention": "example",
+      "notes": "example",
+      "id": "Hdc65CY"
+    },
+    {
+      "recordtype": "dfghdfghdfgh",
+      "proposedfunction": "example",
+      "proposedcategory": "example",
+      "proposedretention": "example",
+      "notes": "example",
+      "id": "8upGznB"
     }
   ]
 }

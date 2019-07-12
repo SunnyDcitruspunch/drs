@@ -1,17 +1,23 @@
 import { observable, action, decorate } from "mobx";
 
 /*
-  ? TODO: fix post request for add unique record.
+  ! TODO: pass data to mobx store using handleChange method
+  TODO: pass data from mobx sore to json server using submitRecords method
 */
 
 class UniqueStore {
-  uniquerecords = [
-    // recordType: "",
-    // proposedFunction: "",
-    // proposedCategory: "",
-    // proposedRetention: "",
-    // Comment: ""
-  ];
+  uniquerecords = {
+    recordType: "",
+    proposedFunction: "",
+    proposedCategory: "",
+    proposedRetention: "",
+    Comment: ""
+  };
+  // recordType = "";
+  // proposedFunction = "";
+  // proposedCategory = "";
+  // proposedRetention = "";
+  // Comment = "";
   functionsDropdown = [];
   categoryDropdown = [];
   //do we need repository options for users?
@@ -40,6 +46,11 @@ class UniqueStore {
       .then(json => (this.categoryDropdown = json));
   }
 
+  handleChange = e => {
+    const { id, value } = e.target;
+    this.patient[id] = value;
+  };
+
   async submitRecords(record) {
     // const headers = new Headers();
     // headers.append("Content-Type", "application/json");
@@ -57,7 +68,7 @@ class UniqueStore {
     //   };
     // };
 
-    console.log('submitted')
+    console.log("submitted");
 
     fetch("http://localhost:3004/pendingrecords", {
       method: "POST",
@@ -66,11 +77,11 @@ class UniqueStore {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        recordtype: "yourValue",
-        proposedfunction: "yourOtherValue",
-        proposedcategory: "category",
-        proposedretention: "safdfd",
-        notes: "asdfasdf"
+        recordtype: this.recordType,
+        proposedfunction: "example",
+        proposedcategory: "example",
+        proposedretention: "example",
+        notes: "example"
       })
     });
 

@@ -31,7 +31,7 @@ const CommonRecords = inject("RecordStore")(
               <tbody style={styles.textStyle}>
             {RecordStore.allRecords.slice().map(record => {
               return (
-                <tr key={record.id} {...record}>
+                <tr key={record.code} {...record}>
                   <td>
                     <Form.Check type="checkbox" />
                   </td>

@@ -6,13 +6,11 @@ class DeleteButton extends Component {
     super(props, context);
 
     this.state = {
-      smShow: false,
-      lgShow: false,
+      smShow: false
     };
   }
 
   render() {
-    let smClose = () => this.setState({ smShow: false });
 
     return (
       <Button
