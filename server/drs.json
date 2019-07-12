@@ -141,76 +141,52 @@
       "notes": "notes"
     },
     {
-      "recordtype": "a",
-      "proposedfunction": "example",
-      "proposedcategory": "example",
-      "proposedretention": "example",
-      "notes": "example",
-      "id": "Rh3F-pf"
-    },
-    {
-      "recordtype": "a",
+      "recordtype": "sdf",
       "proposedfunction": "",
       "proposedcategory": "",
       "proposedretention": "",
       "notes": "",
-      "id": "PEgBLfB"
+      "id": "0nxXRiX"
     },
     {
-      "recordtype": "asdf",
-      "proposedfunction": "another function",
-      "proposedcategory": "OIT04",
-      "proposedretention": "asdf",
-      "notes": "oh yeah",
-      "id": "axhGoJD"
+      "recordtype": "sdf",
+      "proposedfunction": "",
+      "proposedcategory": "",
+      "proposedretention": "",
+      "notes": "",
+      "id": "r-UUUWF"
     },
     {
-      "recordtype": "asdf",
-      "proposedfunction": "admin",
-      "proposedcategory": "ADM01",
-      "proposedretention": "asdf",
-      "notes": "asdf",
-      "id": "nJ5cMd3"
+      "recordtype": "sd",
+      "proposedfunction": "",
+      "proposedcategory": "",
+      "proposedretention": "",
+      "notes": "",
+      "id": "biXa8JQ"
     },
     {
-      "recordtype": "as",
-      "proposedfunction": "admin",
-      "proposedcategory": "STU19",
-      "proposedretention": "as",
-      "notes": "as",
-      "id": "GuAZoeF"
+      "recordtype": "sd",
+      "proposedfunction": "",
+      "proposedcategory": "",
+      "proposedretention": "",
+      "notes": "",
+      "id": "K9-I-xp"
     },
     {
-      "recordtype": "zzzzzzzzzzzzzzzzzzzzz",
-      "proposedfunction": "another function",
-      "proposedcategory": "OIT04",
-      "proposedretention": "zzzzzzzzzzzzzzzzzzzzzzzzzzzz",
-      "notes": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
-      "id": "_-i9-3q"
-    },
-    {
-      "recordtype": "qqqqqqqqqqqq",
-      "proposedfunction": "admin",
-      "proposedcategory": "OIT04",
-      "proposedretention": "qqqqqqqq",
-      "notes": "qqqqqqqqq",
-      "id": "BbLM5pz"
+      "recordtype": "sdf",
+      "proposedfunction": "function 123",
+      "proposedcategory": "common",
+      "proposedretention": "sdf",
+      "notes": "sdf",
+      "id": "4xGaWuK"
     },
     {
       "recordtype": "sdf",
       "proposedfunction": "admin",
-      "proposedcategory": "OIT04",
+      "proposedcategory": "STU19",
       "proposedretention": "sdf",
       "notes": "sdf",
-      "id": "MGjqUeC"
-    },
-    {
-      "recordtype": "123",
-      "proposedfunction": "admin",
-      "proposedcategory": "common",
-      "proposedretention": "123",
-      "notes": "123",
-      "id": "uqvEioZ"
+      "id": "RTo86le"
     }
   ]
 }

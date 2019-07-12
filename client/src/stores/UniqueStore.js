@@ -48,8 +48,6 @@ class UniqueStore {
 
   async submitRecords() {
 
-    console.log('successfully posted');
-
     fetch("http://localhost:3004/pendingrecords", {
       method: "POST",
       headers: {

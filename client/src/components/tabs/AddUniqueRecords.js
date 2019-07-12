@@ -6,10 +6,12 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { inject, observer } from "mobx-react";
 import Modal from "react-bootstrap/Modal";
+import Snackbar from "@material-ui/core/Snackbar";
 
 /*
   TODO: show modal (or toast) after successfully submitted record
   ! TODO: form validation: record type
+  ! TODO: need to put the newly added record to pending records.
  */
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
@@ -21,7 +23,12 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       }
 
       state = {
-        modalShow: false
+        modalShow: false,
+        open: false
+      };
+    
+      handleClose = () => {
+        this.setState({ open: false });
       };
 
       submitRecords = e => {
@@ -38,7 +45,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           this.refs.proposedcategory.value = "Choose...";
           this.refs.proposedretention.value = "";
           this.refs.notes.value = "";
-          this.props.DepartmentStore.selectedDepartment = ""
+          this.setState({ open: true });
+          window.scrollTo(0, 0)
           //console.log("submitted");
         }
       };
@@ -67,9 +75,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                   />
                 </Form.Group>
 
-                <Form.Group
-                  style={styles.titleStyle}
-                >
+                <Form.Group style={styles.titleStyle}>
                   <Form.Label>Proposed Function</Form.Label>
                   <Form.Control
                     as="select"
@@ -91,9 +97,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group
-                  style={styles.titleStyle}
-                >
+                <Form.Group style={styles.titleStyle}>
                   <Form.Label>Proposed Category</Form.Label>
                   <Form.Control
                     as="select"
@@ -115,9 +119,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group
-                  style={styles.titleStyle}
-                >
+                <Form.Group style={styles.titleStyle}>
                   <Form.Label>Proposed Retention</Form.Label>
                   <Form.Control
                     type="text"
@@ -174,6 +176,21 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 </Button>
               </Modal.Footer>
             </Modal>
+
+            <Snackbar
+              open={this.state.open}
+              onClose={this.handleClose}
+              // TransitionComponent={this.state.Transition}
+              autoHideDuration={2000}
+              ContentProps={{
+                "aria-describedby": "message-id"
+              }}
+              message={
+                <span id="message-id">
+                  Your record is succesffuly sent to pending queue.
+                </span>
+              }
+            />
           </Container>
         );
       }
