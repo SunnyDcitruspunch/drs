@@ -1,9 +1,5 @@
 import { observable, action, decorate } from "mobx";
 
-/*
-  ! TODO: pass data to mobx store using handleChange method
-  TODO: pass data from mobx sore to json server using submitRecords method
-*/
 
 class UniqueStore {
   uniquerecords = {
@@ -46,6 +42,7 @@ class UniqueStore {
 
   async submitRecords(selecteddepartment) {
 
+    //post to admin page
     fetch("http://localhost:3004/pendingrecords", {
       method: "POST",
       headers: {
@@ -61,6 +58,25 @@ class UniqueStore {
         notes: this.uniquerecords.Comment
       })
     });
+
+    /*post to drs: record type, retention schedule, nots, actions, status
+      can pending records be deleted or edit? */
+      fetch("http://localhost:3004/departments", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          recordtype: this.uniquerecords.recordType,
+          department: selecteddepartment,
+          description: this.uniquerecords.proposedRetention,
+          notes: this.uniquerecords.Comment,
+          status: "pending"
+        })
+      });
+    
+
   }
 }
 

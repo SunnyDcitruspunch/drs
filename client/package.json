@@ -25,6 +25,7 @@
     "react-pdf": "^4.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-swipeable-views": "^0.13.3",
     "react-widgets": "^4.4.11",
     "yup": "^0.27.0"
   },

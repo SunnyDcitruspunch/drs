@@ -47,6 +47,14 @@
       "recordcategoryid": "LEG01",
       "status": "Approved",
       "note": "Asia is pretty fun too :D"
+    },
+    {
+      "recordtype": "sa",
+      "department": "Marriott School",
+      "description": "as",
+      "notes": "as",
+      "status": "pending",
+      "id": "F5qqKP_"
     }
   ],
   "functions": [
@@ -157,6 +165,32 @@
       "proposedretention": "asd",
       "notes": "asd",
       "id": "x11zKNR"
+    },
+    {
+      "recordtype": "asd",
+      "department": "Marriott School",
+      "description": "asd",
+      "notes": "asd",
+      "status": "pending",
+      "id": "v2CnTiV"
+    },
+    {
+      "recordtype": "asd",
+      "department": "Marriott School",
+      "proposedfunction": "admin",
+      "proposedcategory": "common",
+      "proposedretention": "asd",
+      "notes": "asd",
+      "id": "lyiX96M"
+    },
+    {
+      "recordtype": "sa",
+      "department": "Marriott School",
+      "proposedfunction": "admin",
+      "proposedcategory": "STU02",
+      "proposedretention": "as",
+      "notes": "as",
+      "id": "neqeeOD"
     }
   ]
 }

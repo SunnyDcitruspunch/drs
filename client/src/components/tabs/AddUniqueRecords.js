@@ -11,6 +11,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 /*
   ! TODO: form validation: record type
   ! TODO: need to put the newly added record to pending records.
+  TODO:  after submitting a unique record, the record goes to both pending record list and drs tab
  */
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
@@ -39,7 +40,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
           console.log(this.props.DepartmentStore.selectedDepartment)
           this.props.UniqueStore.submitRecords(this.props.DepartmentStore.selectedDepartment)
-          
+
           this.refs.recordtype.value = "";
           this.refs.proposedfunction.value = "Choose...";
           this.refs.proposedcategory.value = "Choose...";
