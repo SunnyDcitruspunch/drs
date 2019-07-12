@@ -134,6 +134,7 @@
   "pendingrecords": [
     {
       "id": "1",
+      "department": "Records",
       "recordtype": "test",
       "proposedfunction": "test",
       "proposedcategory": "test",
@@ -141,52 +142,21 @@
       "notes": "notes"
     },
     {
-      "recordtype": "sdf",
-      "proposedfunction": "",
-      "proposedcategory": "",
-      "proposedretention": "",
-      "notes": "",
-      "id": "0nxXRiX"
-    },
-    {
-      "recordtype": "sdf",
-      "proposedfunction": "",
-      "proposedcategory": "",
-      "proposedretention": "",
-      "notes": "",
-      "id": "r-UUUWF"
-    },
-    {
-      "recordtype": "sd",
-      "proposedfunction": "",
-      "proposedcategory": "",
-      "proposedretention": "",
-      "notes": "",
-      "id": "biXa8JQ"
-    },
-    {
-      "recordtype": "sd",
-      "proposedfunction": "",
-      "proposedcategory": "",
-      "proposedretention": "",
-      "notes": "",
-      "id": "K9-I-xp"
-    },
-    {
-      "recordtype": "sdf",
-      "proposedfunction": "function 123",
-      "proposedcategory": "common",
-      "proposedretention": "sdf",
-      "notes": "sdf",
-      "id": "4xGaWuK"
-    },
-    {
-      "recordtype": "sdf",
+      "recordtype": "asdf",
       "proposedfunction": "admin",
       "proposedcategory": "STU19",
-      "proposedretention": "sdf",
-      "notes": "sdf",
-      "id": "RTo86le"
+      "proposedretention": "asdf",
+      "notes": "asdf",
+      "id": "bDRbfGZ"
+    },
+    {
+      "recordtype": "asd",
+      "department": "Marriott School",
+      "proposedfunction": "function 123",
+      "proposedcategory": "STU19",
+      "proposedretention": "asd",
+      "notes": "asd",
+      "id": "x11zKNR"
     }
   ]
 }

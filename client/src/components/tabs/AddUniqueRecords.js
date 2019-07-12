@@ -37,8 +37,9 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         } else {
           e.preventDefault();
 
-          this.props.UniqueStore.submitRecords();
-
+          console.log(this.props.DepartmentStore.selectedDepartment)
+          this.props.UniqueStore.submitRecords(this.props.DepartmentStore.selectedDepartment)
+          
           this.refs.recordtype.value = "";
           this.refs.proposedfunction.value = "Choose...";
           this.refs.proposedcategory.value = "Choose...";
@@ -46,7 +47,6 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           this.refs.notes.value = "";
           this.setState({ open: true });
           window.scrollTo(0, 0)
-          //console.log("submitted");
         }
       };
 

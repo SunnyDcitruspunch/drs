@@ -3,12 +3,12 @@ import { observable, action, decorate } from "mobx";
 /*
   ! TODO: pass data to mobx store using handleChange method
   TODO: pass data from mobx sore to json server using submitRecords method
-  ! TODO: need to also pass department name for unique record in pending queue
 */
 
 class UniqueStore {
   uniquerecords = {
     recordType: "",
+    department:"",
     proposedFunction: "",
     proposedCategory: "",
     proposedRetention: "",
@@ -20,9 +20,6 @@ class UniqueStore {
 
   handleChange = e => {
     const { id, value } = e.target;
-    // const id = e.target.id
-    // const value = e.target.value
-    //console.log(value)
     this.uniqueRecords[id] = value;
   };
 
@@ -47,7 +44,7 @@ class UniqueStore {
     this.uniquerecords[id] = value;
   };
 
-  async submitRecords() {
+  async submitRecords(selecteddepartment) {
 
     fetch("http://localhost:3004/pendingrecords", {
       method: "POST",
@@ -57,6 +54,7 @@ class UniqueStore {
       },
       body: JSON.stringify({
         recordtype: this.uniquerecords.recordType,
+        department: selecteddepartment,
         proposedfunction: this.uniquerecords.proposedFunction,
         proposedcategory: this.uniquerecords.proposedCategory,
         proposedretention: this.uniquerecords.proposedRetention,

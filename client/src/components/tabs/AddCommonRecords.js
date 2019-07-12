@@ -4,6 +4,10 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 
+/*
+  TODO: pass data to EDIT MODAL
+*/
+
 const CommonRecords = inject("RecordStore")(
   observer(
     class CommonRecords extends Component {
