@@ -13,11 +13,6 @@ class UniqueStore {
     proposedRetention: "",
     Comment: ""
   };
-  // recordType = "";
-  // proposedFunction = "";
-  // proposedCategory = "";
-  // proposedRetention = "";
-  // Comment = "";
   functionsDropdown = [];
   categoryDropdown = [];
   //do we need repository options for users?
@@ -48,27 +43,12 @@ class UniqueStore {
 
   handleChange = e => {
     const { id, value } = e.target;
-    this.patient[id] = value;
+    this.uniquerecords[id] = value;
   };
 
-  async submitRecords(record) {
-    // const headers = new Headers();
-    // headers.append("Content-Type", "application/json");
+  async submitRecords() {
 
-    // const getCircularReplacer = () => {
-    //   const seen = new WeakSet();
-    //   return (key, value) => {
-    //     if (typeof value === "object" && value !== null) {
-    //       if (seen.has(value)) {
-    //         return;
-    //       }
-    //       seen.add(value);
-    //     }
-    //     return value;
-    //   };
-    // };
-
-    console.log("submitted");
+    console.log('successfully posted');
 
     fetch("http://localhost:3004/pendingrecords", {
       method: "POST",
@@ -77,32 +57,13 @@ class UniqueStore {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        recordtype: this.recordType,
-        proposedfunction: "example",
-        proposedcategory: "example",
-        proposedretention: "example",
-        notes: "example"
+        recordtype: this.uniquerecords.recordType,
+        proposedfunction: this.uniquerecords.proposedFunction,
+        proposedcategory: this.uniquerecords.proposedCategory,
+        proposedretention: this.uniquerecords.proposedRetention,
+        notes: this.uniquerecords.Comment
       })
     });
-
-    // const headers = new Headers()
-    // headers.append('Content-Type', 'application/json')
-
-    // const options = {
-    //   method: "POST",
-    //   headers,
-    //   body: JSON.stringify({ x: 5, y: 6 })
-    // };
-
-    // const request = new Request(
-    //   "http://localhost:3004/pendingrecords",
-    //   options
-    // );
-
-    // console.log(record)
-    // const response = await fetch(request);
-    // const status = await response.status;
-    // console.log(status);
   }
 }
 

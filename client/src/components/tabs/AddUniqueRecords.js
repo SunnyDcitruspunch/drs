@@ -7,6 +7,11 @@ import Container from "react-bootstrap/Container";
 import { inject, observer } from "mobx-react";
 import Modal from "react-bootstrap/Modal";
 
+/*
+  TODO: show modal (or toast) after successfully submitted record
+  ! TODO: form validation: record type
+ */
+
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
     class AddUniqueRecords extends Component {
@@ -26,34 +31,21 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         } else {
           e.preventDefault();
 
-          // this.props.UniqueStore.addRecords({
-          //     id: Math.floor(Math.random()*10),
-          //     recordType: this.recordtypevalue,
-          //     proposedFunction: this.refs.proposedfunction,
-          //     poroposedCategory: this.refs.proposedcategory,
-          //     proposedRetention: this.refs.proposedretention,
-          //     Comment: this.refs.notes
-          // });
+          this.props.UniqueStore.submitRecords();
 
-          // this.refs.recordtype.value = null;
-          // this.refs.proposedfunction.value = "Choose...";
-          // this.refs.proposedcategory.value = "Choose...";
-          // this.refs.proposedretention.value = null;
-          // this.refs.notes.value = null;
+          this.refs.recordtype.value = "";
+          this.refs.proposedfunction.value = "Choose...";
+          this.refs.proposedcategory.value = "Choose...";
+          this.refs.proposedretention.value = "";
+          this.refs.notes.value = "";
+          this.props.DepartmentStore.selectedDepartment = ""
           //console.log("submitted");
         }
       };
 
       render() {
-        // const schema = yup.object({
-        //   RecordType: yup.string().required(),
-        //   ProposedFunction: yup.string(),
-        //   ProposedCategory: yup.string(),
-        //   Notes: yup.string()
-        // });
-        //console.log(this.props.DepartmentStore.selectedDepartment)
         let smClose = () => this.setState({ smShow: false });
-        const { UniqueStore } = this.props
+        const { UniqueStore } = this.props;
 
         return (
           <Container>
@@ -76,15 +68,17 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 </Form.Group>
 
                 <Form.Group
-                  controlId="proposedfunction"
                   style={styles.titleStyle}
                 >
                   <Form.Label>Proposed Function</Form.Label>
                   <Form.Control
                     as="select"
                     type="text"
+                    id="proposedFunction"
                     ref="proposedfunction"
                     style={{ fontSize: 12 }}
+                    value={UniqueStore.proposedFunction}
+                    onChange={UniqueStore.handleChange}
                   >
                     <option>Choose...</option>
                     {this.props.UniqueStore.functionsDropdown
@@ -98,15 +92,17 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 </Form.Group>
 
                 <Form.Group
-                  controlId="proposedcategory"
                   style={styles.titleStyle}
                 >
                   <Form.Label>Proposed Category</Form.Label>
                   <Form.Control
                     as="select"
                     type="text"
+                    id="proposedCategory"
                     ref="proposedcategory"
                     style={{ fontSize: 12 }}
+                    value={UniqueStore.proposedCategory}
+                    onChange={UniqueStore.handleChange}
                   >
                     <option>Choose...</option>
                     {this.props.UniqueStore.categoryDropdown
@@ -121,22 +117,27 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
                 <Form.Group
                   style={styles.titleStyle}
-                  controlId="proposedretention"
                 >
                   <Form.Label>Proposed Retention</Form.Label>
                   <Form.Control
                     type="text"
                     style={styles.inputStyle}
+                    value={UniqueStore.proposedRetention}
+                    onChange={UniqueStore.handleChange}
+                    id="proposedRetention"
                     ref="proposedretention"
                   />
                 </Form.Group>
 
-                <Form.Group style={styles.titleStyle} controlId="notes">
+                <Form.Group style={styles.titleStyle}>
                   <Form.Label>Notes</Form.Label>
                   <Form.Control
-                    ref="notes"
+                    id="Comment"
                     style={{ fontSize: 12 }}
+                    value={UniqueStore.Comment}
+                    onChange={UniqueStore.handleChange}
                     type="text"
+                    ref="notes"
                   />
                 </Form.Group>
 
