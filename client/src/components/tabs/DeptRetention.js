@@ -4,8 +4,8 @@ import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { inject, observer } from "mobx-react";
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { saveAs } from "file-saver";
@@ -14,10 +14,13 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 
 /* 
   ! TODO: fix PDF style!!!
-  TODO: able to send email to admin
+  TODO: able to send email to admin (but not every submission... about one email per week)
+  !TODO: DELETE REQUEST
 */
 
 const DeptRetention = inject("DepartmentStore")(
@@ -83,56 +86,56 @@ const DeptRetention = inject("DepartmentStore")(
               </ButtonGroup>
             </Col>
             <br />
-            <Paper>
+            <Paper style={styles.paperStyle}>
               <Table striped bordered hover size="sm">
                 <TableHead>
                   <TableRow>
+                    <TableCell style={{ fontSize: 10 }}>Actions</TableCell>
                     <TableCell style={{ fontSize: 10 }}>Record Type</TableCell>
                     <TableCell style={{ fontSize: 10 }}>
                       Retention Schedule
                     </TableCell>
                     <TableCell style={{ fontSize: 10 }}>Notes</TableCell>
-                    <TableCell colSpan="2" style={{ fontSize: 10 }}>
-                      Actions
-                    </TableCell>
                     <TableCell style={{ fontSize: 10 }}>Status</TableCell>
                   </TableRow>
                 </TableHead>
-                <tbody style={styles.tableFontStyle}>
+                <TableBody style={styles.tableFontStyle}>
                   {this.props.DepartmentStore.allDepartments
                     .slice()
                     .filter(x => x.department === department)
                     .map((postDetail, index) => {
                       return (
                         <TableRow key={index}>
-                          <TableCell>{postDetail.recordtype}</TableCell>
-                          <TableCell>{postDetail.description}</TableCell>
-                          <TableCell>{postDetail.note}</TableCell>
                           <TableCell>
-                            <Button
+                            <CreateOutlinedIcon
                               name="edit"
                               onClick={() => this.setState({ formShow: true })}
                               variant="outline-warning"
                               style={styles.buttonStyle}
-                            >
-                              Edit
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
+                            />
+                            <DeleteOutlinedIcon
                               name="delete"
                               onClick={() => this.setState({ smShow: true })}
                               variant="outline-danger"
                               style={styles.buttonStyle}
-                            >
-                              Delete
-                            </Button>
+                            />
                           </TableCell>
-                          <TableCell>{postDetail.status}</TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.recordtype}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.description}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.note}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.status}
+                          </TableCell>
                         </TableRow>
                       );
                     })}
-                </tbody>
+                </TableBody>
               </Table>
             </Paper>
 
@@ -274,10 +277,10 @@ const styles = {
     paddingTop: 14
   },
   buttonStyle: {
-    height: 20,
-    width: 60,
+    width: 16,
+    height: 16,
     padding: 0,
-    fontSize: 12
+    fontSize: 10
   },
   modalButtonStyle: {
     height: 26,
@@ -307,5 +310,9 @@ const styles = {
   },
   buttongroupStyle: {
     height: 28
+  },
+  paperStyle: {
+    width: '100%',
+    overflowX: 'auto'
   }
 };

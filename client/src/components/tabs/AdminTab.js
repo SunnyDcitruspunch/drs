@@ -9,19 +9,12 @@ import { inject, observer } from "mobx-react";
 import Container from "react-bootstrap/Container";
 
 /*
-    *TODO:  clikcable table for pending records
-*/
+ *TODO:  clikcable table for pending records
+ */
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3)
-];
 
 const AdminTab = inject("UniqueStore", "DepartmentStore")(
   observer(
@@ -36,14 +29,20 @@ const AdminTab = inject("UniqueStore", "DepartmentStore")(
 
         return (
           <Container>
-            <Paper>
+            <Paper style={styles.paperStyle}>
               <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell style={styles.tableStyle}>Record Type</TableCell>
-                    <TableCell style={styles.tableStyle} align="right">Retention Schedule</TableCell>
-                    <TableCell style={styles.tableStyle} align="right">Notes</TableCell>
-                    <TableCell style={styles.tableStyle} align="right">Actions</TableCell>
+                    <TableCell style={styles.tableStyle} align="right">
+                      Retention Schedule
+                    </TableCell>
+                    <TableCell style={styles.tableStyle} align="right">
+                      Notes
+                    </TableCell>
+                    <TableCell style={styles.tableStyle} align="right">
+                      Actions
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -71,7 +70,11 @@ const AdminTab = inject("UniqueStore", "DepartmentStore")(
 export default AdminTab;
 
 const styles = {
-    tableStyle: {
-        fontSize: 10
-    }
-}
+  tableStyle: {
+    fontSize: 10
+  },
+  paperStyle: {
+    width: "100%",
+    overflowX: "auto"
+  }
+};

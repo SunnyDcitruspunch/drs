@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 
 /*
   TODO: pass data to EDIT MODAL
+  ! TODO: fix table column overflow (record how to fix it in notebook)
 */
 
 const CommonRecords = inject("RecordStore")(
@@ -27,32 +28,34 @@ const CommonRecords = inject("RecordStore")(
 
         return (
           <Container style={styles.tableStyle}>
-            <Table striped bordered hover size="sm">
-              <TableHead>
-                <TableRow style={{ fontSize: 12 }}>
-                  <TableCell>Select</TableCell>
-                  <TableCell>Function</TableCell>
-                  <TableCell>Record Type</TableCell>
-                  <TableCell>Retention Description</TableCell>
-                  <TableCell>Archival</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody style={styles.textStyle}>
-                {RecordStore.allRecords.slice().map(record => {
-                  return (
-                    <TableRow key={record.code} {...record}>
-                      <TableCell>
-                        <Form.Check type="checkbox" />
-                      </TableCell>
-                      <TableCell>{record.function}</TableCell>
-                      <TableCell>{record.recordtype}</TableCell>
-                      <TableCell>{record.retentiondescription}</TableCell>
-                      <TableCell>{record.archival}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+            <Paper style={styles.paperStyle}>
+              <Table striped bordered hover size="sm">
+                <TableHead>
+                  <TableRow style={{ fontSize: 12 }}>
+                    <TableCell>Select</TableCell>
+                    <TableCell>Function</TableCell>
+                    <TableCell>Record Type</TableCell>
+                    <TableCell>Retention Description</TableCell>
+                    <TableCell>Archival</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody style={styles.textStyle}>
+                  {RecordStore.allRecords.slice().map(record => {
+                    return (
+                      <TableRow key={record.code} {...record}>
+                        <TableCell>
+                          <Form.Check type="checkbox" />
+                        </TableCell>
+                        <TableCell>{record.function}</TableCell>
+                        <TableCell>{record.recordtype}</TableCell>
+                        <TableCell>{record.retentiondescription}</TableCell>
+                        <TableCell>{record.archival}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </Paper>
           </Container>
         );
       }
@@ -68,5 +71,9 @@ const styles = {
   },
   textStyle: {
     fontSize: 11
+  },
+  paperStyle: {
+    width: '100%',
+    overflowX: 'auto'
   }
 };

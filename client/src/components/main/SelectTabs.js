@@ -12,7 +12,6 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
-import { Link } from "react-router-dom";
 
 /*
     ! TODO: show ADMIN TAB if user is admin
@@ -91,7 +90,7 @@ export default function FullWidthTabs() {
 
 const styles = {
   tabStyle: {
-    fontSize: 10
+    fontSize: 8
   }
 };
 
