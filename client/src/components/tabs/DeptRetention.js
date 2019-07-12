@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { inject, observer } from "mobx-react";
-import Button from "react-bootstrap/Button";
+import Button from '@material-ui/core/Button';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
@@ -106,7 +106,7 @@ const DeptRetention = inject("DepartmentStore")(
                     .map((postDetail, index) => {
                       return (
                         <TableRow key={index}>
-                          <TableCell>
+                          <TableCell style={{width: 100}}>
                             <CreateOutlinedIcon
                               name="edit"
                               onClick={() => this.setState({ formShow: true })}
@@ -277,7 +277,7 @@ const styles = {
     paddingTop: 14
   },
   buttonStyle: {
-    width: 16,
+    width: 20,
     height: 16,
     padding: 0,
     fontSize: 10

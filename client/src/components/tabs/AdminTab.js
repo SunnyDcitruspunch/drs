@@ -9,7 +9,8 @@ import { inject, observer } from "mobx-react";
 import Container from "react-bootstrap/Container";
 
 /*
- *TODO:  clikcable table for pending records
+ *TODO:  clikcable table for pending records (editable table??)
+ !TODO: change data to pending records
  */
 
 function createData(name, calories, fat, carbs, protein) {
@@ -34,27 +35,30 @@ const AdminTab = inject("UniqueStore", "DepartmentStore")(
                 <TableHead>
                   <TableRow>
                     <TableCell style={styles.tableStyle}>Record Type</TableCell>
-                    <TableCell style={styles.tableStyle} align="right">
+                    <TableCell style={styles.tableStyle}>
                       Retention Schedule
                     </TableCell>
-                    <TableCell style={styles.tableStyle} align="right">
-                      Notes
-                    </TableCell>
-                    <TableCell style={styles.tableStyle} align="right">
-                      Actions
-                    </TableCell>
+                    <TableCell style={styles.tableStyle}>Notes</TableCell>
+                    <TableCell style={styles.tableStyle}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows.map(row => (
                     <TableRow key={row.name}>
-                      <TableCell component="th" scope="row">
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        style={styles.tableStyle}
+                      >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell style={styles.tableStyle}>
+                        {row.calories}
+                      </TableCell>
+                      <TableCell style={styles.tableStyle}>{row.fat}</TableCell>
+                      <TableCell style={styles.tableStyle}>
+                        {row.carbs}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
