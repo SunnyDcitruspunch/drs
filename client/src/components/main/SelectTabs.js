@@ -4,6 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import DepartmentRetention from "../tabs/DeptRetention";
 import AddCommonRecords from "../tabs/AddCommonRecords";
 import AddUniqueRecords from "../tabs/AddUniqueRecords";
+import AdminTab from '../tabs/AdminTab'
 
 export default class ControlledTabs extends React.Component {
   constructor(props, context) {
@@ -12,6 +13,11 @@ export default class ControlledTabs extends React.Component {
       key: "drs"
     };
   }
+
+  /*
+    ! TODO: show ADMIN TAB if user is admin
+    TODO: change tabs to material UI
+  */
 
   render() {
     return (
@@ -30,6 +36,9 @@ export default class ControlledTabs extends React.Component {
           </Tab>
           <Tab eventKey="addUnique" title="Add Unique Records">
             <AddUniqueRecords />
+          </Tab>
+          <Tab eventKey="admin" title="Admin">
+            <AdminTab />
           </Tab>
         </Tabs>
       </div>

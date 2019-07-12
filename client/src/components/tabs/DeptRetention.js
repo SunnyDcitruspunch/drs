@@ -10,6 +10,11 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { saveAs } from "file-saver";
 
+/* 
+  ! TODO: fix PDF style!!!
+  TODO: able to send email to admin
+*/
+
 const DeptRetention = inject("DepartmentStore")(
   observer(
     class DeptRetnetion extends Component {

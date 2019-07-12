@@ -9,7 +9,6 @@ import Modal from "react-bootstrap/Modal";
 import Snackbar from "@material-ui/core/Snackbar";
 
 /*
-  TODO: show modal (or toast) after successfully submitted record
   ! TODO: form validation: record type
   ! TODO: need to put the newly added record to pending records.
  */
