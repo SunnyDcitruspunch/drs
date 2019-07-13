@@ -20,7 +20,6 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 /* 
-  ! TODO: fix PDF style!!!
   TODO: able to send email to admin (but not every submission... about one email per week)
   !TODO: DELETE REQUEST
   * TODO: change button colors
@@ -62,13 +61,18 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       //html2canvas + jsPDF
       makePdf = () => {
+        const dept = this.props.DepartmentStore.selectedDepartment;
         if (this.props.DepartmentStore.selectedDepartment !== "") {
-          html2canvas(document.getElementById("schedule")).then(function(canvas) {
+          html2canvas(document.getElementById("schedule"), {
+            width: 960,
+            height: 1440
+          }).then(function(canvas) {
             var img = canvas.toDataURL("image/png");
             var doc = new jsPDF({
               orientation: "landscape"
             });
-            doc.addImage(img, "JPEG", 10, 50);
+            doc.text("Department Retention Schedule: " + dept, 10, 10);
+            doc.addImage(img, "JPEG", -50, 15);
             doc.save("retention.pdf");
           });
         } else {
