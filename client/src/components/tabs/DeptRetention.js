@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { inject, observer } from "mobx-react";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
@@ -16,14 +16,17 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 /* 
   ! TODO: fix PDF style!!!
   TODO: able to send email to admin (but not every submission... about one email per week)
   !TODO: DELETE REQUEST
+  * TODO: change button colors
 */
 
-const DeptRetention = inject("DepartmentStore")(
+const DeptRetention = inject("DepartmentStore", "UniqueStore")(
   observer(
     class DeptRetnetion extends Component {
       constructor(props, context) {
@@ -57,6 +60,29 @@ const DeptRetention = inject("DepartmentStore")(
         }
       };
 
+      //html2canvas + jsPDF
+      makePdf = () => {
+        if (this.props.DepartmentStore.selectedDepartment !== "") {
+          html2canvas(document.getElementById("schedule")).then(function(canvas) {
+            var img = canvas.toDataURL("image/png");
+            var doc = new jsPDF({
+              orientation: "landscape"
+            });
+            doc.addImage(img, "JPEG", 10, 50);
+            doc.save("retention.pdf");
+          });
+        } else {
+          this.setState({
+            pdfShow: true
+          });
+        }
+      };
+
+      onDelete() {
+        this.setState({ smShow: false });
+        this.props.DepartmentStore.deleteRecord();
+      }
+
       render() {
         const { DepartmentStore } = this.props;
         let smClose = () => this.setState({ smShow: false });
@@ -67,7 +93,7 @@ const DeptRetention = inject("DepartmentStore")(
           <Container style={styles.tableStyle}>
             <Col md={{ span: 8, offset: 6 }}>
               <ButtonGroup
-                size="sm"
+                // size="sm"
                 className="mt-6"
                 style={styles.buttongroupStyle}
                 color="primary"
@@ -75,7 +101,7 @@ const DeptRetention = inject("DepartmentStore")(
               >
                 <Button
                   variant="outline-primary"
-                  onClick={this.createAndDownloadPdf}
+                  onClick={this.makePdf}
                   style={{ fontSize: 12 }}
                 >
                   Download as PDF
@@ -87,7 +113,7 @@ const DeptRetention = inject("DepartmentStore")(
             </Col>
             <br />
             <Paper style={styles.paperStyle}>
-              <Table striped bordered hover size="sm">
+              <Table striped="true" bordered="true" hover="true" id="schedule">
                 <TableHead>
                   <TableRow>
                     <TableCell style={{ fontSize: 10 }}>Actions</TableCell>
@@ -106,13 +132,14 @@ const DeptRetention = inject("DepartmentStore")(
                     .map((postDetail, index) => {
                       return (
                         <TableRow key={index}>
-                          <TableCell style={{width: 100}}>
+                          <TableCell style={{ width: 100 }}>
                             <CreateOutlinedIcon
                               name="edit"
                               onClick={() => this.setState({ formShow: true })}
                               variant="outline-warning"
                               style={styles.buttonStyle}
                             />
+                            &nbsp;
                             <DeleteOutlinedIcon
                               name="delete"
                               onClick={() => this.setState({ smShow: true })}
@@ -162,22 +189,43 @@ const DeptRetention = inject("DepartmentStore")(
                   </Form.Group>
                   <Form.Group controlId="exampleForm.ControlSelect1">
                     <Form.Label>Function</Form.Label>
-                    <Form.Control as="select" style={styles.modalInputStyle}>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                    <Form.Control
+                      as="select"
+                      type="text"
+                      id="proposedFunction"
+                      ref="proposedfunction"
+                      style={styles.modalInputStyle}
+                      value={this.props.UniqueStore.proposedFunction}
+                      onChange={this.props.UniqueStore.handleChange}
+                    >
+                      <option>Choose...</option>
+                      {this.props.UniqueStore.functionsDropdown
+                        .slice()
+                        .map(func => (
+                          <option key={func.id} {...func}>
+                            {func.functiontype}
+                          </option>
+                        ))}
                     </Form.Control>
                   </Form.Group>
                   <Form.Group controlId="exampleForm.ControlSelect1">
                     <Form.Label>Record Category</Form.Label>
-                    <Form.Control as="select" style={styles.modalInputStyle}>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                    <Form.Control
+                      as="select"
+                      id="proposedCategory"
+                      ref="proposedcategory"
+                      style={styles.modalInputStyle}
+                      value={this.props.UniqueStore.proposedCategory}
+                      onChange={this.props.UniqueStore.handleChange}
+                    >
+                      <option>Choose...</option>
+                      {this.props.UniqueStore.categoryDropdown
+                        .slice()
+                        .map(category => (
+                          <option key={category.id} {...category}>
+                            {category.recordcategoryid}
+                          </option>
+                        ))}
                     </Form.Control>
                   </Form.Group>
                   <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -193,14 +241,16 @@ const DeptRetention = inject("DepartmentStore")(
               <Modal.Footer>
                 <Button
                   style={styles.modalButtonStyle}
-                  variant="outline-secondary"
+                  variant="outlined"
+                  color="primary"
                   onClick={() => this.setState({ formShow: false })}
                 >
                   Discard
                 </Button>
                 <Button
                   style={styles.modalButtonStyle}
-                  variant="outline-danger"
+                  variant="outlined"
+                  color="primary"
                   onClick={() => this.setState({ formShow: false })}
                 >
                   Save Changes
@@ -229,15 +279,17 @@ const DeptRetention = inject("DepartmentStore")(
               <Modal.Footer>
                 <Button
                   style={styles.modalButtonStyle}
-                  variant="outline-secondary"
+                  variant="outlined"
+                  color="primary"
                   onClick={() => this.setState({ smShow: false })}
                 >
                   Close
                 </Button>
                 <Button
                   style={styles.modalButtonStyle}
-                  variant="outline-danger"
-                  onClick={() => this.setState({ smShow: false })}
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => this.onDelete()}
                 >
                   Delete
                 </Button>
@@ -256,7 +308,8 @@ const DeptRetention = inject("DepartmentStore")(
               <Modal.Footer style={{ height: 20 }}>
                 <Button
                   style={styles.modalButtonStyle}
-                  variant="outline-secondary"
+                  variant="outlined"
+                  color="primary"
                   onClick={() => this.setState({ pdfShow: false })}
                 >
                   Close
@@ -285,7 +338,7 @@ const styles = {
   modalButtonStyle: {
     height: 26,
     width: 84,
-    fontSize: 12,
+    fontSize: 10,
     padding: 0
   },
   modalFormStyle: {
@@ -312,7 +365,7 @@ const styles = {
     height: 28
   },
   paperStyle: {
-    width: '100%',
-    overflowX: 'auto'
+    width: "100%",
+    overflowX: "auto"
   }
 };

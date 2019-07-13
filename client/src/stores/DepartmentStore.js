@@ -8,7 +8,7 @@ class DepartmentStore {
   handleSelected = e => {
     const { value } = e.target;
     this.selectedDepartment = value;
-    console.log(this.selectedDepartment);
+    //console.log(this.selectedDepartment);
   };
 
   async fetchAll() {
@@ -24,6 +24,19 @@ class DepartmentStore {
     return this.allDepartments
       .slice()
       .filter(d => d.department === parseInt(dept, 10))[0];
+  }
+
+  // !TODO: pass parameter to delete a record
+  deleteRecord() {
+    console.log("deleted");
+    /*
+      function deleteData(item, url) {
+  return fetch(url + '/' + item, {
+    method: 'delete'
+  })
+  .then(response => response.json());
+}
+    */
   }
 }
 

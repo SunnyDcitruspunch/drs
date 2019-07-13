@@ -55,6 +55,22 @@
       "notes": "as",
       "status": "pending",
       "id": "F5qqKP_"
+    },
+    {
+      "recordtype": "gggg",
+      "department": "Records",
+      "description": "gggg",
+      "notes": "ggggg",
+      "status": "pending",
+      "id": "cDNVoRI"
+    },
+    {
+      "recordtype": "i don't know",
+      "department": "Computer Science",
+      "description": "asdf",
+      "notes": "asfd",
+      "status": "pending",
+      "id": "IWFK1xI"
     }
   ],
   "functions": [
@@ -191,6 +207,24 @@
       "proposedretention": "as",
       "notes": "as",
       "id": "neqeeOD"
+    },
+    {
+      "recordtype": "gggg",
+      "department": "Records",
+      "proposedfunction": "function 123",
+      "proposedcategory": "STU02",
+      "proposedretention": "gggg",
+      "notes": "ggggg",
+      "id": "eOF8-Gr"
+    },
+    {
+      "recordtype": "i don't know",
+      "department": "Computer Science",
+      "proposedfunction": "no function",
+      "proposedcategory": "STU02",
+      "proposedretention": "asdf",
+      "notes": "asfd",
+      "id": "4RUlLRc"
     }
   ]
 }

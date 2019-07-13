@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 // import * as yup from "yup";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+import Button from '@material-ui/core/Button';
 import Container from "react-bootstrap/Container";
 import { inject, observer } from "mobx-react";
 import Modal from "react-bootstrap/Modal";
@@ -145,7 +145,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
                 <div style={styles.footerStyle}>
                   <Button
-                    variant="outline-primary"
+                    variant="outlined"
+                    color="primary"
                     type="button"
                     label="submit form"
                     style={styles.buttonStyle}

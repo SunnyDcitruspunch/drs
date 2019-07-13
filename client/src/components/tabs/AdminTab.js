@@ -7,26 +7,23 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { inject, observer } from "mobx-react";
 import Container from "react-bootstrap/Container";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 
 /*
  *TODO:  clikcable table for pending records (editable table??)
  !TODO: change data to pending records
  */
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const AdminTab = inject("UniqueStore", "DepartmentStore")(
+const AdminTab = inject("DepartmentStore", "RecordStore")(
   observer(
     class AdminTab extends Component {
+      componentWillMount() {
+        this.props.RecordStore.fetchPendings();
+      }
+
       render() {
-        const rows = [
-          createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-          createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-          createData("Eclair", 262, 16.0, 24, 6.0),
-          createData("Cupcake", 305, 3.7, 67, 4.3)
-        ];
+        const { RecordStore } = this.props;
+        //this.props.RecordStore.pendingRecords.forEach(e=>console.log(e.recordtype))
 
         return (
           <Container>
@@ -38,32 +35,46 @@ const AdminTab = inject("UniqueStore", "DepartmentStore")(
                     <TableCell style={styles.tableStyle}>
                       Retention Schedule
                     </TableCell>
+                    <TableCell style={styles.tableStyle}>Function</TableCell>
+                    <TableCell style={styles.tableStyle}>Category</TableCell>
                     <TableCell style={styles.tableStyle}>Notes</TableCell>
-                    <TableCell style={styles.tableStyle}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.name}>
+                  {RecordStore.pendingRecords.slice().map(pendings => (
+                    <TableRow key={pendings.id}>
                       <TableCell
                         component="th"
                         scope="row"
                         style={styles.tableStyle}
                       >
-                        {row.name}
+                        <Checkbox style={{height: 6}} />
+                        {pendings.department}
                       </TableCell>
                       <TableCell style={styles.tableStyle}>
-                        {row.calories}
+                        {pendings.recordtype}
                       </TableCell>
-                      <TableCell style={styles.tableStyle}>{row.fat}</TableCell>
                       <TableCell style={styles.tableStyle}>
-                        {row.carbs}
+                        {pendings.proposedfunction}
+                      </TableCell>
+                      <TableCell style={styles.tableStyle}>
+                        {pendings.proposedcategory}
+                      </TableCell>
+                      <TableCell style={styles.tableStyle}>
+                        {pendings.notes}
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </Paper>
+            <Button
+              variant="outlined"
+              color="primary"
+              style={{ marginTop: 10, fontSize: 10 }}
+            >
+              Approve selected records
+            </Button>
           </Container>
         );
       }
