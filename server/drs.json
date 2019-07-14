@@ -47,30 +47,6 @@
       "recordcategoryid": "LEG01",
       "status": "Approved",
       "note": "Asia is pretty fun too :D"
-    },
-    {
-      "recordtype": "sa",
-      "department": "Marriott School",
-      "description": "as",
-      "notes": "as",
-      "status": "pending",
-      "id": "F5qqKP_"
-    },
-    {
-      "recordtype": "gggg",
-      "department": "Records",
-      "description": "gggg",
-      "notes": "ggggg",
-      "status": "pending",
-      "id": "cDNVoRI"
-    },
-    {
-      "recordtype": "i don't know",
-      "department": "Computer Science",
-      "description": "asdf",
-      "notes": "asfd",
-      "status": "pending",
-      "id": "IWFK1xI"
     }
   ],
   "functions": [

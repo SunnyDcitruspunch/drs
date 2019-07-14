@@ -4,6 +4,7 @@ class DepartmentStore {
   selectedDepartment = "";
   allDepartments = [];
   isLoading = false;
+  deleteID = "";
 
   handleSelected = e => {
     const { value } = e.target;
@@ -20,23 +21,13 @@ class DepartmentStore {
       .then(json => (this.allDepartments = json));
   }
 
-  find(dept) {
-    return this.allDepartments
-      .slice()
-      .filter(d => d.department === parseInt(dept, 10))[0];
-  }
-
   // !TODO: pass parameter to delete a record
-  deleteRecord() {
-    console.log("deleted");
-    /*
-      function deleteData(item, url) {
-  return fetch(url + '/' + item, {
-    method: 'delete'
-  })
-  .then(response => response.json());
-}
-    */
+  async deleteRecord() {
+    const baseUrl = "http://localhost:3004/departments";
+    let options = { method: "DELETE" };
+    return fetch(`${baseUrl}/${this.deleteID}`, options).then(response =>
+      response.json()
+    );
   }
 }
 
@@ -46,7 +37,7 @@ decorate(DepartmentStore, {
   isLoading: observable,
   handleSelected: action,
   fetchAll: action,
-  find: action
+  deleteRecord: action
 });
 
 export default new DepartmentStore();
