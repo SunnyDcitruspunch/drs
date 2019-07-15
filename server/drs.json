@@ -49,14 +49,6 @@
       "note": "Asia is pretty fun too :D"
     },
     {
-      "recordtype": "Hello",
-      "department": "Records",
-      "description": "ddd",
-      "notes": "sss",
-      "status": "Pending",
-      "id": "T8PGuwJ"
-    },
-    {
       "recordtype": "ss",
       "department": "Honor Code Office",
       "description": "ss",
@@ -121,20 +113,28 @@
       "id": "mT7AQ5A"
     },
     {
-      "recordtype": "sdf",
-      "department": "Marriott School",
-      "description": "",
-      "notes": "",
-      "status": "Pending",
-      "id": "SW5ahSQ"
-    },
-    {
       "recordtype": "asdfasdfasdf",
       "department": "BYU Catering",
       "description": "asdfasdf",
       "notes": "asdfasdf",
       "status": "Pending",
       "id": "uLc8Dwp"
+    },
+    {
+      "recordtype": "sss",
+      "department": "Marriott School",
+      "description": "ssasdfa",
+      "notes": "qqqq",
+      "status": "Pending",
+      "id": "xu2igK2"
+    },
+    {
+      "recordtype": "asdfasdfasdf",
+      "department": "Computer Science",
+      "description": "",
+      "notes": "",
+      "status": "Pending",
+      "id": "Gj09_Jt"
     }
   ],
   "functions": [

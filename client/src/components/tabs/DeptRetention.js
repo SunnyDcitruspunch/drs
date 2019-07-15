@@ -64,18 +64,20 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       };
 
       //pass id to store for delete action
-      handleDelete(value){
+      handleDelete(value) {
         //show delete modal
-        this.setState({ smShow: true })
-        this.props.DepartmentStore.deleteID = value
-        console.log(this.props.DepartmentStore.deleteID)
+        this.setState({ smShow: true });
+        this.props.DepartmentStore.deleteID = value;
+        console.log(this.props.DepartmentStore.deleteID);
       }
 
       //click delete in delete modal
       onDelete() {
         this.setState({ smShow: false });
-        console.log('ready to delete')
+        console.log("ready to delete");
         this.props.DepartmentStore.deleteRecord();
+        window.location.reload();
+        window.scrollTo(0, 0);
       }
 
       render() {

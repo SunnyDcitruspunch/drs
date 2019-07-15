@@ -7,11 +7,10 @@ import Container from "react-bootstrap/Container";
 import { inject, observer } from "mobx-react";
 import Modal from "react-bootstrap/Modal";
 import Snackbar from "@material-ui/core/Snackbar";
+import { Link } from "react-router-dom";
 
 /*
-  ! TODO: form validation: record type
-  ! TODO: need to put the newly added record to pending records.
-  TODO:  after submitting a unique record, the record goes to both pending record list and drs tab
+  TODO:  REFRESH WEBSITE AFTER SUBMISSION
  */
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
@@ -53,8 +52,9 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           this.refs.notes.value = "";
           this.setState({ snackbarShow: true });
           window.scrollTo(0, 0);
-          this.props.UniqueStore.uniquerecords.recordType = ""
+          this.props.UniqueStore.uniquerecords.recordType = "";
           this.setState({ shown: false });
+          window.location.reload();
         }
       };
 
@@ -164,7 +164,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                     style={styles.buttonStyle}
                     onClick={e => this.submitRecords(e)}
                   >
-                    Submit
+                    <Link to="/AddUniqueRecords">Submit</Link>
                   </Button>
                 </div>
               </Form>
