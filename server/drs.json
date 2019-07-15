@@ -10,7 +10,7 @@
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
       "recordcategoryid": "common",
       "status": "Pending",
-      "note": "there is a librarian in front of me."
+      "notes": "there is a librarian in front of me."
     },
     {
       "id": "2",
@@ -22,7 +22,7 @@
       "description": "Retain 6 years after superseded, then destroy.",
       "recordcategoryid": "MISC9",
       "status": "Approved",
-      "note": "They said they have no money to go to vegas :/ sad."
+      "notes": "They said they have no money to go to vegas :/ sad."
     },
     {
       "id": "3",
@@ -34,7 +34,7 @@
       "description": "Retain Indefinitely.",
       "recordcategoryid": "MISC20",
       "status": "Approved",
-      "note": "let's go to vegas :)"
+      "notes": "let's go to vegas :)"
     },
     {
       "id": "4",
@@ -46,7 +46,7 @@
       "description": "Retain for current year + 6, then destroy.",
       "recordcategoryid": "LEG01",
       "status": "Approved",
-      "note": "Asia is pretty fun too :D"
+      "notes": "Asia is pretty fun too :D"
     },
     {
       "recordtype": "ss",
@@ -83,7 +83,7 @@
     {
       "recordtype": "d",
       "department": "Computer Science",
-      "description": "",
+      "description": "oioioioioioioio",
       "notes": "",
       "status": "Pending",
       "id": "GRBj4Q6"
@@ -99,7 +99,7 @@
     {
       "recordtype": "sss",
       "department": "Computer Science",
-      "description": "",
+      "description": "uhuhuhuhuhuhuhuhuhuhuh",
       "notes": "",
       "status": "Pending",
       "id": "nO5MIH8"
@@ -131,7 +131,7 @@
     {
       "recordtype": "asdfasdfasdf",
       "department": "Computer Science",
-      "description": "",
+      "description": "sdsfasdfasdfva ssssss",
       "notes": "",
       "status": "Pending",
       "id": "Gj09_Jt"

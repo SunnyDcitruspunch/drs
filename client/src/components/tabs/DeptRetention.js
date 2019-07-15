@@ -16,10 +16,14 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import FormGroup from "@material-ui/core/FormGroup";
+import TextField from "@material-ui/core/TextField";
 
 /* 
   TODO: able to send email to admin (but not every submission... about one email per week)
   !TODO: refresh after delete (but stay in the same department?)
+  !TODO: edit modal dropdownlist default value
+  TODO: snackbar after edit/ delete/ submission
   * TODO: change button colors
 */
 
@@ -38,6 +42,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       componentWillMount() {
         this.props.DepartmentStore.fetchAllRecords();
+      }
+
+      showEditModal(id) {
+        this.setState({ formShow: true });
+        this.props.DepartmentStore.editRecord = id;
+        //console.log(this.props.DepartmentStore.editRecord)
       }
 
       //html2canvas + jsPDF
@@ -78,6 +88,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.props.DepartmentStore.deleteRecord();
         window.location.reload();
         window.scrollTo(0, 0);
+      }
+
+      editRecord(id) {
+        this.setState({ formShow: false });
+        console.log(id);
       }
 
       render() {
@@ -132,7 +147,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           <TableCell style={{ width: 100 }}>
                             <CreateOutlinedIcon
                               name="edit"
-                              onClick={() => this.setState({ formShow: true })}
+                              onClick={() => this.showEditModal(postDetail.id)}
                               variant="outline-warning"
                               style={styles.buttonStyle}
                             />
@@ -179,61 +194,86 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Form style={styles.modalFormStyle}>
-                  <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label>Record Type</Form.Label>
-                    <Form.Control style={styles.modalInputStyle} type="text" />
-                  </Form.Group>
-                  <Form.Group controlId="exampleForm.ControlSelect1">
-                    <Form.Label>Function</Form.Label>
-                    <Form.Control
-                      as="select"
-                      type="text"
-                      id="proposedFunction"
-                      ref="proposedfunction"
-                      style={styles.modalInputStyle}
-                      value={this.props.UniqueStore.proposedFunction}
-                      onChange={this.props.UniqueStore.handleChange}
-                    >
-                      <option>Choose...</option>
-                      {this.props.UniqueStore.functionsDropdown
-                        .slice()
-                        .map(func => (
-                          <option key={func.id} {...func}>
-                            {func.functiontype}
-                          </option>
-                        ))}
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="exampleForm.ControlSelect1">
-                    <Form.Label>Record Category</Form.Label>
-                    <Form.Control
-                      as="select"
-                      id="proposedCategory"
-                      ref="proposedcategory"
-                      style={styles.modalInputStyle}
-                      value={this.props.UniqueStore.proposedCategory}
-                      onChange={this.props.UniqueStore.handleChange}
-                    >
-                      <option>Choose...</option>
-                      {this.props.UniqueStore.categoryDropdown
-                        .slice()
-                        .map(category => (
-                          <option key={category.id} {...category}>
-                            {category.recordcategoryid}
-                          </option>
-                        ))}
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Retention</Form.Label>
-                    <Form.Control as="textarea" rows="3" />
-                  </Form.Group>
-                  <Form.Group controlId="exampleForm.ControlTextarea2">
-                    <Form.Label>Notes</Form.Label>
-                    <Form.Control as="textarea" rows="3" />
-                  </Form.Group>
-                </Form>
+                {this.props.DepartmentStore.allRecords
+                  .slice()
+                  .filter(x => x.id === DepartmentStore.editRecord)
+                  .map((postDetail, index) => {
+                    return (
+                      <Form style={styles.modalFormStyle} key={index}>
+                        <FormGroup>
+                          <TextField
+                            id="filled-name"
+                            label="Record Type"
+                            value={postDetail.recordtype}
+                            variant="outlined"
+                            // onChange={handleChange("name")}
+                            margin="normal"
+                            style={{ height: 10, fontSize: 8 }}
+                          />
+                        </FormGroup>
+                        <Form.Group style={{ marginTop: 50 }}>
+                          <Form.Label>Function</Form.Label>
+                          <Form.Control
+                            as="select"
+                            type="text"
+                            id="proposedFunction"
+                            ref="proposedfunction"
+                            style={styles.modalInputStyle}
+                            value={postDetail.function}
+                            onChange={this.props.UniqueStore.handleChange}
+                          >
+                            {this.props.UniqueStore.functionsDropdown
+                              .slice()
+                              .map(func => (
+                                <option key={func.id} {...func}>
+                                  {func.functiontype}
+                                </option>
+                              ))}
+                          </Form.Control>
+                        </Form.Group>
+                        <FormGroup>
+                          <Form.Label>Record Category</Form.Label>
+                          <Form.Control
+                            as="select"
+                            id="proposedCategory"
+                            ref="proposedcategory"
+                            style={styles.modalInputStyle}
+                            value={postDetail.recordcategoryid}
+                            onChange={this.props.UniqueStore.handleChange}
+                          >
+                            {this.props.UniqueStore.categoryDropdown
+                              .slice()
+                              .map(category => (
+                                <option key={category.id} {...category}>
+                                  {category.recordcategoryid}
+                                </option>
+                              ))}
+                          </Form.Control>
+                        </FormGroup>
+                        <FormGroup>
+                          <TextField
+                            id="outlined-full-width"
+                            label="Retention Description"
+                            value={postDetail.description}
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
+                          />
+                        </FormGroup>
+                        <FormGroup>
+                          <TextField
+                            id="outlined-full-width"
+                            label="Notes"
+                            value={postDetail.notes}
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
+                            style={{ fontSize: 10 }}
+                          />
+                        </FormGroup>
+                      </Form>
+                    );
+                  })}
               </Modal.Body>
               <Modal.Footer>
                 <Button
@@ -248,7 +288,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   style={styles.modalButtonStyle}
                   variant="outlined"
                   color="primary"
-                  onClick={() => this.setState({ formShow: false })}
+                  onClick={() => this.editRecord(DepartmentStore.editRecord)}
                 >
                   Save Changes
                 </Button>
@@ -340,11 +380,11 @@ const styles = {
   },
   modalFormStyle: {
     paddingTop: 6,
-    fontSize: 12
+    fontSize: 10
   },
   modalInputStyle: {
-    height: 28,
-    fontSize: 12
+    height: 30,
+    fontSize: 10
   },
   tableFontStyle: {
     fontSize: 11

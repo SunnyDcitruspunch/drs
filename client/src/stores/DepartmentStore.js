@@ -6,6 +6,7 @@ class DepartmentStore {
   allRecords = []
   isLoading = false;
   deleteID = "";
+  editRecord = ""
 
   handleSelected = e => {
     const { value } = e.target;
