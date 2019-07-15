@@ -40,28 +40,26 @@ class UniqueStore {
     this.uniquerecords[id] = value;
   };
 
-  async submitRecords(selecteddepartment) {
-
-    //post to admin page
-    fetch("http://localhost:3004/pendingrecords", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        recordtype: this.uniquerecords.recordType,
-        department: selecteddepartment,
-        proposedfunction: this.uniquerecords.proposedFunction,
-        proposedcategory: this.uniquerecords.proposedCategory,
-        proposedretention: this.uniquerecords.proposedRetention,
-        notes: this.uniquerecords.Comment
-      })
-    });
+  async submitRecords(selecteddepartment) {    
+    // fetch("http://localhost:3004/pendingrecords", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     recordtype: this.uniquerecords.recordType,
+    //     department: selecteddepartment,
+    //     proposedfunction: this.uniquerecords.proposedFunction,
+    //     proposedcategory: this.uniquerecords.proposedCategory,
+    //     proposedretention: this.uniquerecords.proposedRetention,
+    //     notes: this.uniquerecords.Comment
+    //   })
+    // });
 
     /*post to drs: record type, retention schedule, nots, actions, status
       can pending records be deleted or edit? */
-      fetch("http://localhost:3004/departments", {
+      fetch("http://localhost:3004/records", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -72,7 +70,7 @@ class UniqueStore {
           department: selecteddepartment,
           description: this.uniquerecords.proposedRetention,
           notes: this.uniquerecords.Comment,
-          status: "pending"
+          status: "Pending"
         })
       });
     

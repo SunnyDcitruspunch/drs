@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 
 /*
   TODO: pass data to EDIT MODAL
@@ -65,6 +66,13 @@ const CommonRecords = inject("RecordStore")(
                 </TableBody>
               </Table>
             </Paper>
+            <Button
+              variant="outlined"
+              color="primary"
+              style={{ marginTop: 10, fontSize: 10 }}
+            >
+              Add selected common records
+            </Button>
           </Container>
         );
       }

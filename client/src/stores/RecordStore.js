@@ -13,7 +13,7 @@ class RecordStore {
   }
 
   async fetchPendings(){
-    await fetch("http://localhost:3004/pendingrecords")
+    await fetch("http://localhost:3004/records")
     .then(response => {
       return response.json()
     })

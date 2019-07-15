@@ -3,6 +3,7 @@ import { observable, decorate, action } from "mobx";
 class DepartmentStore {
   selectedDepartment = "";
   allDepartments = [];
+  allRecords = []
   isLoading = false;
   deleteID = "";
 
@@ -21,9 +22,18 @@ class DepartmentStore {
       .then(json => (this.allDepartments = json));
   }
 
-  // !TODO: pass parameter to delete a record
+  async fetchAllRecords() {
+    this.isLoading = false;
+    await fetch("http://localhost:3004/records")
+      .then(response => {
+        return response.json();
+      })
+      .then(json => (this.allRecords = json));
+  }
+
+  //delete from departments array
   async deleteRecord() {
-    const baseUrl = "http://localhost:3004/departments";
+    const baseUrl = "http://localhost:3004/records";
     let options = { method: "DELETE" };
     return fetch(`${baseUrl}/${this.deleteID}`, options).then(response =>
       response.json()

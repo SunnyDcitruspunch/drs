@@ -1,5 +1,5 @@
 {
-  "departments": [
+  "records": [
     {
       "id": "1",
       "departmentnumber": "183",
@@ -9,7 +9,7 @@
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
       "recordcategoryid": "common",
-      "status": "Approved",
+      "status": "Pending",
       "note": "there is a librarian in front of me."
     },
     {
@@ -47,6 +47,14 @@
       "recordcategoryid": "LEG01",
       "status": "Approved",
       "note": "Asia is pretty fun too :D"
+    },
+    {
+      "recordtype": "Hello",
+      "department": "Records",
+      "description": "ddd",
+      "notes": "sss",
+      "status": "Pending",
+      "id": "T8PGuwJ"
     }
   ],
   "functions": [
@@ -131,76 +139,30 @@
       "recordcategoryid": "MISC9"
     }
   ],
-  "pendingrecords": [
+  "departments":[
     {
-      "id": "1",
-      "department": "Records",
-      "recordtype": "test",
-      "proposedfunction": "test",
-      "proposedcategory": "test",
-      "proposedretention": "proposedretention",
-      "notes": "notes"
+      "id": "0",
+      "department": "Records"
     },
     {
-      "recordtype": "asdf",
-      "proposedfunction": "admin",
-      "proposedcategory": "STU19",
-      "proposedretention": "asdf",
-      "notes": "asdf",
-      "id": "bDRbfGZ"
+      "id":"1",
+      "department": "Information Systems"
     },
     {
-      "recordtype": "asd",
-      "department": "Marriott School",
-      "proposedfunction": "function 123",
-      "proposedcategory": "STU19",
-      "proposedretention": "asd",
-      "notes": "asd",
-      "id": "x11zKNR"
+      "id":"2",
+      "department": "Marriott School"
     },
     {
-      "recordtype": "asd",
-      "department": "Marriott School",
-      "description": "asd",
-      "notes": "asd",
-      "status": "pending",
-      "id": "v2CnTiV"
+      "id":"3",
+      "department": "Computer Science"
     },
     {
-      "recordtype": "asd",
-      "department": "Marriott School",
-      "proposedfunction": "admin",
-      "proposedcategory": "common",
-      "proposedretention": "asd",
-      "notes": "asd",
-      "id": "lyiX96M"
+      "id":"4",
+      "department": "BYU Catering"
     },
     {
-      "recordtype": "sa",
-      "department": "Marriott School",
-      "proposedfunction": "admin",
-      "proposedcategory": "STU02",
-      "proposedretention": "as",
-      "notes": "as",
-      "id": "neqeeOD"
-    },
-    {
-      "recordtype": "gggg",
-      "department": "Records",
-      "proposedfunction": "function 123",
-      "proposedcategory": "STU02",
-      "proposedretention": "gggg",
-      "notes": "ggggg",
-      "id": "eOF8-Gr"
-    },
-    {
-      "recordtype": "i don't know",
-      "department": "Computer Science",
-      "proposedfunction": "no function",
-      "proposedcategory": "STU02",
-      "proposedretention": "asdf",
-      "notes": "asfd",
-      "id": "4RUlLRc"
+      "id":"5",
+      "department": "Honor Code Office"
     }
   ]
 }

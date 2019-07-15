@@ -4,6 +4,10 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import { inject, observer } from "mobx-react";
 
+/*
+  !TODO: how to filter duplicate JSON objects?
+*/
+
 const SelectDepartment = inject("DepartmentStore")(
   observer(
     class SelectDepartment extends Component {

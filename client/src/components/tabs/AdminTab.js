@@ -31,7 +31,12 @@ const AdminTab = inject("DepartmentStore", "RecordStore")(
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell style={styles.tableStyle}>Record Type</TableCell>
+                    <TableCell
+                      style={{ fontSize: 10, width: 200 }}
+                      align="center"
+                    >
+                      Record Type
+                    </TableCell>
                     <TableCell style={styles.tableStyle}>
                       Retention Schedule
                     </TableCell>
@@ -41,14 +46,16 @@ const AdminTab = inject("DepartmentStore", "RecordStore")(
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {RecordStore.pendingRecords.slice().map(pendings => (
+                  {RecordStore.pendingRecords.slice()
+                  .filter(x => x.status === "Pending")
+                  .map(pendings => (
                     <TableRow key={pendings.id}>
                       <TableCell
                         component="th"
                         scope="row"
-                        style={styles.tableStyle}
+                        style={{ fontSize: 10}}
                       >
-                        <Checkbox style={{height: 6}} />
+                        <Checkbox style={{ height: 6 }} />
                         {pendings.department}
                       </TableCell>
                       <TableCell style={styles.tableStyle}>

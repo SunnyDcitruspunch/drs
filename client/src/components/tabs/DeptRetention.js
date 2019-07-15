@@ -19,8 +19,7 @@ import jsPDF from "jspdf";
 
 /* 
   TODO: able to send email to admin (but not every submission... about one email per week)
-  !TODO: DELETE REQUEST
-  !TODO: uninstall axios and file-saver
+  !TODO: refresh after delete (but stay in the same department?)
   * TODO: change button colors
 */
 
@@ -38,7 +37,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       }
 
       componentWillMount() {
-        this.props.DepartmentStore.fetchAll();
+        this.props.DepartmentStore.fetchAllRecords();
       }
 
       //html2canvas + jsPDF
@@ -122,7 +121,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   </TableRow>
                 </TableHead>
                 <TableBody style={styles.tableFontStyle}>
-                  {this.props.DepartmentStore.allDepartments
+                  {this.props.DepartmentStore.allRecords
                     .slice()
                     .filter(x => x.department === department)
                     .map((postDetail, index) => {
