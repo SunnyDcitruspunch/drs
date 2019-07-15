@@ -55,7 +55,7 @@ const AdminTab = inject("DepartmentStore", "RecordStore")(
                         scope="row"
                         style={{ fontSize: 10}}
                       >
-                        <Checkbox style={{ height: 6 }} />
+                        <Checkbox style={{ height: 1, width: 1, marginRight: 5 }} />
                         {pendings.department}
                       </TableCell>
                       <TableCell style={styles.tableStyle}>

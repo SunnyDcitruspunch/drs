@@ -149,7 +149,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             {postDetail.description}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.note}
+                            {postDetail.notes}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {postDetail.status}

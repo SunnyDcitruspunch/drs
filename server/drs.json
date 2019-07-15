@@ -55,28 +55,124 @@
       "notes": "sss",
       "status": "Pending",
       "id": "T8PGuwJ"
+    },
+    {
+      "recordtype": "ss",
+      "department": "Honor Code Office",
+      "description": "ss",
+      "notes": "ss",
+      "status": "Pending",
+      "id": "g4YIQsD"
+    },
+    {
+      "recordtype": "Record",
+      "department": "BYU Catering",
+      "description": "ss",
+      "notes": "ss",
+      "status": "Pending",
+      "id": "xepGyAS"
+    },
+    {
+      "recordtype": "as",
+      "department": "BYU Catering",
+      "description": "as",
+      "notes": "as",
+      "status": "Pending",
+      "id": "VjmoFNA"
+    },
+    {
+      "recordtype": "as",
+      "department": "BYU Catering",
+      "description": "as",
+      "notes": "as",
+      "status": "Pending",
+      "id": "BD4tWTR"
+    },
+    {
+      "recordtype": "d",
+      "department": "Computer Science",
+      "description": "",
+      "notes": "",
+      "status": "Pending",
+      "id": "GRBj4Q6"
+    },
+    {
+      "recordtype": "sd",
+      "department": "BYU Catering",
+      "description": "sdf",
+      "notes": "sdf",
+      "status": "Pending",
+      "id": "hYsSzpP"
+    },
+    {
+      "recordtype": "sss",
+      "department": "Computer Science",
+      "description": "",
+      "notes": "",
+      "status": "Pending",
+      "id": "nO5MIH8"
+    },
+    {
+      "recordtype": "sss",
+      "department": "BYU Catering",
+      "description": "",
+      "notes": "",
+      "status": "Pending",
+      "id": "mT7AQ5A"
+    },
+    {
+      "recordtype": "sdf",
+      "department": "Marriott School",
+      "description": "",
+      "notes": "",
+      "status": "Pending",
+      "id": "SW5ahSQ"
+    },
+    {
+      "recordtype": "asdfasdfasdf",
+      "department": "BYU Catering",
+      "description": "asdfasdf",
+      "notes": "asdfasdf",
+      "status": "Pending",
+      "id": "uLc8Dwp"
     }
   ],
   "functions": [
     {
       "id": "1",
-      "functiontype": "admin"
+      "functiontype": "Administrative"
     },
     {
       "id": "2",
-      "functiontype": "another function"
+      "functiontype": "Athletics"
     },
     {
       "id": "3",
-      "functiontype": "function 123"
+      "functiontype": "Faculty"
     },
     {
       "id": "4",
-      "functiontype": "test function"
+      "functiontype": "Miscellaneous"
     },
     {
       "id": "5",
-      "functiontype": "no function"
+      "functiontype": "Finance"
+    },
+    {
+      "id": "6",
+      "functiontype": "Information Technology"
+    },
+    {
+      "id": "7",
+      "functiontype": "Human Resources"
+    },
+    {
+      "id": "8",
+      "functiontype": "Library and Archives"
+    },
+    {
+      "id": "9",
+      "functiontype": "Risk Management"
     }
   ],
   "commonrecords": [
@@ -139,29 +235,29 @@
       "recordcategoryid": "MISC9"
     }
   ],
-  "departments":[
+  "departments": [
     {
       "id": "0",
       "department": "Records"
     },
     {
-      "id":"1",
+      "id": "1",
       "department": "Information Systems"
     },
     {
-      "id":"2",
+      "id": "2",
       "department": "Marriott School"
     },
     {
-      "id":"3",
+      "id": "3",
       "department": "Computer Science"
     },
     {
-      "id":"4",
+      "id": "4",
       "department": "BYU Catering"
     },
     {
-      "id":"5",
+      "id": "5",
       "department": "Honor Code Office"
     }
   ]

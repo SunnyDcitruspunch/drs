@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 // import * as yup from "yup";
 import Col from "react-bootstrap/Col";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import Container from "react-bootstrap/Container";
 import { inject, observer } from "mobx-react";
 import Modal from "react-bootstrap/Modal";
@@ -23,37 +23,48 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       }
 
       state = {
-        modalShow: false,
-        open: false
+        smShow: false,
+        snackbarShow: false,
+        shown: false
       };
-    
+
       handleClose = () => {
-        this.setState({ open: false });
+        this.setState({ snackbarShow: false });
       };
 
       submitRecords = e => {
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ smShow: true });
           console.log("select a department to add an unique record");
+        } else if (this.props.UniqueStore.uniquerecords.recordType === "") {
+          this.setState({ shown: true });
         } else {
           e.preventDefault();
 
-          console.log(this.props.DepartmentStore.selectedDepartment)
-          this.props.UniqueStore.submitRecords(this.props.DepartmentStore.selectedDepartment)
+          console.log(this.props.DepartmentStore.selectedDepartment);
+          this.props.UniqueStore.submitRecords(
+            this.props.DepartmentStore.selectedDepartment
+          );
 
           this.refs.recordtype.value = "";
           this.refs.proposedfunction.value = "Choose...";
           this.refs.proposedcategory.value = "Choose...";
           this.refs.proposedretention.value = "";
           this.refs.notes.value = "";
-          this.setState({ open: true });
-          window.scrollTo(0, 0)
+          this.setState({ snackbarShow: true });
+          window.scrollTo(0, 0);
+          this.props.UniqueStore.uniquerecords.recordType = ""
+          this.setState({ shown: false });
         }
       };
 
       render() {
         let smClose = () => this.setState({ smShow: false });
         const { UniqueStore } = this.props;
+        const shown = {
+          display: this.state.shown ? "block" : "none",
+          color: "#ff0000"
+        };
 
         return (
           <Container>
@@ -73,6 +84,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                     value={UniqueStore.recordType}
                     onChange={UniqueStore.handleChange}
                   />
+                  <span style={shown}>*Please fill out a record type</span>
                 </Form.Group>
 
                 <Form.Group style={styles.titleStyle}>
@@ -170,7 +182,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               <Modal.Footer style={{ height: 20 }}>
                 <Button
                   style={styles.modalButtonStyle}
-                  variant="outline-secondary"
+                  variant="outlined"
                   onClick={() => this.setState({ smShow: false })}
                 >
                   Close
@@ -179,9 +191,9 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
             </Modal>
 
             <Snackbar
-              open={this.state.open}
+              show={this.state.snackbarShow}
+              style={{ backgroundColor: "#4BB543" }}
               onClose={this.handleClose}
-              // TransitionComponent={this.state.Transition}
               autoHideDuration={2000}
               ContentProps={{
                 "aria-describedby": "message-id"
