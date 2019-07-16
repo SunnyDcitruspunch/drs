@@ -9,22 +9,47 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
+import Modal from "react-bootstrap/Modal";
 
 /*
-  TODO: pass data to EDIT MODAL
+  !TODO: refactor modal to material ui compnent
 */
 
-const CommonRecords = inject("RecordStore")(
+const CommonRecords = inject("RecordStore", "DepartmentStore")(
   observer(
     class CommonRecords extends Component {
       componentWillMount() {
         this.props.RecordStore.fetchRecords();
       }
 
+      state = {
+        modalShow: false,
+        selectrecord: true
+      };
+
+      onselect = () => {
+        this.setState({ selectrecord: !this.state.selectrecord })
+        console.log(this.state.selectrecord)
+      }
+
+      addRecord = e => {
+        if (this.props.DepartmentStore.selectedDepartment === "") {
+          this.setState({ modalShow: true });
+        } else {
+          this.props.RecordStore.addCommonRecord();
+        }
+      };
+
+      selectRecord(code){
+        this.props.RecordStore.getSelectedCommonRecords(code)
+        //console.log(this.props.RecordStore.selectedCommonRecords)
+      }
+
       render() {
+        let smClose = () => this.setState({ modalShow: false });
         const { RecordStore } = this.props;
         //this.props.RecordStore.allRecords.forEach(e=>console.log(e.code))
-        //console.log(this.props.RecordStore.allRecords)
+        // console.log(this.props.DepartmentStore.selectedDepartment)
 
         return (
           <Container style={styles.tableStyle}>
@@ -44,9 +69,15 @@ const CommonRecords = inject("RecordStore")(
                 <TableBody>
                   {RecordStore.allRecords.slice().map(record => {
                     return (
-                      <TableRow key={record.code} {...record}>
+                      <TableRow key={record.id} {...record}>
                         <TableCell>
-                          <Checkbox style={{ height: 6 }} />
+                          <Checkbox
+                            id={record.id}
+                            value={record.code}
+                            onClick={this.onselect}
+                            color="primary"
+                            style={{ height: 6 }}
+                          />
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
                           {record.function}
@@ -70,9 +101,30 @@ const CommonRecords = inject("RecordStore")(
               variant="outlined"
               color="primary"
               style={{ marginTop: 10, fontSize: 10 }}
+              onClick={this.addRecord}
             >
               Add selected common records
             </Button>
+
+            <Modal
+              size="sm"
+              show={this.state.modalShow}
+              onHide={smClose}
+              aria-labelledby="example-modal-sizes-title-sm"
+            >
+              <Modal.Body style={{ fontSize: 12 }}>
+                Please select a department.
+              </Modal.Body>
+              <Modal.Footer style={{ height: 20 }}>
+                <Button
+                  style={styles.modalButtonStyle}
+                  variant="outlined"
+                  onClick={() => this.setState({ modalShow: false })}
+                >
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Container>
         );
       }

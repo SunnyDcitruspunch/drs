@@ -17,10 +17,8 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import FormGroup from "@material-ui/core/FormGroup";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import Typography from "@material-ui/core/Typography";
+
 
 /* 
   TODO: able to send email to admin (but not every submission... about one email per week)

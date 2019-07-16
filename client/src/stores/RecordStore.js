@@ -2,7 +2,9 @@ import { observable, action, decorate } from "mobx";
 
 class RecordStore {
   allRecords = [];
-  pendingRecords = []
+  pendingRecords = [];
+  selectedDepartment = "";
+  selectedCommonRecords = []
 
   async fetchRecords() {
     await fetch("http://localhost:3004/commonrecords")
@@ -12,12 +14,23 @@ class RecordStore {
       .then(json => (this.allRecords = json));
   }
 
-  async fetchPendings(){
+  async fetchPendings() {
     await fetch("http://localhost:3004/records")
-    .then(response => {
-      return response.json()
-    })
-    .then(json => (this.pendingRecords = json))
+      .then(response => {
+        return response.json();
+      })
+      .then(json => (this.pendingRecords = json));
+  }
+
+  handleSelect = e => {
+   console.log('selected')
+  }
+
+  /*function: add common records to department
+    : get selecteddepartment from DepartmentStore
+  */
+  addCommonRecord() {
+    console.log("adding...");
   }
 }
 

@@ -9,6 +9,7 @@ import { inject, observer } from "mobx-react";
 import Container from "react-bootstrap/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
+import FormLabel from "@material-ui/core/FormLabel";
 
 /*
  *TODO:  clikcable table for pending records (editable table??)
@@ -28,6 +29,7 @@ const AdminTab = inject("DepartmentStore", "RecordStore")(
         return (
           <Container>
             <Paper style={styles.paperStyle}>
+              <FormLabel style={{ marginTop: 5 }}>Pending Records</FormLabel>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -46,32 +48,36 @@ const AdminTab = inject("DepartmentStore", "RecordStore")(
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {RecordStore.pendingRecords.slice()
-                  .filter(x => x.status === "Pending")
-                  .map(pendings => (
-                    <TableRow key={pendings.id}>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{ fontSize: 10}}
-                      >
-                        <Checkbox style={{ height: 1, width: 1, marginRight: 5 }} />
-                        {pendings.department}
-                      </TableCell>
-                      <TableCell style={styles.tableStyle}>
-                        {pendings.recordtype}
-                      </TableCell>
-                      <TableCell style={styles.tableStyle}>
-                        {pendings.proposedfunction}
-                      </TableCell>
-                      <TableCell style={styles.tableStyle}>
-                        {pendings.proposedcategory}
-                      </TableCell>
-                      <TableCell style={styles.tableStyle}>
-                        {pendings.notes}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {RecordStore.pendingRecords
+                    .slice()
+                    .filter(x => x.status === "Pending")
+                    .map(pendings => (
+                      <TableRow key={pendings.id}>
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{ fontSize: 10 }}
+                        >
+                          <Checkbox
+                            color="primary"
+                            style={{ height: 1, width: 1, marginRight: 5 }}
+                          />
+                          {pendings.department}
+                        </TableCell>
+                        <TableCell style={styles.tableStyle}>
+                          {pendings.recordtype}
+                        </TableCell>
+                        <TableCell style={styles.tableStyle}>
+                          {pendings.proposedfunction}
+                        </TableCell>
+                        <TableCell style={styles.tableStyle}>
+                          {pendings.proposedcategory}
+                        </TableCell>
+                        <TableCell style={styles.tableStyle}>
+                          {pendings.notes}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </Paper>
