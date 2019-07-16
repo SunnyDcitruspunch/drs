@@ -17,12 +17,12 @@
       "departmentnumber": "350",
       "department": "Marriott School",
       "code": "U5",
-      "function": "Z",
-      "recordtype": "Graduate Student Records.",
-      "description": "Retain 6 years after superseded, then destroy.",
-      "recordcategoryid": "MISC9",
+      "function": "Faculty",
+      "recordtype": "fff",
+      "description": "",
+      "recordcategoryid": "",
       "status": "Approved",
-      "notes": "They said they have no money to go to vegas :/ sad."
+      "notes": ""
     },
     {
       "id": "3",
@@ -30,11 +30,14 @@
       "department": "Computer Science",
       "code": "U1",
       "function": "Z",
-      "recordtype": "Article Requests - Submission Paperwork.",
+      "recordtype": "",
       "description": "Retain Indefinitely.",
       "recordcategoryid": "MISC20",
       "status": "Approved",
-      "notes": "let's go to vegas :)"
+      "notes": "",
+      "proposedfunction": "",
+      "proposedcategory": "",
+      "proposedretention": ""
     },
     {
       "id": "4",
@@ -42,11 +45,14 @@
       "department": "BYU Catering",
       "code": "U1",
       "function": "Legal",
-      "recordtype": "Contracts.",
+      "recordtype": "",
       "description": "Retain for current year + 6, then destroy.",
       "recordcategoryid": "LEG01",
       "status": "Approved",
-      "notes": "Asia is pretty fun too :D"
+      "notes": "",
+      "proposedfunction": "",
+      "proposedcategory": "",
+      "proposedretention": ""
     },
     {
       "recordtype": "ss",
@@ -65,52 +71,23 @@
       "id": "xepGyAS"
     },
     {
-      "recordtype": "as",
-      "department": "BYU Catering",
-      "description": "as",
-      "notes": "as",
-      "status": "Pending",
+      "recordtype": "Faculty",
+      "proposedfunction": "testtesttest",
+      "proposedcategory": "",
+      "proposedretention": "",
+      "notes": "",
       "id": "VjmoFNA"
     },
     {
-      "recordtype": "as",
+      "recordtype": "",
       "department": "BYU Catering",
       "description": "as",
-      "notes": "as",
-      "status": "Pending",
-      "id": "BD4tWTR"
-    },
-    {
-      "recordtype": "d",
-      "department": "Computer Science",
-      "description": "oioioioioioioio",
       "notes": "",
       "status": "Pending",
-      "id": "GRBj4Q6"
-    },
-    {
-      "recordtype": "sd",
-      "department": "BYU Catering",
-      "description": "sdf",
-      "notes": "sdf",
-      "status": "Pending",
-      "id": "hYsSzpP"
-    },
-    {
-      "recordtype": "sss",
-      "department": "Computer Science",
-      "description": "uhuhuhuhuhuhuhuhuhuhuh",
-      "notes": "",
-      "status": "Pending",
-      "id": "nO5MIH8"
-    },
-    {
-      "recordtype": "sss",
-      "department": "BYU Catering",
-      "description": "",
-      "notes": "",
-      "status": "Pending",
-      "id": "mT7AQ5A"
+      "id": "BD4tWTR",
+      "proposedfunction": "RECORD TYPE",
+      "proposedcategory": "",
+      "proposedretention": ""
     },
     {
       "recordtype": "asdfasdfasdf",
@@ -121,19 +98,12 @@
       "id": "uLc8Dwp"
     },
     {
-      "recordtype": "sss",
-      "department": "Marriott School",
-      "description": "ssasdfa",
-      "notes": "qqqq",
-      "status": "Pending",
-      "id": "xu2igK2"
-    },
-    {
-      "recordtype": "asdfasdfasdf",
+      "recordtype": "",
       "department": "Computer Science",
-      "description": "sdsfasdfasdfva ssssss",
+      "proposedfunction": "testtest501",
+      "proposedcategory": "",
+      "proposedretention": "",
       "notes": "",
-      "status": "Pending",
       "id": "Gj09_Jt"
     }
   ],

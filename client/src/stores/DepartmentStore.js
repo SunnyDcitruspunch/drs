@@ -1,12 +1,24 @@
 import { observable, decorate, action } from "mobx";
 
+/*
+!TODO: DOUBLE CHECK PATCH METHOD
+*/
 class DepartmentStore {
   selectedDepartment = "";
   allDepartments = [];
-  allRecords = []
+  allRecords = [];
   isLoading = false;
   deleteID = "";
-  editRecord = ""
+  editRecordid = "";
+  editDepartment = ""
+
+  editrecord = {
+    editfunction: "",
+    editrecordtype: "",
+    editdescription: "",
+    editrecordcategoryid: "",
+    editnotes: ""
+  };
 
   handleSelected = e => {
     const { value } = e.target;
@@ -32,13 +44,51 @@ class DepartmentStore {
       .then(json => (this.allRecords = json));
   }
 
-  //delete from departments array
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
     let options = { method: "DELETE" };
     return fetch(`${baseUrl}/${this.deleteID}`, options).then(response =>
       response.json()
     );
+  }
+
+  handleChange = e => {
+    const { id, value } = e.target;
+    this.editrecord[id] = value;
+    console.log(this.editrecord.editrecordtype);
+  };
+
+  updateEditID(id) {
+    console.log(id);
+    this.editRecordid = id;
+    console.log(this.editRecordid);
+  }
+
+  updateDepartment(dept){
+    this.editDepartment = dept
+  }
+
+  //PUT request
+  async updateRecord() {
+    console.log(this.editRecordid);
+    const baseUrl = "http://localhost:3004/records";
+    await fetch(`${baseUrl}/${this.editRecordid}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        recordtype: this.editrecord.editrecordtype,
+        department: this.editDepartment,
+        function: this.editrecord.editfunction,
+        recordcategoryid: this.editrecord.editdescription,
+        description: this.editrecord.editrecordcategoryid,
+        notes: this.editrecord.editnotes
+      })
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
   }
 }
 

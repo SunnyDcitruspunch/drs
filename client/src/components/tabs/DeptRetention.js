@@ -44,10 +44,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.props.DepartmentStore.fetchAllRecords();
       }
 
-      showEditModal(id) {
+      showEditModal(pid, dept) {
         this.setState({ formShow: true });
-        this.props.DepartmentStore.editRecord = id;
-        //console.log(this.props.DepartmentStore.editRecord)
+        this.props.DepartmentStore.updateEditID(pid)
+        this.props.DepartmentStore.updateDepartment(dept)
+        console.log(dept)
       }
 
       //html2canvas + jsPDF
@@ -90,9 +91,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         window.scrollTo(0, 0);
       }
 
-      editRecord(id) {
+      editRecord() {
         this.setState({ formShow: false });
-        console.log(id);
+        this.props.DepartmentStore.updateRecord();
+        window.location.reload()
       }
 
       render() {
@@ -147,7 +149,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           <TableCell style={{ width: 100 }}>
                             <CreateOutlinedIcon
                               name="edit"
-                              onClick={() => this.showEditModal(postDetail.id)}
+                              onClick={() => this.showEditModal(postDetail.id, postDetail.department)}
                               variant="outline-warning"
                               style={styles.buttonStyle}
                             />
@@ -193,20 +195,26 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   Edit
                 </Modal.Title>
               </Modal.Header>
+              {/* 
+              ! TODO: change default value to place holder
+                change record type textfield style 
+                pass data to edit record object in store 
+                clean unnecessary code this 
+            */}
               <Modal.Body>
                 {this.props.DepartmentStore.allRecords
                   .slice()
-                  .filter(x => x.id === DepartmentStore.editRecord)
+                  .filter(x => x.id === DepartmentStore.editRecordid)
                   .map((postDetail, index) => {
                     return (
                       <Form style={styles.modalFormStyle} key={index}>
                         <FormGroup>
                           <TextField
-                            id="filled-name"
+                            id="editrecordtype"
                             label="Record Type"
-                            value={postDetail.recordtype}
+                            placeholder={postDetail.recordtype}
                             variant="outlined"
-                            // onChange={handleChange("name")}
+                            onChange={DepartmentStore.handleChange}
                             margin="normal"
                             style={{ height: 10, fontSize: 8 }}
                           />
@@ -216,12 +224,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           <Form.Control
                             as="select"
                             type="text"
-                            id="proposedFunction"
+                            id="editfunction"
                             ref="proposedfunction"
                             style={styles.modalInputStyle}
-                            value={postDetail.function}
-                            onChange={this.props.UniqueStore.handleChange}
+                            onChange={DepartmentStore.handleChange}
                           >
+                            <option>{postDetail.function}</option>
                             {this.props.UniqueStore.functionsDropdown
                               .slice()
                               .map(func => (
@@ -235,11 +243,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           <Form.Label>Record Category</Form.Label>
                           <Form.Control
                             as="select"
-                            id="proposedCategory"
+                            id="editrecordcategoryid"
                             ref="proposedcategory"
                             style={styles.modalInputStyle}
-                            value={postDetail.recordcategoryid}
-                            onChange={this.props.UniqueStore.handleChange}
+                            onChange={DepartmentStore.handleChange}
+                            placeholder={postDetail.recordcategoryid}
                           >
                             {this.props.UniqueStore.categoryDropdown
                               .slice()
@@ -252,9 +260,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                         </FormGroup>
                         <FormGroup>
                           <TextField
-                            id="outlined-full-width"
+                            id="editdescription"
                             label="Retention Description"
-                            value={postDetail.description}
+                            placeholder={postDetail.description}
                             fullWidth
                             margin="normal"
                             variant="outlined"
@@ -262,9 +270,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                         </FormGroup>
                         <FormGroup>
                           <TextField
-                            id="outlined-full-width"
+                            id="editnotes"
                             label="Notes"
-                            value={postDetail.notes}
+                            placeholder={postDetail.notes}
                             fullWidth
                             margin="normal"
                             variant="outlined"
@@ -288,7 +296,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   style={styles.modalButtonStyle}
                   variant="outlined"
                   color="primary"
-                  onClick={() => this.editRecord(DepartmentStore.editRecord)}
+                  onClick={() => this.editRecord()}
                 >
                   Save Changes
                 </Button>

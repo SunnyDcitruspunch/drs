@@ -41,22 +41,6 @@ class UniqueStore {
   };
 
   async submitRecords(selecteddepartment) {    
-    // fetch("http://localhost:3004/pendingrecords", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     recordtype: this.uniquerecords.recordType,
-    //     department: selecteddepartment,
-    //     proposedfunction: this.uniquerecords.proposedFunction,
-    //     proposedcategory: this.uniquerecords.proposedCategory,
-    //     proposedretention: this.uniquerecords.proposedRetention,
-    //     notes: this.uniquerecords.Comment
-    //   })
-    // });
-
     /*post to drs: record type, retention schedule, nots, actions, status
       can pending records be deleted or edit? */
       fetch("http://localhost:3004/records", {
