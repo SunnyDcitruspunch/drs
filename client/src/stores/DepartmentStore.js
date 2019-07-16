@@ -10,7 +10,7 @@ class DepartmentStore {
   isLoading = false;
   deleteID = "";
   editRecordid = "";
-  editDepartment = ""
+  editDepartment = "";
 
   editrecord = {
     editfunction: "",
@@ -58,17 +58,18 @@ class DepartmentStore {
     console.log(this.editrecord.editrecordtype);
   };
 
-  updateEditID(id) {
-    console.log(id);
+  updateEditID(id, rdept, rtype, rfunction, rcategory, rdesc, rnotes) {
     this.editRecordid = id;
-    console.log(this.editRecordid);
+    this.editDepartment = rdept
+    this.editrecord.editrecordtype = rtype;
+    this.editrecord.editfunction = rfunction;
+    this.editrecord.editdescription = rdesc;
+    this.editrecord.editrecordcategoryid = rcategory;
+    this.editrecord.editnotes = rnotes;
   }
 
-  updateDepartment(dept){
-    this.editDepartment = dept
-  }
 
-  //PUT request
+  //PATCH request
   async updateRecord() {
     console.log(this.editRecordid);
     const baseUrl = "http://localhost:3004/records";

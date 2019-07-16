@@ -17,27 +17,24 @@
       "departmentnumber": "350",
       "department": "Marriott School",
       "code": "U5",
-      "function": "Faculty",
-      "recordtype": "fff",
-      "description": "",
-      "recordcategoryid": "",
+      "function": "Human Resources",
+      "recordtype": "Marriott School student list",
+      "description": "STU19",
+      "recordcategoryid": "a description.",
       "status": "Approved",
-      "notes": ""
+      "notes": "a note."
     },
     {
       "id": "3",
       "departmentnumber": "118",
       "department": "Computer Science",
       "code": "U1",
-      "function": "Z",
-      "recordtype": "",
-      "description": "Retain Indefinitely.",
+      "function": "Faculty",
+      "recordtype": "Computer Science info",
+      "description": "common",
       "recordcategoryid": "MISC20",
       "status": "Approved",
-      "notes": "",
-      "proposedfunction": "",
-      "proposedcategory": "",
-      "proposedretention": ""
+      "notes": ""
     },
     {
       "id": "4",
@@ -45,14 +42,11 @@
       "department": "BYU Catering",
       "code": "U1",
       "function": "Legal",
-      "recordtype": "",
+      "recordtype": "type",
       "description": "Retain for current year + 6, then destroy.",
       "recordcategoryid": "LEG01",
       "status": "Approved",
-      "notes": "",
-      "proposedfunction": "",
-      "proposedcategory": "",
-      "proposedretention": ""
+      "notes": ""
     },
     {
       "recordtype": "ss",
@@ -60,7 +54,11 @@
       "description": "ss",
       "notes": "ss",
       "status": "Pending",
-      "id": "g4YIQsD"
+      "id": "g4YIQsD",
+      "code": "U2",
+      "function": "Legal",
+      "recordcategoryid": "LEG01",
+      "departmentnumber": "800"
     },
     {
       "recordtype": "Record",
@@ -68,43 +66,57 @@
       "description": "ss",
       "notes": "ss",
       "status": "Pending",
-      "id": "xepGyAS"
+      "function": "Legal",
+      "id": "xepGyAS",
+      "departmentnumber": "393",
+      "code": "U2"
     },
     {
+      "code": "U3",
       "recordtype": "Faculty",
-      "proposedfunction": "testtesttest",
-      "proposedcategory": "",
-      "proposedretention": "",
+      "recordcategoryid": "",
+      "description": "importand record",
       "notes": "",
-      "id": "VjmoFNA"
+      "id": "VjmoFNA",
+      "departmentnumber": "233",
+      "function": "Legal",
+      "status": "Approved"
     },
     {
-      "recordtype": "",
-      "department": "BYU Catering",
-      "description": "as",
+      "recordtype": "Catering type",
+      "department": "",
+      "departmentnumber": "232",
+      "description": "",
       "notes": "",
       "status": "Pending",
       "id": "BD4tWTR",
-      "proposedfunction": "RECORD TYPE",
-      "proposedcategory": "",
-      "proposedretention": ""
+      "function": "Miscellaneous",
+      "recordcategoryid": "",
+      "retention": "",
+      "code": "U2"
     },
     {
-      "recordtype": "asdfasdfasdf",
+      "recordtype": "Catering information data",
       "department": "BYU Catering",
-      "description": "asdfasdf",
-      "notes": "asdfasdf",
+      "description": "this record is for BYU catering",
+      "notes": "notes",
       "status": "Pending",
-      "id": "uLc8Dwp"
+      "id": "uLc8Dwp",
+      "recordcategoryid": "",
+      "code": "U2",
+      "departmentnumber": "909",
+      "function": "Athletics"
     },
     {
-      "recordtype": "",
+      "recordtype": "Computer Science information",
       "department": "Computer Science",
-      "proposedfunction": "testtest501",
-      "proposedcategory": "",
-      "proposedretention": "",
+      "recordcategoryid": "",
       "notes": "",
-      "id": "Gj09_Jt"
+      "id": "Gj09_Jt",
+      "code": "U2",
+      "departmentnumber": "983",
+      "function": "Finance",
+      "description": "MISC9"
     }
   ],
   "functions": [

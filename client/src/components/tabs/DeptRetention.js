@@ -44,11 +44,27 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.props.DepartmentStore.fetchAllRecords();
       }
 
-      showEditModal(pid, dept) {
+      showEditModal(
+        pid,
+        dept,
+        drecordtype,
+        dfunction,
+        dcategory,
+        ddesc,
+        dnotes
+      ) {
         this.setState({ formShow: true });
-        this.props.DepartmentStore.updateEditID(pid)
-        this.props.DepartmentStore.updateDepartment(dept)
-        console.log(dept)
+        this.props.DepartmentStore.updateEditID(
+          pid,
+          dept,
+          drecordtype,
+          dfunction,
+          dcategory,
+          ddesc,
+          dnotes
+        );
+        // this.props.DepartmentStore.updateDepartment(dept);
+        console.log(this.props.DepartmentStore.editRecordid);
       }
 
       //html2canvas + jsPDF
@@ -94,7 +110,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       editRecord() {
         this.setState({ formShow: false });
         this.props.DepartmentStore.updateRecord();
-        window.location.reload()
+        window.location.reload();
       }
 
       render() {
@@ -149,7 +165,17 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           <TableCell style={{ width: 100 }}>
                             <CreateOutlinedIcon
                               name="edit"
-                              onClick={() => this.showEditModal(postDetail.id, postDetail.department)}
+                              onClick={() =>
+                                this.showEditModal(
+                                  postDetail.id,
+                                  postDetail.department,
+                                  postDetail.recordtype,
+                                  postDetail.function,
+                                  postDetail.recordcategoryid,
+                                  postDetail.description,
+                                  postDetail.notes
+                                )
+                              }
                               variant="outline-warning"
                               style={styles.buttonStyle}
                             />
@@ -192,19 +218,13 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   id="example-modal-sizes-title-sm"
                   style={{ fontSize: 16 }}
                 >
-                  Edit
+                  Edit: {DepartmentStore.editDepartment}
                 </Modal.Title>
               </Modal.Header>
-              {/* 
-              ! TODO: change default value to place holder
-                change record type textfield style 
-                pass data to edit record object in store 
-                clean unnecessary code this 
-            */}
               <Modal.Body>
                 {this.props.DepartmentStore.allRecords
                   .slice()
-                  .filter(x => x.id === DepartmentStore.editRecordid)
+                  .filter(x => x.id === this.props.DepartmentStore.editRecordid)
                   .map((postDetail, index) => {
                     return (
                       <Form style={styles.modalFormStyle} key={index}>
@@ -263,6 +283,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             id="editdescription"
                             label="Retention Description"
                             placeholder={postDetail.description}
+                            onChange={DepartmentStore.handleChange}
                             fullWidth
                             margin="normal"
                             variant="outlined"
@@ -273,6 +294,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             id="editnotes"
                             label="Notes"
                             placeholder={postDetail.notes}
+                            onChange={DepartmentStore.handleChange}
                             fullWidth
                             margin="normal"
                             variant="outlined"
