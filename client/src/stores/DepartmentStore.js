@@ -60,14 +60,13 @@ class DepartmentStore {
 
   updateEditID(id, rdept, rtype, rfunction, rcategory, rdesc, rnotes) {
     this.editRecordid = id;
-    this.editDepartment = rdept
+    this.editDepartment = rdept;
     this.editrecord.editrecordtype = rtype;
     this.editrecord.editfunction = rfunction;
     this.editrecord.editdescription = rdesc;
     this.editrecord.editrecordcategoryid = rcategory;
     this.editrecord.editnotes = rnotes;
   }
-
 
   //PATCH request
   async updateRecord() {
@@ -83,8 +82,8 @@ class DepartmentStore {
         recordtype: this.editrecord.editrecordtype,
         department: this.editDepartment,
         function: this.editrecord.editfunction,
-        recordcategoryid: this.editrecord.editdescription,
-        description: this.editrecord.editrecordcategoryid,
+        recordcategoryid: this.editrecord.editrecordcategoryid,
+        description: this.editrecord.editdescription,
         notes: this.editrecord.editnotes
       })
     })

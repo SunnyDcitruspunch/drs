@@ -17,12 +17,12 @@
       "departmentnumber": "350",
       "department": "Marriott School",
       "code": "U5",
-      "function": "Human Resources",
-      "recordtype": "Marriott School student list",
-      "description": "STU19",
-      "recordcategoryid": "a description.",
+      "function": "Finance",
+      "recordtype": "a marriot school type",
+      "description": "2 retention.",
+      "recordcategoryid": "",
       "status": "Approved",
-      "notes": "a note."
+      "notes": "2 notes"
     },
     {
       "id": "3",
