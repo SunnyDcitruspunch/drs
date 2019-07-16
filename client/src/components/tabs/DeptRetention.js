@@ -18,10 +18,12 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import Typography from "@material-ui/core/Typography";
 
 /* 
   TODO: able to send email to admin (but not every submission... about one email per week)
-  !TODO: refresh after delete (but stay in the same department?)
   !TODO: edit modal dropdownlist default value
   TODO: snackbar after edit/ delete/ submission
   * TODO: change button colors
@@ -103,13 +105,14 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.setState({ smShow: false });
         console.log("ready to delete");
         this.props.DepartmentStore.deleteRecord();
-        window.location.reload();
         window.scrollTo(0, 0);
+        window.location.reload();
       }
 
       editRecord() {
         this.setState({ formShow: false });
         this.props.DepartmentStore.updateRecord();
+        window.scrollTo(0, 0);
         window.location.reload();
       }
 
@@ -227,20 +230,24 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   .filter(x => x.id === this.props.DepartmentStore.editRecordid)
                   .map((postDetail, index) => {
                     return (
-                      <Form style={styles.modalFormStyle} key={index}>
+                      <Form key={index}>
                         <FormGroup>
-                          <TextField
+                          <FormLabel style={{ fontSize: 10 }}>
+                            Record Type
+                          </FormLabel>
+                          <input
                             id="editrecordtype"
-                            label="Record Type"
-                            placeholder={postDetail.recordtype}
+                            defaultValue={postDetail.recordtype}
                             variant="outlined"
                             onChange={DepartmentStore.handleChange}
                             margin="normal"
-                            style={{ height: 10, fontSize: 8 }}
+                            style={styles.customInputStyle}
                           />
                         </FormGroup>
-                        <Form.Group style={{ marginTop: 50 }}>
-                          <Form.Label>Function</Form.Label>
+                        <FormGroup style={{ marginTop: 10 }}>
+                          <FormLabel style={{ fontSize: 10 }}>
+                            Function
+                          </FormLabel>
                           <Form.Control
                             as="select"
                             type="text"
@@ -258,16 +265,18 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                                 </option>
                               ))}
                           </Form.Control>
-                        </Form.Group>
-                        <FormGroup>
-                          <Form.Label>Record Category</Form.Label>
+                        </FormGroup>
+                        <FormGroup style={{ marginTop: 10 }}>
+                          <FormLabel style={{ fontSize: 10 }}>
+                            Record Category
+                          </FormLabel>
                           <Form.Control
                             as="select"
                             id="editrecordcategoryid"
                             ref="proposedcategory"
                             style={styles.modalInputStyle}
                             onChange={DepartmentStore.handleChange}
-                            placeholder={postDetail.recordcategoryid}
+                            defaultValue={postDetail.recordcategoryid}
                           >
                             {this.props.UniqueStore.categoryDropdown
                               .slice()
@@ -278,27 +287,28 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                               ))}
                           </Form.Control>
                         </FormGroup>
-                        <FormGroup>
-                          <TextField
+                        <FormGroup style={{ marginTop: 10 }}>
+                          <FormLabel style={{ fontSize: 10 }}>
+                            Retention Description
+                          </FormLabel>
+                          <input
                             id="editdescription"
-                            label="Retention Description"
-                            placeholder={postDetail.description}
+                            defaultValue={postDetail.description}
                             onChange={DepartmentStore.handleChange}
-                            fullWidth
                             margin="normal"
                             variant="outlined"
+                            style={styles.customInputStyle}
                           />
                         </FormGroup>
-                        <FormGroup>
-                          <TextField
+                        <FormGroup style={{ marginTop: 10 }}>
+                          <FormLabel style={{ fontSize: 10 }}>Notes</FormLabel>
+                          <input
                             id="editnotes"
-                            label="Notes"
-                            placeholder={postDetail.notes}
+                            defaultValue={postDetail.notes}
                             onChange={DepartmentStore.handleChange}
-                            fullWidth
                             margin="normal"
                             variant="outlined"
-                            style={{ fontSize: 10 }}
+                            style={styles.customInputStyle}
                           />
                         </FormGroup>
                       </Form>
@@ -413,7 +423,6 @@ const styles = {
     fontSize: 10
   },
   modalInputStyle: {
-    height: 30,
     fontSize: 10
   },
   tableFontStyle: {
@@ -434,5 +443,11 @@ const styles = {
   paperStyle: {
     width: "100%",
     overflowX: "auto"
+  },
+  customInputStyle: {
+    borderRadius: 5,
+    fontSize: 10,
+    padding: 6,
+    border: "Gainsboro solid 1px"
   }
 };
