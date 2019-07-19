@@ -94,11 +94,16 @@ class DepartmentStore {
 
 decorate(DepartmentStore, {
   selectedDepartment: observable,
+  editrecord: observable,
   allDepartments: observable,
   isLoading: observable,
+  handleChange: action,
   handleSelected: action,
   fetchAll: action,
-  deleteRecord: action
-});
+  deleteRecord: action,
+  updateRecord: action,
+  updateEditID: action,
+  fetchAllRecords: action
+};
 
 export default new DepartmentStore();

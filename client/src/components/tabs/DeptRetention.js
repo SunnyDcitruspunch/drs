@@ -19,7 +19,6 @@ import jsPDF from "jspdf";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormLabel from "@material-ui/core/FormLabel";
 
-
 /* 
   TODO: able to send email to admin (but not every submission... about one email per week)
   !TODO: edit modal dropdownlist default value
@@ -42,6 +41,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       componentWillMount() {
         this.props.DepartmentStore.fetchAllRecords();
+        window.scrollTo(0, 0);
       }
 
       showEditModal(
@@ -137,9 +137,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 >
                   Download as PDF
                 </Button>
-                <Button variant="outline-primary" style={{ fontSize: 12 }}>
-                  Email this page
-                </Button>
               </ButtonGroup>
             </Col>
             <br />
@@ -160,9 +157,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   {this.props.DepartmentStore.allRecords
                     .slice()
                     .filter(x => x.department === department)
-                    .map((postDetail, index) => {
+                    .map((postDetail) => {
                       return (
-                        <TableRow key={index}>
+                        <TableRow key={postDetail.id}>
                           <TableCell style={{ width: 100 }}>
                             <CreateOutlinedIcon
                               name="edit"

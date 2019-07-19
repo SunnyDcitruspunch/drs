@@ -9,10 +9,6 @@ import Modal from "react-bootstrap/Modal";
 import Snackbar from "@material-ui/core/Snackbar";
 import { Link } from "react-router-dom";
 
-/*
-  TODO:  REFRESH WEBSITE AFTER SUBMISSION
- */
-
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
     class AddUniqueRecords extends Component {

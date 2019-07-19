@@ -1,10 +1,9 @@
 import { observable, action, decorate } from "mobx";
 
-
 class UniqueStore {
   uniquerecords = {
     recordType: "",
-    department:"",
+    department: "",
     proposedFunction: "",
     proposedCategory: "",
     proposedRetention: "",
@@ -35,34 +34,28 @@ class UniqueStore {
       .then(json => (this.categoryDropdown = json));
   }
 
-  handleChange = e => {
-    const { id, value } = e.target;
-    this.uniquerecords[id] = value;
-  };
-
-  async submitRecords(selecteddepartment) {    
+  async submitRecords(selecteddepartment) {
     /*post to drs: record type, retention schedule, nots, actions, status
       can pending records be deleted or edit? */
-      fetch("http://localhost:3004/records", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          recordtype: this.uniquerecords.recordType,
-          department: selecteddepartment,
-          description: this.uniquerecords.proposedRetention,
-          notes: this.uniquerecords.Comment,
-          status: "Pending"
-        })
-      });
-    
-
+    fetch("http://localhost:3004/records", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        recordtype: this.uniquerecords.recordType,
+        department: selecteddepartment,
+        description: this.uniquerecords.proposedRetention,
+        notes: this.uniquerecords.Comment,
+        status: "Pending"
+      })
+    });
   }
 }
 
 decorate(UniqueStore, {
+  uniquerecords: observable,
   recordType: observable,
   proposedFunction: observable,
   proposedCategory: observable,

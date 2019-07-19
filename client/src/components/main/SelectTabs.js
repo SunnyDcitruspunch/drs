@@ -49,7 +49,7 @@ export default function FullWidthTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" style={{height: 48}}>
+      <AppBar position="static" color="default" style={{ height: 48 }}>
         <Tabs
           value={value}
           onChange={handleChange}
