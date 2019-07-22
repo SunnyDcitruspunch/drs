@@ -3,7 +3,22 @@ import { observable, decorate, action } from "mobx";
 /*
 !TODO: DOUBLE CHECK PATCH METHOD
 */
-class DepartmentStore {
+
+interface Ieditrecord {
+  editfunction: string;
+  editrecordtype: string;
+  editdescription: string;
+  editrecordcategoryid: string;
+  editnotes: string;
+}
+
+interface IallDepartments {
+
+}
+
+export class DepartmentStore {
+  constructor(public test: string) {}
+
   selectedDepartment = "";
   allDepartments = [];
   allRecords = [];
@@ -104,6 +119,6 @@ decorate(DepartmentStore, {
   updateRecord: action,
   updateEditID: action,
   fetchAllRecords: action
-};
+});
 
-export default new DepartmentStore();
+//export const DepartmentStore =  new DepartmentStore();

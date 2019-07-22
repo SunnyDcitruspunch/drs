@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
     class AddUniqueRecords extends Component {
-      componentWillMount() {
+      UNSAFE_componentWillMount() {
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
       }

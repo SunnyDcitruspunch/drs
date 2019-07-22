@@ -39,7 +39,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         };
       }
 
-      componentWillMount() {
+      UNSAFE_componentWillMount() {
         this.props.DepartmentStore.fetchAllRecords();
         window.scrollTo(0, 0);
       }

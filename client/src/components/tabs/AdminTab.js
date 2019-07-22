@@ -18,7 +18,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 const AdminTab = inject("DepartmentStore", "RecordStore")(
   observer(
     class AdminTab extends Component {
-      componentWillMount() {
+      UNSAFE_componentWillMount() {
         this.props.RecordStore.fetchPendings();
       }
 

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import * as React from "react";
 import Navbar from "react-bootstrap/Navbar";
 
-class Nav extends Component {
+export class Nav extends React.Component {
   render() {
     return (
       <Navbar bg="light" style={{height: 28}}>
@@ -11,4 +11,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+// export default Nav;

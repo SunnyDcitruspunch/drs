@@ -1,17 +1,20 @@
-import React, { Component } from "react";
+import * as React from "react";
 import Button from "react-bootstrap/Button";
 
-class DeleteButton extends Component {
+export interface IDeleteButtonState {
+  smShow: boolean;
+}
+
+export class DeleteButton extends React.Component<IDeleteButtonState> {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      smShow: false
-    };
   }
 
-  render() {
+  state: IDeleteButtonState = {
+    smShow: false
+  };
 
+  render() {
     return (
       <Button
         onClick={() => this.setState({ smShow: true })}
@@ -24,7 +27,7 @@ class DeleteButton extends Component {
   }
 }
 
-export default DeleteButton;
+//export default DeleteButton;
 
 const styles = {
   buttonStyle: {

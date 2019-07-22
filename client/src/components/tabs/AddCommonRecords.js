@@ -32,7 +32,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         this.onSelect = this.onSelect.bind(this);
       }
 
-      componentWillMount() {
+      UNSAFE_componentWillMount() {
         this.props.RecordStore.fetchRecords();
       }
 

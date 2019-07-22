@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import * as React from "react";
 import Button from "react-bootstrap/Button";
 
-class EditButton extends Component {
+export class EditButton extends React.Component {
   render() {
     return <Button variant="outline-warning" style={ styles.buttonStyle }>Edit</Button>;
   }
 }
 
-export default EditButton;
+//export default EditButton;
 
 const styles = {
   buttonStyle: {

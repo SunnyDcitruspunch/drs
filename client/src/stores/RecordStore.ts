@@ -1,7 +1,6 @@
 import { observable, action, decorate } from "mobx";
-import { thisExpression } from "@babel/types";
 
-class RecordStore {
+export class RecordStore {
   allRecords = [];
   allrecordsforSelections = "";
   pendingRecords = [];
@@ -102,4 +101,4 @@ decorate(RecordStore, {
   editArchival: observable
 });
 
-export default new RecordStore();
+// export default new RecordStore();

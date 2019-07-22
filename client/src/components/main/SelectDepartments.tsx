@@ -1,22 +1,30 @@
-import React, { Component } from "react";
+import * as React from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import { inject, observer } from "mobx-react";
+import { DepartmentStore } from "../../stores/DepartmentStore";
+import { Redirect } from "react-router";
 
 /*
   !TODO: how to filter duplicate JSON objects?
 */
 
+interface IProps {
+  text: string;
+  DepartmentStore: DepartmentStore;
+  history: string;
+}
+
 const SelectDepartment = inject("DepartmentStore")(
   observer(
-    class SelectDepartment extends Component {
-      componentWillMount() {
+    class SelectDepartment extends React.Component<IProps> {
+      UNSAFE_componentWillMount() {
         this.props.DepartmentStore.fetchAll();
       }
 
-      onChange = e => {
-        this.props.history.push(`/DeptRetention`);
+      onChange = (e: React.FormEvent<HTMLInputElement>) => {
+        <Redirect to="/DeptRetention" />;
       };
 
       render() {
