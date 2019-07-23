@@ -15,7 +15,7 @@ import FormLabel from "@material-ui/core/FormLabel";
  *TODO:  clikcable table for pending records (editable table??)
  !TODO: change data to pending records
  */
-const AdminTab = inject("DepartmentStore", "RecordStore")(
+const AdminTab = inject("RecordStore")(
   observer(
     class AdminTab extends Component {
       UNSAFE_componentWillMount() {
@@ -28,7 +28,7 @@ const AdminTab = inject("DepartmentStore", "RecordStore")(
 
         return (
           <Container>
-            <Paper style={styles.paperStyle}>
+            <Paper style={{ width: "100%", overflowX: "auto" }}>
               <FormLabel style={{ marginTop: 5 }}>Pending Records</FormLabel>
               <Table>
                 <TableHead>
@@ -50,8 +50,8 @@ const AdminTab = inject("DepartmentStore", "RecordStore")(
                 <TableBody>
                   {RecordStore.pendingRecords
                     .slice()
-                    .filter(x => x.status === "Pending")
-                    .map(pendings => (
+                    .filter((x) => x.status === "Pending")
+                    .map((pendings) => (
                       <TableRow key={pendings.id}>
                         <TableCell
                           component="th"
@@ -100,9 +100,5 @@ export default AdminTab;
 const styles = {
   tableStyle: {
     fontSize: 10
-  },
-  paperStyle: {
-    width: "100%",
-    overflowX: "auto"
   }
 };

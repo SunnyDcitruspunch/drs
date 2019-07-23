@@ -5,8 +5,8 @@ export interface IDeleteButtonState {
   smShow: boolean;
 }
 
-export class DeleteButton extends React.Component<IDeleteButtonState> {
-  constructor(props, context) {
+export class DeleteButton extends React.Component<{}, IDeleteButtonState> {
+  constructor(props: {}, context:{}) {
     super(props, context);
   }
 

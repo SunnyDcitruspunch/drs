@@ -129,95 +129,50 @@
       "archival": "Yes"
     },
     {
-      "0": {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      },
-      "id": "qkGYiPA"
+      "id": "3",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes"
     },
-    [
-      {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      }
-    ],
     {
-      "0": {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      },
-      "id": "k_0xrj-"
+      "id": "3",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes"
     },
-    [
-      {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      }
-    ],
-    [
-      {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      }
-    ],
-    [
-      {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      }
-    ],
-    [
-      {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      }
-    ],
     {
-      "0": {
-        "id": "3",
-        "code": "CACD1000",
-        "function": "Academic",
-        "recordcategoryid": "common",
-        "recordtype": "Academic unit reviews / educational support unit reviews.",
-        "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-        "archival": "Yes"
-      },
-      "id": "eTTce58"
+      "id": "3",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes"
+    },
+    {
+      "id": "3",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes"
+    },
+
+    {
+      "id": "3",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes"
     }
   ],
   "functions": [

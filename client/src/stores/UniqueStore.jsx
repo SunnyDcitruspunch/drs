@@ -1,5 +1,18 @@
 import { observable, action, decorate } from "mobx";
 
+// export interface IUniqueRecords {
+//   recordType: string
+//   department: string
+//   proposedFunction: string
+//   proposedCategory: string
+//   proposedRetention: string
+//   Comment: string
+// }
+
+// export interface IUniqueStore {
+//   uniquerecords: IUniqueRecords
+// }
+
 class UniqueStore {
   uniquerecords = {
     recordType: "",
@@ -11,11 +24,11 @@ class UniqueStore {
   };
   functionsDropdown = [];
   categoryDropdown = [];
-  //do we need repository options for users?
 
-  handleChange = e => {
-    const { id, value } = e.target;
-    this.uniqueRecords[id] = value;
+  handleChange = (e) => {
+    const id = e.target;
+    const value = e.target
+    this.uniquerecords[id] = value;
   };
 
   async fetchFunctions() {
@@ -56,11 +69,11 @@ class UniqueStore {
 
 decorate(UniqueStore, {
   uniquerecords: observable,
-  recordType: observable,
-  proposedFunction: observable,
-  proposedCategory: observable,
-  proposedRetention: observable,
-  Comment: observable,
+  // recordType: observable,
+  // proposedFunction: observable,
+  // proposedCategory: observable,
+  // proposedRetention: observable,
+  // Comment: observable,
   functionsDropdown: observable,
   categoryDropdown: observable,
   handleChange: action,

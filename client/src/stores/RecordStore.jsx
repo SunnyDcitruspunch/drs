@@ -1,6 +1,24 @@
 import { observable, action, decorate } from "mobx";
 
-export class RecordStore {
+// interface IEditCommonRecords {
+//   editID: string;
+//   editCode: string;
+//   editFunction: string;
+//   editCategory: string;
+//   editType: string;
+//   editDescription: string;
+//   editArchival: string;
+// }
+
+// interface IRecords {
+//   allRecords: Array<any>;
+//   allrecordsforSelections: string;
+//   pendingRecords: Array<any>;
+//   selectedDepartment: string;
+//   selectedCommonRecords: Array<any>;
+// }
+
+class RecordStore {
   allRecords = [];
   allrecordsforSelections = "";
   pendingRecords = [];
@@ -39,10 +57,10 @@ export class RecordStore {
     console.log(this.selectedCommonRecords);
 
     await this.selectedCommonRecords.map(record => {
-      console.log(
-        ...this.allRecords.filter(x => x.id === record),
-        ...this.allrecordsforSelections.filter(x => x.id === record)
-      );
+      // console.log(
+      //   ...this.allRecords.filter((x: any) => x.id === record),
+      //   ...this.allrecordsforSelections.filter((x: any) => x.id === record)
+      // );
       fetch("http://localhost:3004/records", {
         method: "POST",
         headers: {
@@ -50,7 +68,7 @@ export class RecordStore {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          ...this.allrecordsforSelections.filter(x => x.id === record)
+          //...this.allrecordsforSelections.filter((x: any) => x.id === record)
         })
       });
     });
@@ -74,8 +92,9 @@ export class RecordStore {
     this.editcommonrecords.editArchival = carchival;
   }
 
-  handleChange = e => {
-    const { id, value } = e.target;
+  handleChange = (e) => {
+    const id = e.target;
+    const value = e.target;
     this.editcommonrecords[id] = value;
   };
 
@@ -85,20 +104,20 @@ export class RecordStore {
 }
 
 decorate(RecordStore, {
+  allRecords: observable,
+  pendingRecords: observable,
+  // editID: observable,
+  // editCode: observable,
+  // editFunction: observable,
+  // editType: observable,
+  // editDescription: observable,
+  // editArchival: observable,
   fetchRecords: action,
   fetchPendings: action,
   handleChange: action,
   updateRecord: action,
   getEditRecord: action,
-  addCommonRecord: action,
-  allRecords: observable,
-  pendingRecords: observable,
-  editID: observable,
-  editCode: observable,
-  editFunction: observable,
-  editType: observable,
-  editDescription: observable,
-  editArchival: observable
+  addCommonRecord: action
 });
 
-// export default new RecordStore();
+export default new RecordStore();

@@ -4,23 +4,40 @@ import { observable, decorate, action } from "mobx";
 !TODO: DOUBLE CHECK PATCH METHOD
 */
 
-interface Ieditrecord {
-  editfunction: string;
-  editrecordtype: string;
-  editdescription: string;
-  editrecordcategoryid: string;
-  editnotes: string;
-}
+// interface IDepartment {
+//   id: number;
+//   department: string;
+//   departmentnumber: number;
+// }
 
-interface IallDepartments {
+// interface IData {
+//   selectedDepartment: any;
+//   allDepartments: Array<any>;
+//   allRecords: Array<any>;
+//   isLoading: boolean;
+//   deleteID: string;
+//   editRecordid: string;
+//   editDepartment: string;
+// }
 
-}
+// interface IEditrecord {
+//   editfunction?: string;
+//   editrecordtype?: string;
+//   editdescription?: string;
+//   editrecordcategoryid?: string;
+//   editnotes?: string;
+// }
+
+// interface IProps {
+//   id: string;
+//   value: string;
+// }
 
 export class DepartmentStore {
-  constructor(public test: string) {}
+  // constructor(public test: string) {}
 
   selectedDepartment = "";
-  allDepartments = [];
+  allDepartments= [] 
   allRecords = [];
   isLoading = false;
   deleteID = "";
@@ -35,10 +52,10 @@ export class DepartmentStore {
     editnotes: ""
   };
 
-  handleSelected = e => {
-    const { value } = e.target;
+  handleSelected = (e) => {
+    const {value }= e.target;
     this.selectedDepartment = value;
-    //console.log(this.selectedDepartment);
+    console.log(this.selectedDepartment);
   };
 
   async fetchAll() {
@@ -67,13 +84,24 @@ export class DepartmentStore {
     );
   }
 
-  handleChange = e => {
-    const { id, value } = e.target;
+  handleChange = (e) => {
+    // const { id, value } = e.target
+    // const id: { [id: string]: string | number } = e.target;
+    const id = e.target.id;
+    const value = e.target.value;
     this.editrecord[id] = value;
     console.log(this.editrecord.editrecordtype);
   };
 
-  updateEditID(id, rdept, rtype, rfunction, rcategory, rdesc, rnotes) {
+  updateEditID(
+    id,
+    rdept,
+    rtype,
+    rfunction,
+    rcategory,
+    rdesc,
+    rnotes
+  ) {
     this.editRecordid = id;
     this.editDepartment = rdept;
     this.editrecord.editrecordtype = rtype;
@@ -121,4 +149,4 @@ decorate(DepartmentStore, {
   fetchAllRecords: action
 });
 
-//export const DepartmentStore =  new DepartmentStore();
+export default new DepartmentStore();

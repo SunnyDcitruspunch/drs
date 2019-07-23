@@ -15,7 +15,7 @@ import SwipeableViews from "react-swipeable-views";
     ! TODO: show ADMIN TAB if user is admin
   */
 
-function TabContainer({ children, dir }) {
+function TabContainer({ children, dir}) {
   return (
     <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
       {children}

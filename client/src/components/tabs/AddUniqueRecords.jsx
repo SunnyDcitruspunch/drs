@@ -8,6 +8,24 @@ import { inject, observer } from "mobx-react";
 import Modal from "react-bootstrap/Modal";
 import Snackbar from "@material-ui/core/Snackbar";
 import { Link } from "react-router-dom";
+import { UniqueStore } from '../../stores/UniqueStore'
+import { DepartmentStore } from '../../stores/DepartmentStore'
+
+// interface IState {
+//   smShow: boolean
+//   snackbarShow: boolean
+//   shown: boolean
+// }
+
+// interface IUniqueStore {
+//   UniqueStore: UniqueStore
+//   fetchFunction: Array<any>
+//   fetchCategory: Array<any>
+// }
+
+// interface IDepartmentStore {
+//   selectedDepartment: Array<any>
+// }
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
@@ -24,10 +42,12 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       };
 
       handleClose = () => {
-        this.setState({ snackbarShow: false });
+        this.setState({ 
+          snackbarShow: false 
+        });
       };
 
-      submitRecords = e => {
+      submitRecords = (e) => {
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ smShow: true });
           console.log("select a department to add an unique record");
@@ -97,7 +117,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                     <option>Choose...</option>
                     {this.props.UniqueStore.functionsDropdown
                       .slice()
-                      .map(func => (
+                      .map((func) => (
                         <option key={func.id} {...func}>
                           {func.functiontype}
                         </option>
@@ -119,7 +139,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                     <option>Choose...</option>
                     {this.props.UniqueStore.categoryDropdown
                       .slice()
-                      .map(category => (
+                      .map((category) => (
                         <option key={category.id} {...category}>
                           {category.recordcategoryid}
                         </option>

@@ -19,24 +19,60 @@ import FormLabel from "@material-ui/core/FormLabel";
   !TODO: refactor modal to material ui compnent
 */
 
-const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
+// interface ICommonRecordsState {
+//   modalShow: boolean;
+//   editShow: boolean;
+//   selectrecord: Array<string>
+// }
+
+// interface ISelectRecord {
+//   id: number
+//   departmentnumber: number
+//   department: string
+//   code: string
+//   function: string
+//   recordtype: string
+//   description: string
+//   recordcategoryid: string
+//   status: string
+//   notes: string
+//   archival: string
+// }
+
+// interface IRecordStore {
+//   fetchRecords: Array<any>
+// }
+
+// interface IState {
+//   modalShow: boolean
+//   editShow: boolean
+//   selectrecord: Array<any>
+// }
+
+const CommonRecords = inject(
+  "RecordStore",
+  "DepartmentStore",
+  "UniqueStore"
+)(
   observer(
     class CommonRecords extends Component {
       constructor(props) {
         super(props);
+        this.onSelect = this.onSelect.bind(this);
+
         this.state = {
           modalShow: false, //if not select a department
           editShow: false,
           selectrecord: []
         };
-        this.onSelect = this.onSelect.bind(this);
       }
 
+     
       UNSAFE_componentWillMount() {
         this.props.RecordStore.fetchRecords();
       }
 
-      onSelect = e => {
+      onSelect = (e) => {
         if (e.target.checked) {
           this.setState(
             {
@@ -86,7 +122,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       saveEdit = e => {
         this.setState({ editShow: false });
         this.props.RecordStore.updateRecord();
-      }
+      };
 
       addRecord = e => {
         if (this.props.DepartmentStore.selectedDepartment === "") {

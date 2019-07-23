@@ -39,8 +39,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         };
       }
 
-      UNSAFE_componentWillMount() {
+      componentWillMount() {
         this.props.DepartmentStore.fetchAllRecords();
+        
+
         window.scrollTo(0, 0);
       }
 
@@ -115,11 +117,13 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       }
 
       render() {
+        
         const { DepartmentStore } = this.props;
         let smClose = () => this.setState({ smShow: false });
         let formClose = () => this.setState({ formShow: false });
         const department = DepartmentStore.selectedDepartment;
-
+        console.log(this.props.DepartmentStore.selectedDepartment)
+        
         return (
           <Container style={styles.tableStyle}>
             <Col md={{ span: 8, offset: 6 }}>
