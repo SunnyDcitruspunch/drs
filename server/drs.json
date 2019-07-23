@@ -117,54 +117,6 @@
       "archival": "Yes"
     },
     {
-      "recordtype": "Computer Science information",
-      "department": "Computer Science",
-      "recordcategoryid": "",
-      "notes": "",
-      "id": "Gj09_Jt",
-      "code": "U2",
-      "departmentnumber": "983",
-      "function": "Finance",
-      "description": "MISC9",
-      "archival": "Yes"
-    },
-    {
-      "id": "1sdfss3",
-      "code": "CACD1000",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes"
-    },
-    {
-      "id": "wdf3",
-      "code": "CACD1000",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes"
-    },
-    {
-      "id": "23",
-      "code": "CACD1000",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes"
-    },
-    {
-      "id": "35",
-      "code": "CACD1000",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes"
-    },
-    {
       "department": "Computer Science",
       "code": "CACD1000",
       "function": "Academic",
@@ -172,7 +124,8 @@
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
       "archival": "Yes",
-      "id": "-U91_xx"
+      "status": "Approved",
+      "id": "IsuIgzK"
     },
     {
       "department": "Computer Science",
@@ -182,7 +135,30 @@
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
       "archival": "No",
-      "id": "nlHk6nT"
+      "status": "Approved",
+      "id": "5csoAT6"
+    },
+    {
+      "department": "Computer Science",
+      "code": "CFAC1200",
+      "function": "Faculty",
+      "recordcategoryid": "common",
+      "recordtype": "Rank & Status records.",
+      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
+      "archival": "No",
+      "status": "Approved",
+      "id": "dEAjawj"
+    },
+    {
+      "department": "Records",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes",
+      "status": "Approved",
+      "id": "llBpVci"
     }
   ],
   "functions": [

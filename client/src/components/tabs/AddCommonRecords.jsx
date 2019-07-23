@@ -49,11 +49,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 //   selectrecord: Array<any>
 // }
 
-const CommonRecords = inject(
-  "RecordStore",
-  "DepartmentStore",
-  "UniqueStore"
-)(
+const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
   observer(
     class CommonRecords extends Component {
       constructor(props) {
@@ -67,12 +63,11 @@ const CommonRecords = inject(
         };
       }
 
-     
       UNSAFE_componentWillMount() {
         this.props.RecordStore.fetchRecords();
       }
 
-      onSelect = (e) => {
+      onSelect = e => {
         if (e.target.checked) {
           this.setState(
             {
@@ -129,7 +124,7 @@ const CommonRecords = inject(
           this.setState({ modalShow: true });
         } else {
           this.props.RecordStore.addCommonRecord(this.state.selectrecord);
-          //window.location.reload();
+          window.location.reload();
         }
       };
 
@@ -293,7 +288,9 @@ const CommonRecords = inject(
                           <FormLabel style={{ fontSize: 10 }}>
                             Retention Description
                           </FormLabel>
-                          <input
+                          <textarea
+                            row="10"
+                            cols="40"
                             id="editdescription"
                             defaultValue={postDetail.description}
                             onChange={RecordStore.handleChange}

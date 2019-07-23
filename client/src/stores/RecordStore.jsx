@@ -75,7 +75,8 @@ class RecordStore {
             recordcategoryid: postDetail.recordcategoryid,
             recordtype: postDetail.recordtype,
             description: postDetail.description,
-            archival: postDetail.archival
+            archival: postDetail.archival,
+            status: "Approved"
           };
         });
 
