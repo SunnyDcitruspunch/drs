@@ -27,7 +27,7 @@
       "archival": "Yes"
     },
     {
-      "id": "3",
+      "id": "83",
       "departmentnumber": "118",
       "department": "Computer Science",
       "code": "U1",
@@ -129,7 +129,7 @@
       "archival": "Yes"
     },
     {
-      "id": "3",
+      "id": "1sdfss3",
       "code": "CACD1000",
       "function": "Academic",
       "recordcategoryid": "common",
@@ -138,7 +138,7 @@
       "archival": "Yes"
     },
     {
-      "id": "3",
+      "id": "wdf3",
       "code": "CACD1000",
       "function": "Academic",
       "recordcategoryid": "common",
@@ -147,7 +147,7 @@
       "archival": "Yes"
     },
     {
-      "id": "3",
+      "id": "23",
       "code": "CACD1000",
       "function": "Academic",
       "recordcategoryid": "common",
@@ -156,7 +156,7 @@
       "archival": "Yes"
     },
     {
-      "id": "3",
+      "id": "35",
       "code": "CACD1000",
       "function": "Academic",
       "recordcategoryid": "common",
@@ -164,15 +164,25 @@
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
       "archival": "Yes"
     },
-
     {
-      "id": "3",
+      "department": "Computer Science",
       "code": "CACD1000",
       "function": "Academic",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes"
+      "archival": "Yes",
+      "id": "-U91_xx"
+    },
+    {
+      "department": "Computer Science",
+      "code": "CHUM1100",
+      "function": "Employment",
+      "recordcategoryid": "common",
+      "recordtype": "Job descriptions.",
+      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
+      "archival": "No",
+      "id": "nlHk6nT"
     }
   ],
   "functions": [
@@ -215,7 +225,7 @@
   ],
   "commonrecords": [
     {
-      "id": "3",
+      "id": "sadfasdf",
       "code": "CACD1000",
       "function": "Academic",
       "recordcategoryid": "common",
@@ -224,7 +234,7 @@
       "archival": "Yes"
     },
     {
-      "id": "45",
+      "id": "asdfasdf5",
       "code": "CHUM1100",
       "function": "Employment",
       "recordcategoryid": "common",
@@ -233,7 +243,7 @@
       "archival": "No"
     },
     {
-      "id": "32",
+      "id": "3dfdfdfdf2",
       "code": "CFAC1200",
       "function": "Faculty",
       "recordcategoryid": "common",
@@ -242,7 +252,7 @@
       "archival": "No"
     },
     {
-      "id": "30",
+      "id": "30sdfsfs",
       "code": "CADM2350",
       "function": "Administrative",
       "recordcategoryid": "common",

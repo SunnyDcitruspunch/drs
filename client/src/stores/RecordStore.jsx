@@ -1,4 +1,5 @@
 import { observable, action, decorate } from "mobx";
+import _ from "lodash";
 
 // interface IEditCommonRecords {
 //   editID: string;
@@ -19,8 +20,8 @@ import { observable, action, decorate } from "mobx";
 // }
 
 class RecordStore {
-  allRecords = [];
-  allrecordsforSelections = "";
+  allRecords = []; //all common records
+  allrecordsforSelections = []; //for selected common records
   pendingRecords = [];
   selectedDepartment = "";
   selectedCommonRecords = [];
@@ -35,13 +36,15 @@ class RecordStore {
     editArchival: ""
   };
 
+  addcommonrecords = {};
+
   async fetchRecords() {
     await fetch("http://localhost:3004/commonrecords")
       .then(response => {
         return response.json();
       })
-      .then(json => (this.allRecords = json));
-    // .then(json => (this.allrecordsforSelections = json));
+      .then(json => (this.allRecords = json))
+      .then(json => (this.allrecordsforSelections = json));
   }
 
   async fetchPendings() {
@@ -52,26 +55,43 @@ class RecordStore {
       .then(json => (this.pendingRecords = json));
   }
 
+  handleSelected(dept) {
+    this.selectedDepartment = dept;
+  }
+
   async addCommonRecord(selects) {
-    this.selectedCommonRecords = selects;
+    this.selectedCommonRecords = selects; //selected common record id
     console.log(this.selectedCommonRecords);
 
-    await this.selectedCommonRecords.map(record => {
-      // console.log(
-      //   ...this.allRecords.filter((x: any) => x.id === record),
-      //   ...this.allrecordsforSelections.filter((x: any) => x.id === record)
-      // );
+    for (let i = 0; i < selects.length; i++) {
+      let test = "";
+      this.allRecords
+        .filter(x => x.id === selects[i])
+        .map(postDetail => {
+          test = {
+            department: this.selectedDepartment,
+            code: postDetail.code,
+            function: postDetail.function,
+            recordcategoryid: postDetail.recordcategoryid,
+            recordtype: postDetail.recordtype,
+            description: postDetail.description,
+            archival: postDetail.archival
+          };
+        });
+
+      console.log(test);
+
+      // await this.selectedCommonRecords.map(record => {
       fetch("http://localhost:3004/records", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          //...this.allrecordsforSelections.filter((x: any) => x.id === record)
-        })
+        body: JSON.stringify(test)
       });
-    });
+    }
+    // });
   }
 
   getEditRecord(
@@ -92,7 +112,7 @@ class RecordStore {
     this.editcommonrecords.editArchival = carchival;
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     const id = e.target;
     const value = e.target;
     this.editcommonrecords[id] = value;

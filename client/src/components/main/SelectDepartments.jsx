@@ -8,12 +8,23 @@ import { inject, observer } from "mobx-react";
   !TODO: how to filter duplicate JSON objects?
 */
 
-const SelectDepartment = inject("DepartmentStore")(
+const SelectDepartment = inject("DepartmentStore", "RecordStore")(
   observer(
     class SelectDepartment extends Component {
       componentWillMount() {
         this.props.DepartmentStore.fetchAll();
       }
+
+      state = {
+        selecteddept: ""
+      };
+
+      onSelect = e => {
+        const { value } = e.target;
+        this.selecteddept = value;
+        this.props.DepartmentStore.handleSelected(this.selecteddept);
+        this.props.RecordStore.handleSelected(this.selecteddept);
+      };
 
       onChange = e => {
         this.props.history.push(`/DeptRetention`);
@@ -30,7 +41,7 @@ const SelectDepartment = inject("DepartmentStore")(
                 <Form.Control
                   as="select"
                   style={styles.optionStyle}
-                  onChange={DepartmentStore.handleSelected}
+                  onChange={this.onSelect}
                 >
                   <option>Please Select a Department...</option>
                   {DepartmentStore.allDepartments.slice().map(dept => (

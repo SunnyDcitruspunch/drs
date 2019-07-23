@@ -66,7 +66,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           dnotes
         );
         // this.props.DepartmentStore.updateDepartment(dept);
-        console.log(this.props.DepartmentStore.editRecordid);
+        //console.log(this.props.DepartmentStore.editRecordid);
       }
 
       //html2canvas + jsPDF
@@ -122,7 +122,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         let smClose = () => this.setState({ smShow: false });
         let formClose = () => this.setState({ formShow: false });
         const department = DepartmentStore.selectedDepartment;
-        console.log(this.props.DepartmentStore.selectedDepartment)
+        //console.log(this.props.DepartmentStore.selectedDepartment)
         
         return (
           <Container style={styles.tableStyle}>

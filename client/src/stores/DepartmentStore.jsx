@@ -52,9 +52,8 @@ export class DepartmentStore {
     editnotes: ""
   };
 
-  handleSelected = (e) => {
-    const {value }= e.target;
-    this.selectedDepartment = value;
+  handleSelected (dept) {
+    this.selectedDepartment = dept
     console.log(this.selectedDepartment);
   };
 

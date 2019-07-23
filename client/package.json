@@ -15,7 +15,7 @@
     "file-server": "^2.1.0",
     "formik": "^1.5.7",
     "html-pdf": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "mobx": "^5.10.1",
     "mobx-react": "^6.1.1",
