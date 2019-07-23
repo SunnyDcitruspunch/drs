@@ -157,6 +157,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         <TableCell>
                           <CreateOutlinedIcon
                             name="edit"
+                            style={styles.iconStyle}
                             onClick={() =>
                               this.handleEditRecord(
                                 record.id,
@@ -174,7 +175,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             value={record.id}
                             onClick={this.onSelect}
                             color="primary"
-                            style={{ height: 6 }}
+                            style={{ height: 4 }}
                           />
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
@@ -369,5 +370,11 @@ const styles = {
     fontSize: 10,
     padding: 6,
     border: "Gainsboro solid 1px"
+  },
+  iconStyle: {
+    width: 20,
+    height: 16,
+    padding: 0,
+    fontSize: 10
   }
 };
