@@ -5,9 +5,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "mobx-react";
-import UniqueStore from "./stores/UniqueStore";
-import DepartmentStore from "./stores/DepartmentStore";
-import RecordStore from "./stores/RecordStore";
+import { UniqueStore, DepartmentStore, RecordStore } from "./stores";
+// import DepartmentStore from "./stores/DepartmentStore";
+// import RecordStore from "./stores/RecordStore";
 
 ReactDOM.render(
   <Provider

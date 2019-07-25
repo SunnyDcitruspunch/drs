@@ -10,12 +10,20 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
+import { DepartmentStore } from "../../stores/DepartmentStore";
+import { UniqueStore } from "../../stores/UniqueStore";
+import { RecordStore } from "../../stores/RecordStore";
 
 /*
     ! TODO: show ADMIN TAB if user is admin
-  */
+*/
 
-function TabContainer({ children, dir}) {
+interface ITabProps {
+  children: any;
+  dir: any;
+};
+
+function TabContainer({ children, dir }: ITabProps): JSX.Element {
   return (
     <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
       {children}
@@ -34,16 +42,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function FullWidthTabs() {
+interface IProps {
+  DepartmentStore?: DepartmentStore;
+  UniqueStore?: UniqueStore;
+  RecordStore?: RecordStore;
+}
+
+export default function FullWidthTabs<IProps>() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
-  function handleChange(event, newValue) {
+  function handleChange(event: Event, newValue: any) {
     setValue(newValue);
   }
 
-  function handleChangeIndex(index) {
+  function handleChangeIndex(index: any) {
     setValue(index);
   }
 
@@ -52,7 +66,7 @@ export default function FullWidthTabs() {
       <AppBar position="static" color="default" style={{ height: 48 }}>
         <Tabs
           value={value}
-          onChange={handleChange}
+          onChange={e => handleChange}
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
@@ -67,7 +81,7 @@ export default function FullWidthTabs() {
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
-        onChangeIndex={handleChangeIndex}
+        onChangeIndex={(e: any) => handleChangeIndex}
       >
         <TabContainer dir={theme.direction}>
           <DepartmentRetention />

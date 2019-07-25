@@ -1,31 +1,19 @@
 import { observable, action, decorate } from "mobx";
+import { IUniqueStore } from "../components/tabs/AddUniqueRecords"
 
-// export interface IUniqueRecords {
-//   recordType: string
-//   department: string
-//   proposedFunction: string
-//   proposedCategory: string
-//   proposedRetention: string
-//   Comment: string
-// }
-
-// export interface IUniqueStore {
-//   uniquerecords: IUniqueRecords
-// }
-
-class UniqueStore {
+export class UniqueStore implements IUniqueStore{
   uniquerecords = {
     recordType: "",
     department: "",
     proposedFunction: "",
-    proposedCategory: "",
+    proposedCategory: "hi",
     proposedRetention: "",
     Comment: ""
   };
   functionsDropdown = [];
   categoryDropdown = [];
 
-  handleChange = (e) => {
+  handleChange = (e: any) => {
     const id = e.target;
     const value = e.target
     this.uniquerecords[id] = value;
@@ -47,7 +35,7 @@ class UniqueStore {
       .then(json => (this.categoryDropdown = json));
   }
 
-  async submitRecords(selecteddepartment) {
+  async submitRecords(selecteddepartment: string) {
     /*post to drs: record type, retention schedule, nots, actions, status
       can pending records be deleted or edit? */
     fetch("http://localhost:3004/records", {
@@ -69,11 +57,6 @@ class UniqueStore {
 
 decorate(UniqueStore, {
   uniquerecords: observable,
-  // recordType: observable,
-  // proposedFunction: observable,
-  // proposedCategory: observable,
-  // proposedRetention: observable,
-  // Comment: observable,
   functionsDropdown: observable,
   categoryDropdown: observable,
   handleChange: action,
@@ -82,4 +65,4 @@ decorate(UniqueStore, {
   fetchCategory: action
 });
 
-export default new UniqueStore();
+//export default new UniqueStore();

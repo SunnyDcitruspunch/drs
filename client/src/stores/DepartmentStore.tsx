@@ -4,38 +4,7 @@ import { observable, decorate, action } from "mobx";
 !TODO: DOUBLE CHECK PATCH METHOD
 */
 
-// interface IDepartment {
-//   id: number;
-//   department: string;
-//   departmentnumber: number;
-// }
-
-// interface IData {
-//   selectedDepartment: any;
-//   allDepartments: Array<any>;
-//   allRecords: Array<any>;
-//   isLoading: boolean;
-//   deleteID: string;
-//   editRecordid: string;
-//   editDepartment: string;
-// }
-
-// interface IEditrecord {
-//   editfunction?: string;
-//   editrecordtype?: string;
-//   editdescription?: string;
-//   editrecordcategoryid?: string;
-//   editnotes?: string;
-// }
-
-// interface IProps {
-//   id: string;
-//   value: string;
-// }
-
 export class DepartmentStore {
-  // constructor(public test: string) {}
-
   selectedDepartment = "";
   allDepartments= [] 
   allRecords = [];
@@ -52,7 +21,7 @@ export class DepartmentStore {
     editnotes: ""
   };
 
-  handleSelected (dept) {
+  handleSelected (dept: string) {
     this.selectedDepartment = dept
     console.log(this.selectedDepartment);
   };
@@ -83,7 +52,7 @@ export class DepartmentStore {
     );
   }
 
-  handleChange = (e) => {
+  handleChange = (e: any) => {
     // const { id, value } = e.target
     // const id: { [id: string]: string | number } = e.target;
     const id = e.target.id;
@@ -93,13 +62,13 @@ export class DepartmentStore {
   };
 
   updateEditID(
-    id,
-    rdept,
-    rtype,
-    rfunction,
-    rcategory,
-    rdesc,
-    rnotes
+    id: string,
+    rdept: string,
+    rtype: string,
+    rfunction: string,
+    rcategory: string,
+    rdesc: string,
+    rnotes: string
   ) {
     this.editRecordid = id;
     this.editDepartment = rdept;
@@ -148,4 +117,4 @@ decorate(DepartmentStore, {
   fetchAllRecords: action
 });
 
-export default new DepartmentStore();
+//export default new DepartmentStore();

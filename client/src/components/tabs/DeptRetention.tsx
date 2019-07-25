@@ -1,11 +1,9 @@
-import React, { Component } from "react";
-import Table from "@material-ui/core/Table";
+import * as React from "react";
+import { Table, Button, ButtonGroup, TextField } from "@material-ui/core";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { inject, observer } from "mobx-react";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Col from "react-bootstrap/Col";
 import Paper from "@material-ui/core/Paper";
 import TableBody from "@material-ui/core/TableBody";
@@ -18,6 +16,10 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormLabel from "@material-ui/core/FormLabel";
+import { DepartmentStore, UniqueStore } from "../../stores";
+//import { UniqueStore } from "../../stores/UniqueStore";
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+// import SvgIcon from "@material-ui/core/SvgIcon";
 
 /* 
   TODO: able to send email to admin (but not every submission... about one email per week)
@@ -26,10 +28,49 @@ import FormLabel from "@material-ui/core/FormLabel";
   * TODO: change button colors
 */
 
+// interface IntrinsicElements {
+//   Button: { variant: string };
+// }
+
+interface IProps {
+  DepartmentStore: DepartmentStore;
+  UniqueStore: UniqueStore;
+  props: any;
+  context: any;
+  Button: { variant: string };
+  componentWillMount: () => void;
+  showEditModal: () => void;
+  makePdf: () => void;
+}
+
+interface IState {
+  smShow: boolean;
+  formShow: boolean;
+  pdfShow: boolean;
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      width: "100%",
+      overflowX: "auto"
+    },
+    customInput: {
+      borderRadius: 5,
+      fontSize: 10,
+      padding: 6,
+      border: "Gainsboro solid 1px"
+    },
+    dense: {
+      marginTop: theme.spacing(2)
+    }
+  })
+);
+
 const DeptRetention = inject("DepartmentStore", "UniqueStore")(
   observer(
-    class DeptRetnetion extends Component {
-      constructor(props, context) {
+    class DeptRetnetion extends React.Component<IProps, IState> {
+      constructor(props: IProps, context: IProps) {
         super(props, context);
 
         this.state = {
@@ -41,19 +82,18 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       componentWillMount() {
         this.props.DepartmentStore.fetchAllRecords();
-        
 
         window.scrollTo(0, 0);
       }
 
       showEditModal(
-        pid,
-        dept,
-        drecordtype,
-        dfunction,
-        dcategory,
-        ddesc,
-        dnotes
+        pid: string,
+        dept: string,
+        drecordtype: string,
+        dfunction: string,
+        dcategory: string,
+        ddesc: string,
+        dnotes: string
       ) {
         this.setState({ formShow: true });
         this.props.DepartmentStore.updateEditID(
@@ -72,11 +112,13 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       //html2canvas + jsPDF
       makePdf = () => {
         const dept = this.props.DepartmentStore.selectedDepartment;
+        const el: any = document.getElementById("schedule");
+
         if (this.props.DepartmentStore.selectedDepartment !== "") {
-          html2canvas(document.getElementById("schedule"), {
+          html2canvas(el, {
             width: 960,
             height: 1440
-          }).then(function(canvas) {
+          }).then(function(canvas: any) {
             var img = canvas.toDataURL("image/png");
             var doc = new jsPDF({
               orientation: "landscape"
@@ -93,7 +135,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       };
 
       //pass id to store for delete action
-      handleDelete(value) {
+      handleDelete(value: string) {
         //show delete modal
         this.setState({ smShow: true });
         this.props.DepartmentStore.deleteID = value;
@@ -117,13 +159,16 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       }
 
       render() {
-        
         const { DepartmentStore } = this.props;
         let smClose = () => this.setState({ smShow: false });
         let formClose = () => this.setState({ formShow: false });
         const department = DepartmentStore.selectedDepartment;
+        const classes = useStyles();
+        // let CreateOutlinedIcon: React.ComponentType<any>;
+        let DeleteOutlinedIcon: React.ComponentType<any>;
+        // let Table: React.ComponentType<any>;
         //console.log(this.props.DepartmentStore.selectedDepartment)
-        
+
         return (
           <Container style={styles.tableStyle}>
             <Col md={{ span: 8, offset: 6 }}>
@@ -135,7 +180,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 aria-label="Outlined primary button group"
               >
                 <Button
-                  variant="outline-primary"
+                  variant="outlined"
+                  color="primary"
                   onClick={this.makePdf}
                   style={{ fontSize: 12 }}
                 >
@@ -144,8 +190,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               </ButtonGroup>
             </Col>
             <br />
-            <Paper style={styles.paperStyle}>
-              <Table striped="true" bordered="true" hover="true" id="schedule">
+            <Paper className={classes.paper}>
+              <Table id="schedule">
                 <TableHead>
                   <TableRow>
                     <TableCell style={{ fontSize: 10 }}>Actions</TableCell>
@@ -160,8 +206,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 <TableBody style={styles.tableFontStyle}>
                   {this.props.DepartmentStore.allRecords
                     .slice()
-                    .filter(x => x.department === department)
-                    .map((postDetail) => {
+                    .filter((x: any) => x.department === department)
+                    .map((postDetail: any) => {
                       return (
                         <TableRow key={postDetail.id}>
                           <TableCell style={{ width: 100 }}>
@@ -178,7 +224,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                                   postDetail.notes
                                 )
                               }
-                              variant="outline-warning"
+                              // variant="outline-warning"
                               style={styles.buttonStyle}
                             />
                             &nbsp;
@@ -209,7 +255,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             </Paper>
 
             <Modal
-              size="md"
+              //size="md"
               show={this.state.formShow}
               onHide={formClose}
               aria-labelledby="example-modal-sizes-title-sm"
@@ -226,15 +272,18 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               <Modal.Body>
                 {this.props.DepartmentStore.allRecords
                   .slice()
-                  .filter(x => x.id === this.props.DepartmentStore.editRecordid)
-                  .map((postDetail, index) => {
+                  .filter(
+                    (x: any) => x.id === this.props.DepartmentStore.editRecordid
+                  )
+                  .map((postDetail: any) => {
                     return (
-                      <Form key={index}>
+                      <Form key={postDetail.id}>
                         <FormGroup>
-                          <FormLabel style={{ fontSize: 10 }}>
+                          {/* <FormLabel style={{ fontSize: 10 }}>
                             Record Type
-                          </FormLabel>
-                          <input
+                          </FormLabel> */}
+                          <TextField
+                            label="Record Type"
                             id="editrecordtype"
                             defaultValue={postDetail.recordtype}
                             variant="outlined"
@@ -258,7 +307,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             <option>{postDetail.function}</option>
                             {this.props.UniqueStore.functionsDropdown
                               .slice()
-                              .map(func => (
+                              .map((func: any) => (
                                 <option key={func.id} {...func}>
                                   {func.functiontype}
                                 </option>
@@ -279,7 +328,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           >
                             {this.props.UniqueStore.categoryDropdown
                               .slice()
-                              .map(category => (
+                              .map((category: any) => (
                                 <option key={category.id} {...category}>
                                   {category.recordcategoryid}
                                 </option>
@@ -290,24 +339,26 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           <FormLabel style={{ fontSize: 10 }}>
                             Retention Description
                           </FormLabel>
-                          <input
+                          <TextField
                             id="editdescription"
                             defaultValue={postDetail.description}
                             onChange={DepartmentStore.handleChange}
                             margin="normal"
                             variant="outlined"
-                            style={styles.customInputStyle}
+                            //style={styles.customInputStyle}
+                            className={classes.dense}
                           />
                         </FormGroup>
                         <FormGroup style={{ marginTop: 10 }}>
                           <FormLabel style={{ fontSize: 10 }}>Notes</FormLabel>
-                          <input
+                          <TextField
                             id="editnotes"
                             defaultValue={postDetail.notes}
                             onChange={DepartmentStore.handleChange}
                             margin="normal"
                             variant="outlined"
-                            style={styles.customInputStyle}
+                            //style={styles.customInputStyle}
+                            className={classes.dense}
                           />
                         </FormGroup>
                       </Form>

@@ -1,30 +1,11 @@
 import { observable, action, decorate } from "mobx";
-import _ from "lodash";
 
-// interface IEditCommonRecords {
-//   editID: string;
-//   editCode: string;
-//   editFunction: string;
-//   editCategory: string;
-//   editType: string;
-//   editDescription: string;
-//   editArchival: string;
-// }
-
-// interface IRecords {
-//   allRecords: Array<any>;
-//   allrecordsforSelections: string;
-//   pendingRecords: Array<any>;
-//   selectedDepartment: string;
-//   selectedCommonRecords: Array<any>;
-// }
-
-class RecordStore {
+export class RecordStore {
   allRecords = []; //all common records
   allrecordsforSelections = []; //for selected common records
   pendingRecords = [];
   selectedDepartment = "";
-  selectedCommonRecords = [];
+  selectedCommonRecords: Array<string> = [];
 
   editcommonrecords = {
     editID: "",
@@ -55,19 +36,19 @@ class RecordStore {
       .then(json => (this.pendingRecords = json));
   }
 
-  handleSelected(dept) {
+  handleSelected(dept: string) {
     this.selectedDepartment = dept;
   }
 
-  async addCommonRecord(selects) {
+  async addCommonRecord(selects: any) {
     this.selectedCommonRecords = selects; //selected common record id
     console.log(this.selectedCommonRecords);
 
     for (let i = 0; i < selects.length; i++) {
-      let test = "";
+      let test: any = "";
       this.allRecords
-        .filter(x => x.id === selects[i])
-        .map(postDetail => {
+        .filter((x: any) => x.id === selects[i])
+        .map((postDetail: any) => {
           test = {
             department: this.selectedDepartment,
             code: postDetail.code,
@@ -96,13 +77,13 @@ class RecordStore {
   }
 
   getEditRecord(
-    cid,
-    ccode,
-    cfunction,
-    ccategory,
-    ctype,
-    cdescription,
-    carchival
+    cid: string,
+    ccode: string,
+    cfunction: string,
+    ccategory: string,
+    ctype: string,
+    cdescription: string,
+    carchival: string
   ) {
     this.editcommonrecords.editID = cid;
     this.editcommonrecords.editCode = ccode;
@@ -113,7 +94,7 @@ class RecordStore {
     this.editcommonrecords.editArchival = carchival;
   }
 
-  handleChange = e => {
+  handleChange = (e: any) => {
     const id = e.target;
     const value = e.target;
     this.editcommonrecords[id] = value;
@@ -127,12 +108,6 @@ class RecordStore {
 decorate(RecordStore, {
   allRecords: observable,
   pendingRecords: observable,
-  // editID: observable,
-  // editCode: observable,
-  // editFunction: observable,
-  // editType: observable,
-  // editDescription: observable,
-  // editArchival: observable,
   fetchRecords: action,
   fetchPendings: action,
   handleChange: action,
@@ -141,4 +116,4 @@ decorate(RecordStore, {
   addCommonRecord: action
 });
 
-export default new RecordStore();
+//export default new RecordStore();

@@ -1,58 +1,67 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import Table from "@material-ui/core/Table";
 import Container from "react-bootstrap/Container";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
+import {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Paper,
+  Checkbox,
+  Button,
+  FormGroup,
+  FormLabel,
+  TextField,
+  Table,
+  createStyles,
+  Theme,
+  makeStyles
+} from "@material-ui/core";
 import Modal from "react-bootstrap/Modal";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import Form from "react-bootstrap/Form";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormLabel from "@material-ui/core/FormLabel";
+import { RecordStore, DepartmentStore, UniqueStore } from "../../stores";
 
 /*
   !TODO: refactor modal to material ui compnent
 */
 
-// interface ICommonRecordsState {
-//   modalShow: boolean;
-//   editShow: boolean;
-//   selectrecord: Array<string>
-// }
+interface IProps {
+  RecordStore: RecordStore;
+  DepartmentStore: DepartmentStore;
+  UniqueStore: UniqueStore;
+  Document: Document;
+}
 
-// interface ISelectRecord {
-//   id: number
-//   departmentnumber: number
-//   department: string
-//   code: string
-//   function: string
-//   recordtype: string
-//   description: string
-//   recordcategoryid: string
-//   status: string
-//   notes: string
-//   archival: string
-// }
+interface IState {
+  modalShow: boolean;
+  editShow: boolean;
+  selectrecord: Array<string>;
+}
 
-// interface IRecordStore {
-//   fetchRecords: Array<any>
-// }
+interface Document {
+  createElement(tagName: "input"): HTMLInputElement;
+}
 
-// interface IState {
-//   modalShow: boolean
-//   editShow: boolean
-//   selectrecord: Array<any>
-// }
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      width: "100%",
+      overflowX: "auto"
+    },
+    customInput: {
+      borderRadius: 5,
+      fontSize: 10,
+      padding: 6,
+      border: "Gainsboro solid 1px"
+    }
+  })
+);
 
 const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
   observer(
-    class CommonRecords extends Component {
-      constructor(props) {
+    class CommonRecords extends Component<IProps, IState> {
+      constructor(props: IProps) {
         super(props);
         this.onSelect = this.onSelect.bind(this);
 
@@ -67,7 +76,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         this.props.RecordStore.fetchRecords();
       }
 
-      onSelect = e => {
+      onSelect = (e: any) => {
         if (e.target.checked) {
           this.setState(
             {
@@ -93,13 +102,13 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       };
 
       handleEditRecord(
-        cid,
-        ccode,
-        cfunction,
-        ccategory,
-        ctype,
-        cdescription,
-        carchival
+        cid: string,
+        ccode: string,
+        cfunction: string,
+        ccategory: string,
+        ctype: string,
+        cdescription: string,
+        carchival: string
       ) {
         this.setState({ editShow: true });
         this.props.RecordStore.getEditRecord(
@@ -114,12 +123,12 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       }
 
       // defference between () and e??
-      saveEdit = e => {
+      saveEdit = (e: any) => {
         this.setState({ editShow: false });
         this.props.RecordStore.updateRecord();
       };
 
-      addRecord = e => {
+      addRecord = (e: any) => {
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ modalShow: true });
         } else {
@@ -131,14 +140,16 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
+        //let Table = document.createElement("Table")
         const { RecordStore } = this.props;
+        const classes = useStyles();
         //this.props.RecordStore.allRecords.forEach(e=>console.log(e.code))
         // console.log(this.props.DepartmentStore.selectedDepartment)
 
         return (
           <Container style={styles.tableStyle}>
-            <Paper style={styles.paperStyle}>
-              <Table striped="true" bordered="true" hover="true">
+            <Paper className={classes.paper}>
+              <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell style={{ fontSize: 10 }}>Actions</TableCell>
@@ -151,7 +162,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {RecordStore.allRecords.slice().map(record => {
+                  {RecordStore.allRecords.slice().map((record: any) => {
                     return (
                       <TableRow key={record.id} {...record}>
                         <TableCell>
@@ -223,23 +234,23 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 {this.props.RecordStore.allRecords
                   .slice()
                   .filter(
-                    x =>
+                    (x: any) =>
                       x.id === this.props.RecordStore.editcommonrecords.editID
                   )
-                  .map(postDetail => {
+                  .map((postDetail: any) => {
                     return (
                       <Form key={postDetail.id}>
                         <FormGroup>
                           <FormLabel style={{ fontSize: 10 }}>
                             Record Type
                           </FormLabel>
-                          <input
+                          <TextField
                             id="editType"
                             defaultValue={postDetail.recordtype}
                             variant="outlined"
                             onChange={RecordStore.handleChange}
                             margin="normal"
-                            style={styles.customInputStyle}
+                            className={classes.customInput}
                           />
                         </FormGroup>
                         <FormGroup style={{ marginTop: 10 }}>
@@ -257,7 +268,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             <option>{postDetail.function}</option>
                             {this.props.UniqueStore.functionsDropdown
                               .slice()
-                              .map(func => (
+                              .map((func: any) => (
                                 <option key={func.id} {...func}>
                                   {func.functiontype}
                                 </option>
@@ -278,7 +289,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           >
                             {this.props.UniqueStore.categoryDropdown
                               .slice()
-                              .map(category => (
+                              .map((category: any) => (
                                 <option key={category.id} {...category}>
                                   {category.recordcategoryid}
                                 </option>
@@ -289,15 +300,13 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           <FormLabel style={{ fontSize: 10 }}>
                             Retention Description
                           </FormLabel>
-                          <textarea
-                            row="10"
-                            cols="40"
+                          <TextField
                             id="editdescription"
                             defaultValue={postDetail.description}
                             onChange={RecordStore.handleChange}
                             margin="normal"
                             variant="outlined"
-                            style={styles.customInputStyle}
+                            className={classes.customInput}
                           />
                         </FormGroup>
                       </Form>
@@ -351,13 +360,10 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
 export default CommonRecords;
 
+/** @type {{search: React.CSSProperties}} */
 const styles = {
   tableStyle: {
     paddingTop: 14
-  },
-  paperStyle: {
-    width: "100%",
-    overflowX: "auto"
   },
   modalButtonStyle: {
     height: 26,

@@ -3,30 +3,46 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import { inject, observer } from "mobx-react";
+import { DepartmentStore } from "../../stores/DepartmentStore";
+import { RecordStore } from '../../stores/RecordStore'
 
 /*
   !TODO: how to filter duplicate JSON objects?
 */
 
+interface IDepartmentProps {
+  DepartmentStore: DepartmentStore;
+  history: any;
+  RecordStore: RecordStore
+}
+
+interface IState {
+  selecteddept: string;
+}
+
 const SelectDepartment = inject("DepartmentStore", "RecordStore")(
   observer(
-    class SelectDepartment extends Component {
-      componentWillMount() {
-        this.props.DepartmentStore.fetchAll();
+    class SelectDepartment extends Component<IDepartmentProps, IState> {
+      constructor(props: IDepartmentProps) {
+        super(props)     
       }
 
-      state = {
+      state: IState = {
         selecteddept: ""
+      }
+
+      componentWillMount() {
+        this.props.DepartmentStore.fetchAll() 
+      }
+
+      onSelect: any = (e: MouseEvent) => {
+        const { value }: any = e.target
+        this.state.selecteddept = value;
+        this.props.DepartmentStore.handleSelected(this.state.selecteddept);
+        this.props.RecordStore.handleSelected(this.state.selecteddept);
       };
 
-      onSelect = e => {
-        const { value } = e.target;
-        this.selecteddept = value;
-        this.props.DepartmentStore.handleSelected(this.selecteddept);
-        this.props.RecordStore.handleSelected(this.selecteddept);
-      };
-
-      onChange = e => {
+      onChange = (e: MouseEvent) => {
         this.props.history.push(`/DeptRetention`);
       };
 
@@ -44,7 +60,7 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
                   onChange={this.onSelect}
                 >
                   <option>Please Select a Department...</option>
-                  {DepartmentStore.allDepartments.slice().map(dept => (
+                  {DepartmentStore.allDepartments.slice().map((dept: any) => (
                     <option key={dept.id} {...dept}>
                       {dept.department}
                     </option>

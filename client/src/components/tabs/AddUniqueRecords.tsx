@@ -1,53 +1,79 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
-// import * as yup from "yup";
 import Col from "react-bootstrap/Col";
-import Button from "@material-ui/core/Button";
+import { Button, createStyles, Theme, makeStyles, Snackbar } from "@material-ui/core";
 import Container from "react-bootstrap/Container";
 import { inject, observer } from "mobx-react";
 import Modal from "react-bootstrap/Modal";
-import Snackbar from "@material-ui/core/Snackbar";
 import { Link } from "react-router-dom";
-import { UniqueStore } from '../../stores/UniqueStore'
-import { DepartmentStore } from '../../stores/DepartmentStore'
 
-// interface IState {
-//   smShow: boolean
-//   snackbarShow: boolean
-//   shown: boolean
-// }
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      width: "100%",
+      overflowX: "auto"
+    },
+    title: {
+      textAlign: "left"
+    }
+  })
+);
 
-// interface IUniqueStore {
-//   UniqueStore: UniqueStore
-//   fetchFunction: Array<any>
-//   fetchCategory: Array<any>
-// }
+export interface IUniqueRecords {
+  recordType: string;
+  department: string;
+  proposedFunction: string;
+  proposedCategory: string;
+  proposedRetention: string;
+  Comment: string
+}
 
-// interface IDepartmentStore {
-//   selectedDepartment: Array<any>
-// }
+export interface IUniqueStore {
+  fetchFunctions: () => void;
+  fetchCategory: () => void;
+  uniquerecords: IUniqueRecords
+  functionsDropdown: Array<string>;
+  categoryDropdown: any;
+  submitRecords: (dept: string) => void;
+  handleChange: (e: any) => void;
+}
+
+interface DepartmentStore {
+  selectedDepartment?: string;
+}
+
+interface IProps {
+  DepartmentStore: DepartmentStore;
+  UniqueStore: IUniqueStore;
+}
+
+interface IState {
+  smShow: boolean;
+  snackbarShow: boolean;
+  shown: boolean;
+}
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
-    class AddUniqueRecords extends Component {
+    class AddUniqueRecords extends Component<IProps, IState> {
       UNSAFE_componentWillMount() {
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
       }
 
-      state = {
+      state: IState = {
         smShow: false,
         snackbarShow: false,
         shown: false
       };
 
       handleClose = () => {
-        this.setState({ 
-          snackbarShow: false 
+        this.setState({
+          snackbarShow: false
         });
       };
 
-      submitRecords = (e) => {
+      submitRecords = (e: any) => {
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ smShow: true });
           console.log("select a department to add an unique record");
@@ -58,14 +84,14 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
           console.log(this.props.DepartmentStore.selectedDepartment);
           this.props.UniqueStore.submitRecords(
-            this.props.DepartmentStore.selectedDepartment
+            this.props.DepartmentStore.selectedDepartment || ""
           );
 
-          this.refs.recordtype.value = "";
-          this.refs.proposedfunction.value = "Choose...";
-          this.refs.proposedcategory.value = "Choose...";
-          this.refs.proposedretention.value = "";
-          this.refs.notes.value = "";
+          // this.refs.recordtype.value = "";
+          // this.refs.proposedfunction.value = "Choose...";
+          // this.refs.proposedcategory.value = "Choose...";
+          // this.refs.proposedretention.value = "";
+          // this.refs.notes.value = "";
           this.setState({ snackbarShow: true });
           window.scrollTo(0, 0);
           this.props.UniqueStore.uniquerecords.recordType = "";
@@ -81,6 +107,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           display: this.state.shown ? "block" : "none",
           color: "#ff0000"
         };
+        let classes = useStyles();
+        const [open, setOpen] = React.useState(false);
 
         return (
           <Container>
@@ -90,20 +118,20 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 onSubmit={this.submitRecords}
                 style={styles.formStyle}
               >
-                <Form.Group style={styles.titleStyle}>
+                <Form.Group className={classes.title}>
                   <Form.Label>Record Type</Form.Label>
                   <Form.Control
                     type="text"
                     id="recordType"
                     ref="recordtype"
                     style={styles.inputStyle}
-                    value={UniqueStore.recordType}
+                    value={UniqueStore.uniquerecords.recordType}
                     onChange={UniqueStore.handleChange}
                   />
                   <span style={shown}>*Please fill out a record type</span>
                 </Form.Group>
 
-                <Form.Group style={styles.titleStyle}>
+                <Form.Group className={classes.title}>
                   <Form.Label>Proposed Function</Form.Label>
                   <Form.Control
                     as="select"
@@ -111,13 +139,13 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                     id="proposedFunction"
                     ref="proposedfunction"
                     style={{ fontSize: 12 }}
-                    value={UniqueStore.proposedFunction}
+                    value={UniqueStore.uniquerecords.proposedFunction}
                     onChange={UniqueStore.handleChange}
                   >
                     <option>Choose...</option>
                     {this.props.UniqueStore.functionsDropdown
                       .slice()
-                      .map((func) => (
+                      .map((func: any) => (
                         <option key={func.id} {...func}>
                           {func.functiontype}
                         </option>
@@ -125,7 +153,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group style={styles.titleStyle}>
+                <Form.Group className={classes.title}>
                   <Form.Label>Proposed Category</Form.Label>
                   <Form.Control
                     as="select"
@@ -133,13 +161,13 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                     id="proposedCategory"
                     ref="proposedcategory"
                     style={{ fontSize: 12 }}
-                    value={UniqueStore.proposedCategory}
+                    value={UniqueStore.uniquerecords.proposedCategory}
                     onChange={UniqueStore.handleChange}
                   >
                     <option>Choose...</option>
                     {this.props.UniqueStore.categoryDropdown
                       .slice()
-                      .map((category) => (
+                      .map((category: any) => (
                         <option key={category.id} {...category}>
                           {category.recordcategoryid}
                         </option>
@@ -147,24 +175,24 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Group style={styles.titleStyle}>
+                <Form.Group className={classes.title}>
                   <Form.Label>Proposed Retention</Form.Label>
                   <Form.Control
                     type="text"
                     style={styles.inputStyle}
-                    value={UniqueStore.proposedRetention}
+                    value={UniqueStore.uniquerecords.proposedRetention}
                     onChange={UniqueStore.handleChange}
                     id="proposedRetention"
                     ref="proposedretention"
                   />
                 </Form.Group>
 
-                <Form.Group style={styles.titleStyle}>
+                <Form.Group className={classes.title}>
                   <Form.Label>Notes</Form.Label>
                   <Form.Control
                     id="Comment"
                     style={{ fontSize: 12 }}
-                    value={UniqueStore.Comment}
+                    value={UniqueStore.uniquerecords.Comment}
                     onChange={UniqueStore.handleChange}
                     type="text"
                     ref="notes"
@@ -174,9 +202,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 <div style={styles.footerStyle}>
                   <Button
                     variant="outlined"
-                    color="primary"
-                    type="button"
-                    label="submit form"
+                    //label="submit form"
                     style={styles.buttonStyle}
                     onClick={e => this.submitRecords(e)}
                   >
@@ -207,7 +233,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
             </Modal>
 
             <Snackbar
-              show={this.state.snackbarShow}
+              open={open}
+              //show={this.state.snackbarShow}
               style={{ backgroundColor: "#4BB543" }}
               onClose={this.handleClose}
               autoHideDuration={2000}
