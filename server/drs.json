@@ -119,6 +119,7 @@
     {
       "department": "Computer Science",
       "code": "CACD1000",
+      "notes": "notes",
       "function": "Academic",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
@@ -130,6 +131,7 @@
     {
       "department": "Computer Science",
       "code": "CHUM1100",
+      "notes": "notes",
       "function": "Employment",
       "recordcategoryid": "common",
       "recordtype": "Job descriptions.",
@@ -141,6 +143,7 @@
     {
       "department": "Computer Science",
       "code": "CFAC1200",
+      "notes": "notes",
       "function": "Faculty",
       "recordcategoryid": "common",
       "recordtype": "Rank & Status records.",
@@ -152,6 +155,7 @@
     {
       "department": "Records",
       "code": "CACD1000",
+      "notes": "notes",
       "function": "Academic",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
@@ -169,7 +173,20 @@
       "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
       "archival": "No",
       "status": "Approved",
+      "notes": "notes",
       "id": "T6u2_O3"
+    },
+    {
+      "recordtype": "fffff",
+      "department": "Honor Code Office",
+      "function": "Finance",
+      "recordcategoryid": "FIN10",
+      "description": "ffffffffffffffffffff",
+      "notes": "fffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "archival": "N/A",
+      "code": "N/A",
+      "status": "Pending",
+      "id": "5PFLo-g"
     }
   ],
   "functions": [

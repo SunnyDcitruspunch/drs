@@ -46,12 +46,15 @@ const AdminTab = inject("RecordStore")(
                 <TableHead>
                   <TableRow>
                     <TableCell
-                      style={{ fontSize: 10, width: 200 }}
+                      style={{ fontSize: 10, width: 180 }}
                       align="center"
                     >
-                      Record Type
+                      Department
                     </TableCell>
-                    <TableCell style={styles.tableStyle}>
+                    <TableCell style={{ fontSize: 10, width: 150 }}>
+                      Retention Type
+                    </TableCell>
+                    <TableCell style={{ fontSize: 10, width: 350 }}>
                       Retention Schedule
                     </TableCell>
                     <TableCell style={styles.tableStyle}>Function</TableCell>
@@ -80,10 +83,13 @@ const AdminTab = inject("RecordStore")(
                           {pendings.recordtype}
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
-                          {pendings.proposedfunction}
+                          {pendings.description}
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
-                          {pendings.proposedcategory}
+                          {pendings.function}
+                        </TableCell>
+                        <TableCell style={styles.tableStyle}>
+                          {pendings.recordcategoryid}
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
                           {pendings.notes}

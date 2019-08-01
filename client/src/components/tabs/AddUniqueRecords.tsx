@@ -6,19 +6,21 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
-  DialogContent,
-  FormControl,
-  FormGroup,
-  FormLabel,
   TextField,
   Grid,
-  MenuItem
+  MenuItem,
+  Select,
+  InputLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+
+/*
+  !TODO: submitrecord
+*/
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -30,6 +32,8 @@ interface IState {
   snackbarShow: boolean;
   shown: boolean;
   open: boolean;
+  selectedfunction: string;
+  selectedcategory: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -57,7 +61,9 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         smShow: false,
         snackbarShow: false,
         shown: false,
-        open: false
+        open: false,
+        selectedfunction: "",
+        selectedcategory: ""
       };
 
       handleClose = () => {
@@ -66,31 +72,49 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         });
       };
 
+      handleFunctionChange: any = (e: MouseEvent) => {
+        const { value }: any = e.target;
+        this.setState({ selectedfunction: value });
+        this.props.UniqueStore.getFunction(value);
+      };
+
+      handleCategoryChange: any = (e: MouseEvent) => {
+        const { value }: any = e.target;
+        this.setState({ selectedcategory: value });
+        this.props.UniqueStore.getCategory(value);
+      };
+
       submitRecords = (e: any) => {
-        if (this.props.DepartmentStore.selectedDepartment === "") {
-          this.setState({ smShow: true });
-          console.log("select a department to add an unique record");
-        } else if (this.props.UniqueStore.uniquerecords.recordType === "") {
-          this.setState({ shown: true });
-        } else {
-          e.preventDefault();
+        this.props.UniqueStore.submitRecords(
+          this.props.DepartmentStore.selectedDepartment
+        );
 
-          console.log(this.props.DepartmentStore.selectedDepartment);
-          this.props.UniqueStore.submitRecords(
-            this.props.DepartmentStore.selectedDepartment || ""
-          );
+        console.log(this.state.selectedcategory);
+        console.log(this.state.selectedfunction);
 
-          // this.refs.recordtype.value = "";
-          // this.refs.proposedfunction.value = "Choose...";
-          // this.refs.proposedcategory.value = "Choose...";
-          // this.refs.proposedretention.value = "";
-          // this.refs.notes.value = "";
-          this.setState({ snackbarShow: true });
-          window.scrollTo(0, 0);
-          this.props.UniqueStore.uniquerecords.recordType = "";
-          this.setState({ shown: false });
-          window.location.reload();
-        }
+        this.props.UniqueStore.uniquerecords.proposedFunction = this.state.selectedfunction;
+        this.props.UniqueStore.uniquerecords.proposedCategory = this.state.selectedcategory;
+
+        // if (this.props.DepartmentStore.selectedDepartment === "") {
+        //   this.setState({ smShow: true });
+        //   console.log("select a department to add an unique record");
+        // } else if (this.props.UniqueStore.uniquerecords.recordType === "") {
+        //   this.setState({ shown: true });
+        // } else {
+        //   e.preventDefault();
+        //   this.props.UniqueStore.submitRecords(this.state.dept)
+
+        //   console.log(this.props.DepartmentStore.selectedDepartment);
+        //   this.props.UniqueStore.submitRecords(
+        //     this.props.DepartmentStore.selectedDepartment || ""
+        //   );
+
+        //   this.setState({ snackbarShow: true });
+        //   window.scrollTo(0, 0);
+        //   this.props.UniqueStore.uniquerecords.recordType = "";
+        //   this.setState({ shown: false });
+        //   window.location.reload();
+        // }
       };
 
       render() {
@@ -100,6 +124,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           display: this.state.shown ? "block" : "none",
           color: "#ff0000"
         };
+        //console.log(this.props.DepartmentStore.selectedDepartment);
 
         return (
           <Container style={{ flexGrow: 1 }}>
@@ -108,21 +133,23 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 id="recordType"
                 label="Record Type"
                 style={{ width: 400 }}
-                value={UniqueStore.uniquerecords.recordType}
+                //value={UniqueStore.uniquerecords.recordType}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />
             </Grid>
 
-            <Grid item>
-              <TextField
-                select
-                id="recordFunction"
-                label="Proposed Function"
+            <Grid item style={{ marginBottom: 10 }}>
+              <InputLabel shrink htmlFor="age-label-placeholder">
+                Record Function
+              </InputLabel>
+              <Select
+                id="proposedFunction"
+                //label="Proposed Function"
                 style={{ width: 400 }}
-                value={UniqueStore.uniquerecords.proposedFunction}
-                onChange={UniqueStore.handleChange}
-                margin="normal"
+                value={this.state.selectedfunction}
+                onChange={this.handleFunctionChange}
+                //onChange={UniqueStore.handleChange}
               >
                 <MenuItem>Choose...</MenuItem>
                 {this.props.UniqueStore.functionsDropdown
@@ -132,18 +159,19 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                       {func.functiontype}
                     </MenuItem>
                   ))}
-              </TextField>
+              </Select>
             </Grid>
 
-            <Grid item>
-              <TextField
-                select
-                id="recordCategory"
-                label="Proposed Category"
+            <Grid item style={{ marginTop: 10 }}>
+              <InputLabel shrink htmlFor="age-label-placeholder">
+                Record Category
+              </InputLabel>
+              <Select
+                id="proposedCategory"
+                //label="Proposed Category"
                 style={{ width: 400 }}
-                value={UniqueStore.uniquerecords.proposedCategory}
-                onChange={UniqueStore.handleChange}
-                margin="normal"
+                value={this.state.selectedcategory}
+                onChange={this.handleCategoryChange}
               >
                 <MenuItem>Choose...</MenuItem>
                 {this.props.UniqueStore.categoryDropdown
@@ -156,15 +184,15 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                       {category.recordcategoryid}
                     </MenuItem>
                   ))}
-              </TextField>
+              </Select>
             </Grid>
 
             <Grid item sm={12}>
               <TextField
                 id="proposedRetention"
-                label="Proposed Retention"
+                label="Retention Schedule"
                 style={{ width: 400 }}
-                value={UniqueStore.uniquerecords.proposedRetention}
+                //value={UniqueStore.uniquerecords.proposedRetention}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />
@@ -172,10 +200,12 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <Grid item sm={12}>
               <TextField
+                multiline
+                rows="4"
                 id="Comment"
                 label="Notes"
                 style={{ width: 400 }}
-                value={UniqueStore.uniquerecords.recordType}
+                //value={UniqueStore.uniquerecords.recordType}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />
