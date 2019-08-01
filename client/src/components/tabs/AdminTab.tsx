@@ -1,16 +1,7 @@
 import React, { Component } from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import { Container, Paper, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, FormLabel } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import Container from "react-bootstrap/Container";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
-import FormLabel from "@material-ui/core/FormLabel";
-import { RecordStore } from '../../stores'
+import { IRecordStore } from '../../stores/RecordStore'
 
 /*
  *TODO:  clikcable table for pending records (editable table??)
@@ -18,13 +9,13 @@ import { RecordStore } from '../../stores'
  */
 
 interface IProps {
-  RecordStore: RecordStore
+  RecordStore: IRecordStore
 }
 
 const AdminTab = inject("RecordStore")(
   observer(
     class AdminTab extends Component<IProps, {}> {
-      UNSAFE_componentWillMount() {
+      componentDidMount() {
         this.props.RecordStore.fetchPendings();
       }
 
@@ -101,7 +92,7 @@ const AdminTab = inject("RecordStore")(
   )
 );
 
-export default AdminTab;
+export default AdminTab as any
 
 const styles = {
   tableStyle: {

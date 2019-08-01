@@ -1,13 +1,15 @@
 import * as React from "react";
-import Navbar from "react-bootstrap/Navbar";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 
 function Nav(): JSX.Element {
   return (
-    <Navbar bg="light" style={{ height: 28 }}>
-      <Navbar.Brand style={{ fontSize: 16 }}>
-        Department Retention Schedule
-      </Navbar.Brand>
-    </Navbar>
+    <AppBar position="static" color="default">
+      <Toolbar>
+        <Typography variant="h6" color="inherit" style={{ fontSize: 16 }}>
+          Department Retention Schedule
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
 

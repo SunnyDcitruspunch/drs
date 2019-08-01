@@ -1,13 +1,38 @@
 import { observable, action, decorate } from "mobx";
 
-export class RecordStore {
+export interface IRecordStore {
+  allRecords: Array<Object>
+  allrecordsforSelections: Array<Object>
+  pendingRecords: Array<Object>
+  selectedDepartment: string
+  selectedCommonRecords: Array<String>
+  editcommonrecords: Ieditcommonrecords
+  fetchRecords: () => void
+  getEditRecord: (cid: string, ccode: string, cfunction: string, ccategory: string, ctype: string, cdescription: string, carchival: string) => void
+  updateRecord: () => void
+  addCommonRecord: (select: string[]) => void
+  handleChange: (e: any) => void
+  fetchPendings: () => void
+}
+
+export interface Ieditcommonrecords {
+  editID: string
+  editCode: string
+  editFunction: string
+  editCategory: string
+  editType: string
+  editDescription: string
+  editArchival:string
+}
+
+class _RecordStore implements IRecordStore {
   allRecords = []; //all common records
   allrecordsforSelections = []; //for selected common records
   pendingRecords = [];
   selectedDepartment = "";
-  selectedCommonRecords: Array<string> = [];
+  selectedCommonRecords: string[] = [];
 
-  editcommonrecords = {
+  editcommonrecords: Ieditcommonrecords = {
     editID: "",
     editCode: "",
     editFunction: "",
@@ -40,7 +65,7 @@ export class RecordStore {
     this.selectedDepartment = dept;
   }
 
-  async addCommonRecord(selects: any) {
+  async addCommonRecord(selects: string[]) {
     this.selectedCommonRecords = selects; //selected common record id
     console.log(this.selectedCommonRecords);
 
@@ -48,7 +73,7 @@ export class RecordStore {
       let test: any = "";
       this.allRecords
         .filter((x: any) => x.id === selects[i])
-        .map((postDetail: any) => {
+        .map((postDetail: any): void => {
           test = {
             department: this.selectedDepartment,
             code: postDetail.code,
@@ -105,7 +130,7 @@ export class RecordStore {
   }
 }
 
-decorate(RecordStore, {
+decorate(_RecordStore, {
   allRecords: observable,
   pendingRecords: observable,
   fetchRecords: action,
@@ -117,3 +142,4 @@ decorate(RecordStore, {
 });
 
 //export default new RecordStore();
+export const RecordStore = new _RecordStore()

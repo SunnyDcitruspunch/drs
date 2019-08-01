@@ -1,8 +1,33 @@
 import { observable, action, decorate } from "mobx";
-import { IUniqueStore } from "../components/tabs/AddUniqueRecords"
+// import { IUniqueStore } from "../components/tabs/AddUniqueRecords"
 
-export class UniqueStore implements IUniqueStore{
-  uniquerecords = {
+export interface IUniqueStore {
+  recordType: string;
+  department: string;
+  proposedFunction: string;
+  proposedCategory: string;
+  proposedRetention: string;
+  Comment: string;
+  uniquerecords: IUniquerecords
+  functionsDropdown: Array<string>
+  categoryDropdown: Array<string>
+  fetchFunctions: () => void
+  fetchCategory: () => void
+  submitRecords: (dept: string) => void
+  handleChange: () => void
+}
+
+export interface IUniquerecords {
+  recordType: string
+  department: string
+  proposedFunction: string
+  proposedCategory: string
+  proposedRetention: string
+  Comment: string
+}
+
+class _UniqueStore {
+  uniquerecords: IUniquerecords = {
     recordType: "",
     department: "",
     proposedFunction: "",
@@ -55,7 +80,7 @@ export class UniqueStore implements IUniqueStore{
   }
 }
 
-decorate(UniqueStore, {
+decorate(_UniqueStore, {
   uniquerecords: observable,
   functionsDropdown: observable,
   categoryDropdown: observable,
@@ -66,3 +91,5 @@ decorate(UniqueStore, {
 });
 
 //export default new UniqueStore();
+
+export const UniqueStore = new _UniqueStore()

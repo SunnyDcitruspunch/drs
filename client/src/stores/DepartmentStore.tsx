@@ -4,9 +4,26 @@ import { observable, decorate, action } from "mobx";
 !TODO: DOUBLE CHECK PATCH METHOD
 */
 
-export class DepartmentStore {
+export interface IDepartmentStore {
+  fetchAllRecords: () => void;
+  fetchAll: () => void;
+  updateEditID: any;
+  selectedDepartment: string;
+  deleteID: string;
+  deleteRecord: () => void;
+  updateRecord: () => void;
+  allRecords: any;
+  allDepartments: Array<Object>;
+  isLoading: boolean;
+  editRecordid: string;
+  editDepartment: string;
+  editrecord: Object;
+  handleSelected: (edpt: string) => void;
+}
+
+class _DepartmentStore implements IDepartmentStore {
   selectedDepartment = "";
-  allDepartments= [] 
+  allDepartments = [];
   allRecords = [];
   isLoading = false;
   deleteID = "";
@@ -21,18 +38,18 @@ export class DepartmentStore {
     editnotes: ""
   };
 
-  handleSelected (dept: string) {
-    this.selectedDepartment = dept
+  handleSelected(dept: string) {
+    this.selectedDepartment = dept;
     console.log(this.selectedDepartment);
-  };
+  }
 
-  async fetchAll() {
+    fetchAll = () => {
     this.isLoading = false;
-    await fetch("http://localhost:3004/departments")
+    fetch("http://localhost:3004/departments")
       .then(response => {
         return response.json();
       })
-      .then(json => (this.allDepartments = json));
+      .then(json => (this.allDepartments = json))
   }
 
   async fetchAllRecords() {
@@ -103,7 +120,7 @@ export class DepartmentStore {
   }
 }
 
-decorate(DepartmentStore, {
+decorate(_DepartmentStore, {
   selectedDepartment: observable,
   editrecord: observable,
   allDepartments: observable,
@@ -117,4 +134,5 @@ decorate(DepartmentStore, {
   fetchAllRecords: action
 });
 
-//export default new DepartmentStore();
+// const DepartmentStore = new _DepartmentStore()
+export const DepartmentStore = new _DepartmentStore();

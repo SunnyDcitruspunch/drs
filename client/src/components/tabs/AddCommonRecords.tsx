@@ -13,23 +13,25 @@ import {
   FormLabel,
   TextField,
   Table,
-  createStyles,
-  Theme,
-  makeStyles
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle
 } from "@material-ui/core";
-import Modal from "react-bootstrap/Modal";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import Form from "react-bootstrap/Form";
-import { RecordStore, DepartmentStore, UniqueStore } from "../../stores";
+import { IRecordStore } from "../../stores/RecordStore";
+import { IDepartmentStore } from "../../stores/DepartmentStore";
+import { IUniqueStore } from "../../stores/UniqueStore";
 
 /*
   !TODO: refactor modal to material ui compnent
 */
 
 interface IProps {
-  RecordStore: RecordStore;
-  DepartmentStore: DepartmentStore;
-  UniqueStore: UniqueStore;
+  RecordStore: IRecordStore;
+  DepartmentStore: IDepartmentStore;
+  UniqueStore: IUniqueStore;
   Document: Document;
 }
 
@@ -42,21 +44,6 @@ interface IState {
 interface Document {
   createElement(tagName: "input"): HTMLInputElement;
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      width: "100%",
-      overflowX: "auto"
-    },
-    customInput: {
-      borderRadius: 5,
-      fontSize: 10,
-      padding: 6,
-      border: "Gainsboro solid 1px"
-    }
-  })
-);
 
 const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
   observer(
@@ -72,7 +59,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         };
       }
 
-      UNSAFE_componentWillMount() {
+      componentDidMount() {
         this.props.RecordStore.fetchRecords();
       }
 
@@ -142,13 +129,13 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         let editClose = () => this.setState({ editShow: false });
         //let Table = document.createElement("Table")
         const { RecordStore } = this.props;
-        const classes = useStyles();
+        //const classes = useStyles();
         //this.props.RecordStore.allRecords.forEach(e=>console.log(e.code))
         // console.log(this.props.DepartmentStore.selectedDepartment)
 
         return (
           <Container style={styles.tableStyle}>
-            <Paper className={classes.paper}>
+            <Paper style={{ width: "100%", overflowX: "auto" }}>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -216,21 +203,18 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               Add selected common records
             </Button>
 
-            <Modal
-              size="sm"
-              show={this.state.editShow}
-              onHide={editClose}
+            <Dialog
+              open={this.state.editShow}
+              onClose={editClose}
               aria-labelledby="example-modal-sizes-title-sm"
             >
-              <Modal.Header>
-                <Modal.Title
-                  id="example-modal-sizes-title-sm"
-                  style={{ fontSize: 16 }}
-                >
-                  Edit Common Record
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body style={{ fontSize: 12 }}>
+              <DialogTitle
+                id="example-modal-sizes-title-sm"
+                style={{ fontSize: 16 }}
+              >
+                Edit Common Record
+              </DialogTitle>
+              <DialogContent style={{ fontSize: 12 }}>
                 {this.props.RecordStore.allRecords
                   .slice()
                   .filter(
@@ -250,7 +234,12 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             variant="outlined"
                             onChange={RecordStore.handleChange}
                             margin="normal"
-                            className={classes.customInput}
+                            style={{
+                              borderRadius: 5,
+                              fontSize: 10,
+                              padding: 6,
+                              border: "Gainsboro solid 1px"
+                            }}
                           />
                         </FormGroup>
                         <FormGroup style={{ marginTop: 10 }}>
@@ -269,7 +258,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             {this.props.UniqueStore.functionsDropdown
                               .slice()
                               .map((func: any) => (
-                                <option key={func.id} {...func}>
+                                <option key={func.id} value={func.functiontype}>
                                   {func.functiontype}
                                 </option>
                               ))}
@@ -290,7 +279,10 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             {this.props.UniqueStore.categoryDropdown
                               .slice()
                               .map((category: any) => (
-                                <option key={category.id} {...category}>
+                                <option
+                                  key={category.id}
+                                  value={category.recordcategoryid}
+                                >
                                   {category.recordcategoryid}
                                 </option>
                               ))}
@@ -306,14 +298,19 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             onChange={RecordStore.handleChange}
                             margin="normal"
                             variant="outlined"
-                            className={classes.customInput}
+                            style={{
+                              borderRadius: 5,
+                              fontSize: 10,
+                              padding: 6,
+                              border: "Gainsboro solid 1px"
+                            }}
                           />
                         </FormGroup>
                       </Form>
                     );
                   })}
-              </Modal.Body>
-              <Modal.Footer style={{ height: 20 }}>
+              </DialogContent>
+              <DialogActions style={{ height: 20 }}>
                 <Button
                   style={styles.modalButtonStyle}
                   variant="outlined"
@@ -329,19 +326,19 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 >
                   Discard Changes
                 </Button>
-              </Modal.Footer>
-            </Modal>
+              </DialogActions>
+            </Dialog>
 
-            <Modal
-              size="sm"
-              show={this.state.modalShow}
-              onHide={modalClose}
-              aria-labelledby="example-modal-sizes-title-sm"
+            <Dialog
+              //size="sm"
+              open={this.state.modalShow}
+              onClose={modalClose}
+              aria-labelledby="alert-dialog-title"
             >
-              <Modal.Body style={{ fontSize: 12 }}>
+              <DialogContent style={{ fontSize: 12 }}>
                 Please select a department.
-              </Modal.Body>
-              <Modal.Footer style={{ height: 20 }}>
+              </DialogContent>
+              <DialogActions style={{ height: 20 }}>
                 <Button
                   style={styles.modalButtonStyle}
                   variant="outlined"
@@ -349,8 +346,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 >
                   Close
                 </Button>
-              </Modal.Footer>
-            </Modal>
+              </DialogActions>
+            </Dialog>
           </Container>
         );
       }
@@ -358,7 +355,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
   )
 );
 
-export default CommonRecords;
+export default CommonRecords as any;
 
 /** @type {{search: React.CSSProperties}} */
 const styles = {

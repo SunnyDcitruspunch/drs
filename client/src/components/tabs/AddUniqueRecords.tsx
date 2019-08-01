@@ -1,49 +1,27 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import { Button, createStyles, Theme, makeStyles, Snackbar } from "@material-ui/core";
-import Container from "react-bootstrap/Container";
+import {
+  Button,
+  Snackbar,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  TextField,
+  Grid,
+  MenuItem
+} from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      width: "100%",
-      overflowX: "auto"
-    },
-    title: {
-      textAlign: "left"
-    }
-  })
-);
-
-export interface IUniqueRecords {
-  recordType: string;
-  department: string;
-  proposedFunction: string;
-  proposedCategory: string;
-  proposedRetention: string;
-  Comment: string
-}
-
-export interface IUniqueStore {
-  fetchFunctions: () => void;
-  fetchCategory: () => void;
-  uniquerecords: IUniqueRecords
-  functionsDropdown: Array<string>;
-  categoryDropdown: any;
-  submitRecords: (dept: string) => void;
-  handleChange: (e: any) => void;
-}
-
-interface DepartmentStore {
-  selectedDepartment?: string;
-}
+import { IUniqueStore } from "../../stores/UniqueStore";
+import { IDepartmentStore } from "../../stores/DepartmentStore";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 interface IProps {
-  DepartmentStore: DepartmentStore;
+  DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
 }
 
@@ -51,12 +29,26 @@ interface IState {
   smShow: boolean;
   snackbarShow: boolean;
   shown: boolean;
+  open: boolean;
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: "center",
+      color: theme.palette.text.secondary
+    }
+  })
+);
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
     class AddUniqueRecords extends Component<IProps, IState> {
-      UNSAFE_componentWillMount() {
+      componentDidMount() {
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
       }
@@ -64,7 +56,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       state: IState = {
         smShow: false,
         snackbarShow: false,
-        shown: false
+        shown: false,
+        open: false
       };
 
       handleClose = () => {
@@ -107,146 +100,114 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           display: this.state.shown ? "block" : "none",
           color: "#ff0000"
         };
-        let classes = useStyles();
-        const [open, setOpen] = React.useState(false);
 
         return (
-          <Container>
-            <Col md={{ span: 8, offset: 2 }}>
-              <Form
-                noValidate
-                onSubmit={this.submitRecords}
-                style={styles.formStyle}
+          <Container style={{ flexGrow: 1 }}>
+            <Grid item sm={12}>
+              <TextField
+                id="recordType"
+                label="Record Type"
+                style={{ width: 400 }}
+                value={UniqueStore.uniquerecords.recordType}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                select
+                id="recordFunction"
+                label="Proposed Function"
+                style={{ width: 400 }}
+                value={UniqueStore.uniquerecords.proposedFunction}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
               >
-                <Form.Group className={classes.title}>
-                  <Form.Label>Record Type</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="recordType"
-                    ref="recordtype"
-                    style={styles.inputStyle}
-                    value={UniqueStore.uniquerecords.recordType}
-                    onChange={UniqueStore.handleChange}
-                  />
-                  <span style={shown}>*Please fill out a record type</span>
-                </Form.Group>
+                <MenuItem>Choose...</MenuItem>
+                {this.props.UniqueStore.functionsDropdown
+                  .slice()
+                  .map((func: any) => (
+                    <MenuItem key={func.id} value={func.functiontype}>
+                      {func.functiontype}
+                    </MenuItem>
+                  ))}
+              </TextField>
+            </Grid>
 
-                <Form.Group className={classes.title}>
-                  <Form.Label>Proposed Function</Form.Label>
-                  <Form.Control
-                    as="select"
-                    type="text"
-                    id="proposedFunction"
-                    ref="proposedfunction"
-                    style={{ fontSize: 12 }}
-                    value={UniqueStore.uniquerecords.proposedFunction}
-                    onChange={UniqueStore.handleChange}
-                  >
-                    <option>Choose...</option>
-                    {this.props.UniqueStore.functionsDropdown
-                      .slice()
-                      .map((func: any) => (
-                        <option key={func.id} {...func}>
-                          {func.functiontype}
-                        </option>
-                      ))}
-                  </Form.Control>
-                </Form.Group>
+            <Grid item>
+              <TextField
+                select
+                id="recordCategory"
+                label="Proposed Category"
+                style={{ width: 400 }}
+                value={UniqueStore.uniquerecords.proposedCategory}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
+              >
+                <MenuItem>Choose...</MenuItem>
+                {this.props.UniqueStore.categoryDropdown
+                  .slice()
+                  .map((category: any) => (
+                    <MenuItem
+                      key={category.id}
+                      value={category.recordcategoryid}
+                    >
+                      {category.recordcategoryid}
+                    </MenuItem>
+                  ))}
+              </TextField>
+            </Grid>
 
-                <Form.Group className={classes.title}>
-                  <Form.Label>Proposed Category</Form.Label>
-                  <Form.Control
-                    as="select"
-                    type="text"
-                    id="proposedCategory"
-                    ref="proposedcategory"
-                    style={{ fontSize: 12 }}
-                    value={UniqueStore.uniquerecords.proposedCategory}
-                    onChange={UniqueStore.handleChange}
-                  >
-                    <option>Choose...</option>
-                    {this.props.UniqueStore.categoryDropdown
-                      .slice()
-                      .map((category: any) => (
-                        <option key={category.id} {...category}>
-                          {category.recordcategoryid}
-                        </option>
-                      ))}
-                  </Form.Control>
-                </Form.Group>
+            <Grid item sm={12}>
+              <TextField
+                id="proposedRetention"
+                label="Proposed Retention"
+                style={{ width: 400 }}
+                value={UniqueStore.uniquerecords.proposedRetention}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
+              />
+            </Grid>
 
-                <Form.Group className={classes.title}>
-                  <Form.Label>Proposed Retention</Form.Label>
-                  <Form.Control
-                    type="text"
-                    style={styles.inputStyle}
-                    value={UniqueStore.uniquerecords.proposedRetention}
-                    onChange={UniqueStore.handleChange}
-                    id="proposedRetention"
-                    ref="proposedretention"
-                  />
-                </Form.Group>
+            <Grid item sm={12}>
+              <TextField
+                id="Comment"
+                label="Notes"
+                style={{ width: 400 }}
+                value={UniqueStore.uniquerecords.recordType}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
+              />
+            </Grid>
 
-                <Form.Group className={classes.title}>
-                  <Form.Label>Notes</Form.Label>
-                  <Form.Control
-                    id="Comment"
-                    style={{ fontSize: 12 }}
-                    value={UniqueStore.uniquerecords.Comment}
-                    onChange={UniqueStore.handleChange}
-                    type="text"
-                    ref="notes"
-                  />
-                </Form.Group>
-
-                <div style={styles.footerStyle}>
-                  <Button
-                    variant="outlined"
-                    //label="submit form"
-                    style={styles.buttonStyle}
-                    onClick={e => this.submitRecords(e)}
-                  >
-                    <Link to="/AddUniqueRecords">Submit</Link>
-                  </Button>
-                </div>
-              </Form>
-            </Col>
-
-            <Modal
-              size="sm"
-              show={this.state.smShow}
-              onHide={smClose}
-              aria-labelledby="example-modal-sizes-title-sm"
+            <Button
+              variant="outlined"
+              color="primary"
+              style={styles.buttonStyle}
+              onClick={e => this.submitRecords(e)}
             >
-              <Modal.Body style={{ fontSize: 12 }}>
-                Please select a department.
-              </Modal.Body>
-              <Modal.Footer style={{ height: 20 }}>
+              <Link to="/AddUniqueRecords">Submit</Link>
+            </Button>
+
+            <Dialog
+              open={this.state.smShow}
+              onClose={smClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Please select a department."}
+              </DialogTitle>
+              <DialogActions>
                 <Button
-                  style={styles.modalButtonStyle}
-                  variant="outlined"
+                  color="primary"
                   onClick={() => this.setState({ smShow: false })}
                 >
                   Close
                 </Button>
-              </Modal.Footer>
-            </Modal>
-
-            <Snackbar
-              open={open}
-              //show={this.state.snackbarShow}
-              style={{ backgroundColor: "#4BB543" }}
-              onClose={this.handleClose}
-              autoHideDuration={2000}
-              ContentProps={{
-                "aria-describedby": "message-id"
-              }}
-              message={
-                <span id="message-id">
-                  Your record is succesffuly sent to pending queue.
-                </span>
-              }
-            />
+              </DialogActions>
+            </Dialog>
           </Container>
         );
       }
@@ -254,7 +215,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   )
 );
 
-export default AddUniqueRecords;
+export default AddUniqueRecords as any;
 
 const styles = {
   buttonStyle: {
