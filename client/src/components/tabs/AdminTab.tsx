@@ -1,7 +1,18 @@
 import React, { Component } from "react";
-import { Container, Paper, Table, TableBody, TableCell, TableHead, TableRow, Checkbox, Button, FormLabel } from "@material-ui/core";
+import {
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Checkbox,
+  Button,
+  FormLabel
+} from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IRecordStore } from '../../stores/RecordStore'
+import { IRecordStore } from "../../stores/RecordStore";
 
 /*
  *TODO:  clikcable table for pending records (editable table??)
@@ -9,7 +20,7 @@ import { IRecordStore } from '../../stores/RecordStore'
  */
 
 interface IProps {
-  RecordStore: IRecordStore
+  RecordStore: IRecordStore;
 }
 
 const AdminTab = inject("RecordStore")(
@@ -18,6 +29,10 @@ const AdminTab = inject("RecordStore")(
       componentDidMount() {
         this.props.RecordStore.fetchPendings();
       }
+
+      // handleSelect() {
+      //   this.props.RecordStore.addCommonRecord();
+      // }
 
       render() {
         const { RecordStore }: IProps = this.props;
@@ -82,6 +97,7 @@ const AdminTab = inject("RecordStore")(
               variant="outlined"
               color="primary"
               style={{ marginTop: 10, fontSize: 10 }}
+              //onClick={() => this.handleSelect()}
             >
               Approve selected records
             </Button>
@@ -92,7 +108,7 @@ const AdminTab = inject("RecordStore")(
   )
 );
 
-export default AdminTab as any
+export default AdminTab as any;
 
 const styles = {
   tableStyle: {

@@ -184,7 +184,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
             <Button
               variant="outlined"
               color="primary"
-              style={styles.buttonStyle}
+              style={{ marginTop: 10, fontSize: 10 }}
               onClick={e => this.submitRecords(e)}
             >
               <Link to="/AddUniqueRecords">Submit</Link>

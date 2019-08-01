@@ -1,28 +1,36 @@
 import { observable, action, decorate } from "mobx";
 
 export interface IRecordStore {
-  allRecords: Array<Object>
-  allrecordsforSelections: Array<Object>
-  pendingRecords: Array<Object>
-  selectedDepartment: string
-  selectedCommonRecords: Array<String>
-  editcommonrecords: Ieditcommonrecords
-  fetchRecords: () => void
-  getEditRecord: (cid: string, ccode: string, cfunction: string, ccategory: string, ctype: string, cdescription: string, carchival: string) => void
-  updateRecord: () => void
-  addCommonRecord: (select: string[]) => void
-  handleChange: (e: any) => void
-  fetchPendings: () => void
+  allRecords: Array<Object>;
+  allrecordsforSelections: Array<Object>;
+  pendingRecords: Array<Object>;
+  selectedDepartment: string;
+  selectedCommonRecords: Array<String>;
+  editcommonrecords: Ieditcommonrecords;
+  fetchRecords: () => void;
+  getEditRecord: (
+    cid: string,
+    ccode: string,
+    cfunction: string,
+    ccategory: string,
+    ctype: string,
+    cdescription: string,
+    carchival: string
+  ) => void;
+  updateRecord: () => void;
+  addCommonRecord: (select: string[]) => void;
+  handleChange: (e: any) => void;
+  fetchPendings: () => void;
 }
 
 export interface Ieditcommonrecords {
-  editID: string
-  editCode: string
-  editFunction: string
-  editCategory: string
-  editType: string
-  editDescription: string
-  editArchival:string
+  editID: string;
+  editCode: string;
+  editFunction: string;
+  editCategory: string;
+  editType: string;
+  editDescription: string;
+  editArchival: string;
 }
 
 class _RecordStore implements IRecordStore {
@@ -66,6 +74,7 @@ class _RecordStore implements IRecordStore {
   }
 
   async addCommonRecord(selects: string[]) {
+    console.log("approved");
     this.selectedCommonRecords = selects; //selected common record id
     console.log(this.selectedCommonRecords);
 
@@ -73,18 +82,20 @@ class _RecordStore implements IRecordStore {
       let test: any = "";
       this.allRecords
         .filter((x: any) => x.id === selects[i])
-        .map((postDetail: any): void => {
-          test = {
-            department: this.selectedDepartment,
-            code: postDetail.code,
-            function: postDetail.function,
-            recordcategoryid: postDetail.recordcategoryid,
-            recordtype: postDetail.recordtype,
-            description: postDetail.description,
-            archival: postDetail.archival,
-            status: "Approved"
-          };
-        });
+        .map(
+          (postDetail: any): void => {
+            test = {
+              department: this.selectedDepartment,
+              code: postDetail.code,
+              function: postDetail.function,
+              recordcategoryid: postDetail.recordcategoryid,
+              recordtype: postDetail.recordtype,
+              description: postDetail.description,
+              archival: postDetail.archival,
+              status: "Approved"
+            };
+          }
+        );
 
       console.log(test);
 
@@ -142,4 +153,4 @@ decorate(_RecordStore, {
 });
 
 //export default new RecordStore();
-export const RecordStore = new _RecordStore()
+export const RecordStore = new _RecordStore();

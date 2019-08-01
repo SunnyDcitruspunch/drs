@@ -330,18 +330,17 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             </Dialog>
 
             <Dialog
-              //size="sm"
               open={this.state.modalShow}
               onClose={modalClose}
               aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
             >
-              <DialogContent style={{ fontSize: 12 }}>
-                Please select a department.
-              </DialogContent>
-              <DialogActions style={{ height: 20 }}>
+              <DialogTitle id="alert-dialog-title">
+                {"Please select a department."}
+              </DialogTitle>
+              <DialogActions>
                 <Button
-                  style={styles.modalButtonStyle}
-                  variant="outlined"
+                  color="primary"
                   onClick={() => this.setState({ modalShow: false })}
                 >
                   Close

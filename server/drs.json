@@ -159,6 +159,17 @@
       "archival": "Yes",
       "status": "Approved",
       "id": "llBpVci"
+    },
+    {
+      "department": "Honor Code Office",
+      "code": "CFAC1200",
+      "function": "Faculty",
+      "recordcategoryid": "common",
+      "recordtype": "Rank & Status records.",
+      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
+      "archival": "No",
+      "status": "Approved",
+      "id": "T6u2_O3"
     }
   ],
   "functions": [
