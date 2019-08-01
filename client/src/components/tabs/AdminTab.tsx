@@ -23,16 +23,61 @@ interface IProps {
   RecordStore: IRecordStore;
 }
 
+interface IState {
+  approvedrecords: any;
+}
+
 const AdminTab = inject("RecordStore")(
   observer(
-    class AdminTab extends Component<IProps, {}> {
+    class AdminTab extends Component<IProps, IState> {
+      constructor(props: IProps) {
+        super(props);
+        this.onSelect = this.onSelect.bind(this);
+
+        this.state = {
+          approvedrecords: []
+        };
+      }
+
       componentDidMount() {
         this.props.RecordStore.fetchPendings();
       }
 
-      // handleSelect() {
-      //   this.props.RecordStore.addCommonRecord();
-      // }
+      onSelect = (e: any) => {
+        const { value } = e.target;
+        if (e.target.checked) {
+          this.setState(
+            {
+              approvedrecords: [...this.state.approvedrecords, value]
+            },
+            () => {
+              console.log(this.state.approvedrecords);
+            }
+          );
+        } else {
+          let remove = this.state.approvedrecords.indexOf(e.target.value);
+          this.setState(
+            {
+              approvedrecords: this.state.approvedrecords.filter(
+                (_: any, i: any) => i !== remove
+              )
+            },
+            () => {
+              console.log(this.state.approvedrecords);
+            }
+          );
+        }
+      };
+
+      approveSelect = (e: any) => {
+        //console.log("approved");
+        //this.props.RecordStore.approvedRecords = this.state.approvedrecords
+        //console.log(this.props.RecordStore.approvedRecords)
+        this.props.RecordStore.approveSelectedRecords(
+          this.state.approvedrecords
+        );
+        window.location.reload()
+      };
 
       render() {
         const { RecordStore }: IProps = this.props;
@@ -46,15 +91,15 @@ const AdminTab = inject("RecordStore")(
                 <TableHead>
                   <TableRow>
                     <TableCell
-                      style={{ fontSize: 10, width: 180 }}
+                      style={{ fontSize: 10, width: 250 }}
                       align="center"
                     >
                       Department
                     </TableCell>
-                    <TableCell style={{ fontSize: 10, width: 150 }}>
+                    <TableCell style={{ fontSize: 10, width: 100 }}>
                       Retention Type
                     </TableCell>
-                    <TableCell style={{ fontSize: 10, width: 350 }}>
+                    <TableCell style={{ fontSize: 10, width: 300 }}>
                       Retention Schedule
                     </TableCell>
                     <TableCell style={styles.tableStyle}>Function</TableCell>
@@ -76,6 +121,8 @@ const AdminTab = inject("RecordStore")(
                           <Checkbox
                             color="primary"
                             style={{ height: 1, width: 1, marginRight: 5 }}
+                            onChange={this.onSelect}
+                            value={pendings.id}
                           />
                           {pendings.department}
                         </TableCell>
@@ -103,7 +150,7 @@ const AdminTab = inject("RecordStore")(
               variant="outlined"
               color="primary"
               style={{ marginTop: 10, fontSize: 10 }}
-              //onClick={() => this.handleSelect()}
+              onClick={this.approveSelect}
             >
               Approve selected records
             </Button>

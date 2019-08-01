@@ -1,5 +1,4 @@
 import { observable, action, decorate } from "mobx";
-// import { IUniqueStore } from "../components/tabs/AddUniqueRecords"
 
 export interface IUniqueStore {
   recordType: string;
@@ -40,7 +39,6 @@ class _UniqueStore {
 
   handleChange = (e: any) => {
     const { id, value } = e.target;
-    // const value = e.target;
     console.log(value);
     this.uniquerecords[id] = value;
   };
@@ -70,8 +68,6 @@ class _UniqueStore {
   }
 
   async submitRecords(selecteddepartment: string) {
-    /*post to drs: record type, retention schedule, nots, actions, status
-      can pending records be deleted or edit? */
     fetch("http://localhost:3004/records", {
       method: "POST",
       headers: {
@@ -90,10 +86,6 @@ class _UniqueStore {
         status: "Pending"
       })
     });
-
-    console.log("submitted");
-    console.log(this.uniquerecords.proposedFunction);
-    console.log(this.uniquerecords.proposedCategory);
   }
 }
 

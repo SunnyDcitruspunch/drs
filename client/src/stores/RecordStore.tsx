@@ -1,4 +1,4 @@
-import { observable, action, decorate } from "mobx";
+import { observable, action, decorate, computed } from "mobx";
 
 export interface IRecordStore {
   allRecords: Array<Object>;
@@ -21,6 +21,9 @@ export interface IRecordStore {
   addCommonRecord: (select: string[]) => void;
   handleChange: (e: any) => void;
   fetchPendings: () => void;
+  approvedRecords: Array<string>;
+  //checkedRecords: (e: any) => void;
+  approveSelectedRecords: (e: any) => void;
 }
 
 export interface Ieditcommonrecords {
@@ -39,6 +42,7 @@ class _RecordStore implements IRecordStore {
   pendingRecords = [];
   selectedDepartment = "";
   selectedCommonRecords: string[] = [];
+  approvedRecords: string[] = [];
 
   editcommonrecords: Ieditcommonrecords = {
     editID: "",
@@ -73,6 +77,7 @@ class _RecordStore implements IRecordStore {
     this.selectedDepartment = dept;
   }
 
+  //add selected common records
   async addCommonRecord(selects: string[]) {
     console.log("approved");
     this.selectedCommonRecords = selects; //selected common record id
@@ -98,8 +103,6 @@ class _RecordStore implements IRecordStore {
         );
 
       console.log(test);
-
-      // await this.selectedCommonRecords.map(record => {
       fetch("http://localhost:3004/records", {
         method: "POST",
         headers: {
@@ -109,7 +112,28 @@ class _RecordStore implements IRecordStore {
         body: JSON.stringify(test)
       });
     }
-    // });
+  }
+
+  //approve selected records: PATCH
+  async approveSelectedRecords(records: any) {
+    console.log(records + "are the records");
+    const baseUrl = "http://localhost:3004/records";
+
+    for (let i = 0; i < records.length; i++) {
+      await fetch(`${baseUrl}/${records[i]}`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          department: this.selectedDepartment,
+          status: "Approved"
+        })
+      })
+        .then(res => res.json())
+        .then(res => console.log(res));
+    }
   }
 
   getEditRecord(
@@ -149,7 +173,10 @@ decorate(_RecordStore, {
   handleChange: action,
   updateRecord: action,
   getEditRecord: action,
-  addCommonRecord: action
+  addCommonRecord: action,
+  approvedRecords: observable,
+  approveSelectedRecords: action
+  //checkedRecords: action
 });
 
 //export default new RecordStore();

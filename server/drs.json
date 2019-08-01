@@ -44,7 +44,7 @@
       "department": "Honor Code Office",
       "description": "ss",
       "notes": "ss",
-      "status": "Pending",
+      "status": "Approved",
       "id": "g4YIQsD",
       "code": "U2",
       "function": "Legal",
@@ -70,7 +70,7 @@
       "departmentnumber": "232",
       "description": "yuuuuuuuuu",
       "notes": "yuuuuuuuuuuuuuuuuu",
-      "status": "Pending",
+      "status": "Approved",
       "id": "BD4tWTR",
       "function": "Miscellaneous",
       "recordcategoryid": "",
@@ -83,7 +83,7 @@
       "department": "BYU Catering",
       "description": "this record is for BYU catering",
       "notes": "notes",
-      "status": "Pending",
+      "status": "Approved",
       "id": "uLc8Dwp",
       "recordcategoryid": "",
       "code": "U2",
@@ -161,6 +161,28 @@
       "archival": "Yes",
       "status": "Approved",
       "id": "-jTHalm"
+    },
+    {
+      "department": "Marriott School",
+      "code": "CHUM1100",
+      "function": "Employment",
+      "recordcategoryid": "common",
+      "recordtype": "Job descriptions.",
+      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
+      "archival": "No",
+      "status": "Approved",
+      "id": "aIomQ0d"
+    },
+    {
+      "department": "BYU Catering",
+      "code": "CADM2350",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Waivers (Risk Management waivers).",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes",
+      "status": "Approved",
+      "id": "6G-ZvsP"
     }
   ],
   "functions": [

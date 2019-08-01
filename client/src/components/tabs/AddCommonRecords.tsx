@@ -38,7 +38,7 @@ interface IProps {
 interface IState {
   modalShow: boolean;
   editShow: boolean;
-  selectrecord: Array<string>;
+  selectrecord: any
 }
 
 interface Document {
@@ -78,7 +78,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           this.setState(
             {
               selectrecord: this.state.selectrecord.filter(
-                (_, i) => i !== remove
+                (_: any, i: any) => i !== remove
               )
             },
             () => {
@@ -127,11 +127,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
-        //let Table = document.createElement("Table")
         const { RecordStore } = this.props;
-        //const classes = useStyles();
-        //this.props.RecordStore.allRecords.forEach(e=>console.log(e.code))
-        // console.log(this.props.DepartmentStore.selectedDepartment)
 
         return (
           <Container style={styles.tableStyle}>
@@ -139,7 +135,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{ fontSize: 10 }}>Actions</TableCell>
+                    <TableCell style={{ fontSize: 10, width: 150}}>Actions</TableCell>
                     <TableCell style={{ fontSize: 10 }}>Function</TableCell>
                     <TableCell style={{ fontSize: 10 }}>Record Type</TableCell>
                     <TableCell style={{ fontSize: 10 }}>
@@ -183,7 +179,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           {record.recordtype}
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
-                          {record.retentiondescription}
+                          {record.description}
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
                           {record.archival}

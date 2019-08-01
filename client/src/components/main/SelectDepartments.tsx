@@ -50,8 +50,7 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
 
       render() {
         const { DepartmentStore } = this.props;
-
-        //this.props.DepartmentStore.allDepartments.forEach(e=>console.log(e.id))
+        
         return (
           <Container >
             <Grid item style={{ marginBottom: 50 }}>

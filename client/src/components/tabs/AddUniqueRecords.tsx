@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import {
   Button,
   Snackbar,
@@ -17,10 +17,6 @@ import { Link } from "react-router-dom";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 
-/*
-  !TODO: submitrecord
-*/
-
 interface IProps {
   DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
@@ -29,28 +25,19 @@ interface IProps {
 interface IState {
   smShow: boolean;
   snackbarShow: boolean;
-  shown: boolean;
+  needRecordType: boolean;
   open: boolean;
   selectedfunction: string;
   selectedcategory: string;
 }
 
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     root: {
-//       flexGrow: 1
-//     },
-//     paper: {
-//       padding: theme.spacing(2),
-//       textAlign: "center",
-//       color: theme.palette.text.secondary
-//     }
-//   })
-// );
-
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
     class AddUniqueRecords extends Component<IProps, IState> {
+      constructor(props: IProps) {
+        super(props);
+      }
+
       componentDidMount() {
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
@@ -59,7 +46,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       state: IState = {
         smShow: false,
         snackbarShow: false,
-        shown: false,
+        needRecordType: false,
         open: false,
         selectedfunction: "",
         selectedcategory: ""
@@ -84,45 +71,40 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       };
 
       submitRecords = (e: any) => {
+        e.preventDefault();
+
         this.props.UniqueStore.submitRecords(
           this.props.DepartmentStore.selectedDepartment
         );
 
-        console.log(this.state.selectedcategory);
-        console.log(this.state.selectedfunction);
-
         this.props.UniqueStore.uniquerecords.proposedFunction = this.state.selectedfunction;
         this.props.UniqueStore.uniquerecords.proposedCategory = this.state.selectedcategory;
 
-        // if (this.props.DepartmentStore.selectedDepartment === "") {
-        //   this.setState({ smShow: true });
-        //   console.log("select a department to add an unique record");
-        // } else if (this.props.UniqueStore.uniquerecords.recordType === "") {
-        //   this.setState({ shown: true });
-        // } else {
-        //   e.preventDefault();
-        //   this.props.UniqueStore.submitRecords(this.state.dept)
+        if (this.props.DepartmentStore.selectedDepartment === "") {
+          this.setState({ smShow: true });
+          console.log("select a department to add an unique record");
+        } else if (this.props.UniqueStore.uniquerecords.recordType === "") {
+          this.setState({ needRecordType: true });
+        } else {
+          e.preventDefault();
+          this.props.UniqueStore.submitRecords(
+            this.props.DepartmentStore.selectedDepartment
+          );
 
-        //   console.log(this.props.DepartmentStore.selectedDepartment);
-        //   this.props.UniqueStore.submitRecords(
-        //     this.props.DepartmentStore.selectedDepartment || ""
-        //   );
-
-        //   this.setState({ snackbarShow: true });
-        //   window.scrollTo(0, 0);
-        //   this.props.UniqueStore.uniquerecords.recordType = "";
-        //   this.setState({ shown: false });
-        //   window.location.reload();
-        // }
+          this.setState({ selectedcategory: "" });
+          this.setState({ selectedfunction: "" });
+          //this.setState({ snackbarShow: true });
+          window.scrollTo(0, 0);
+          this.props.UniqueStore.uniquerecords.recordType = "";
+          this.setState({ needRecordType: false });
+          window.location.reload();
+        }
       };
 
       render() {
         let smClose = () => this.setState({ smShow: false });
+        let needRecordType = () => this.setState({ needRecordType: false });
         const { UniqueStore } = this.props;
-        const shown = {
-          display: this.state.shown ? "block" : "none",
-          color: "#ff0000"
-        };
         //console.log(this.props.DepartmentStore.selectedDepartment);
 
         return (
@@ -210,7 +192,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               variant="outlined"
               color="primary"
               style={{ marginTop: 10, fontSize: 10 }}
-              onClick={e => this.submitRecords(e)}
+              onSubmit={e => this.submitRecords(e)}
             >
               <Link
                 to="/AddUniqueRecords"
@@ -233,6 +215,25 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 <Button
                   color="primary"
                   onClick={() => this.setState({ smShow: false })}
+                >
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+            <Dialog
+              open={this.state.needRecordType}
+              onClose={needRecordType}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Please enter a record type."}
+              </DialogTitle>
+              <DialogActions>
+                <Button
+                  color="primary"
+                  onClick={() => this.setState({ needRecordType: false })}
                 >
                   Close
                 </Button>

@@ -101,15 +101,15 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
         if (this.props.DepartmentStore.selectedDepartment !== "") {
           html2canvas(el, {
-            width: 960,
-            height: 1440
+            width: 1200,
+            height:1200
           }).then(function(canvas: any) {
             var img = canvas.toDataURL("image/png");
             var doc = new jsPDF({
               orientation: "landscape"
             });
             doc.text("Department Retention Schedule: " + dept, 10, 10);
-            doc.addImage(img, "JPEG", -40, 15);
+            doc.addImage(img, "JPEG", -50, 15);
             doc.save("retention.pdf");
           });
         } else {
@@ -184,7 +184,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 <TableHead>
                   <TableRow>
                     <TableCell style={{ fontSize: 10 }}>Actions</TableCell>
-                    <TableCell style={{ fontSize: 10, width: 200 }}>
+                    <TableCell style={{ fontSize: 10, width: 150 }}>
                       Record Type
                     </TableCell>
                     <TableCell style={{ fontSize: 10, width: 300 }}>
