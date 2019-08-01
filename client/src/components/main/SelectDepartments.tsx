@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
-import DeptRetention from "../tabs/DeptRetention";
 
 /*
   !TODO: how to filter duplicate JSON objects?

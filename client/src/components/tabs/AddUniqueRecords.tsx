@@ -16,7 +16,6 @@ import { inject, observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 /*
   !TODO: submitrecord
@@ -36,18 +35,18 @@ interface IState {
   selectedcategory: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary
-    }
-  })
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       flexGrow: 1
+//     },
+//     paper: {
+//       padding: theme.spacing(2),
+//       textAlign: "center",
+//       color: theme.palette.text.secondary
+//     }
+//   })
+// );
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
@@ -132,8 +131,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               <TextField
                 id="recordType"
                 label="Record Type"
-                style={{ width: 400 }}
-                //value={UniqueStore.uniquerecords.recordType}
+                style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />
@@ -145,11 +143,9 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               </InputLabel>
               <Select
                 id="proposedFunction"
-                //label="Proposed Function"
-                style={{ width: 400 }}
+                style={{ width: 500 }}
                 value={this.state.selectedfunction}
                 onChange={this.handleFunctionChange}
-                //onChange={UniqueStore.handleChange}
               >
                 <MenuItem>Choose...</MenuItem>
                 {this.props.UniqueStore.functionsDropdown
@@ -168,8 +164,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               </InputLabel>
               <Select
                 id="proposedCategory"
-                //label="Proposed Category"
-                style={{ width: 400 }}
+                style={{ width: 500 }}
                 value={this.state.selectedcategory}
                 onChange={this.handleCategoryChange}
               >
@@ -189,10 +184,11 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <Grid item sm={12}>
               <TextField
+                multiline
+                rows="2"
                 id="proposedRetention"
                 label="Retention Schedule"
-                style={{ width: 400 }}
-                //value={UniqueStore.uniquerecords.proposedRetention}
+                style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />
@@ -204,8 +200,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 rows="4"
                 id="Comment"
                 label="Notes"
-                style={{ width: 400 }}
-                //value={UniqueStore.uniquerecords.recordType}
+                style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />
@@ -217,7 +212,12 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               style={{ marginTop: 10, fontSize: 10 }}
               onClick={e => this.submitRecords(e)}
             >
-              <Link to="/AddUniqueRecords">Submit</Link>
+              <Link
+                to="/AddUniqueRecords"
+                style={{ fontSize: 10, textDecoration: "none" }}
+              >
+                Submit
+              </Link>
             </Button>
 
             <Dialog
@@ -246,36 +246,3 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 );
 
 export default AddUniqueRecords as any;
-
-const styles = {
-  buttonStyle: {
-    height: 26,
-    width: 60,
-    fontSize: 12,
-    padding: 0
-  },
-  formStyle: {
-    height: 32,
-    fontSize: 11,
-    paddingTop: 18
-  },
-  inputStyle: {
-    height: 28,
-    fontSize: 11
-  },
-  titleStyle: {
-    textAlign: "left"
-  },
-  errorStyle: {
-    color: "red"
-  },
-  footerStyle: {
-    height: 60
-  },
-  modalButtonStyle: {
-    height: 26,
-    width: 84,
-    fontSize: 12,
-    padding: 0
-  }
-};

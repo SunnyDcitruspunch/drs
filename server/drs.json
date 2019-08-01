@@ -23,7 +23,7 @@
       "description": "common",
       "recordcategoryid": "MISC20",
       "status": "Approved",
-      "notes": "",
+      "notes": "this is a note.",
       "archival": "Yes"
     },
     {
@@ -66,7 +66,7 @@
     },
     {
       "recordtype": "Catering type",
-      "department": "yuuuuuuuuuuuu",
+      "department": "BYU Catering",
       "departmentnumber": "232",
       "description": "yuuuuuuuuu",
       "notes": "yuuuuuuuuuuuuuuuuu",
@@ -106,7 +106,7 @@
     {
       "department": "Computer Science",
       "code": "CHUM1100",
-      "notes": "notes",
+      "notes": "Houston, we have a problem.",
       "function": "Employment",
       "recordcategoryid": "common",
       "recordtype": "Job descriptions.",

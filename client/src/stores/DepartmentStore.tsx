@@ -19,6 +19,7 @@ export interface IDepartmentStore {
   editDepartment: string;
   editrecord: Object;
   handleSelected: (edpt: string) => void;
+  handleChange: (e: any) => void;
 }
 
 class _DepartmentStore implements IDepartmentStore {
@@ -43,14 +44,14 @@ class _DepartmentStore implements IDepartmentStore {
     console.log(this.selectedDepartment);
   }
 
-    fetchAll = () => {
+  fetchAll = () => {
     this.isLoading = false;
     fetch("http://localhost:3004/departments")
       .then(response => {
         return response.json();
       })
-      .then(json => (this.allDepartments = json))
-  }
+      .then(json => (this.allDepartments = json));
+  };
 
   async fetchAllRecords() {
     this.isLoading = false;
@@ -70,12 +71,8 @@ class _DepartmentStore implements IDepartmentStore {
   }
 
   handleChange = (e: any) => {
-    // const { id, value } = e.target
-    // const id: { [id: string]: string | number } = e.target;
-    const id = e.target.id;
-    const value = e.target.value;
+    const { id, value } = e.target;
     this.editrecord[id] = value;
-    console.log(this.editrecord.editrecordtype);
   };
 
   updateEditID(
@@ -108,7 +105,7 @@ class _DepartmentStore implements IDepartmentStore {
       },
       body: JSON.stringify({
         recordtype: this.editrecord.editrecordtype,
-        department: this.editDepartment,
+        //department: this.editDepartment,
         function: this.editrecord.editfunction,
         recordcategoryid: this.editrecord.editrecordcategoryid,
         description: this.editrecord.editdescription,

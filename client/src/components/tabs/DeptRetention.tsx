@@ -16,7 +16,12 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogContentText
+  DialogContentText,
+  TextField,
+  Select,
+  Grid,
+  MenuItem,
+  InputLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -24,7 +29,6 @@ import { IDepartmentStore } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 
 /* 
-  TODO: able to send email to admin (but not every submission... about one email per week)
   !TODO: edit modal dropdownlist default value
   TODO: snackbar after edit/ delete/ submission
   * TODO: change button colors
@@ -37,9 +41,11 @@ interface IProps {
 
 interface IState {
   smShow: boolean;
-  formShow: boolean;
+  openEdit: boolean;
   pdfShow: boolean;
   confirmDelete: boolean;
+  selectedFunction: string;
+  selectedCategory: string;
 }
 
 const DeptRetention = inject("DepartmentStore", "UniqueStore")(
@@ -50,9 +56,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
         this.state = {
           smShow: false,
-          formShow: false,
+          openEdit: false,
           pdfShow: false,
-          confirmDelete: false
+          confirmDelete: false,
+          selectedCategory: "",
+          selectedFunction: ""
         };
       }
 
@@ -71,7 +79,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         ddesc: string,
         dnotes: string
       ) {
-        this.setState({ formShow: true });
+        this.setState({ openEdit: true });
+        this.setState({ selectedFunction: dfunction });
+        this.setState({ selectedCategory: dcategory });
         this.props.DepartmentStore.updateEditID(
           pid,
           dept,
@@ -85,6 +95,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       //html2canvas + jsPDF
       makePdf = () => {
+        console.log("making pdf...");
         const dept = this.props.DepartmentStore.selectedDepartment;
         const el: any = document.getElementById("schedule");
 
@@ -98,7 +109,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               orientation: "landscape"
             });
             doc.text("Department Retention Schedule: " + dept, 10, 10);
-            doc.addImage(img, "JPEG", -50, 15);
+            doc.addImage(img, "JPEG", -40, 15);
             doc.save("retention.pdf");
           });
         } else {
@@ -118,55 +129,68 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       //click delete in delete modal
       onDelete = () => {
-        //this.setState({ confirmDelete: false });
+        this.setState({ confirmDelete: false });
         console.log("ready to delete");
         this.props.DepartmentStore.deleteRecord();
         window.scrollTo(0, 0);
         window.location.reload();
-      }
+      };
 
-      editRecord() {
-        this.setState({ formShow: false });
+      editRecord: any = () => {
+        this.setState({ openEdit: false });
         this.props.DepartmentStore.updateRecord();
+        console.log(this.props.DepartmentStore.editRecordid);
         window.scrollTo(0, 0);
         window.location.reload();
-      }
+      };
+
+      handleFunctionChange: any = (e: MouseEvent) => {
+        const { value }: any = e.target;
+        this.setState({ selectedFunction: value });
+        this.props.DepartmentStore.handleChange(e);
+      };
+
+      handleCategoryChange: any = (e: MouseEvent) => {
+        const { value }: any = e.target;
+        this.setState({ selectedCategory: value });
+        this.props.DepartmentStore.handleChange(e);
+      };
+
+      closeEdit: any = () => {
+        this.setState({
+          openEdit: false,
+          selectedCategory: "",
+          selectedFunction: ""
+        });
+      };
 
       render() {
         let confirmClose = () => this.setState({ confirmDelete: false });
         const { DepartmentStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
-        //const classes = useStyles();
 
         return (
           <Container style={styles.tableStyle}>
-            <ButtonGroup
-              // size="sm"
-              className="mt-6"
-              style={styles.buttongroupStyle}
-              color="primary"
-              aria-label="Outlined primary button group"
-            >
               <Button
                 variant="outlined"
                 color="primary"
                 onClick={this.makePdf}
-                style={{ fontSize: 12 }}
+                style={{ fontSize: 12, marginBottom: 10 }}
               >
                 Download as PDF
               </Button>
-            </ButtonGroup>
-            <br />
             <Paper>
               <Table id="schedule">
                 <TableHead>
                   <TableRow>
                     <TableCell style={{ fontSize: 10 }}>Actions</TableCell>
-                    <TableCell style={{ fontSize: 10 }}>Record Type</TableCell>
-                    <TableCell style={{ fontSize: 10 }}>
+                    <TableCell style={{ fontSize: 10, width: 200 }}>
+                      Record Type
+                    </TableCell>
+                    <TableCell style={{ fontSize: 10, width: 300 }}>
                       Retention Schedule
                     </TableCell>
-                    <TableCell style={{ fontSize: 10 }}>Notes</TableCell>
+                    <TableCell style={{ fontSize: 10, width: 150 }}>Notes</TableCell>
                     <TableCell style={{ fontSize: 10 }}>Status</TableCell>
                   </TableRow>
                 </TableHead>
@@ -246,14 +270,125 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 </Button>
               </DialogActions>
             </Dialog>
+
+            <Dialog
+              open={this.state.openEdit}
+              onClose={confirmClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{"Edit Record"}</DialogTitle>
+              {this.props.DepartmentStore.allRecords
+                .slice()
+                .filter(
+                  (x: any) => x.id === this.props.DepartmentStore.editRecordid
+                )
+                .map((postDetail: any) => {
+                  return (
+                    <DialogContent key={postDetail.id}>
+                      <Grid>
+                        <TextField
+                          fullWidth
+                          id="editrecordtype"
+                          label="Record Type"
+                          defaultValue={postDetail.recordtype}
+                          variant="outlined"
+                          onChange={DepartmentStore.handleChange}
+                          margin="normal"
+                        />
+                      </Grid>
+
+                      <Grid item style={{ marginBottom: 10 }}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                          Record Function
+                        </InputLabel>
+                        <Select
+                          id="editfunction"
+                          style={{ width: 400 }}
+                          value={this.state.selectedFunction}
+                          onChange={this.handleFunctionChange}
+                        >
+                          <MenuItem>Choose...</MenuItem>
+                          {this.props.UniqueStore.functionsDropdown
+                            .slice()
+                            .map((func: any) => (
+                              <MenuItem key={func.id} value={func.functiontype}>
+                                {func.functiontype}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </Grid>
+
+                      <Grid item style={{ marginTop: 10 }}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                          Record Category
+                        </InputLabel>
+                        <Select
+                          id="editrecordcategoryid"
+                          style={{ width: 400 }}
+                          value={this.state.selectedCategory}
+                          onChange={this.handleCategoryChange}
+                        >
+                          <MenuItem>Choose...</MenuItem>
+                          {this.props.UniqueStore.categoryDropdown
+                            .slice()
+                            .map((category: any) => (
+                              <MenuItem
+                                key={category.id}
+                                value={category.recordcategoryid}
+                              >
+                                {category.recordcategoryid}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </Grid>
+
+                      <Grid>
+                        <TextField
+                          fullWidth
+                          multiline
+                          rows="3"
+                          id="editdescription"
+                          label="Description"
+                          defaultValue={postDetail.description}
+                          variant="outlined"
+                          margin="normal"
+                          onChange={DepartmentStore.handleChange}
+                        />
+                      </Grid>
+
+                      <Grid>
+                        <TextField
+                          fullWidth
+                          multiline
+                          rows="3"
+                          id="editnotes"
+                          label="Notes"
+                          defaultValue={postDetail.notes}
+                          variant="outlined"
+                          margin="normal"
+                          onChange={DepartmentStore.handleChange}
+                        />
+                      </Grid>
+                    </DialogContent>
+                  );
+                })}
+
+              <DialogActions>
+                <Button onClick={this.editRecord} color="primary" autoFocus>
+                  Edit this record
+                </Button>
+                <Button onClick={this.closeEdit} color="primary">
+                  Cancel
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Container>
         );
       }
     }
   )
 );
-
-// const DeptRetention = withRouter(DeptRetentionImpl as any)
 
 export default DeptRetention as any;
 
