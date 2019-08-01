@@ -11,7 +11,12 @@ import {
   TableHead,
   TableRow,
   Button,
-  ButtonGroup
+  ButtonGroup,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogContentText
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -34,6 +39,7 @@ interface IState {
   smShow: boolean;
   formShow: boolean;
   pdfShow: boolean;
+  confirmDelete: boolean;
 }
 
 const DeptRetention = inject("DepartmentStore", "UniqueStore")(
@@ -45,7 +51,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.state = {
           smShow: false,
           formShow: false,
-          pdfShow: false
+          pdfShow: false,
+          confirmDelete: false
         };
       }
 
@@ -104,14 +111,14 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       //pass id to store for delete action
       handleDelete(value: string) {
         //show delete modal
-        this.setState({ smShow: true });
+        this.setState({ confirmDelete: true });
         this.props.DepartmentStore.deleteID = value;
         console.log(this.props.DepartmentStore.deleteID);
       }
 
       //click delete in delete modal
-      onDelete() {
-        this.setState({ smShow: false });
+      onDelete = () => {
+        //this.setState({ confirmDelete: false });
         console.log("ready to delete");
         this.props.DepartmentStore.deleteRecord();
         window.scrollTo(0, 0);
@@ -126,6 +133,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       }
 
       render() {
+        let confirmClose = () => this.setState({ confirmDelete: false });
         const { DepartmentStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
         //const classes = useStyles();
@@ -183,14 +191,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                                   postDetail.notes
                                 )
                               }
-                              // variant="outline-warning"
                               style={styles.buttonStyle}
                             />
                             &nbsp;
                             <DeleteOutlinedIcon
                               name="delete"
                               onClick={() => this.handleDelete(postDetail.id)}
-                              //variant="outline-danger"
                               style={styles.buttonStyle}
                             />
                           </TableCell>
@@ -212,6 +218,34 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 </TableBody>
               </Table>
             </Paper>
+
+            <Dialog
+              open={this.state.confirmDelete}
+              onClose={confirmClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Delete Record"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  Are you sure you want to delete this record?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.onDelete} color="primary" autoFocus>
+                  Delete this record
+                </Button>
+                <Button
+                  onClick={() => this.setState({ confirmDelete: false })}
+                  color="primary"
+                  autoFocus
+                >
+                  Cancel
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Container>
         );
       }

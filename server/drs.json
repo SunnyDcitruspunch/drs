@@ -1,19 +1,6 @@
 {
   "records": [
     {
-      "id": "1",
-      "departmentnumber": "183",
-      "department": "Records",
-      "code": "CACD1000",
-      "function": "Academic",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "recordcategoryid": "common",
-      "status": "Pending",
-      "notes": "there is a librarian in front of me.",
-      "archival": "Yes"
-    },
-    {
       "id": "2",
       "departmentnumber": "350",
       "department": "Marriott School",
@@ -66,18 +53,6 @@
       "archival": "Yes"
     },
     {
-      "recordtype": "Record",
-      "department": "BYU Catering",
-      "description": "ss",
-      "notes": "ss",
-      "status": "Pending",
-      "function": "Legal",
-      "id": "xepGyAS",
-      "departmentnumber": "393",
-      "code": "U2",
-      "archival": "Yes"
-    },
-    {
       "code": "U3",
       "recordtype": "Faculty",
       "recordcategoryid": "",
@@ -91,10 +66,10 @@
     },
     {
       "recordtype": "Catering type",
-      "department": "",
+      "department": "yuuuuuuuuuuuu",
       "departmentnumber": "232",
-      "description": "",
-      "notes": "",
+      "description": "yuuuuuuuuu",
+      "notes": "yuuuuuuuuuuuuuuuuu",
       "status": "Pending",
       "id": "BD4tWTR",
       "function": "Miscellaneous",
@@ -177,16 +152,15 @@
       "id": "T6u2_O3"
     },
     {
-      "recordtype": "fffff",
-      "department": "Honor Code Office",
-      "function": "Finance",
-      "recordcategoryid": "FIN10",
-      "description": "ffffffffffffffffffff",
-      "notes": "fffffffffffffffffffffffffffffffffffffffffffffffffffff",
-      "archival": "N/A",
-      "code": "N/A",
-      "status": "Pending",
-      "id": "5PFLo-g"
+      "department": "Records",
+      "code": "CACD1000",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "archival": "Yes",
+      "status": "Approved",
+      "id": "-jTHalm"
     }
   ],
   "functions": [
