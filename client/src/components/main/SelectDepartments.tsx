@@ -9,10 +9,6 @@ import {
 import { inject, observer } from "mobx-react";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 
-/*
-  !TODO: how to filter duplicate JSON objects?
-*/
-
 interface IProps {
   DepartmentStore: IDepartmentStore;
   history: any;

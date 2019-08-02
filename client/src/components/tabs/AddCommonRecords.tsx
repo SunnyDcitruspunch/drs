@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import Container from "react-bootstrap/Container";
 import {
   TableBody,
   TableCell,
@@ -9,24 +8,22 @@ import {
   Paper,
   Checkbox,
   Button,
-  FormGroup,
-  FormLabel,
   TextField,
   Table,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle
+  DialogTitle,
+  Grid,
+  InputLabel,
+  Select,
+  MenuItem,
+  Container
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
-import Form from "react-bootstrap/Form";
 import { IRecordStore } from "../../stores/RecordStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
-
-/*
-  !TODO: refactor modal to material ui compnent
-*/
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -38,7 +35,7 @@ interface IProps {
 interface IState {
   modalShow: boolean;
   editShow: boolean;
-  selectrecord: any
+  selectrecord: any;
 }
 
 interface Document {
@@ -135,7 +132,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{ fontSize: 10, width: 150}}>Actions</TableCell>
+                    <TableCell style={{ fontSize: 10, width: 150 }}>
+                      Actions
+                    </TableCell>
                     <TableCell style={{ fontSize: 10 }}>Function</TableCell>
                     <TableCell style={{ fontSize: 10 }}>Record Type</TableCell>
                     <TableCell style={{ fontSize: 10 }}>
@@ -202,7 +201,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             <Dialog
               open={this.state.editShow}
               onClose={editClose}
-              aria-labelledby="example-modal-sizes-title-sm"
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
             >
               <DialogTitle
                 id="example-modal-sizes-title-sm"
@@ -210,103 +210,87 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               >
                 Edit Common Record
               </DialogTitle>
-              <DialogContent style={{ fontSize: 12 }}>
-                {this.props.RecordStore.allRecords
-                  .slice()
-                  .filter(
-                    (x: any) =>
-                      x.id === this.props.RecordStore.editcommonrecords.editID
-                  )
-                  .map((postDetail: any) => {
-                    return (
-                      <Form key={postDetail.id}>
-                        <FormGroup>
-                          <FormLabel style={{ fontSize: 10 }}>
-                            Record Type
-                          </FormLabel>
-                          <TextField
-                            id="editType"
-                            defaultValue={postDetail.recordtype}
-                            variant="outlined"
-                            onChange={RecordStore.handleChange}
-                            margin="normal"
-                            style={{
-                              borderRadius: 5,
-                              fontSize: 10,
-                              padding: 6,
-                              border: "Gainsboro solid 1px"
-                            }}
-                          />
-                        </FormGroup>
-                        <FormGroup style={{ marginTop: 10 }}>
-                          <FormLabel style={{ fontSize: 10 }}>
-                            Function
-                          </FormLabel>
-                          <Form.Control
-                            as="select"
-                            type="text"
-                            id="editfunction"
-                            ref="proposedfunction"
-                            style={{ fontSize: 10 }}
-                            onChange={RecordStore.handleChange}
-                          >
-                            <option>{postDetail.function}</option>
-                            {this.props.UniqueStore.functionsDropdown
-                              .slice()
-                              .map((func: any) => (
-                                <option key={func.id} value={func.functiontype}>
-                                  {func.functiontype}
-                                </option>
-                              ))}
-                          </Form.Control>
-                        </FormGroup>
-                        <FormGroup style={{ marginTop: 10 }}>
-                          <FormLabel style={{ fontSize: 10 }}>
-                            Record Category
-                          </FormLabel>
-                          <Form.Control
-                            as="select"
-                            id="editrecordcategoryid"
-                            ref="proposedcategory"
-                            style={{ fontSize: 10 }}
-                            onChange={RecordStore.handleChange}
-                            defaultValue={postDetail.recordcategoryid}
-                          >
-                            {this.props.UniqueStore.categoryDropdown
-                              .slice()
-                              .map((category: any) => (
-                                <option
-                                  key={category.id}
-                                  value={category.recordcategoryid}
-                                >
-                                  {category.recordcategoryid}
-                                </option>
-                              ))}
-                          </Form.Control>
-                        </FormGroup>
-                        <FormGroup style={{ marginTop: 10 }}>
-                          <FormLabel style={{ fontSize: 10 }}>
-                            Retention Description
-                          </FormLabel>
-                          <TextField
-                            id="editdescription"
-                            defaultValue={postDetail.description}
-                            onChange={RecordStore.handleChange}
-                            margin="normal"
-                            variant="outlined"
-                            style={{
-                              borderRadius: 5,
-                              fontSize: 10,
-                              padding: 6,
-                              border: "Gainsboro solid 1px"
-                            }}
-                          />
-                        </FormGroup>
-                      </Form>
-                    );
-                  })}
-              </DialogContent>
-              <DialogActions style={{ height: 20 }}>
+              {this.props.RecordStore.allRecords
+                .slice()
+                .filter(
+                  (x: any) =>
+                    x.id === this.props.RecordStore.editcommonrecords.editID
+                )
+                .map((postDetail: any) => {
+                  return (
+                    <DialogContent key={postDetail.id}>
+                      <Grid>
+                        <TextField
+                          fullWidth
+                          id="editType"
+                          label="Record Type"
+                          defaultValue={postDetail.recordtype}
+                          variant="outlined"
+                          onChange={RecordStore.handleChange}
+                          margin="normal"
+                        />
+                      </Grid>
+
+                      <Grid item style={{ marginBottom: 10 }}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                          Record Function
+                        </InputLabel>
+                        <Select
+                          id="editfunction"
+                          style={{ width: 400 }}
+                          onChange={RecordStore.handleChange}
+                        >
+                          <MenuItem>Choose...</MenuItem>
+                          {this.props.UniqueStore.functionsDropdown
+                            .slice()
+                            .map((func: any) => (
+                              <MenuItem key={func.id} value={func.functiontype}>
+                                {func.functiontype}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </Grid>
+
+                      <Grid item style={{ marginTop: 10 }}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                          Record Category
+                        </InputLabel>
+                        <Select
+                          id="editrecordcategoryid"
+                          style={{ width: 400 }}
+                          onChange={RecordStore.handleChange}
+                        >
+                          <MenuItem>Choose...</MenuItem>
+                          {this.props.UniqueStore.categoryDropdown
+                            .slice()
+                            .map((category: any) => (
+                              <MenuItem
+                                key={category.id}
+                                value={category.recordcategoryid}
+                              >
+                                {category.recordcategoryid}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </Grid>
+
+                      <Grid>
+                        <TextField
+                          fullWidth
+                          multiline
+                          rows="3"
+                          id="editdescription"
+                          label="Description"
+                          defaultValue={postDetail.description}
+                          variant="outlined"
+                          margin="normal"
+                          onChange={RecordStore.handleChange}
+                        />
+                      </Grid>
+                    </DialogContent>
+                  );
+                })}
+              <DialogActions>
                 <Button
                   style={styles.modalButtonStyle}
                   variant="outlined"

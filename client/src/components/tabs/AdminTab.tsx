@@ -70,9 +70,6 @@ const AdminTab = inject("RecordStore")(
       };
 
       approveSelect = (e: any) => {
-        //console.log("approved");
-        //this.props.RecordStore.approvedRecords = this.state.approvedrecords
-        //console.log(this.props.RecordStore.approvedRecords)
         this.props.RecordStore.approveSelectedRecords(
           this.state.approvedrecords
         );
@@ -81,7 +78,6 @@ const AdminTab = inject("RecordStore")(
 
       render() {
         const { RecordStore }: IProps = this.props;
-        //this.props.RecordStore.pendingRecords.forEach(e=>console.log(e.recordtype))
 
         return (
           <Container>

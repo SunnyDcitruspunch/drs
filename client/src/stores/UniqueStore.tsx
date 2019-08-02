@@ -14,8 +14,8 @@ export interface IUniqueStore {
   fetchCategory: () => void;
   submitRecords: (dept: string) => void;
   handleChange: (e: any) => void;
-  getFunction: (func: string) => void
-  getCategory: (category: string) => void
+  getFunction: (func: string) => void;
+  getCategory: (category: string) => void;
 }
 
 export interface IUniquerecords {
@@ -60,11 +60,11 @@ class _UniqueStore {
   }
 
   getFunction(func: string) {
-    this.uniquerecords.proposedFunction = func
+    this.uniquerecords.proposedFunction = func;
   }
 
   getCategory(category: string) {
-    this.uniquerecords.proposedCategory = category
+    this.uniquerecords.proposedCategory = category;
   }
 
   async submitRecords(selecteddepartment: string) {
@@ -98,7 +98,5 @@ decorate(_UniqueStore, {
   submitRecords: action,
   fetchCategory: action
 });
-
-//export default new UniqueStore();
 
 export const UniqueStore = new _UniqueStore();

@@ -22,7 +22,6 @@ export interface IRecordStore {
   handleChange: (e: any) => void;
   fetchPendings: () => void;
   approvedRecords: Array<string>;
-  //checkedRecords: (e: any) => void;
   approveSelectedRecords: (e: any) => void;
 }
 
@@ -176,8 +175,6 @@ decorate(_RecordStore, {
   addCommonRecord: action,
   approvedRecords: observable,
   approveSelectedRecords: action
-  //checkedRecords: action
 });
 
-//export default new RecordStore();
 export const RecordStore = new _RecordStore();

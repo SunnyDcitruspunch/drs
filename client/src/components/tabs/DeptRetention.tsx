@@ -1,5 +1,4 @@
 import * as React from "react";
-import Container from "react-bootstrap/Container";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -21,7 +20,8 @@ import {
   Select,
   Grid,
   MenuItem,
-  InputLabel
+  InputLabel,
+  Container
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -29,9 +29,7 @@ import { IDepartmentStore } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 
 /* 
-  !TODO: edit modal dropdownlist default value
   TODO: snackbar after edit/ delete/ submission
-  * TODO: change button colors
 */
 
 interface IProps {
@@ -102,7 +100,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         if (this.props.DepartmentStore.selectedDepartment !== "") {
           html2canvas(el, {
             width: 1200,
-            height:1200
+            height: 1200
           }).then(function(canvas: any) {
             var img = canvas.toDataURL("image/png");
             var doc = new jsPDF({
@@ -171,14 +169,14 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
         return (
           <Container style={styles.tableStyle}>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={this.makePdf}
-                style={{ fontSize: 12, marginBottom: 10 }}
-              >
-                Download as PDF
-              </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={this.makePdf}
+              style={{ fontSize: 12, marginBottom: 10 }}
+            >
+              Download as PDF
+            </Button>
             <Paper>
               <Table id="schedule">
                 <TableHead>
@@ -190,7 +188,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     <TableCell style={{ fontSize: 10, width: 300 }}>
                       Retention Schedule
                     </TableCell>
-                    <TableCell style={{ fontSize: 10, width: 150 }}>Notes</TableCell>
+                    <TableCell style={{ fontSize: 10, width: 150 }}>
+                      Notes
+                    </TableCell>
                     <TableCell style={{ fontSize: 10 }}>Status</TableCell>
                   </TableRow>
                 </TableHead>
@@ -402,42 +402,7 @@ const styles = {
     padding: 0,
     fontSize: 10
   },
-  modalButtonStyle: {
-    height: 26,
-    width: 84,
-    fontSize: 10,
-    padding: 0
-  },
-  modalFormStyle: {
-    paddingTop: 6,
-    fontSize: 10
-  },
-  modalInputStyle: {
-    fontSize: 10
-  },
   tableFontStyle: {
     fontSize: 11
-  },
-  pageStyle: {
-    flexDirection: "row",
-    backgroundColor: "#E4E4E4"
-  },
-  sectionStyle: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1
-  },
-  buttongroupStyle: {
-    height: 28
-  },
-  paperStyle: {
-    width: "100%",
-    overflowX: "auto"
-  },
-  customInputStyle: {
-    borderRadius: 5,
-    fontSize: 10,
-    padding: 6,
-    border: "Gainsboro solid 1px"
   }
 };

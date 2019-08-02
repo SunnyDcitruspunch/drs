@@ -131,5 +131,4 @@ decorate(_DepartmentStore, {
   fetchAllRecords: action
 });
 
-// const DepartmentStore = new _DepartmentStore()
 export const DepartmentStore = new _DepartmentStore();
