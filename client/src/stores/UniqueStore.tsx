@@ -16,6 +16,7 @@ export interface IUniqueStore {
   handleChange: (e: any) => void;
   getFunction: (func: string) => void;
   getCategory: (category: string) => void;
+  changeArchival: (e: any) => void;
 }
 
 export interface IUniquerecords {
@@ -24,6 +25,7 @@ export interface IUniquerecords {
   proposedCategory: string;
   proposedRetention: string;
   Comment: string;
+  archival: string;
 }
 
 class _UniqueStore {
@@ -32,7 +34,8 @@ class _UniqueStore {
     proposedFunction: "",
     proposedCategory: "",
     proposedRetention: "",
-    Comment: "test comment"
+    Comment: "",
+    archival: ""
   };
   functionsDropdown = [];
   categoryDropdown = [];
@@ -40,6 +43,11 @@ class _UniqueStore {
   handleChange = (e: any) => {
     const { id, value } = e.target;
     this.uniquerecords[id] = value;
+  };
+
+  changeArchival = (e: any) => {
+    const { value } = e.target;
+    this.uniquerecords.archival = value;
   };
 
   async fetchFunctions() {
@@ -80,7 +88,7 @@ class _UniqueStore {
         recordcategoryid: this.uniquerecords.proposedCategory,
         description: this.uniquerecords.proposedRetention,
         notes: this.uniquerecords.Comment,
-        archival: "N/A",
+        archival: this.uniquerecords.archival,
         code: "N/A",
         status: "Pending"
       })
@@ -95,7 +103,8 @@ decorate(_UniqueStore, {
   handleChange: action,
   fetchFunctions: action,
   submitRecords: action,
-  fetchCategory: action
+  fetchCategory: action,
+  changeArchival: action
 });
 
 export const UniqueStore = new _UniqueStore();

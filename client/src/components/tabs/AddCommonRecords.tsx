@@ -23,8 +23,7 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
-  FormControlLabel,
-  FormHelperText
+  FormControlLabel
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
@@ -92,7 +91,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         ccategory: string,
         ctype: string,
         cdescription: string,
-        carchival: string
+        carchival: string,
+        cnotes: string
       ) {
         this.setState({ editShow: true });
         this.props.RecordStore.getEditRecord(
@@ -102,7 +102,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           ccategory,
           ctype,
           cdescription,
-          carchival
+          carchival,
+          cnotes
         );
       }
 
@@ -134,12 +135,21 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     <TableCell style={{ fontSize: 10, width: 120 }}>
                       Actions
                     </TableCell>
-                    <TableCell style={{ fontSize: 10 }}>Function</TableCell>
-                    <TableCell style={{ fontSize: 10 }}>Record Type</TableCell>
-                    <TableCell style={{ fontSize: 10 }}>
+                    <TableCell style={{ fontSize: 10, width: 150 }}>
+                      Record Type
+                    </TableCell>
+                    <TableCell style={{ fontSize: 10, width: 300 }}>
                       Retention Schedule
                     </TableCell>
-                    <TableCell style={{ fontSize: 10 }}>Archival</TableCell>
+                    <TableCell style={{ fontSize: 10, width: 15 }}>
+                      Function
+                    </TableCell>
+                    <TableCell style={{ fontSize: 10, width: 15 }}>
+                      Archival
+                    </TableCell>
+                    <TableCell style={{ fontSize: 10, width: 150 }}>
+                      Notes
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -158,7 +168,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                                 record.recordcategoryid,
                                 record.recordtype,
                                 record.description,
-                                record.archival
+                                record.archival,
+                                record.notes
                               )
                             }
                           />
@@ -171,16 +182,19 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           />
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
-                          {record.function}
-                        </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
                           {record.recordtype}
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
                           {record.description}
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
+                          {record.function}
+                        </TableCell>
+                        <TableCell style={{ fontSize: 10 }}>
                           {record.archival}
+                        </TableCell>
+                        <TableCell style={{ fontSize: 10 }}>
+                          {record.notes}
                         </TableCell>
                       </TableRow>
                     );
@@ -293,18 +307,12 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         />
                       </Grid>
 
-                      <FormControl
-                        component="fieldset"
-                        // className={classes.formControl}
-                      >
+                      <FormControl component="fieldset">
                         <FormLabel component="legend">Archival</FormLabel>
                         <RadioGroup
                           row
                           aria-label="archival"
                           name="archival"
-                          // className={classes.group}
-                          // value={value}
-                          // onChange={handleChange}
                         >
                           <FormControlLabel
                             value="Archival"
@@ -329,18 +337,27 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           />
                         </RadioGroup>
                       </FormControl>
+                      
+                      <Grid>
+                        <TextField
+                          fullWidth
+                          multiline
+                          rows="3"
+                          id="editNotes"
+                          label="Notes"
+                          defaultValue={postDetail.notes}
+                          variant="outlined"
+                          margin="normal"
+                          onChange={RecordStore.handleChange}
+                        />
+                      </Grid>
                     </DialogContent>
 
                     <DialogActions>
-                      <Button
-                        // style={styles.modalButtonStyle}
-                        color="primary"
-                        onClick={this.saveEdit}
-                      >
+                      <Button color="primary" onClick={this.saveEdit}>
                         Save Changes
                       </Button>
                       <Button
-                        // style={styles.modalButtonStyle}
                         onClick={() => this.setState({ editShow: false })}
                       >
                         Discard Changes

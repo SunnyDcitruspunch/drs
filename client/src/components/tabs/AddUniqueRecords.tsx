@@ -9,7 +9,12 @@ import {
   Grid,
   MenuItem,
   Select,
-  InputLabel
+  InputLabel,
+  RadioGroup,
+  Radio,
+  FormLabel,
+  FormControlLabel,
+  FormControl
 } from "@material-ui/core";
 // import CloseIcon from "@material-ui/icons/Close";
 import { inject, observer } from "mobx-react";
@@ -116,98 +121,131 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         return (
           <Container style={{ flexGrow: 1 }}>
             {/* <Formik> */}
-              <Grid item sm={12}>
-                <TextField
-                  id="recordType"
-                  label="Record Type"
-                  style={{ width: 500 }}
-                  onChange={UniqueStore.handleChange}
-                  margin="normal"
-                />
-              </Grid>
+            <Grid item sm={12}>
+              <TextField
+                id="recordType"
+                label="Record Type"
+                style={{ width: 500 }}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
+              />
+            </Grid>
 
-              <Grid item style={{ marginBottom: 10 }}>
-                <InputLabel shrink htmlFor="age-label-placeholder">
-                  Record Function
-                </InputLabel>
-                <Select
-                  id="proposedFunction"
-                  style={{ width: 500 }}
-                  value={this.state.selectedfunction}
-                  onChange={this.handleFunctionChange}
-                >
-                  <MenuItem>Choose...</MenuItem>
-                  {this.props.UniqueStore.functionsDropdown
-                    .slice()
-                    .map((func: any) => (
-                      <MenuItem key={func.id} value={func.functiontype}>
-                        {func.functiontype}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </Grid>
-
-              <Grid item style={{ marginTop: 10 }}>
-                <InputLabel shrink htmlFor="age-label-placeholder">
-                  Record Category
-                </InputLabel>
-                <Select
-                  id="proposedCategory"
-                  style={{ width: 500 }}
-                  value={this.state.selectedcategory}
-                  onChange={this.handleCategoryChange}
-                >
-                  <MenuItem>Choose...</MenuItem>
-                  {this.props.UniqueStore.categoryDropdown
-                    .slice()
-                    .map((category: any) => (
-                      <MenuItem
-                        key={category.id}
-                        value={category.recordcategoryid}
-                      >
-                        {category.recordcategoryid}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </Grid>
-
-              <Grid item sm={12}>
-                <TextField
-                  multiline
-                  rows="2"
-                  id="proposedRetention"
-                  label="Retention Schedule"
-                  style={{ width: 500 }}
-                  onChange={UniqueStore.handleChange}
-                  margin="normal"
-                />
-              </Grid>
-
-              <Grid item sm={12}>
-                <TextField
-                  multiline
-                  rows="4"
-                  id="Comment"
-                  label="Notes"
-                  style={{ width: 500 }}
-                  onChange={UniqueStore.handleChange}
-                  margin="normal"
-                />
-              </Grid>
-
-              <Button
-                variant="outlined"
-                color="primary"
-                style={{ marginTop: 10, fontSize: 10 }}
-                onSubmit={e => this.submitRecords(e)}
+            <Grid item style={{ marginBottom: 10 }}>
+              <InputLabel shrink htmlFor="age-label-placeholder">
+                Record Function
+              </InputLabel>
+              <Select
+                id="proposedFunction"
+                style={{ width: 500 }}
+                value={this.state.selectedfunction}
+                onChange={this.handleFunctionChange}
               >
-                <Link
-                  to="/AddUniqueRecords"
-                  style={{ fontSize: 10, textDecoration: "none" }}
-                >
-                  Submit
-                </Link>
-              </Button>
+                <MenuItem>Choose...</MenuItem>
+                {this.props.UniqueStore.functionsDropdown
+                  .slice()
+                  .map((func: any) => (
+                    <MenuItem key={func.id} value={func.functiontype}>
+                      {func.functiontype}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </Grid>
+
+            <Grid item style={{ marginTop: 10 }}>
+              <InputLabel shrink htmlFor="age-label-placeholder">
+                Record Category
+              </InputLabel>
+              <Select
+                id="proposedCategory"
+                style={{ width: 500 }}
+                value={this.state.selectedcategory}
+                onChange={this.handleCategoryChange}
+              >
+                <MenuItem>Choose...</MenuItem>
+                {this.props.UniqueStore.categoryDropdown
+                  .slice()
+                  .map((category: any) => (
+                    <MenuItem
+                      key={category.id}
+                      value={category.recordcategoryid}
+                    >
+                      {category.recordcategoryid}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </Grid>
+
+            <Grid item sm={12}>
+              <TextField
+                multiline
+                rows="2"
+                id="proposedRetention"
+                label="Retention Schedule"
+                style={{ width: 500 }}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
+              />
+            </Grid>
+
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Archival</FormLabel>
+              <RadioGroup
+                row
+                aria-label="archival"
+                name="archival"
+                // value={value}
+                // onChange={handleChange}
+              >
+                <FormControlLabel
+                  value="Archival"
+                  control={<Radio color="primary" />}
+                  label="Archival"
+                  labelPlacement="end"
+                  onChange={UniqueStore.changeArchival}
+                />
+                <FormControlLabel
+                  value="Vital"
+                  control={<Radio color="primary" />}
+                  label="Vital"
+                  labelPlacement="end"
+                  onChange={UniqueStore.changeArchival}
+                />
+                <FormControlLabel
+                  value="Highly Confidential"
+                  control={<Radio color="primary" />}
+                  label="Highly Confidential"
+                  labelPlacement="end"
+                  onChange={UniqueStore.changeArchival}
+                />
+              </RadioGroup>
+            </FormControl>
+
+            <Grid item sm={12}>
+              <TextField
+                multiline
+                rows="4"
+                id="Comment"
+                label="Notes"
+                style={{ width: 500 }}
+                onChange={UniqueStore.handleChange}
+                margin="normal"
+              />
+            </Grid>
+
+            <Button
+              variant="outlined"
+              color="primary"
+              style={{ marginTop: 10, fontSize: 10 }}
+              onSubmit={e => this.submitRecords(e)}
+            >
+              <Link
+                to="/AddUniqueRecords"
+                style={{ fontSize: 10, textDecoration: "none" }}
+              >
+                Submit
+              </Link>
+            </Button>
             {/* </Formik> */}
 
             <Dialog

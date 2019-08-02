@@ -20,6 +20,7 @@ export interface IDepartmentStore {
   editrecord: Object;
   handleSelected: (edpt: string) => void;
   handleChange: (e: any) => void;
+  changeArchival: (e: any) => void;
 }
 
 class _DepartmentStore implements IDepartmentStore {
@@ -36,7 +37,8 @@ class _DepartmentStore implements IDepartmentStore {
     editrecordtype: "",
     editdescription: "",
     editrecordcategoryid: "",
-    editnotes: ""
+    editnotes: "",
+    editarchival: ""
   };
 
   handleSelected(dept: string) {
@@ -92,6 +94,11 @@ class _DepartmentStore implements IDepartmentStore {
     this.editrecord.editnotes = rnotes;
   }
 
+  changeArchival = (e: any) => {
+    const { value } = e.target;
+    this.editrecord.editarchival = value;
+  };
+
   //PATCH request
   async updateRecord() {
     const baseUrl = "http://localhost:3004/records";
@@ -106,7 +113,8 @@ class _DepartmentStore implements IDepartmentStore {
         function: this.editrecord.editfunction,
         recordcategoryid: this.editrecord.editrecordcategoryid,
         description: this.editrecord.editdescription,
-        notes: this.editrecord.editnotes
+        notes: this.editrecord.editnotes,
+        archival: this.editrecord.editarchival
       })
     }).then(res => res.json());
   }
@@ -123,7 +131,8 @@ decorate(_DepartmentStore, {
   deleteRecord: action,
   updateRecord: action,
   updateEditID: action,
-  fetchAllRecords: action
+  fetchAllRecords: action,
+  changeArchival: action
 });
 
 export const DepartmentStore = new _DepartmentStore();

@@ -20,7 +20,12 @@ import {
   Grid,
   MenuItem,
   InputLabel,
-  Container
+  Container,
+  FormControl,
+  RadioGroup,
+  Radio,
+  FormLabel,
+  FormControlLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -184,8 +189,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     <TableCell style={{ fontSize: 10, width: 300 }}>
                       Retention Schedule
                     </TableCell>
-                    <TableCell style={{ fontSize: 10, width: 20 }}>
+                    <TableCell style={{ fontSize: 10, width: 15 }}>
                       Function
+                    </TableCell>
+                    <TableCell style={{ fontSize: 10, width: 15 }}>
+                      Archival
                     </TableCell>
                     <TableCell style={{ fontSize: 10, width: 150 }}>
                       Notes
@@ -232,6 +240,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             {postDetail.function}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.archival}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
                             {postDetail.notes}
                           </TableCell>
                           {/* <TableCell style={{ fontSize: 10 }}>
@@ -244,6 +255,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               </Table>
             </Paper>
 
+            {/* delete record */}
             <Dialog
               open={this.state.confirmDelete}
               onClose={confirmClose}
@@ -362,6 +374,33 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           onChange={DepartmentStore.handleChange}
                         />
                       </Grid>
+
+                      <FormControl component="fieldset">
+                        <FormLabel component="legend">Archival</FormLabel>
+                        <RadioGroup row aria-label="archival" name="archival">
+                          <FormControlLabel
+                            value="Archival"
+                            control={<Radio color="primary" />}
+                            label="Archival"
+                            labelPlacement="end"
+                            onChange={DepartmentStore.changeArchival}
+                          />
+                          <FormControlLabel
+                            value="Vital"
+                            control={<Radio color="primary" />}
+                            label="Vital"
+                            labelPlacement="end"
+                            onChange={DepartmentStore.changeArchival}
+                          />
+                          <FormControlLabel
+                            value="Highly Confidential"
+                            control={<Radio color="primary" />}
+                            label="Highly Confidential"
+                            labelPlacement="end"
+                            onChange={DepartmentStore.changeArchival}
+                          />
+                        </RadioGroup>
+                      </FormControl>
 
                       <Grid>
                         <TextField
