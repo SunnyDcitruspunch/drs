@@ -41,7 +41,6 @@ class _DepartmentStore implements IDepartmentStore {
 
   handleSelected(dept: string) {
     this.selectedDepartment = dept;
-    console.log(this.selectedDepartment);
   }
 
   fetchAll = () => {
@@ -95,7 +94,6 @@ class _DepartmentStore implements IDepartmentStore {
 
   //PATCH request
   async updateRecord() {
-    console.log(this.editRecordid);
     const baseUrl = "http://localhost:3004/records";
     await fetch(`${baseUrl}/${this.editRecordid}`, {
       method: "PATCH",
@@ -105,15 +103,12 @@ class _DepartmentStore implements IDepartmentStore {
       },
       body: JSON.stringify({
         recordtype: this.editrecord.editrecordtype,
-        //department: this.editDepartment,
         function: this.editrecord.editfunction,
         recordcategoryid: this.editrecord.editrecordcategoryid,
         description: this.editrecord.editdescription,
         notes: this.editrecord.editnotes
       })
-    })
-      .then(res => res.json())
-      .then(res => console.log(res));
+    }).then(res => res.json());
   }
 }
 

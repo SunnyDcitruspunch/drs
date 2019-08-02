@@ -10,7 +10,6 @@ import {
   TableHead,
   TableRow,
   Button,
-  ButtonGroup,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -93,7 +92,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       //html2canvas + jsPDF
       makePdf = () => {
-        console.log("making pdf...");
         const dept = this.props.DepartmentStore.selectedDepartment;
         const el: any = document.getElementById("schedule");
 
@@ -122,13 +120,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         //show delete modal
         this.setState({ confirmDelete: true });
         this.props.DepartmentStore.deleteID = value;
-        console.log(this.props.DepartmentStore.deleteID);
       }
 
       //click delete in delete modal
       onDelete = () => {
         this.setState({ confirmDelete: false });
-        console.log("ready to delete");
         this.props.DepartmentStore.deleteRecord();
         window.scrollTo(0, 0);
         window.location.reload();
@@ -137,7 +133,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       editRecord: any = () => {
         this.setState({ openEdit: false });
         this.props.DepartmentStore.updateRecord();
-        console.log(this.props.DepartmentStore.editRecordid);
         window.scrollTo(0, 0);
         window.location.reload();
       };

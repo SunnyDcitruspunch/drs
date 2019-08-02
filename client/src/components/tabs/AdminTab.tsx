@@ -49,9 +49,6 @@ const AdminTab = inject("RecordStore")(
           this.setState(
             {
               approvedrecords: [...this.state.approvedrecords, value]
-            },
-            () => {
-              console.log(this.state.approvedrecords);
             }
           );
         } else {
@@ -61,9 +58,6 @@ const AdminTab = inject("RecordStore")(
               approvedrecords: this.state.approvedrecords.filter(
                 (_: any, i: any) => i !== remove
               )
-            },
-            () => {
-              console.log(this.state.approvedrecords);
             }
           );
         }

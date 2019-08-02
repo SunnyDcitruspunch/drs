@@ -1,4 +1,4 @@
-import { observable, action, decorate, computed } from "mobx";
+import { observable, action, decorate } from "mobx";
 
 export interface IRecordStore {
   allRecords: Array<Object>;
@@ -17,7 +17,7 @@ export interface IRecordStore {
     cdescription: string,
     carchival: string
   ) => void;
-  updateRecord: () => void;
+  updateCommonRecord: () => void;
   addCommonRecord: (select: string[]) => void;
   handleChange: (e: any) => void;
   fetchPendings: () => void;
@@ -78,9 +78,7 @@ class _RecordStore implements IRecordStore {
 
   //add selected common records
   async addCommonRecord(selects: string[]) {
-    console.log("approved");
     this.selectedCommonRecords = selects; //selected common record id
-    console.log(this.selectedCommonRecords);
 
     for (let i = 0; i < selects.length; i++) {
       let test: any = "";
@@ -101,7 +99,6 @@ class _RecordStore implements IRecordStore {
           }
         );
 
-      console.log(test);
       fetch("http://localhost:3004/records", {
         method: "POST",
         headers: {
@@ -114,8 +111,7 @@ class _RecordStore implements IRecordStore {
   }
 
   //approve selected records: PATCH
-  async approveSelectedRecords(records: any) {
-    console.log(records + "are the records");
+  async approveSelectedRecords(records: string) {
     const baseUrl = "http://localhost:3004/records";
 
     for (let i = 0; i < records.length; i++) {
@@ -129,9 +125,7 @@ class _RecordStore implements IRecordStore {
           department: this.selectedDepartment,
           status: "Approved"
         })
-      })
-        .then(res => res.json())
-        .then(res => console.log(res));
+      }).then(res => res.json());
     }
   }
 
@@ -151,17 +145,36 @@ class _RecordStore implements IRecordStore {
     this.editcommonrecords.editType = ctype;
     this.editcommonrecords.editDescription = cdescription;
     this.editcommonrecords.editArchival = carchival;
+    console.log(this.editcommonrecords.editID);
+    console.log(this.editcommonrecords.editDescription);
+  }
+
+  //update common records: PATCH
+  async updateCommonRecord() {
+    const baseUrl = "http://localhost:3004/commonrecords";
+
+    await fetch(`${baseUrl}/${this.editcommonrecords.editID}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        code: this.editcommonrecords.editCode,
+        function: this.editcommonrecords.editFunction,
+        recordcategoryid: this.editcommonrecords.editCategory,
+        recordtype: this.editcommonrecords.editType,
+        description: this.editcommonrecords.editDescription,
+        archival: this.editcommonrecords.editArchival
+      })
+    }).then(res => res.json());
+    console.log("updated");
   }
 
   handleChange = (e: any) => {
-    const id = e.target;
-    const value = e.target;
+    const { id, value } = e.target;
     this.editcommonrecords[id] = value;
   };
-
-  updateRecord() {
-    console.log("record updated");
-  }
 }
 
 decorate(_RecordStore, {
@@ -170,11 +183,11 @@ decorate(_RecordStore, {
   fetchRecords: action,
   fetchPendings: action,
   handleChange: action,
-  updateRecord: action,
   getEditRecord: action,
   addCommonRecord: action,
   approvedRecords: observable,
-  approveSelectedRecords: action
+  approveSelectedRecords: action,
+  updateCommonRecord: action
 });
 
 export const RecordStore = new _RecordStore();

@@ -36,6 +36,8 @@ interface IState {
   modalShow: boolean;
   editShow: boolean;
   selectrecord: any;
+  selectedfunction: string;
+  selectedcategory: string;
 }
 
 interface Document {
@@ -52,7 +54,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         this.state = {
           modalShow: false, //if not select a department
           editShow: false,
-          selectrecord: []
+          selectrecord: [],
+          selectedfunction: "",
+          selectedcategory: ""
         };
       }
 
@@ -62,26 +66,16 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
       onSelect = (e: any) => {
         if (e.target.checked) {
-          this.setState(
-            {
-              selectrecord: [...this.state.selectrecord, e.target.value]
-            },
-            () => {
-              console.log(this.state.selectrecord);
-            }
-          );
+          this.setState({
+            selectrecord: [...this.state.selectrecord, e.target.value]
+          });
         } else {
           let remove = this.state.selectrecord.indexOf(e.target.value);
-          this.setState(
-            {
-              selectrecord: this.state.selectrecord.filter(
-                (_: any, i: any) => i !== remove
-              )
-            },
-            () => {
-              console.log(this.state.selectrecord);
-            }
-          );
+          this.setState({
+            selectrecord: this.state.selectrecord.filter(
+              (_: any, i: any) => i !== remove
+            )
+          });
         }
       };
 
@@ -106,10 +100,10 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         );
       }
 
-      // defference between () and e??
       saveEdit = (e: any) => {
         this.setState({ editShow: false });
-        this.props.RecordStore.updateRecord();
+        this.props.RecordStore.updateCommonRecord();
+        console.log("updating");
       };
 
       addRecord = (e: any) => {
@@ -198,30 +192,34 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               Add selected common records
             </Button>
 
-            <Dialog
-              open={this.state.editShow}
-              onClose={editClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle
-                id="example-modal-sizes-title-sm"
-                style={{ fontSize: 16 }}
-              >
-                Edit Common Record
-              </DialogTitle>
-              {this.props.RecordStore.allRecords
-                .slice()
-                .filter(
-                  (x: any) =>
-                    x.id === this.props.RecordStore.editcommonrecords.editID
-                )
-                .map((postDetail: any) => {
-                  return (
-                    <DialogContent key={postDetail.id}>
+            {/* edit common records */}
+            {this.props.RecordStore.allRecords
+              .slice()
+              .filter(
+                (x: any) =>
+                  x.id === this.props.RecordStore.editcommonrecords.editID
+              )
+              .map((postDetail: any) => {
+                return (
+                  <Dialog
+                    key={postDetail.id}
+                    open={this.state.editShow}
+                    onClose={editClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle
+                      id="example-modal-sizes-title-sm"
+                      style={{ fontSize: 16 }}
+                    >
+                      Edit Common Record
+                    </DialogTitle>
+                    <DialogContent>
                       <Grid>
                         <TextField
                           fullWidth
+                          multiline
+                          rows="2"
                           id="editType"
                           label="Record Type"
                           defaultValue={postDetail.recordtype}
@@ -236,7 +234,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           Record Function
                         </InputLabel>
                         <Select
-                          id="editfunction"
+                          value={this.state.selectedfunction}
+                          id="editFunction"
                           style={{ width: 400 }}
                           onChange={RecordStore.handleChange}
                         >
@@ -256,7 +255,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           Record Category
                         </InputLabel>
                         <Select
-                          id="editrecordcategoryid"
+                          value={this.state.selectedcategory}
+                          id="editCategory"
                           style={{ width: 400 }}
                           onChange={RecordStore.handleChange}
                         >
@@ -278,8 +278,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         <TextField
                           fullWidth
                           multiline
-                          rows="3"
-                          id="editdescription"
+                          rows="4"
+                          id="editDescription"
                           label="Description"
                           defaultValue={postDetail.description}
                           variant="outlined"
@@ -288,26 +288,27 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         />
                       </Grid>
                     </DialogContent>
-                  );
-                })}
-              <DialogActions>
-                <Button
-                  style={styles.modalButtonStyle}
-                  variant="outlined"
-                  color="primary"
-                  onClick={this.saveEdit}
-                >
-                  Save Changes
-                </Button>
-                <Button
-                  style={styles.modalButtonStyle}
-                  variant="outlined"
-                  onClick={() => this.setState({ editShow: false })}
-                >
-                  Discard Changes
-                </Button>
-              </DialogActions>
-            </Dialog>
+
+                    <DialogActions>
+                      <Button
+                        style={styles.modalButtonStyle}
+                        variant="outlined"
+                        color="primary"
+                        onClick={this.saveEdit}
+                      >
+                        Save Changes
+                      </Button>
+                      <Button
+                        style={styles.modalButtonStyle}
+                        variant="outlined"
+                        onClick={() => this.setState({ editShow: false })}
+                      >
+                        Discard Changes
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                );
+              })}
 
             <Dialog
               open={this.state.modalShow}
@@ -346,12 +347,6 @@ const styles = {
     width: 84,
     fontSize: 8,
     padding: 0
-  },
-  customInputStyle: {
-    borderRadius: 5,
-    fontSize: 10,
-    padding: 6,
-    border: "Gainsboro solid 1px"
   },
   iconStyle: {
     width: 20,

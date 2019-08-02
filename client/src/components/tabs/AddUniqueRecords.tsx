@@ -1,4 +1,4 @@
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 import {
   Button,
   Container,
@@ -9,17 +9,15 @@ import {
   Grid,
   MenuItem,
   Select,
-  InputLabel,
-  Snackbar,
-  IconButton
+  InputLabel
 } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+// import CloseIcon from "@material-ui/icons/Close";
 import { inject, observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
-import { Formik, FormikProps, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import { Formik, FormikProps, Form, Field, ErrorMessage } from "formik";
+// import * as Yup from "yup";
 // import Snackbars from "../common/SnackBar";
 
 interface IProps {
@@ -39,10 +37,6 @@ interface IState {
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
   observer(
     class AddUniqueRecords extends Component<IProps, IState> {
-      constructor(props: IProps) {
-        super(props);
-      }
-
       componentDidMount() {
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
@@ -96,7 +90,6 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ smShow: true });
-          console.log("select a department to add an unique record");
         } else if (this.props.UniqueStore.uniquerecords.recordType === "") {
           this.setState({ needRecordType: true });
         } else {
@@ -119,7 +112,6 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         let smClose = () => this.setState({ smShow: false });
         let needRecordType = () => this.setState({ needRecordType: false });
         const { UniqueStore } = this.props;
-        //console.log(this.props.DepartmentStore.selectedDepartment);
 
         return (
           <Container style={{ flexGrow: 1 }}>

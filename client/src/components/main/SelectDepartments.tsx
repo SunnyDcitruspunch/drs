@@ -81,9 +81,6 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
 );
 
 const styles = {
-  dropdownStyle: {
-    paddingTop: 80
-  },
   optionStyle: {
     fontSize: 12
   }
