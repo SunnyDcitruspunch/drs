@@ -18,7 +18,13 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Container
+  Container,
+  FormControl,
+  RadioGroup,
+  Radio,
+  FormLabel,
+  FormControlLabel,
+  FormHelperText
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
@@ -61,7 +67,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       }
 
       componentDidMount() {
-        this.props.RecordStore.fetchRecords();
+        this.props.RecordStore.fetchCommonRecords();
       }
 
       onSelect = (e: any) => {
@@ -103,7 +109,6 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       saveEdit = (e: any) => {
         this.setState({ editShow: false });
         this.props.RecordStore.updateCommonRecord();
-        console.log("updating");
       };
 
       addRecord = (e: any) => {
@@ -126,7 +131,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{ fontSize: 10, width: 150 }}>
+                    <TableCell style={{ fontSize: 10, width: 120 }}>
                       Actions
                     </TableCell>
                     <TableCell style={{ fontSize: 10 }}>Function</TableCell>
@@ -143,8 +148,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                       <TableRow key={record.id} {...record}>
                         <TableCell>
                           <CreateOutlinedIcon
+                            style={styles.buttonStyle}
                             name="edit"
-                            style={styles.iconStyle}
                             onClick={() =>
                               this.handleEditRecord(
                                 record.id,
@@ -287,20 +292,55 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           onChange={RecordStore.handleChange}
                         />
                       </Grid>
+
+                      <FormControl
+                        component="fieldset"
+                        // className={classes.formControl}
+                      >
+                        <FormLabel component="legend">Archival</FormLabel>
+                        <RadioGroup
+                          row
+                          aria-label="archival"
+                          name="archival"
+                          // className={classes.group}
+                          // value={value}
+                          // onChange={handleChange}
+                        >
+                          <FormControlLabel
+                            value="Archival"
+                            control={<Radio color="primary" />}
+                            label="Archival"
+                            labelPlacement="end"
+                            onChange={RecordStore.changeArchival}
+                          />
+                          <FormControlLabel
+                            value="Vital"
+                            control={<Radio color="primary" />}
+                            label="Vital"
+                            labelPlacement="end"
+                            onChange={RecordStore.changeArchival}
+                          />
+                          <FormControlLabel
+                            value="Highly Confidential"
+                            control={<Radio color="primary" />}
+                            label="Highly Confidential"
+                            labelPlacement="end"
+                            onChange={RecordStore.changeArchival}
+                          />
+                        </RadioGroup>
+                      </FormControl>
                     </DialogContent>
 
                     <DialogActions>
                       <Button
-                        style={styles.modalButtonStyle}
-                        variant="outlined"
+                        // style={styles.modalButtonStyle}
                         color="primary"
                         onClick={this.saveEdit}
                       >
                         Save Changes
                       </Button>
                       <Button
-                        style={styles.modalButtonStyle}
-                        variant="outlined"
+                        // style={styles.modalButtonStyle}
                         onClick={() => this.setState({ editShow: false })}
                       >
                         Discard Changes
@@ -348,7 +388,7 @@ const styles = {
     fontSize: 8,
     padding: 0
   },
-  iconStyle: {
+  buttonStyle: {
     width: 20,
     height: 16,
     padding: 0,

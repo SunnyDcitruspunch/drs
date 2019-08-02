@@ -11,7 +11,7 @@
       "recordcategoryid": "",
       "status": "Approved",
       "notes": "2 notes",
-      "archival": "Yes"
+      "archival": "Archival"
     },
     {
       "id": "83",
@@ -24,7 +24,7 @@
       "recordcategoryid": "MISC20",
       "status": "Approved",
       "notes": "this is a note.",
-      "archival": "Yes"
+      "archival": "Archival"
     },
     {
       "id": "4",
@@ -37,7 +37,7 @@
       "recordcategoryid": "LEG01",
       "status": "Approved",
       "notes": "no notes.",
-      "archival": "Yes"
+      "archival": "Vital"
     },
     {
       "recordtype": "ss",
@@ -50,7 +50,7 @@
       "function": "Legal",
       "recordcategoryid": "LEG01",
       "departmentnumber": "800",
-      "archival": "Yes"
+      "archival": "Highly Confidential"
     },
     {
       "code": "U3",
@@ -62,7 +62,7 @@
       "departmentnumber": "233",
       "function": "Legal",
       "status": "Approved",
-      "archival": "Yes"
+      "archival": "Highly Confidential"
     },
     {
       "recordtype": "Catering type",
@@ -76,7 +76,7 @@
       "recordcategoryid": "",
       "retention": "",
       "code": "U2",
-      "archival": "Yes"
+      "archival": "Highly Confidential"
     },
     {
       "recordtype": "Catering information data",
@@ -89,7 +89,7 @@
       "code": "U2",
       "departmentnumber": "909",
       "function": "Athletics",
-      "archival": "Yes"
+      "archival": "Highly Confidential"
     },
     {
       "department": "Computer Science",
@@ -99,7 +99,7 @@
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes",
+      "archival": "Vital",
       "status": "Approved",
       "id": "IsuIgzK"
     },
@@ -111,7 +111,7 @@
       "recordcategoryid": "common",
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "archival": "No",
+      "archival": "Vital",
       "status": "Approved",
       "id": "5csoAT6"
     },
@@ -123,7 +123,7 @@
       "recordcategoryid": "common",
       "recordtype": "Rank & Status records.",
       "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
-      "archival": "No",
+      "archival": "Vital",
       "status": "Approved",
       "id": "dEAjawj"
     },
@@ -135,7 +135,7 @@
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes",
+      "archival": "Vital",
       "status": "Approved",
       "id": "llBpVci"
     },
@@ -146,7 +146,7 @@
       "recordcategoryid": "common",
       "recordtype": "Rank & Status records.",
       "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
-      "archival": "No",
+      "archival": "Vital",
       "status": "Approved",
       "notes": "notes",
       "id": "T6u2_O3"
@@ -158,7 +158,7 @@
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes",
+      "archival": "Vital",
       "status": "Approved",
       "id": "-jTHalm"
     },
@@ -169,7 +169,7 @@
       "recordcategoryid": "common",
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "archival": "No",
+      "archival": "Vital",
       "status": "Approved",
       "id": "aIomQ0d"
     },
@@ -180,7 +180,7 @@
       "recordcategoryid": "common",
       "recordtype": "Waivers (Risk Management waivers).",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes",
+      "archival": "Archival",
       "status": "Approved",
       "id": "6G-ZvsP"
     }
@@ -230,8 +230,8 @@
       "function": "Academic",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Yes"
+      "description": "Retain for 1 review cycle (generally 7 years)",
+      "archival": "Highly Confidential"
     },
     {
       "id": "asdfasdf5",
@@ -240,7 +240,7 @@
       "recordcategoryid": "common",
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "archival": "No"
+      "archival": "Vital"
     },
     {
       "id": "3dfdfdfdf2",
@@ -249,7 +249,7 @@
       "recordcategoryid": "common",
       "recordtype": "Rank & Status records.",
       "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
-      "archival": "No"
+      "archival": "Highly Confidential"
     },
     {
       "id": "30sdfsfs",
@@ -257,8 +257,8 @@
       "function": "Administrative",
       "recordcategoryid": "common",
       "recordtype": "Waivers (Risk Management waivers).",
-      "description": "test description",
-      "archival": "Yes"
+      "description": "test description 121212",
+      "archival": "Vital"
     }
   ],
   "category": [

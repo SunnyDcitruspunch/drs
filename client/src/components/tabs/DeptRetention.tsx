@@ -29,6 +29,7 @@ import { IUniqueStore } from "../../stores/UniqueStore";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
+  !TODO: sort records by function and record type
 */
 
 interface IProps {
@@ -183,10 +184,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     <TableCell style={{ fontSize: 10, width: 300 }}>
                       Retention Schedule
                     </TableCell>
+                    <TableCell style={{ fontSize: 10, width: 20 }}>
+                      Function
+                    </TableCell>
                     <TableCell style={{ fontSize: 10, width: 150 }}>
                       Notes
                     </TableCell>
-                    <TableCell style={{ fontSize: 10 }}>Status</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody style={styles.tableFontStyle}>
@@ -226,11 +229,14 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             {postDetail.description}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.notes}
+                            {postDetail.function}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.status}
+                            {postDetail.notes}
                           </TableCell>
+                          {/* <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.status}
+                          </TableCell> */}
                         </TableRow>
                       );
                     })}
@@ -266,21 +272,26 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               </DialogActions>
             </Dialog>
 
-            <Dialog
-              open={this.state.openEdit}
-              onClose={confirmClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">{"Edit Record"}</DialogTitle>
-              {this.props.DepartmentStore.allRecords
-                .slice()
-                .filter(
-                  (x: any) => x.id === this.props.DepartmentStore.editRecordid
-                )
-                .map((postDetail: any) => {
-                  return (
-                    <DialogContent key={postDetail.id}>
+            {/* edit record */}
+            {this.props.DepartmentStore.allRecords
+              .slice()
+              .filter(
+                (x: any) => x.id === this.props.DepartmentStore.editRecordid
+              )
+              .map((postDetail: any) => {
+                return (
+                  <Dialog
+                    key={postDetail.id}
+                    open={this.state.openEdit}
+                    onClose={confirmClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Edit Record"}
+                    </DialogTitle>
+
+                    <DialogContent>
                       <Grid>
                         <TextField
                           fullWidth
@@ -366,18 +377,22 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                         />
                       </Grid>
                     </DialogContent>
-                  );
-                })}
 
-              <DialogActions>
-                <Button onClick={this.editRecord} color="primary" autoFocus>
-                  Edit this record
-                </Button>
-                <Button onClick={this.closeEdit} color="primary">
-                  Cancel
-                </Button>
-              </DialogActions>
-            </Dialog>
+                    <DialogActions>
+                      <Button
+                        onClick={this.editRecord}
+                        color="primary"
+                        autoFocus
+                      >
+                        Edit this record
+                      </Button>
+                      <Button onClick={this.closeEdit} color="primary">
+                        Cancel
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                );
+              })}
           </Container>
         );
       }

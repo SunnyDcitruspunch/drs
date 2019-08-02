@@ -1,4 +1,4 @@
-import { observable, action, decorate } from "mobx";
+import { observable, action, decorate, computed } from "mobx";
 
 export interface IRecordStore {
   allRecords: Array<Object>;
@@ -7,7 +7,7 @@ export interface IRecordStore {
   selectedDepartment: string;
   selectedCommonRecords: Array<String>;
   editcommonrecords: Ieditcommonrecords;
-  fetchRecords: () => void;
+  fetchCommonRecords: () => void;
   getEditRecord: (
     cid: string,
     ccode: string,
@@ -23,6 +23,8 @@ export interface IRecordStore {
   fetchPendings: () => void;
   approvedRecords: Array<string>;
   approveSelectedRecords: (e: any) => void;
+  showCommonRecords: any;
+  changeArchival: (e: any) => void;
 }
 
 export interface Ieditcommonrecords {
@@ -55,13 +57,17 @@ class _RecordStore implements IRecordStore {
 
   addcommonrecords = {};
 
-  async fetchRecords() {
+  async fetchCommonRecords() {
     await fetch("http://localhost:3004/commonrecords")
       .then(response => {
         return response.json();
       })
       .then(json => (this.allRecords = json))
       .then(json => (this.allrecordsforSelections = json));
+  }
+
+  get showCommonRecords() {
+    return this.selectedDepartment;
   }
 
   async fetchPendings() {
@@ -145,8 +151,6 @@ class _RecordStore implements IRecordStore {
     this.editcommonrecords.editType = ctype;
     this.editcommonrecords.editDescription = cdescription;
     this.editcommonrecords.editArchival = carchival;
-    console.log(this.editcommonrecords.editID);
-    console.log(this.editcommonrecords.editDescription);
   }
 
   //update common records: PATCH
@@ -168,26 +172,32 @@ class _RecordStore implements IRecordStore {
         archival: this.editcommonrecords.editArchival
       })
     }).then(res => res.json());
-    console.log("updated");
   }
 
   handleChange = (e: any) => {
     const { id, value } = e.target;
     this.editcommonrecords[id] = value;
   };
+
+  changeArchival = (e: any) => {
+    const { value } = e.target
+    this.editcommonrecords.editArchival = value
+  };
 }
 
 decorate(_RecordStore, {
   allRecords: observable,
   pendingRecords: observable,
-  fetchRecords: action,
+  fetchCommonRecords: action,
+  showCommonRecords: computed,
   fetchPendings: action,
   handleChange: action,
   getEditRecord: action,
   addCommonRecord: action,
   approvedRecords: observable,
   approveSelectedRecords: action,
-  updateCommonRecord: action
+  updateCommonRecord: action,
+  changeArchival: action
 });
 
 export const RecordStore = new _RecordStore();
