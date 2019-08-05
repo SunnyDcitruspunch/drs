@@ -12,8 +12,8 @@ export interface IDepartmentStore {
   deleteID: string;
   deleteRecord: () => void;
   updateRecord: () => void;
-  allRecords: any;
-  allDepartments: Array<Object>;
+  allRecords: Array<any>;
+  allDepartments: Array<any>
   isLoading: boolean;
   editRecordid: string;
   editDepartment: string;
@@ -83,7 +83,8 @@ class _DepartmentStore implements IDepartmentStore {
     rfunction: string,
     rcategory: string,
     rdesc: string,
-    rnotes: string
+    rnotes: string,
+    rarchival: string
   ) {
     this.editRecordid = id;
     this.editDepartment = rdept;
@@ -92,6 +93,7 @@ class _DepartmentStore implements IDepartmentStore {
     this.editrecord.editdescription = rdesc;
     this.editrecord.editrecordcategoryid = rcategory;
     this.editrecord.editnotes = rnotes;
+    this.editrecord.editarchival = rarchival;
   }
 
   changeArchival = (e: any) => {

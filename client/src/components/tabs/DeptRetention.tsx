@@ -25,13 +25,13 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
-  FormControlLabel
+  FormControlLabel,
+  TableSortLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -62,7 +62,6 @@ interface IState {
   order: Order;
   orderBy: string;
   sortDirection: any;
-  descRecords: Array<string>;
 }
 
 interface HeadRow {
@@ -72,6 +71,17 @@ interface HeadRow {
 
 type Order = "asc" | "desc";
 
+type PostDetail = {
+  id: string;
+  department: string;
+  recordtype: string;
+  function: string;
+  recordcategoryid: string;
+  description: string;
+  notes: string;
+  archival: string
+};
+
 function desc<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -80,18 +90,6 @@ function desc<T>(a: T, b: T, orderBy: keyof T) {
     return 1;
   }
   return 0;
-}
-
-function getSorting<K extends keyof any>(
-  order: Order,
-  orderBy: K
-): (
-  a: { [key in K]: number | string },
-  b: { [key in K]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => desc(a, b, orderBy)
-    : (a, b) => -desc(a, b, orderBy);
 }
 
 const headRows: HeadRow[] = [
@@ -130,8 +128,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headRows.map(row => (
           <TableCell
             key={row.id}
-            // align={row.numeric ? 'right' : 'left'}
-            // padding={row.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === row.id ? order : false}
           >
             <TableSortLabel
@@ -164,8 +160,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           archivalOptions: ["Archival", "Vital", "Highly Confidential"],
           order: "asc",
           orderBy: "recordtype",
-          sortDirection: "asc",
-          descRecords: []
+          sortDirection: "asc"
         };
       }
 
@@ -182,7 +177,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         dfunction: string,
         dcategory: string,
         ddesc: string,
-        dnotes: string
+        dnotes: string,
+        darchival: string
       ) {
         this.setState({ openEdit: true });
         this.setState({ selectedFunction: dfunction });
@@ -194,7 +190,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           dfunction,
           dcategory,
           ddesc,
-          dnotes
+          dnotes,
+          darchival
         );
       }
 
@@ -332,7 +329,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   )
                     .slice()
                     .filter((x: any) => x.department === department)
-                    .map((postDetail: any) => {
+                    .map((postDetail: PostDetail) => {
                       return (
                         <TableRow hover key={postDetail.id}>
                           <TableCell style={{ width: 100 }}>
@@ -346,7 +343,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                                   postDetail.function,
                                   postDetail.recordcategoryid,
                                   postDetail.description,
-                                  postDetail.notes
+                                  postDetail.notes,
+                                  postDetail.archival
                                 )
                               }
                               style={styles.buttonStyle}

@@ -1,7 +1,7 @@
 import { observable, action, decorate, computed } from "mobx";
 
 export interface IRecordStore {
-  allRecords: Array<Object>;
+  allRecords: Array<any>;
   allrecordsforSelections: Array<Object>;
   pendingRecords: Array<Object>;
   selectedDepartment: string;

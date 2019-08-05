@@ -37,6 +37,7 @@ interface IState {
   open: boolean;
   selectedfunction: string;
   selectedcategory: string;
+  archivalOptions: Array<string>;
 }
 
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
@@ -53,7 +54,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         needRecordType: false,
         open: false,
         selectedfunction: "",
-        selectedcategory: ""
+        selectedcategory: "",
+        archivalOptions: ["Archival", "Vital", "Highly Confidential"]
       };
 
       handleClose(
@@ -190,34 +192,19 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <FormControl component="fieldset">
               <FormLabel component="legend">Archival</FormLabel>
-              <RadioGroup
-                row
-                aria-label="archival"
-                name="archival"
-                // value={value}
-                // onChange={handleChange}
-              >
-                <FormControlLabel
-                  value="Archival"
-                  control={<Radio color="primary" />}
-                  label="Archival"
-                  labelPlacement="end"
-                  onChange={UniqueStore.changeArchival}
-                />
-                <FormControlLabel
-                  value="Vital"
-                  control={<Radio color="primary" />}
-                  label="Vital"
-                  labelPlacement="end"
-                  onChange={UniqueStore.changeArchival}
-                />
-                <FormControlLabel
-                  value="Highly Confidential"
-                  control={<Radio color="primary" />}
-                  label="Highly Confidential"
-                  labelPlacement="end"
-                  onChange={UniqueStore.changeArchival}
-                />
+              <RadioGroup row aria-label="archival" name="archival">
+                {this.state.archivalOptions.map((x: string) => {
+                  return (
+                    <FormControlLabel
+                      key={x}
+                      value={x}
+                      control={<Radio color="primary" />}
+                      label={x}
+                      labelPlacement="end"
+                      onChange={UniqueStore.changeArchival}
+                    />
+                  );
+                })}
               </RadioGroup>
             </FormControl>
 
