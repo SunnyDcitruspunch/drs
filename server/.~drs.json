@@ -207,6 +207,18 @@
       "code": "N/A",
       "status": "Pending",
       "id": "xlCUpWa"
+    },
+    {
+      "recordtype": "honor code test office",
+      "department": "Honor Code Office",
+      "function": "Finance",
+      "recordcategoryid": "OIT04",
+      "description": "asdfasdfasdf",
+      "notes": "asdfasdfasdfasdf",
+      "archival": "Highly Confidential",
+      "code": "N/A",
+      "status": "Pending",
+      "id": "6hgKTk5"
     }
   ],
   "functions": [

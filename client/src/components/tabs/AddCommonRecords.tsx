@@ -31,25 +31,30 @@ import { IRecordStore } from "../../stores/RecordStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 
-type Order = "asc" | "desc";
+export type Order = "asc" | "desc";
 
-interface Data {
+export interface IData {
   recordtype: string;
   description: string;
+  category?: string
   function: string;
   archival: string;
   notes: string;
+  status?: string
 }
 
-interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: any) => void;
+export interface IEnhancedTableProps {
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof IData
+  ) => void;
   order: Order;
   orderBy: string;
   rowCount?: number;
 }
 
-interface HeadRow {
-  id: string;
+export interface HeadRow {
+  id: keyof IData;
   label: string;
 }
 
@@ -67,9 +72,9 @@ const headRows: HeadRow[] = [
   { id: "notes", label: "Notes" }
 ];
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function EnhancedTableHead(props: IEnhancedTableProps) {
   const { order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property: any) => (
+  const createSortHandler = (property: keyof IData) => (
     event: React.MouseEvent<unknown>
   ) => {
     onRequestSort(event, property);
@@ -233,7 +238,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
       handleRequestSort = (
         event: React.MouseEvent<unknown>,
-        property: keyof Data
+        property: keyof IData
       ) => {
         const isDesc =
           this.state.orderBy === property && this.state.order === "desc";

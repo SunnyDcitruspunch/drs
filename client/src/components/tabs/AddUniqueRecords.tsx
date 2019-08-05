@@ -16,7 +16,6 @@ import {
   FormControlLabel,
   FormControl
 } from "@material-ui/core";
-// import CloseIcon from "@material-ui/icons/Close";
 import { inject, observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { IUniqueStore } from "../../stores/UniqueStore";
@@ -111,7 +110,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           window.scrollTo(0, 0);
           this.props.UniqueStore.uniquerecords.recordType = "";
           this.setState({ needRecordType: false });
-          //window.location.reload();
+          window.location.reload();
         }
       };
 
@@ -224,14 +223,14 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               variant="outlined"
               color="primary"
               style={{ marginTop: 10, fontSize: 10 }}
-              onSubmit={e => this.submitRecords(e)}
+              onClick={this.submitRecords}
             >
-              <Link
+              {/* <Link
                 to="/AddUniqueRecords"
                 style={{ fontSize: 10, textDecoration: "none" }}
-              >
-                Submit
-              </Link>
+              > */}
+              Submit
+              {/* </Link> */}
             </Button>
             {/* </Formik> */}
 

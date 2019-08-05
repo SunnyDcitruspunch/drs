@@ -13,10 +13,10 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { IRecordStore } from "../../stores/RecordStore";
-
+import { IPostDetail } from "../../stores/DepartmentStore";
+import { HeadRow } from "../tabs/AddCommonRecords";
 /*
  *TODO:  clikcable table for pending records (editable table??)
- !TODO: change data to pending records
  */
 
 interface IProps {
@@ -24,8 +24,23 @@ interface IProps {
 }
 
 interface IState {
-  approvedrecords: any;
+  approvedrecords: Array<Object>;
 }
+
+const headRows: HeadRow[] = [
+  {
+    id: "recordtype",
+    label: "Record Type"
+  },
+  {
+    id: "description",
+    label: "Description"
+  },
+  { id: "function", label: "Function" },
+  { id: "category", label: "Category" },
+  { id: "archival", label: "Archival" },
+  { id: "notes", label: "Notes" }
+];
 
 const AdminTab = inject("RecordStore")(
   observer(
@@ -46,20 +61,16 @@ const AdminTab = inject("RecordStore")(
       onSelect = (e: any) => {
         const { value } = e.target;
         if (e.target.checked) {
-          this.setState(
-            {
-              approvedrecords: [...this.state.approvedrecords, value]
-            }
-          );
+          this.setState({
+            approvedrecords: [...this.state.approvedrecords, value]
+          });
         } else {
           let remove = this.state.approvedrecords.indexOf(e.target.value);
-          this.setState(
-            {
-              approvedrecords: this.state.approvedrecords.filter(
-                (_: any, i: any) => i !== remove
-              )
-            }
-          );
+          this.setState({
+            approvedrecords: this.state.approvedrecords.filter(
+              (_: any, i: any) => i !== remove
+            )
+          });
         }
       };
 
@@ -67,7 +78,7 @@ const AdminTab = inject("RecordStore")(
         this.props.RecordStore.approveSelectedRecords(
           this.state.approvedrecords
         );
-        window.location.reload()
+        window.location.reload();
       };
 
       render() {
@@ -80,29 +91,18 @@ const AdminTab = inject("RecordStore")(
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      style={{ fontSize: 10, width: 250 }}
-                      align="center"
-                    >
-                      Department
-                    </TableCell>
-                    <TableCell style={{ fontSize: 10, width: 100 }}>
-                      Retention Type
-                    </TableCell>
-                    <TableCell style={{ fontSize: 10, width: 300 }}>
-                      Retention Schedule
-                    </TableCell>
-                    <TableCell style={styles.tableStyle}>Function</TableCell>
-                    <TableCell style={styles.tableStyle}>Category</TableCell>
-                    <TableCell style={styles.tableStyle}>Notes</TableCell>
+                    <TableCell padding="checkbox" />
+                    {headRows.map(row => (
+                      <TableCell key={row.id}>{row.label}</TableCell>
+                    ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {RecordStore.pendingRecords
                     .slice()
                     .filter((x: any) => x.status === "Pending")
-                    .map((pendings: any) => (
-                      <TableRow key={pendings.id}>
+                    .map((pendings: IPostDetail) => (
+                      <TableRow hover key={pendings.id}>
                         <TableCell
                           component="th"
                           scope="row"
@@ -114,7 +114,7 @@ const AdminTab = inject("RecordStore")(
                             onChange={this.onSelect}
                             value={pendings.id}
                           />
-                          {pendings.department}
+                          {/* {pendings.department} */}
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
                           {pendings.recordtype}
@@ -130,6 +130,9 @@ const AdminTab = inject("RecordStore")(
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
                           {pendings.notes}
+                        </TableCell>
+                        <TableCell style={styles.tableStyle}>
+                          {pendings.archival}
                         </TableCell>
                       </TableRow>
                     ))}

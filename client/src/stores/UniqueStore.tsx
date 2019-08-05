@@ -43,6 +43,7 @@ class _UniqueStore {
   handleChange = (e: any) => {
     const { id, value } = e.target;
     this.uniquerecords[id] = value;
+    console.log(value)
   };
 
   changeArchival = (e: any) => {

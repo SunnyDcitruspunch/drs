@@ -30,21 +30,18 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import { IDepartmentStore } from "../../stores/DepartmentStore";
+import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
+import {
+  IEnhancedTableProps,
+  Order,
+  HeadRow,
+  IData
+} from "../tabs/AddCommonRecords";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
-  !TODO: sort records by function and record type
 */
-
-interface Data {
-  recordtype: string;
-  description: string;
-  function: string;
-  archival: string;
-  notes: string;
-}
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -63,24 +60,6 @@ interface IState {
   orderBy: string;
   sortDirection: any;
 }
-
-interface HeadRow {
-  id: string;
-  label: string;
-}
-
-type Order = "asc" | "desc";
-
-type PostDetail = {
-  id: string;
-  department: string;
-  recordtype: string;
-  function: string;
-  recordcategoryid: string;
-  description: string;
-  notes: string;
-  archival: string
-};
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -102,20 +81,15 @@ const headRows: HeadRow[] = [
     label: "Description"
   },
   { id: "function", label: "Function" },
+  { id: "category", label: "Category" },
   { id: "archival", label: "Archival" },
-  { id: "notes", label: "Notes" }
+  { id: "notes", label: "Notes" },
+  { id: "status", label: "Status" }
 ];
 
-interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: any) => void;
-  order: Order;
-  orderBy: string;
-  rowCount?: number;
-}
-
-function EnhancedTableHead(props: EnhancedTableProps) {
+function EnhancedTableHead(props: IEnhancedTableProps) {
   const { order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property: any) => (
+  const createSortHandler = (property: keyof IData) => (
     event: React.MouseEvent<unknown>
   ) => {
     onRequestSort(event, property);
@@ -170,29 +144,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         window.scrollTo(0, 0);
       }
 
-      showEditModal(
-        pid: string,
-        dept: string,
-        drecordtype: string,
-        dfunction: string,
-        dcategory: string,
-        ddesc: string,
-        dnotes: string,
-        darchival: string
-      ) {
+      showEditModal(postDetail: IPostDetail) {
         this.setState({ openEdit: true });
-        this.setState({ selectedFunction: dfunction });
-        this.setState({ selectedCategory: dcategory });
-        this.props.DepartmentStore.updateEditID(
-          pid,
-          dept,
-          drecordtype,
-          dfunction,
-          dcategory,
-          ddesc,
-          dnotes,
-          darchival
-        );
+        this.setState({ selectedFunction: postDetail.function });
+        this.setState({ selectedCategory: postDetail.recordcategoryid });
+        this.props.DepartmentStore.updateEditID(postDetail);
       }
 
       //html2canvas + jsPDF
@@ -288,7 +244,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       handleRequestSort = (
         event: React.MouseEvent<unknown>,
-        property: keyof Data
+        property: keyof IData
       ) => {
         const isDesc =
           this.state.orderBy === property && this.state.order === "desc";
@@ -322,31 +278,20 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   orderBy={this.state.orderBy}
                   onRequestSort={this.handleRequestSort}
                 />
-                <TableBody style={styles.tableFontStyle}>
+                <TableBody style={{ fontSize: 11 }}>
                   {this.stableSort(
-                    this.props.DepartmentStore.allRecords,
+                    DepartmentStore.allRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
                     .filter((x: any) => x.department === department)
-                    .map((postDetail: PostDetail) => {
+                    .map((postDetail: IPostDetail) => {
                       return (
                         <TableRow hover key={postDetail.id}>
                           <TableCell style={{ width: 100 }}>
                             <CreateOutlinedIcon
                               name="edit"
-                              onClick={() =>
-                                this.showEditModal(
-                                  postDetail.id,
-                                  postDetail.department,
-                                  postDetail.recordtype,
-                                  postDetail.function,
-                                  postDetail.recordcategoryid,
-                                  postDetail.description,
-                                  postDetail.notes,
-                                  postDetail.archival
-                                )
-                              }
+                              onClick={() => this.showEditModal(postDetail)}
                               style={styles.buttonStyle}
                             />
                             &nbsp;
@@ -366,10 +311,16 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             {postDetail.function}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.recordcategoryid}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
                             {postDetail.archival}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {postDetail.notes}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.status}
                           </TableCell>
                         </TableRow>
                       );
@@ -413,10 +364,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               .filter(
                 (x: any) => x.id === this.props.DepartmentStore.editRecordid
               )
-              .map((postDetail: any) => {
+              .map((editDetail: IPostDetail) => {
                 return (
                   <Dialog
-                    key={postDetail.id}
+                    key={editDetail.id}
                     open={this.state.openEdit}
                     onClose={confirmClose}
                     aria-labelledby="alert-dialog-title"
@@ -432,7 +383,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           fullWidth
                           id="editrecordtype"
                           label="Record Type"
-                          defaultValue={postDetail.recordtype}
+                          defaultValue={editDetail.recordtype}
                           variant="outlined"
                           onChange={DepartmentStore.handleChange}
                           margin="normal"
@@ -491,7 +442,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           rows="3"
                           id="editdescription"
                           label="Description"
-                          defaultValue={postDetail.description}
+                          defaultValue={editDetail.description}
                           variant="outlined"
                           margin="normal"
                           onChange={DepartmentStore.handleChange}
@@ -523,7 +474,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           rows="3"
                           id="editnotes"
                           label="Notes"
-                          defaultValue={postDetail.notes}
+                          defaultValue={editDetail.notes}
                           variant="outlined"
                           margin="normal"
                           onChange={DepartmentStore.handleChange}
@@ -564,8 +515,5 @@ const styles = {
     height: 16,
     padding: 0,
     fontSize: 10
-  },
-  tableFontStyle: {
-    fontSize: 11
   }
 };

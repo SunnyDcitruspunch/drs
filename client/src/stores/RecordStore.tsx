@@ -3,7 +3,7 @@ import { observable, action, decorate, computed } from "mobx";
 export interface IRecordStore {
   allRecords: Array<any>;
   allrecordsforSelections: Array<Object>;
-  pendingRecords: Array<Object>;
+  pendingRecords: Array<any>;
   selectedDepartment: string;
   selectedCommonRecords: Array<String>;
   editcommonrecords: Ieditcommonrecords;

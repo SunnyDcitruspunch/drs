@@ -13,7 +13,7 @@ export interface IDepartmentStore {
   deleteRecord: () => void;
   updateRecord: () => void;
   allRecords: Array<any>;
-  allDepartments: Array<any>
+  allDepartments: Array<any>;
   isLoading: boolean;
   editRecordid: string;
   editDepartment: string;
@@ -22,6 +22,18 @@ export interface IDepartmentStore {
   handleChange: (e: any) => void;
   changeArchival: (e: any) => void;
 }
+
+export type IPostDetail = {
+  id: string;
+  department: string;
+  recordtype: string;
+  function: string;
+  recordcategoryid: string;
+  description: string;
+  notes: string;
+  archival: string;
+  status: string
+};
 
 class _DepartmentStore implements IDepartmentStore {
   selectedDepartment = "";
@@ -76,24 +88,15 @@ class _DepartmentStore implements IDepartmentStore {
     this.editrecord[id] = value;
   };
 
-  updateEditID(
-    id: string,
-    rdept: string,
-    rtype: string,
-    rfunction: string,
-    rcategory: string,
-    rdesc: string,
-    rnotes: string,
-    rarchival: string
-  ) {
-    this.editRecordid = id;
-    this.editDepartment = rdept;
-    this.editrecord.editrecordtype = rtype;
-    this.editrecord.editfunction = rfunction;
-    this.editrecord.editdescription = rdesc;
-    this.editrecord.editrecordcategoryid = rcategory;
-    this.editrecord.editnotes = rnotes;
-    this.editrecord.editarchival = rarchival;
+  updateEditID(postDetail: IPostDetail) {
+    this.editRecordid = postDetail.id;
+    this.editDepartment = postDetail.department;
+    this.editrecord.editrecordtype = postDetail.recordtype;
+    this.editrecord.editfunction = postDetail.function;
+    this.editrecord.editdescription = postDetail.description;
+    this.editrecord.editrecordcategoryid = postDetail.recordcategoryid;
+    this.editrecord.editnotes = postDetail.notes;
+    this.editrecord.editarchival = postDetail.archival;
   }
 
   changeArchival = (e: any) => {
