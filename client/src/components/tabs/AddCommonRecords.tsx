@@ -43,6 +43,7 @@ interface IState {
   selectrecord: any;
   selectedfunction: string;
   selectedcategory: string;
+  archivalOptions: Array<string>;
 }
 
 interface Document {
@@ -61,7 +62,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           editShow: false,
           selectrecord: [],
           selectedfunction: "",
-          selectedcategory: ""
+          selectedcategory: "",
+          archivalOptions: ["Archival", "Vital", "Highly Confidential"]
         };
       }
 
@@ -309,35 +311,21 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
                       <FormControl component="fieldset">
                         <FormLabel component="legend">Archival</FormLabel>
-                        <RadioGroup
-                          row
-                          aria-label="archival"
-                          name="archival"
-                        >
-                          <FormControlLabel
-                            value="Archival"
-                            control={<Radio color="primary" />}
-                            label="Archival"
-                            labelPlacement="end"
-                            onChange={RecordStore.changeArchival}
-                          />
-                          <FormControlLabel
-                            value="Vital"
-                            control={<Radio color="primary" />}
-                            label="Vital"
-                            labelPlacement="end"
-                            onChange={RecordStore.changeArchival}
-                          />
-                          <FormControlLabel
-                            value="Highly Confidential"
-                            control={<Radio color="primary" />}
-                            label="Highly Confidential"
-                            labelPlacement="end"
-                            onChange={RecordStore.changeArchival}
-                          />
+                        <RadioGroup row aria-label="archival" name="archival">
+                          {this.state.archivalOptions.map((x: string) => {
+                            return (
+                              <FormControlLabel
+                                value={x}
+                                control={<Radio color="primary" />}
+                                label={x}
+                                labelPlacement="end"
+                                onChange={RecordStore.changeArchival}
+                              />
+                            );
+                          })}
                         </RadioGroup>
                       </FormControl>
-                      
+
                       <Grid>
                         <TextField
                           fullWidth

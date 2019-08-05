@@ -32,12 +32,12 @@
       "department": "BYU Catering",
       "code": "U1",
       "function": "Legal",
-      "recordtype": "type",
+      "recordtype": "Type",
       "description": "Retain for current year + 6, then destroy.",
       "recordcategoryid": "LEG01",
       "status": "Approved",
       "notes": "no notes.",
-      "archival": "Archival"
+      "archival": ""
     },
     {
       "recordtype": "ss",
