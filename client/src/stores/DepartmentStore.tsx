@@ -15,16 +15,14 @@ export interface IDepartmentStore {
   allRecords: Array<any>;
   allDepartments: Array<any>;
   isLoading: boolean;
-  editRecordid: string;
-  editDepartment: string;
-  editrecord: Object;
+  editrecord: IPostDetail;
   handleSelected: (edpt: string) => void;
   handleChange: (e: any) => void;
-  changeArchival: (e: any) => void;
 }
 
 export type IPostDetail = {
   id: string;
+  code?:string;
   department: string;
   recordtype: string;
   function: string;
@@ -32,7 +30,7 @@ export type IPostDetail = {
   description: string;
   notes: string;
   archival: string;
-  status: string
+  status: string;
 };
 
 class _DepartmentStore implements IDepartmentStore {
@@ -41,16 +39,17 @@ class _DepartmentStore implements IDepartmentStore {
   allRecords = [];
   isLoading = false;
   deleteID = "";
-  editRecordid = "";
-  editDepartment = "";
 
   editrecord = {
-    editfunction: "",
-    editrecordtype: "",
-    editdescription: "",
-    editrecordcategoryid: "",
-    editnotes: "",
-    editarchival: ""
+    id: "",
+    department: "",
+    recordtype: "",
+    function: "",
+    recordcategoryid: "",
+    description: "",
+    notes: "",
+    archival: "",
+    status: ""
   };
 
   handleSelected(dept: string) {
@@ -84,42 +83,37 @@ class _DepartmentStore implements IDepartmentStore {
   }
 
   handleChange = (e: any) => {
-    const { id, value } = e.target;
-    this.editrecord[id] = value;
+    const { id, value, name } = e.target;
+    this.editrecord[name] = value;
   };
 
   updateEditID(postDetail: IPostDetail) {
-    this.editRecordid = postDetail.id;
-    this.editDepartment = postDetail.department;
-    this.editrecord.editrecordtype = postDetail.recordtype;
-    this.editrecord.editfunction = postDetail.function;
-    this.editrecord.editdescription = postDetail.description;
-    this.editrecord.editrecordcategoryid = postDetail.recordcategoryid;
-    this.editrecord.editnotes = postDetail.notes;
-    this.editrecord.editarchival = postDetail.archival;
+    this.editrecord.id = postDetail.id;
+    this.editrecord.department = postDetail.department;
+    this.editrecord.recordtype = postDetail.recordtype;
+    this.editrecord.function = postDetail.function;
+    this.editrecord.description = postDetail.description;
+    this.editrecord.recordcategoryid = postDetail.recordcategoryid;
+    this.editrecord.notes = postDetail.notes;
+    this.editrecord.archival = postDetail.archival;
   }
-
-  changeArchival = (e: any) => {
-    const { value } = e.target;
-    this.editrecord.editarchival = value;
-  };
 
   //PATCH request
   async updateRecord() {
     const baseUrl = "http://localhost:3004/records";
-    await fetch(`${baseUrl}/${this.editRecordid}`, {
+    await fetch(`${baseUrl}/${this.editrecord.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        recordtype: this.editrecord.editrecordtype,
-        function: this.editrecord.editfunction,
-        recordcategoryid: this.editrecord.editrecordcategoryid,
-        description: this.editrecord.editdescription,
-        notes: this.editrecord.editnotes,
-        archival: this.editrecord.editarchival
+        recordtype: this.editrecord.recordtype,
+        function: this.editrecord.function,
+        recordcategoryid: this.editrecord.recordcategoryid,
+        description: this.editrecord.description,
+        notes: this.editrecord.notes,
+        archival: this.editrecord.archival
       })
     }).then(res => res.json());
   }
@@ -136,8 +130,7 @@ decorate(_DepartmentStore, {
   deleteRecord: action,
   updateRecord: action,
   updateEditID: action,
-  fetchAllRecords: action,
-  changeArchival: action
+  fetchAllRecords: action
 });
 
 export const DepartmentStore = new _DepartmentStore();

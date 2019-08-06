@@ -14,10 +14,7 @@ import {
 import { inject, observer } from "mobx-react";
 import { IRecordStore } from "../../stores/RecordStore";
 import { IPostDetail } from "../../stores/DepartmentStore";
-import { HeadRow } from "../tabs/AddCommonRecords";
-/*
- *TODO:  clikcable table for pending records (editable table??)
- */
+import { IHeadRow } from "../common/EnhancedTableHead";
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -27,8 +24,11 @@ interface IState {
   approvedrecords: Array<Object>;
 }
 
-const headRows: HeadRow[] = [
+const headRows: IHeadRow[] = [
   {
+    id: "department",
+    label: "Department"
+  },{
     id: "recordtype",
     label: "Record Type"
   },
@@ -114,7 +114,9 @@ const AdminTab = inject("RecordStore")(
                             onChange={this.onSelect}
                             value={pendings.id}
                           />
-                          {/* {pendings.department} */}
+                        </TableCell>
+                        <TableCell style={styles.tableStyle}>
+                          {pendings.department}
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
                           {pendings.recordtype}

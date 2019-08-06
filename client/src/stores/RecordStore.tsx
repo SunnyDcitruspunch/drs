@@ -1,4 +1,5 @@
 import { observable, action, decorate, computed } from "mobx";
+import { IPostDetail } from "./DepartmentStore";
 
 export interface IRecordStore {
   allRecords: Array<any>;
@@ -6,7 +7,7 @@ export interface IRecordStore {
   pendingRecords: Array<any>;
   selectedDepartment: string;
   selectedCommonRecords: Array<String>;
-  editcommonrecords: Ieditcommonrecords;
+  editcommonrecords: ICommonRecord;
   fetchCommonRecords: () => void;
   getEditRecord: (
     cid: string,
@@ -28,15 +29,15 @@ export interface IRecordStore {
   changeArchival: (e: any) => void;
 }
 
-export interface Ieditcommonrecords {
-  editID: string;
-  editCode: string;
-  editFunction: string;
-  editCategory: string;
-  editType: string;
-  editDescription: string;
-  editArchival: string;
-  editNotes: string;
+export interface ICommonRecord {
+  commonID: string;
+  commonCode: string;
+  commonFunction: string;
+  commonCategory: string;
+  commonType: string;
+  commonDescription: string;
+  commonArchival: string;
+  commonNotes: string;
 }
 
 class _RecordStore implements IRecordStore {
@@ -47,15 +48,15 @@ class _RecordStore implements IRecordStore {
   selectedCommonRecords: string[] = [];
   approvedRecords: string[] = [];
 
-  editcommonrecords: Ieditcommonrecords = {
-    editID: "",
-    editCode: "",
-    editFunction: "",
-    editCategory: "",
-    editType: "",
-    editDescription: "",
-    editArchival: "",
-    editNotes: ""
+  editcommonrecords: ICommonRecord = {
+    commonID: "",
+    commonCode: "",
+    commonFunction: "",
+    commonCategory: "",
+    commonType: "",
+    commonDescription: "",
+    commonArchival: "",
+    commonNotes: ""
   };
 
   addcommonrecords = {};
@@ -94,7 +95,7 @@ class _RecordStore implements IRecordStore {
       this.allRecords
         .filter((x: any) => x.id === selects[i])
         .map(
-          (postDetail: any): void => {
+          (postDetail: IPostDetail): void => {
             test = {
               department: this.selectedDepartment,
               code: postDetail.code,
@@ -149,34 +150,34 @@ class _RecordStore implements IRecordStore {
     carchival: string,
     cnotes: string
   ) {
-    this.editcommonrecords.editID = cid;
-    this.editcommonrecords.editCode = ccode;
-    this.editcommonrecords.editFunction = cfunction;
-    this.editcommonrecords.editCategory = ccategory;
-    this.editcommonrecords.editType = ctype;
-    this.editcommonrecords.editDescription = cdescription;
-    this.editcommonrecords.editArchival = carchival;
-    this.editcommonrecords.editNotes = cnotes;
+    this.editcommonrecords.commonID = cid;
+    this.editcommonrecords.commonCode = ccode;
+    this.editcommonrecords.commonFunction = cfunction;
+    this.editcommonrecords.commonCategory = ccategory;
+    this.editcommonrecords.commonType = ctype;
+    this.editcommonrecords.commonDescription = cdescription;
+    this.editcommonrecords.commonArchival = carchival;
+    this.editcommonrecords.commonNotes = cnotes;
   }
 
   //update common records: PATCH
   async updateCommonRecord() {
     const baseUrl = "http://localhost:3004/commonrecords";
 
-    await fetch(`${baseUrl}/${this.editcommonrecords.editID}`, {
+    await fetch(`${baseUrl}/${this.editcommonrecords.commonID}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        code: this.editcommonrecords.editCode,
-        function: this.editcommonrecords.editFunction,
-        recordcategoryid: this.editcommonrecords.editCategory,
-        recordtype: this.editcommonrecords.editType,
-        description: this.editcommonrecords.editDescription,
-        archival: this.editcommonrecords.editArchival,
-        notes: this.editcommonrecords.editNotes
+        code: this.editcommonrecords.commonCode,
+        function: this.editcommonrecords.commonFunction,
+        recordcategoryid: this.editcommonrecords.commonCategory,
+        recordtype: this.editcommonrecords.commonType,
+        description: this.editcommonrecords.commonDescription,
+        archival: this.editcommonrecords.commonArchival,
+        notes: this.editcommonrecords.commonNotes
       })
     }).then(res => res.json());
   }
@@ -188,7 +189,7 @@ class _RecordStore implements IRecordStore {
 
   changeArchival = (e: any) => {
     const { value } = e.target;
-    this.editcommonrecords.editArchival = value;
+    this.editcommonrecords.commonArchival = value;
   };
 }
 

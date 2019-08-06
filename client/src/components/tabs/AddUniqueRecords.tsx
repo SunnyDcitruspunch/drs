@@ -17,12 +17,8 @@ import {
   FormControl
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { Link } from "react-router-dom";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
-// import { Formik, FormikProps, Form, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
-// import Snackbars from "../common/SnackBar";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;

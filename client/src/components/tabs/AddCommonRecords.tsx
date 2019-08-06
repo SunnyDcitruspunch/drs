@@ -3,7 +3,6 @@ import { inject, observer } from "mobx-react";
 import {
   TableBody,
   TableCell,
-  TableHead,
   TableRow,
   Paper,
   Checkbox,
@@ -23,85 +22,14 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
-  FormControlLabel,
-  TableSortLabel
+  FormControlLabel
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
-
-export type Order = "asc" | "desc";
-
-export interface IData {
-  recordtype: string;
-  description: string;
-  category?: string
-  function: string;
-  archival: string;
-  notes: string;
-  status?: string
-}
-
-export interface IEnhancedTableProps {
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof IData
-  ) => void;
-  order: Order;
-  orderBy: string;
-  rowCount?: number;
-}
-
-export interface HeadRow {
-  id: keyof IData;
-  label: string;
-}
-
-const headRows: HeadRow[] = [
-  {
-    id: "recordtype",
-    label: "Record Type"
-  },
-  {
-    id: "description",
-    label: "Description"
-  },
-  { id: "function", label: "Function" },
-  { id: "archival", label: "Archival" },
-  { id: "notes", label: "Notes" }
-];
-
-function EnhancedTableHead(props: IEnhancedTableProps) {
-  const { order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property: keyof IData) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox" />
-        {headRows.map(row => (
-          <TableCell
-            key={row.id}
-            sortDirection={orderBy === row.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === row.id}
-              direction={order}
-              onClick={createSortHandler(row.id)}
-            >
-              {row.label}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
+import { IData, IOrder } from "../common/EnhancedTableHead";
+import EnhancedTableHead from "../common/EnhancedTableHead";
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -127,7 +55,7 @@ interface IState {
   selectedfunction: string;
   selectedcategory: string;
   archivalOptions: Array<string>;
-  order: Order;
+  order: IOrder;
   orderBy: string;
   sortDirection: string;
 }
@@ -213,7 +141,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       };
 
       getSorting<K extends keyof any>(
-        order: Order,
+        order: IOrder,
         orderBy: K
       ): (
         a: { [key in K]: number | string },
@@ -332,7 +260,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               .slice()
               .filter(
                 (x: any) =>
-                  x.id === this.props.RecordStore.editcommonrecords.editID
+                  x.id === this.props.RecordStore.editcommonrecords.commonID
               )
               .map((postDetail: any) => {
                 return (

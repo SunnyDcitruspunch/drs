@@ -7,7 +7,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableRow,
   Button,
   Dialog,
@@ -25,19 +24,14 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
-  FormControlLabel,
-  TableSortLabel
+  FormControlLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
-import {
-  IEnhancedTableProps,
-  Order,
-  HeadRow,
-  IData
-} from "../tabs/AddCommonRecords";
+import { IData, IOrder } from "../common/EnhancedTableHead";
+import EnhancedTableHead from "../common/EnhancedTableHead";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -51,12 +45,13 @@ interface IProps {
 interface IState {
   smShow: boolean;
   openEdit: boolean;
+  cannotEdit: boolean;
   pdfShow: boolean;
   confirmDelete: boolean;
   selectedFunction: string;
   selectedCategory: string;
   archivalOptions: Array<string>;
-  order: Order;
+  order: IOrder;
   orderBy: string;
   sortDirection: any;
 }
@@ -71,53 +66,6 @@ function desc<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-const headRows: HeadRow[] = [
-  {
-    id: "recordtype",
-    label: "Record Type"
-  },
-  {
-    id: "description",
-    label: "Description"
-  },
-  { id: "function", label: "Function" },
-  { id: "category", label: "Category" },
-  { id: "archival", label: "Archival" },
-  { id: "notes", label: "Notes" },
-  { id: "status", label: "Status" }
-];
-
-function EnhancedTableHead(props: IEnhancedTableProps) {
-  const { order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property: keyof IData) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox" />
-        {headRows.map(row => (
-          <TableCell
-            key={row.id}
-            sortDirection={orderBy === row.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === row.id}
-              direction={order}
-              onClick={createSortHandler(row.id)}
-            >
-              {row.label}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
 const DeptRetention = inject("DepartmentStore", "UniqueStore")(
   observer(
     class DeptRetnetion extends React.Component<IProps, IState> {
@@ -127,6 +75,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.state = {
           smShow: false,
           openEdit: false,
+          cannotEdit: false,
           pdfShow: false,
           confirmDelete: false,
           selectedCategory: "",
@@ -140,15 +89,17 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       componentDidMount() {
         this.props.DepartmentStore.fetchAllRecords();
-
-        window.scrollTo(0, 0);
       }
 
       showEditModal(postDetail: IPostDetail) {
-        this.setState({ openEdit: true });
-        this.setState({ selectedFunction: postDetail.function });
-        this.setState({ selectedCategory: postDetail.recordcategoryid });
-        this.props.DepartmentStore.updateEditID(postDetail);
+        if (postDetail.recordcategoryid === "common") {
+          this.setState({ cannotEdit: true });
+        } else {
+          this.setState({ openEdit: true });
+          this.setState({ selectedFunction: postDetail.function });
+          this.setState({ selectedCategory: postDetail.recordcategoryid });
+          this.props.DepartmentStore.updateEditID(postDetail);
+        }
       }
 
       //html2canvas + jsPDF
@@ -195,16 +146,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.setState({ openEdit: false });
         this.props.DepartmentStore.updateRecord();
         window.scrollTo(0, 0);
-        window.location.reload();
       };
 
-      handleFunctionChange: any = (e: MouseEvent) => {
-        const { value }: any = e.target;
-        this.setState({ selectedFunction: value });
-        this.props.DepartmentStore.handleChange(e);
-      };
-
-      handleCategoryChange: any = (e: MouseEvent) => {
+      handleCategoryChange: any = (e: any) => {
         const { value }: any = e.target;
         this.setState({ selectedCategory: value });
         this.props.DepartmentStore.handleChange(e);
@@ -231,7 +175,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       }
 
       getSorting<K extends keyof any>(
-        order: Order,
+        order: IOrder,
         orderBy: K
       ): (
         a: { [key in K]: number | string },
@@ -258,6 +202,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       render() {
         let confirmClose = () => this.setState({ confirmDelete: false });
+        let cannoteditClose = () => this.setState({ cannotEdit: false });
         const { DepartmentStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
 
@@ -358,13 +303,41 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               </DialogActions>
             </Dialog>
 
+            {/* cannot edit record */}
+            <Dialog
+              open={this.state.cannotEdit}
+              onClose={confirmClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Cannot Edit Record"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  Cannot edit common records.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={() => this.setState({ cannotEdit: false })}
+                  color="primary"
+                  autoFocus
+                >
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
               .slice()
               .filter(
-                (x: any) => x.id === this.props.DepartmentStore.editRecordid
+                (x: any) => x.id === this.props.DepartmentStore.editrecord.id
               )
               .map((editDetail: IPostDetail) => {
+                const functions = this.props.UniqueStore.functionsDropdown;
+                console.log(functions);
                 return (
                   <Dialog
                     key={editDetail.id}
@@ -381,7 +354,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                       <Grid>
                         <TextField
                           fullWidth
-                          id="editrecordtype"
+                          id="recordtype"
+                          name="recordtype"
                           label="Record Type"
                           defaultValue={editDetail.recordtype}
                           variant="outlined"
@@ -394,20 +368,20 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                         <InputLabel shrink htmlFor="age-label-placeholder">
                           Record Function
                         </InputLabel>
+
                         <Select
-                          id="editfunction"
+                          id="function"
+                          name="function"
                           style={{ width: 400 }}
                           value={this.state.selectedFunction}
-                          onChange={this.handleFunctionChange}
+                          onChange={DepartmentStore.handleChange}
                         >
                           <MenuItem>Choose...</MenuItem>
-                          {this.props.UniqueStore.functionsDropdown
-                            .slice()
-                            .map((func: any) => (
-                              <MenuItem key={func.id} value={func.functiontype}>
-                                {func.functiontype}
-                              </MenuItem>
-                            ))}
+                          {functions.slice().map((func: any) => (
+                            <MenuItem key={func.id} value={func.functiontype}>
+                              {func.functiontype}
+                            </MenuItem>
+                          ))}
                         </Select>
                       </Grid>
 
@@ -416,7 +390,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           Record Category
                         </InputLabel>
                         <Select
-                          id="editrecordcategoryid"
+                          id="recordcategoryid"
+                          name="recordcategoryid"
                           style={{ width: 400 }}
                           value={this.state.selectedCategory}
                           onChange={this.handleCategoryChange}
@@ -440,7 +415,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           fullWidth
                           multiline
                           rows="3"
-                          id="editdescription"
+                          id="description"
+                          name="description"
                           label="Description"
                           defaultValue={editDetail.description}
                           variant="outlined"
@@ -460,7 +436,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                                 control={<Radio color="primary" />}
                                 label={x}
                                 labelPlacement="end"
-                                onChange={DepartmentStore.changeArchival}
+                                id="archival"
+                                name="archival"
+                                onClick={DepartmentStore.handleChange}
                               />
                             );
                           })}
@@ -472,7 +450,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           fullWidth
                           multiline
                           rows="3"
-                          id="editnotes"
+                          id="notes"
+                          name="notes"
                           label="Notes"
                           defaultValue={editDetail.notes}
                           variant="outlined"
