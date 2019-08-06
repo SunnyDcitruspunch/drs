@@ -32,6 +32,7 @@ import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
+import CannotEditModal from "../common/CannotEditModal";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -54,6 +55,7 @@ interface IState {
   order: IOrder;
   orderBy: string;
   sortDirection: any;
+  filterbyFunction: string;
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -83,7 +85,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           archivalOptions: ["Archival", "Vital", "Highly Confidential"],
           order: "asc",
           orderBy: "recordtype",
-          sortDirection: "asc"
+          sortDirection: "asc",
+          filterbyFunction: ""
         };
       }
 
@@ -200,14 +203,39 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.setState({ orderBy: property });
       };
 
+      handlefilterfunction = (e: any) => {
+        const { value } = e.target;
+        this.setState({ filterbyFunction: value });
+      };
+
       render() {
         let confirmClose = () => this.setState({ confirmDelete: false });
         let cannoteditClose = () => this.setState({ cannotEdit: false });
         const { DepartmentStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
+        const functions = this.props.UniqueStore.functionsDropdown;
 
         return (
           <Container style={styles.tableStyle}>
+            <InputLabel shrink htmlFor="age-label-placeholder">
+              Filter by Record Function
+            </InputLabel>
+
+            <Select
+              id="function"
+              name="function"
+              style={{ width: 100 }}
+              value={this.state.filterbyFunction}
+              onChange={this.handlefilterfunction}
+            >
+              <MenuItem>Choose...</MenuItem>
+              {functions.slice().map((func: any) => (
+                <MenuItem key={func.id} value={func.functiontype}>
+                  {func.functiontype}
+                </MenuItem>
+              ))}
+            </Select>
+
             <Button
               variant="outlined"
               color="primary"
@@ -229,7 +257,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
-                    .filter((x: any) => x.department === department)
+                    .filter((x: IPostDetail) => x.department === department)
                     .map((postDetail: IPostDetail) => {
                       return (
                         <TableRow hover key={postDetail.id}>
@@ -304,30 +332,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             </Dialog>
 
             {/* cannot edit record */}
-            <Dialog
+            <CannotEditModal
               open={this.state.cannotEdit}
-              onClose={confirmClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Cannot Edit Record"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  Cannot edit common records.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button
-                  onClick={() => this.setState({ cannotEdit: false })}
-                  color="primary"
-                  autoFocus
-                >
-                  Close
-                </Button>
-              </DialogActions>
-            </Dialog>
+              close={cannoteditClose}
+              click={() => this.setState({ cannotEdit: false })}
+            />
 
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
@@ -336,8 +345,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 (x: any) => x.id === this.props.DepartmentStore.editrecord.id
               )
               .map((editDetail: IPostDetail) => {
-                const functions = this.props.UniqueStore.functionsDropdown;
-                console.log(functions);
                 return (
                   <Dialog
                     key={editDetail.id}

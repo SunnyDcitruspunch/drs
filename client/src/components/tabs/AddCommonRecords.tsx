@@ -26,7 +26,7 @@ import {
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
-import { IDepartmentStore } from "../../stores/DepartmentStore";
+import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
@@ -198,7 +198,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
-                    .map((record: any) => {
+                    .map((record: IPostDetail) => {
                       return (
                         <TableRow key={record.id} {...record}>
                           <TableCell>
@@ -235,10 +235,16 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             {record.function}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
+                            {record.recordcategoryid}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
                             {record.archival}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {record.notes}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
+                            {record.status}
                           </TableCell>
                         </TableRow>
                       );

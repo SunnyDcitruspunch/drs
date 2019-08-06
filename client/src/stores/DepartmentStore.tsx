@@ -22,7 +22,7 @@ export interface IDepartmentStore {
 
 export type IPostDetail = {
   id: string;
-  code?:string;
+  code?:string | any
   department: string;
   recordtype: string;
   function: string;
