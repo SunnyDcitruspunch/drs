@@ -1,8 +1,5 @@
 import { observable, decorate, action, computed } from "mobx";
 
-/*
-!TODO: DOUBLE CHECK PATCH METHOD
-*/
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
@@ -79,31 +76,49 @@ class _DepartmentStore implements IDepartmentStore {
     return this._allRecords
   }
 
+  handleChange = (e: any) => {
+    const { id, value, name } = e.target;
+    this.editrecord[name] = value
+  };
+
+  updateEditID(postDetail: IPostDetail) {
+    this.editrecord.id = postDetail.id
+    this.editrecord.recordtype = postDetail.recordtype
+    this.editrecord.function = postDetail.function
+    this.editrecord.recordcategoryid = postDetail.recordcategoryid
+    this.editrecord.description = postDetail.description
+    this.editrecord.notes = postDetail.notes
+    this.editrecord.archival = postDetail.archival
+  }
+
+  // async deleteRecord() {
+  //   const baseUrl = "http://localhost:3004/records";
+  //   let options = { method: "DELETE" };
+  //   return fetch(`${baseUrl}/${this.deleteID}`, options).then(response => {
+  //     return response.json()
+  //   });
+  // }
+
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
     let options = { method: "DELETE" };
-    return fetch(`${baseUrl}/${this.deleteID}`, options).then(response =>
-      response.json()
-    );
-  }
-
-  handleChange = (e: any) => {
-    const { id, value, name } = e.target;
-    // this.allRecords.find((r) => r.id === this.editrecord.id)[name] = value
-    this.editrecord[name] = value
-    // console.log(this.editrecord[name])
-    // console.log(this.editrecord.id)
-    // console.log(record[name])
-    // console.log(this.allRecords.find((r) => r.id == this.editrecord.id))
-  };
-
-  updateEditID(id: string) {
-    this.editrecord.id = id
+    await fetch(`${baseUrl}/${this.deleteID}`, options);
+    
+    await fetch("http://localhost:3004/records")
+      .then(response => {
+        return response.json();
+      })
+      .then(json => (this._allRecords = json));
   }
 
   //PATCH request
   async updateRecord() {
     this.allRecords.find((r) => r.id === this.editrecord.id).recordtype = this.editrecord.recordtype
+    this.allRecords.find((r) => r.id === this.editrecord.id).function = this.editrecord.function
+    this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid = this.editrecord.recordcategoryid
+    this.allRecords.find((r) => r.id === this.editrecord.id).description = this.editrecord.description
+    this.allRecords.find((r) => r.id === this.editrecord.id).notes = this.editrecord.notes
+    this.allRecords.find((r) => r.id === this.editrecord.id).archival = this.editrecord.archival
 
     const baseUrl = "http://localhost:3004/records";
     await fetch(`${baseUrl}/${this.editrecord.id}`, {
@@ -114,12 +129,11 @@ class _DepartmentStore implements IDepartmentStore {
       },
       body: JSON.stringify({
         recordtype: this.allRecords.find((r) => r.id === this.editrecord.id).recordtype,
-        // recordtype: this.allRecords[0].recordtype,
-        function: this.editrecord.function,
-        recordcategoryid: this.editrecord.recordcategoryid,
-        description: this.editrecord.description,
-        notes: this.editrecord.notes,
-        archival: this.editrecord.archival
+        function: this.allRecords.find((r) => r.id === this.editrecord.id).function,
+        recordcategoryid: this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid,
+        description: this.allRecords.find((r) => r.id === this.editrecord.id).description,
+        notes: this.allRecords.find((r) => r.id === this.editrecord.id).notes,
+        archival: this.allRecords.find((r) => r.id === this.editrecord.id).archival
       })
     })
   }

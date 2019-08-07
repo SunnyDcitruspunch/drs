@@ -10,8 +10,10 @@ export interface IUniqueStore {
   uniquerecords: IUniquerecords;
   functionsDropdown: Array<string>;
   categoryDropdown: Array<string>;
+  archivalDropdown: Array<Object>
   fetchFunctions: () => void;
   fetchCategory: () => void;
+  fetchArchival: () => void;
   submitRecords: (dept: string) => void;
   handleChange: (e: any) => void;
   getFunction: (func: string) => void;
@@ -39,6 +41,7 @@ class _UniqueStore {
   };
   functionsDropdown = [];
   categoryDropdown = [];
+  archivalDropdown = []
 
   handleChange = (e: any) => {
     const { id, value } = e.target;
@@ -65,6 +68,14 @@ class _UniqueStore {
         return response.json();
       })
       .then(json => (this.categoryDropdown = json));
+  }
+
+  async fetchArchival() {
+    await fetch("http://localhost:3004/archival")
+      .then(response => {
+        return response.json();
+      })
+      .then(json => (this.archivalDropdown = json));
   }
 
   getFunction(func: string) {
@@ -105,7 +116,8 @@ decorate(_UniqueStore, {
   fetchFunctions: action,
   submitRecords: action,
   fetchCategory: action,
-  changeArchival: action
+  changeArchival: action,
+  fetchArchival: action
 });
 
 export const UniqueStore = new _UniqueStore();

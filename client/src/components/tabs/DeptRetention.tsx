@@ -49,9 +49,6 @@ interface IState {
   cannotEdit: boolean;
   pdfShow: boolean;
   confirmDelete: boolean;
-  selectedFunction: string;
-  selectedCategory: string;
-  archivalOptions: Array<string>;
   order: IOrder;
   orderBy: string;
   sortDirection: any;
@@ -80,9 +77,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           cannotEdit: false,
           pdfShow: false,
           confirmDelete: false,
-          selectedCategory: "",
-          selectedFunction: "",
-          archivalOptions: ["Archival", "Vital", "Highly Confidential"],
           order: "asc",
           orderBy: "recordtype",
           sortDirection: "asc",
@@ -90,14 +84,17 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         };
       }
 
+      componentDidMount = () => {
+        this.props.DepartmentStore.fetchAllRecords()
+        this.props.UniqueStore.fetchArchival()
+      }
+
       showEditModal(postDetail: IPostDetail) {
         if (postDetail.recordcategoryid === "common") {
           this.setState({ cannotEdit: true });
         } else {
           this.setState({ openEdit: true });
-          // this.setState({ selectedFunction: postDetail.function });
-          // this.setState({ selectedCategory: postDetail.recordcategoryid });
-          this.props.DepartmentStore.updateEditID(postDetail.id);
+          this.props.DepartmentStore.updateEditID(postDetail);
         }
       }
 
@@ -134,34 +131,20 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       }
 
       //click delete in delete modal
-      onDelete = () => {
+      onDelete: any = async() => {       
+        await this.props.DepartmentStore.deleteRecord();
         this.setState({ confirmDelete: false });
-        this.props.DepartmentStore.deleteRecord();
+        // this.props.DepartmentStore.fetchAllRecords()
       };
 
       editRecord: any = async() => {
         await this.props.DepartmentStore.updateRecord();
         this.setState({ openEdit: false });
-        // this.forceUpdate()
-      };
-
-      componentDidUpdate(prevProps: any) {
-       if(this.props.DepartmentStore.allRecords !== prevProps.DepartmentStore.allRecords){
-         console.log(prevProps)
-       }
-      }
-
-      handleCategoryChange: any = (e: any) => {
-        const { value }: any = e.target;
-        this.setState({ selectedCategory: value });
-        this.props.DepartmentStore.handleChange(e);
       };
 
       closeEdit: any = () => {
         this.setState({
-          openEdit: false,
-          selectedCategory: "",
-          selectedFunction: ""
+          openEdit: false
         });
       };
 
@@ -208,14 +191,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.setState({ filterbyFunction: value });
       };
 
-      componentDidMount = () => {
-        this.props.DepartmentStore.fetchAllRecords()
-      }
-
       render() {
-        let confirmClose = () => this.setState({ confirmDelete: false });
+        // let confirmClose = () => this.setState({ confirmDelete: false });
         let cannoteditClose = () => this.setState({ cannotEdit: false });
-        const { DepartmentStore } = this.props;
+        const { DepartmentStore, UniqueStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
 
@@ -309,7 +288,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             {/* delete record */}
             <Dialog
               open={this.state.confirmDelete}
-              onClose={confirmClose}
+              // onClose={confirmClose}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
@@ -352,7 +331,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   <Dialog
                     key={editDetail.id}
                     open={this.state.openEdit}
-                    onClose={confirmClose}
+                    // onClose={confirmClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                   >
@@ -368,8 +347,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           name="recordtype"
                           label="Record Type"
                           defaultValue={editDetail.recordtype}
-                          //defaultValue={DepartmentStore.allRecords.find((record) => record.id == this.props.DepartmentStore.editrecord.id)}
-                          // departmentstore.allrecords.find((record)=>record.id = id)
                           variant="outlined"
                           onChange={DepartmentStore.handleChange}
                           margin="normal"
@@ -405,8 +382,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           id="recordcategoryid"
                           name="recordcategoryid"
                           style={{ width: 400 }}
-                          value={this.state.selectedCategory}
-                          onChange={this.handleCategoryChange}
+                          value={editDetail.recordcategoryid}
+                          onChange={DepartmentStore.handleChange}
                         >
                           <MenuItem>Choose...</MenuItem>
                           {this.props.UniqueStore.categoryDropdown
@@ -439,14 +416,19 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
                       <FormControl component="fieldset">
                         <FormLabel component="legend">Archival</FormLabel>
-                        <RadioGroup row aria-label="archival" name="archival">
-                          {this.state.archivalOptions.map((x: string) => {
+                        <RadioGroup 
+                          row 
+                          aria-label="archival" 
+                          name="archival"
+                          defaultValue={editDetail.archival}
+                        >
+                          {UniqueStore.archivalDropdown.map((x: any) => {
                             return (
                               <FormControlLabel
-                                key={x}
-                                value={x}
+                                key={x.id}
+                                value={x.archive}
                                 control={<Radio color="primary" />}
-                                label={x}
+                                label={x.archive}
                                 labelPlacement="end"
                                 id="archival"
                                 name="archival"
@@ -465,7 +447,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           id="notes"
                           name="notes"
                           label="Notes"
-                          defaultValue={this.props.DepartmentStore.allRecords[0].notes}
+                          defaultValue={editDetail.notes}
                           variant="outlined"
                           margin="normal"
                           onChange={DepartmentStore.handleChange}

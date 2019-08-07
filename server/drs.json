@@ -1,58 +1,6 @@
 {
   "records": [
     {
-      "id": "2",
-      "departmentnumber": "350",
-      "department": "Marriott School",
-      "code": "U5",
-      "function": "",
-      "recordtype": "a marriot school type",
-      "description": "",
-      "recordcategoryid": "",
-      "status": "Approved",
-      "notes": "",
-      "archival": ""
-    },
-    {
-      "id": "83",
-      "departmentnumber": "118",
-      "department": "Computer Science",
-      "code": "U1",
-      "function": "Faculty",
-      "recordtype": "Computer Science info",
-      "description": "here is a description!",
-      "recordcategoryid": "OIT04",
-      "status": "Approved",
-      "notes": "this is note",
-      "archival": "Vital"
-    },
-    {
-      "id": "4",
-      "departmentnumber": "598",
-      "department": "BYU Catering",
-      "code": "U1",
-      "function": "Administrative",
-      "recordtype": "Type",
-      "description": "Retain for current year + 6, then destroy.",
-      "recordcategoryid": "ADM01",
-      "status": "Approved",
-      "notes": "no notes.",
-      "archival": "Vital"
-    },
-    {
-      "recordtype": "SS",
-      "department": "Honor Code Office",
-      "description": "SSSSSSSSSSSSS",
-      "notes": "ss",
-      "status": "Approved",
-      "id": "g4YIQsD",
-      "code": "U2",
-      "function": "Athletics",
-      "recordcategoryid": "common",
-      "departmentnumber": "800",
-      "archival": "Vital"
-    },
-    {
       "code": "U3",
       "recordtype": "Faculty",
       "recordcategoryid": "",
@@ -62,20 +10,6 @@
       "departmentnumber": "233",
       "function": "Legal",
       "status": "Approved",
-      "archival": "Highly Confidential"
-    },
-    {
-      "recordtype": "Catering type",
-      "department": "BYU Catering",
-      "departmentnumber": "232",
-      "description": "a description",
-      "notes": "6666",
-      "status": "Approved",
-      "id": "BD4tWTR",
-      "function": "Miscellaneous",
-      "recordcategoryid": "STU02",
-      "retention": "",
-      "code": "U2",
       "archival": "Highly Confidential"
     },
     {
@@ -92,30 +26,6 @@
       "archival": "Highly Confidential"
     },
     {
-      "department": "Computer Science",
-      "code": "CACD1000",
-      "notes": "notes",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Vital",
-      "status": "Approved",
-      "id": "IsuIgzK"
-    },
-    {
-      "department": "Computer Science",
-      "code": "CHUM1100",
-      "notes": "Houston, we have a problem.",
-      "function": "Employment",
-      "recordcategoryid": "common",
-      "recordtype": "Job descriptions.",
-      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "archival": "Vital",
-      "status": "Approved",
-      "id": "5csoAT6"
-    },
-    {
       "department": "Records",
       "code": "CACD1000",
       "notes": "notes",
@@ -128,29 +38,6 @@
       "id": "llBpVci"
     },
     {
-      "department": "Honor Code Office",
-      "code": "CFAC1200",
-      "function": "Faculty",
-      "recordcategoryid": "common",
-      "recordtype": "Rank & Status records.",
-      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
-      "archival": "Vital",
-      "status": "Approved",
-      "notes": "notes",
-      "id": "T6u2_O3"
-    },
-    {
-      "department": "Records",
-      "code": "CACD1000",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Vital",
-      "status": "Approved",
-      "id": "-jTHalm"
-    },
-    {
       "department": "Marriott School",
       "code": "CHUM1100",
       "function": "Employment",
@@ -160,17 +47,6 @@
       "archival": "Vital",
       "status": "Approved",
       "id": "aIomQ0d"
-    },
-    {
-      "department": "BYU Catering",
-      "code": "CADM2350",
-      "function": "Administrative",
-      "recordcategoryid": "common",
-      "recordtype": "Waivers (Risk Management waivers).",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "archival": "Archival",
-      "status": "Approved",
-      "id": "6G-ZvsP"
     },
     {
       "department": "Information Systems",
@@ -191,22 +67,10 @@
       "recordcategoryid": "STU02",
       "description": "a description for is record",
       "notes": "this is not an IS note.",
-      "archival": "Archival",
+      "archival": "Highly Confidential",
       "code": "N/A",
       "status": "Approved",
       "id": "tpRYc5g"
-    },
-    {
-      "recordtype": "honor code test office",
-      "department": "Honor Code Office",
-      "function": "Finance",
-      "recordcategoryid": "FIN10",
-      "description": "hello. this is a description",
-      "notes": "birds.",
-      "archival": "Highly Confidential",
-      "code": "N/A",
-      "status": "Pending",
-      "id": "xlCUpWa"
     }
   ],
   "functions": [
@@ -349,6 +213,20 @@
       "id": "5",
       "department": "Honor Code Office",
       "departmentnumber": "633"
+    }
+  ],
+  "archival": [
+    {
+      "id": "0",
+      "archive": "Archival"
+    },
+    {
+      "id": "1",
+      "archive": "Vital"
+    },
+    {
+      "id": "2",
+      "archive": "Highly Confidential"
     }
   ]
 }
