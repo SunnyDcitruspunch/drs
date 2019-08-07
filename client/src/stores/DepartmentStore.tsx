@@ -1,4 +1,4 @@
-import { observable, decorate, action } from "mobx";
+import { observable, decorate, action, computed } from "mobx";
 
 /*
 !TODO: DOUBLE CHECK PATCH METHOD
@@ -12,7 +12,8 @@ export interface IDepartmentStore {
   deleteID: string;
   deleteRecord: () => void;
   updateRecord: () => void;
-  allRecords: Array<any>;
+  _allRecords: Array<any>;
+  allRecords: Array<any>
   allDepartments: Array<any>;
   isLoading: boolean;
   editrecord: IPostDetail;
@@ -36,7 +37,7 @@ export type IPostDetail = {
 class _DepartmentStore implements IDepartmentStore {
   selectedDepartment = "";
   allDepartments = [];
-  allRecords = [];
+  _allRecords = [];
   isLoading = false;
   deleteID = "";
 
@@ -71,7 +72,11 @@ class _DepartmentStore implements IDepartmentStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.allRecords = json));
+      .then(json => (this._allRecords = json));
+  }
+
+  get allRecords():Array<any> {
+    return this._allRecords
   }
 
   async deleteRecord() {
@@ -84,22 +89,22 @@ class _DepartmentStore implements IDepartmentStore {
 
   handleChange = (e: any) => {
     const { id, value, name } = e.target;
-    this.editrecord[name] = value;
+    // this.allRecords.find((r) => r.id === this.editrecord.id)[name] = value
+    this.editrecord[name] = value
+    // console.log(this.editrecord[name])
+    // console.log(this.editrecord.id)
+    // console.log(record[name])
+    // console.log(this.allRecords.find((r) => r.id == this.editrecord.id))
   };
 
-  updateEditID(postDetail: IPostDetail) {
-    this.editrecord.id = postDetail.id;
-    this.editrecord.department = postDetail.department;
-    this.editrecord.recordtype = postDetail.recordtype;
-    this.editrecord.function = postDetail.function;
-    this.editrecord.description = postDetail.description;
-    this.editrecord.recordcategoryid = postDetail.recordcategoryid;
-    this.editrecord.notes = postDetail.notes;
-    this.editrecord.archival = postDetail.archival;
+  updateEditID(id: string) {
+    this.editrecord.id = id
   }
 
   //PATCH request
   async updateRecord() {
+    this.allRecords.find((r) => r.id === this.editrecord.id).recordtype = this.editrecord.recordtype
+
     const baseUrl = "http://localhost:3004/records";
     await fetch(`${baseUrl}/${this.editrecord.id}`, {
       method: "PATCH",
@@ -108,14 +113,15 @@ class _DepartmentStore implements IDepartmentStore {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        recordtype: this.editrecord.recordtype,
+        recordtype: this.allRecords.find((r) => r.id === this.editrecord.id).recordtype,
+        // recordtype: this.allRecords[0].recordtype,
         function: this.editrecord.function,
         recordcategoryid: this.editrecord.recordcategoryid,
         description: this.editrecord.description,
         notes: this.editrecord.notes,
         archival: this.editrecord.archival
       })
-    }).then(res => res.json());
+    })
   }
 }
 
@@ -124,13 +130,15 @@ decorate(_DepartmentStore, {
   editrecord: observable,
   allDepartments: observable,
   isLoading: observable,
+  _allRecords: observable,
   handleChange: action,
   handleSelected: action,
   fetchAll: action,
   deleteRecord: action,
   updateRecord: action,
   updateEditID: action,
-  fetchAllRecords: action
+  fetchAllRecords: action,
+  allRecords: computed
 });
 
 export const DepartmentStore = new _DepartmentStore();

@@ -90,18 +90,14 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         };
       }
 
-      componentDidMount() {
-        this.props.DepartmentStore.fetchAllRecords();
-      }
-
       showEditModal(postDetail: IPostDetail) {
         if (postDetail.recordcategoryid === "common") {
           this.setState({ cannotEdit: true });
         } else {
           this.setState({ openEdit: true });
-          this.setState({ selectedFunction: postDetail.function });
-          this.setState({ selectedCategory: postDetail.recordcategoryid });
-          this.props.DepartmentStore.updateEditID(postDetail);
+          // this.setState({ selectedFunction: postDetail.function });
+          // this.setState({ selectedCategory: postDetail.recordcategoryid });
+          this.props.DepartmentStore.updateEditID(postDetail.id);
         }
       }
 
@@ -141,15 +137,19 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       onDelete = () => {
         this.setState({ confirmDelete: false });
         this.props.DepartmentStore.deleteRecord();
-        window.scrollTo(0, 0);
-        window.location.reload();
       };
 
-      editRecord: any = () => {
+      editRecord: any = async() => {
+        await this.props.DepartmentStore.updateRecord();
         this.setState({ openEdit: false });
-        this.props.DepartmentStore.updateRecord();
-        window.scrollTo(0, 0);
+        // this.forceUpdate()
       };
+
+      componentDidUpdate(prevProps: any) {
+       if(this.props.DepartmentStore.allRecords !== prevProps.DepartmentStore.allRecords){
+         console.log(prevProps)
+       }
+      }
 
       handleCategoryChange: any = (e: any) => {
         const { value }: any = e.target;
@@ -207,6 +207,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         const { value } = e.target;
         this.setState({ filterbyFunction: value });
       };
+
+      componentDidMount = () => {
+        this.props.DepartmentStore.fetchAllRecords()
+      }
 
       render() {
         let confirmClose = () => this.setState({ confirmDelete: false });
@@ -340,7 +344,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
-              .slice()
               .filter(
                 (x: any) => x.id === this.props.DepartmentStore.editrecord.id
               )
@@ -365,6 +368,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           name="recordtype"
                           label="Record Type"
                           defaultValue={editDetail.recordtype}
+                          //defaultValue={DepartmentStore.allRecords.find((record) => record.id == this.props.DepartmentStore.editrecord.id)}
+                          // departmentstore.allrecords.find((record)=>record.id = id)
                           variant="outlined"
                           onChange={DepartmentStore.handleChange}
                           margin="normal"
@@ -380,7 +385,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           id="function"
                           name="function"
                           style={{ width: 400 }}
-                          value={this.state.selectedFunction}
+                          value={editDetail.function}
                           onChange={DepartmentStore.handleChange}
                         >
                           <MenuItem>Choose...</MenuItem>
@@ -460,7 +465,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                           id="notes"
                           name="notes"
                           label="Notes"
-                          defaultValue={editDetail.notes}
+                          defaultValue={this.props.DepartmentStore.allRecords[0].notes}
                           variant="outlined"
                           margin="normal"
                           onChange={DepartmentStore.handleChange}
@@ -474,7 +479,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                         color="primary"
                         autoFocus
                       >
-                        Edit this record
+                        Save Changes
                       </Button>
                       <Button onClick={this.closeEdit} color="primary">
                         Cancel
