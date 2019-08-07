@@ -9,13 +9,15 @@ export interface IDepartmentStore {
   deleteID: string;
   deleteRecord: () => void;
   updateRecord: () => void;
-  _allRecords: Array<any>;
+  _allRecords: Array<IPostDetail>;
   allRecords: Array<any>
   allDepartments: Array<any>;
   isLoading: boolean;
   editrecord: IPostDetail;
   handleSelected: (edpt: string) => void;
   handleChange: (e: any) => void;
+  filterRecords: (e: any) => void
+  _filteredRecords: Array<any>
 }
 
 export type IPostDetail = {
@@ -37,6 +39,7 @@ class _DepartmentStore implements IDepartmentStore {
   _allRecords = [];
   isLoading = false;
   deleteID = "";
+  _filteredRecords =[]
 
   editrecord = {
     id: "",
@@ -63,16 +66,30 @@ class _DepartmentStore implements IDepartmentStore {
       .then(json => (this.allDepartments = json));
   };
 
-  async fetchAllRecords() {
+  async fetchAllRecords () {
     this.isLoading = false;
     await fetch("http://localhost:3004/records")
       .then(response => {
         return response.json();
       })
-      .then(json => (this._allRecords = json));
+      .then(json => (this._allRecords = json))
+      .then(json => (this._filteredRecords = json))
   }
 
-  get allRecords():Array<any> {
+  filterRecords = (e: any) => {
+    const { value } = e.target
+    const filterfunction = value
+    // console.log(this._filteredRecords)
+    // if(filterfunction !== ""){
+    //   for (let i = 0; i < this._allRecords.length; i++){
+    //      if(this._allRecords[i] !== filterfunction)
+    //   }
+      // this._filteredRecords = this.allRecords.find((r) => r.function === filterfunction)
+      // console.log(this._filteredRecords)
+    //}
+  }
+
+  get allRecords ():Array<any> {
     return this._allRecords
   }
 
@@ -90,14 +107,6 @@ class _DepartmentStore implements IDepartmentStore {
     this.editrecord.notes = postDetail.notes
     this.editrecord.archival = postDetail.archival
   }
-
-  // async deleteRecord() {
-  //   const baseUrl = "http://localhost:3004/records";
-  //   let options = { method: "DELETE" };
-  //   return fetch(`${baseUrl}/${this.deleteID}`, options).then(response => {
-  //     return response.json()
-  //   });
-  // }
 
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
@@ -152,7 +161,9 @@ decorate(_DepartmentStore, {
   updateRecord: action,
   updateEditID: action,
   fetchAllRecords: action,
-  allRecords: computed
+  allRecords: computed,
+  filterRecords: action,
+  _filteredRecords: observable
 });
 
 export const DepartmentStore = new _DepartmentStore();

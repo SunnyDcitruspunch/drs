@@ -28,7 +28,11 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
+import {
+  IDepartmentStore,
+  IPostDetail,
+  DepartmentStore
+} from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
@@ -53,6 +57,7 @@ interface IState {
   orderBy: string;
   sortDirection: any;
   filterbyFunction: string;
+  allRecords: any;
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -80,14 +85,16 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           order: "asc",
           orderBy: "recordtype",
           sortDirection: "asc",
-          filterbyFunction: ""
+          filterbyFunction: "",
+          allRecords: this.props.DepartmentStore._allRecords
         };
       }
 
       componentDidMount = () => {
-        this.props.DepartmentStore.fetchAllRecords()
-        this.props.UniqueStore.fetchArchival()
-      }
+        this.props.DepartmentStore.fetchAllRecords();
+        this.props.UniqueStore.fetchArchival();
+        this.setState({ allRecords: this.props.DepartmentStore._allRecords });
+      };
 
       showEditModal(postDetail: IPostDetail) {
         if (postDetail.recordcategoryid === "common") {
@@ -131,13 +138,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       }
 
       //click delete in delete modal
-      onDelete: any = async() => {       
+      onDelete: any = async () => {
         await this.props.DepartmentStore.deleteRecord();
         this.setState({ confirmDelete: false });
-        // this.props.DepartmentStore.fetchAllRecords()
       };
 
-      editRecord: any = async() => {
+      editRecord: any = async () => {
         await this.props.DepartmentStore.updateRecord();
         this.setState({ openEdit: false });
       };
@@ -148,16 +154,42 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         });
       };
 
-      stableSort<T>(array: T[], cmp: (a: T, b: T) => number) {
-        const stabilizedThis = array.map(
-          (el: any, index: any) => [el, index] as [T, number]
-        );
-        stabilizedThis.sort((a: any, b: any) => {
-          const order = cmp(a[0], b[0]);
-          if (order !== 0) return order;
-          return a[1] - b[1];
-        });
-        return stabilizedThis.map((el: any) => el[0]);
+      // stableSort<T>(array: IPostDetail[], cmp: (a: T, b: T) => number) {
+      //   const stabilizedThis = array.map(
+      //     (el: any, index: any) => [el, index] as [T, number]
+      //   );
+      //   stabilizedThis.sort((a: any, b: any) => {
+      //     const order = cmp(a[0], b[0]);
+      //     if (order !== 0) return order;
+      //     return a[1] - b[1];
+      //   });
+      //   return stabilizedThis.map((el: any) => el[0]);
+      // }
+
+      stableSort<T>(array: IPostDetail[], cmp: (a: T, b: T) => number) {
+        if (this.state.filterbyFunction === "") {
+          const stabilizedThis = array.map(
+            (el: any, index: any) => [el, index] as [T, number]
+          );
+          stabilizedThis.sort((a: any, b: any) => {
+            const order = cmp(a[0], b[0]);
+            if (order !== 0) return order;
+            return a[1] - b[1];
+          });
+          return stabilizedThis.map((el: any) => el[0]);
+        }else {
+          const stabilizedThis = array
+          .filter(r => r.function === this.state.filterbyFunction)
+          .map(
+            (el: any, index: any) => [el, index] as [T, number]
+          );
+          stabilizedThis.sort((a: any, b: any) => {
+            const order = cmp(a[0], b[0]);
+            if (order !== 0) return order;
+            return a[1] - b[1];
+          });
+          return stabilizedThis.map((el: any) => el[0]);
+        }
       }
 
       getSorting<K extends keyof any>(
@@ -189,6 +221,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       handlefilterfunction = (e: any) => {
         const { value } = e.target;
         this.setState({ filterbyFunction: value });
+        // this.state.filterbyFunction === "" ?
+        // this.props.DepartmentStore.filterRecords(e)
       };
 
       render() {
@@ -197,13 +231,13 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         const { DepartmentStore, UniqueStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
+        console.log(this.state.allRecords);
 
         return (
           <Container style={styles.tableStyle}>
             <InputLabel shrink htmlFor="age-label-placeholder">
               Filter by Record Function
             </InputLabel>
-
             <Select
               id="function"
               name="function"
@@ -211,7 +245,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               value={this.state.filterbyFunction}
               onChange={this.handlefilterfunction}
             >
-              <MenuItem>Choose...</MenuItem>
+              <MenuItem value="">Show all records</MenuItem>
               {functions.slice().map((func: any) => (
                 <MenuItem key={func.id} value={func.functiontype}>
                   {func.functiontype}
@@ -236,7 +270,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 />
                 <TableBody style={{ fontSize: 11 }}>
                   {this.stableSort(
-                    DepartmentStore.allRecords,
+                    DepartmentStore._allRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
@@ -416,9 +450,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
                       <FormControl component="fieldset">
                         <FormLabel component="legend">Archival</FormLabel>
-                        <RadioGroup 
-                          row 
-                          aria-label="archival" 
+                        <RadioGroup
+                          row
+                          aria-label="archival"
                           name="archival"
                           defaultValue={editDetail.archival}
                         >
