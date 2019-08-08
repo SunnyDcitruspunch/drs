@@ -19,7 +19,7 @@
       "notes": "notes",
       "status": "Approved",
       "id": "uLc8Dwp",
-      "recordcategoryid": "ADM01",
+      "recordcategoryid": "MISC9",
       "code": "U2",
       "departmentnumber": "909",
       "function": "Faculty",
@@ -67,7 +67,7 @@
       "recordcategoryid": "STU02",
       "description": "a description for is record",
       "notes": "this is not an IS note.",
-      "archival": "Highly Confidential",
+      "archival": "Vital",
       "code": "N/A",
       "status": "Approved",
       "id": "tpRYc5g"
@@ -76,10 +76,10 @@
       "recordtype": "Academic unit reviews",
       "department": "Marriott School",
       "function": "Information Technology",
-      "recordcategoryid": "OIT04",
+      "recordcategoryid": "STU19",
       "description": "waiting for retention schedule.",
       "notes": "here is a note.",
-      "archival": "Archival",
+      "archival": "Highly Confidential",
       "code": "N/A",
       "status": "Approved",
       "id": "2gvRf1r"
@@ -109,14 +109,25 @@
     },
     {
       "department": "BYU Catering",
-      "recordtype": "ss",
+      "recordtype": "this is a fake record. ",
       "function": "Information Technology",
       "recordcategoryid": "FIN10",
-      "description": "s",
+      "description": "s154654565656",
       "notes": "sss",
       "archival": "Vital",
       "status": "Approved",
       "id": "ETBslY7"
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "C++ exam 234",
+      "function": "Miscellaneous",
+      "recordcategoryid": "MISC9",
+      "description": "sdfgsdfg",
+      "notes": "sdfgsdfg",
+      "archival": "Archival",
+      "status": "Pending",
+      "id": "pzBfAk2"
     }
   ],
   "functions": [

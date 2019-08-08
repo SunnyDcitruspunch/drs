@@ -77,7 +77,7 @@ class _DepartmentStore implements IDepartmentStore {
   }
 
   handleChange = (e: any) => {
-    const { id, value, name } = e.target;
+    const { value, name } = e.target;
     this.editrecord[name] = value
   };
 

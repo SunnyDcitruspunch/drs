@@ -15,6 +15,7 @@ import { inject, observer } from "mobx-react";
 import { IRecordStore } from "../../stores/RecordStore";
 import { IPostDetail } from "../../stores/DepartmentStore";
 import { IHeadRow } from "../common/EnhancedTableHead";
+import Snackbar from "../common/Snackbar";
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -28,7 +29,8 @@ const headRows: IHeadRow[] = [
   {
     id: "department",
     label: "Department"
-  },{
+  },
+  {
     id: "recordtype",
     label: "Record Type"
   },
@@ -98,8 +100,8 @@ const AdminTab = inject("RecordStore")(
                 </TableHead>
                 <TableBody>
                   {RecordStore.pendingRecords
-                    .slice()
-                    .filter((x: any) => x.status === "Pending")
+                    // .slice()
+                    .filter((x: IPostDetail) => x.status === "Pending")
                     .map((pendings: IPostDetail) => (
                       <TableRow hover key={pendings.id}>
                         <TableCell
@@ -148,6 +150,7 @@ const AdminTab = inject("RecordStore")(
             >
               Approve selected records
             </Button>
+            {/* <Snackbar msg="Records approved" /> */}
           </Container>
         );
       }

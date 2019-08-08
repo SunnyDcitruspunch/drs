@@ -19,6 +19,7 @@ import {
 import { inject, observer } from "mobx-react";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
+import Snackbar from "../common/Snackbar";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -48,31 +49,24 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         open: false,
         archivalOptions: ["Archival", "Vital", "Highly Confidential"]
       };
-
-      handleClose(
-        event: React.SyntheticEvent | React.MouseEvent,
-        reason?: string
-      ) {
-        if (reason === "clickaway") {
-          return;
-        }
-
-        this.setState({
-          snackbarShow: true
-        });
-      }
-
+      
       submitRecords = (e: any) => {
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ smShow: true });
         } else if (this.props.UniqueStore.uniquerecords.recordtype === "") {
           this.setState({ needRecordType: true });
         } else {
-          this.props.UniqueStore.getDepartmentName(this.props.DepartmentStore.selectedDepartment)
-          this.props.UniqueStore.submitRecords();          
+          this.props.UniqueStore.getDepartmentName(
+            this.props.DepartmentStore.selectedDepartment
+          );
+          this.props.UniqueStore.submitRecords();
           this.setState({ snackbarShow: true });
           this.setState({ needRecordType: false });
-        }       
+        }
+
+        this.setState({
+          snackbarShow: true
+        });
       };
 
       render() {
@@ -155,7 +149,12 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <FormControl component="fieldset">
               <FormLabel component="legend">Archival</FormLabel>
-              <RadioGroup row aria-label="archival" name="archival" id="archival">
+              <RadioGroup
+                row
+                aria-label="archival"
+                name="archival"
+                id="archival"
+              >
                 {this.state.archivalOptions.map((x: string) => {
                   return (
                     <FormControlLabel
@@ -230,6 +229,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 </Button>
               </DialogActions>
             </Dialog>
+            {/* <Snackbar _open={this.state.snackbarShow}   msg="Records approved" /> */}
           </Container>
         );
       }

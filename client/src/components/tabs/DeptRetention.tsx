@@ -28,15 +28,12 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import {
-  IDepartmentStore,
-  IPostDetail,
-  DepartmentStore
-} from "../../stores/DepartmentStore";
+import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import CannotEditModal from "../common/CannotEditModal";
+import Snackbar from "../common/Snackbar";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -57,7 +54,7 @@ interface IState {
   orderBy: string;
   sortDirection: any;
   filterbyFunction: string;
-  // allRecords: any;
+  snackbar: boolean
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -86,6 +83,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           orderBy: "recordtype",
           sortDirection: "asc",
           filterbyFunction: "",
+          snackbar: false
           // allRecords: this.props.DepartmentStore._allRecords
         };
       }
@@ -146,6 +144,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       editRecord: any = async () => {
         await this.props.DepartmentStore.updateRecord();
         this.setState({ openEdit: false });
+        this.setState({ snackbar: true });
+        setInterval(() => {
+          this.setState({ snackbar: false })
+        }, 3000)
       };
 
       closeEdit: any = () => {
@@ -165,12 +167,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             return a[1] - b[1];
           });
           return stabilizedThis.map((el: any) => el[0]);
-        }else {
+        } else {
           const stabilizedThis = array
-          .filter(r => r.function === this.state.filterbyFunction)
-          .map(
-            (el: any, index: any) => [el, index] as [T, number]
-          );
+            .filter(r => r.function === this.state.filterbyFunction)
+            .map((el: any, index: any) => [el, index] as [T, number]);
           stabilizedThis.sort((a: any, b: any) => {
             const order = cmp(a[0], b[0]);
             if (order !== 0) return order;
@@ -488,6 +488,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   </Dialog>
                 );
               })}
+            <Snackbar _open={this.state.snackbar}  msg="Record is edited" />
           </Container>
         );
       }
