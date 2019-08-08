@@ -16,12 +16,10 @@ export interface IDepartmentStore {
   editrecord: IPostDetail;
   handleSelected: (edpt: string) => void;
   handleChange: (e: any) => void;
-  filterRecords: (e: any) => void
-  _filteredRecords: Array<any>
 }
 
 export type IPostDetail = {
-  id: string;
+  id?: string;
   code?:string | any
   department: string;
   recordtype: string;
@@ -39,9 +37,8 @@ class _DepartmentStore implements IDepartmentStore {
   _allRecords = [];
   isLoading = false;
   deleteID = "";
-  _filteredRecords =[]
 
-  editrecord = {
+  editrecord: IPostDetail = {
     id: "",
     department: "",
     recordtype: "",
@@ -73,20 +70,6 @@ class _DepartmentStore implements IDepartmentStore {
         return response.json();
       })
       .then(json => (this._allRecords = json))
-      .then(json => (this._filteredRecords = json))
-  }
-
-  filterRecords = (e: any) => {
-    const { value } = e.target
-    const filterfunction = value
-    // console.log(this._filteredRecords)
-    // if(filterfunction !== ""){
-    //   for (let i = 0; i < this._allRecords.length; i++){
-    //      if(this._allRecords[i] !== filterfunction)
-    //   }
-      // this._filteredRecords = this.allRecords.find((r) => r.function === filterfunction)
-      // console.log(this._filteredRecords)
-    //}
   }
 
   get allRecords ():Array<any> {
@@ -161,9 +144,7 @@ decorate(_DepartmentStore, {
   updateRecord: action,
   updateEditID: action,
   fetchAllRecords: action,
-  allRecords: computed,
-  filterRecords: action,
-  _filteredRecords: observable
+  allRecords: computed
 });
 
 export const DepartmentStore = new _DepartmentStore();

@@ -78,7 +78,6 @@ const AdminTab = inject("RecordStore")(
         this.props.RecordStore.approveSelectedRecords(
           this.state.approvedrecords
         );
-        window.location.reload();
       };
 
       render() {

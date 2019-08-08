@@ -103,27 +103,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         }
       };
 
-      handleEditRecord(
-        cid: string,
-        ccode: string,
-        cfunction: string,
-        ccategory: string,
-        ctype: string,
-        cdescription: string,
-        carchival: string,
-        cnotes: string
-      ) {
+      handleEditRecord(editRecord: IPostDetail) {
         this.setState({ editShow: true });
-        this.props.RecordStore.getEditRecord(
-          cid,
-          ccode,
-          cfunction,
-          ccategory,
-          ctype,
-          cdescription,
-          carchival,
-          cnotes
-        );
+        this.props.RecordStore.getEditRecord(editRecord);
       }
 
       saveEdit = (e: any) => {
@@ -205,18 +187,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             <CreateOutlinedIcon
                               style={styles.buttonStyle}
                               name="edit"
-                              onClick={() =>
-                                this.handleEditRecord(
-                                  record.id,
-                                  record.code,
-                                  record.function,
-                                  record.recordcategoryid,
-                                  record.recordtype,
-                                  record.description,
-                                  record.archival,
-                                  record.notes
-                                )
-                              }
+                              onClick={() => this.handleEditRecord(record)}
                             />
                             <Checkbox
                               id={record.id}
@@ -266,7 +237,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               .slice()
               .filter(
                 (x: any) =>
-                  x.id === this.props.RecordStore.editcommonrecords.commonID
+                  x.id === this.props.RecordStore.editcommonrecords.id
               )
               .map((postDetail: any) => {
                 return (

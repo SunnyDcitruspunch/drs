@@ -71,6 +71,52 @@
       "code": "N/A",
       "status": "Approved",
       "id": "tpRYc5g"
+    },
+    {
+      "recordtype": "Academic unit reviews",
+      "department": "Marriott School",
+      "function": "Information Technology",
+      "recordcategoryid": "OIT04",
+      "description": "waiting for retention schedule.",
+      "notes": "here is a note.",
+      "archival": "Archival",
+      "code": "N/A",
+      "status": "Approved",
+      "id": "2gvRf1r"
+    },
+    {
+      "recordtype": "Challenges Exams",
+      "department": "",
+      "function": "Information Technology",
+      "recordcategoryid": "common",
+      "description": "here is a retention schedule.",
+      "notes": "here is a note.",
+      "archival": "Highly Confidential",
+      "code": "N/A",
+      "status": "Approved",
+      "id": "4eGiyjd"
+    },
+    {
+      "department": "",
+      "recordtype": "qWERWER",
+      "function": "Finance",
+      "recordcategoryid": "STU02",
+      "description": "WWWWWWWWWWWW",
+      "notes": "WWWWWWWWWWW",
+      "archival": "Highly Confidential",
+      "status": "Approved",
+      "id": "sOjFzj5"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "ss",
+      "function": "Information Technology",
+      "recordcategoryid": "FIN10",
+      "description": "s",
+      "notes": "sss",
+      "archival": "Vital",
+      "status": "Approved",
+      "id": "ETBslY7"
     }
   ],
   "functions": [

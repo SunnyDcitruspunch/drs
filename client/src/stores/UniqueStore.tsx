@@ -1,52 +1,38 @@
 import { observable, action, decorate } from "mobx";
+import { IPostDetail } from "./DepartmentStore";
 
 export interface IUniqueStore {
-  recordType: string;
-  department: string;
-  proposedFunction: string;
-  proposedCategory: string;
-  proposedRetention: string;
-  Comment: string;
-  uniquerecords: IUniquerecords;
+  uniquerecords: IPostDetail;
   functionsDropdown: Array<string>;
   categoryDropdown: Array<string>;
-  archivalDropdown: Array<Object>
-  fetchFunctions: () => void;
-  fetchCategory: () => void;
-  fetchArchival: () => void;
-  submitRecords: (dept: string) => void;
+  archivalDropdown: Array<Object>;
+  fetchArchival: () => void
+  fetchFunctions: () => void
+  fetchCategory: () => void
+  submitRecords: () => void;
   handleChange: (e: any) => void;
-  getFunction: (func: string) => void;
-  getCategory: (category: string) => void;
   changeArchival: (e: any) => void;
-}
-
-export interface IUniquerecords {
-  recordType: string;
-  proposedFunction: string;
-  proposedCategory: string;
-  proposedRetention: string;
-  Comment: string;
-  archival: string;
+  getDepartmentName: (dept: string) => void;
 }
 
 class _UniqueStore {
-  uniquerecords: IUniquerecords = {
-    recordType: "",
-    proposedFunction: "",
-    proposedCategory: "",
-    proposedRetention: "",
-    Comment: "",
-    archival: ""
+  uniquerecords: IPostDetail = {
+    department: "",
+    recordtype: "",
+    function: "",
+    recordcategoryid: "",
+    description: "",
+    notes: "",
+    archival: "",
+    status: "Pending"
   };
   functionsDropdown = [];
   categoryDropdown = [];
-  archivalDropdown = []
+  archivalDropdown = [];
 
   handleChange = (e: any) => {
-    const { id, value } = e.target;
-    this.uniquerecords[id] = value;
-    console.log(value)
+    const { id, value, name } = e.target;
+    this.uniquerecords[name] = value;
   };
 
   changeArchival = (e: any) => {
@@ -78,32 +64,18 @@ class _UniqueStore {
       .then(json => (this.archivalDropdown = json));
   }
 
-  getFunction(func: string) {
-    this.uniquerecords.proposedFunction = func;
-  }
+  getDepartmentName = (dept: string) => {
+    this.uniquerecords.department = dept;
+  };
 
-  getCategory(category: string) {
-    this.uniquerecords.proposedCategory = category;
-  }
-
-  async submitRecords(selecteddepartment: string) {
+  async submitRecords() {
     fetch("http://localhost:3004/records", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        recordtype: this.uniquerecords.recordType,
-        department: selecteddepartment,
-        function: this.uniquerecords.proposedFunction,
-        recordcategoryid: this.uniquerecords.proposedCategory,
-        description: this.uniquerecords.proposedRetention,
-        notes: this.uniquerecords.Comment,
-        archival: this.uniquerecords.archival,
-        code: "N/A",
-        status: "Pending"
-      })
+      body: JSON.stringify(this.uniquerecords)
     });
   }
 }
@@ -117,7 +89,8 @@ decorate(_UniqueStore, {
   submitRecords: action,
   fetchCategory: action,
   changeArchival: action,
-  fetchArchival: action
+  fetchArchival: action,
+  getDepartmentName: action
 });
 
 export const UniqueStore = new _UniqueStore();

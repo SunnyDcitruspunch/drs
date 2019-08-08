@@ -30,8 +30,6 @@ interface IState {
   snackbarShow: boolean;
   needRecordType: boolean;
   open: boolean;
-  selectedfunction: string;
-  selectedcategory: string;
   archivalOptions: Array<string>;
 }
 
@@ -48,8 +46,6 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         snackbarShow: false,
         needRecordType: false,
         open: false,
-        selectedfunction: "",
-        selectedcategory: "",
         archivalOptions: ["Archival", "Vital", "Highly Confidential"]
       };
 
@@ -66,48 +62,17 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
         });
       }
 
-      handleFunctionChange: any = (e: MouseEvent) => {
-        const { value }: any = e.target;
-        this.setState({ selectedfunction: value });
-        this.props.UniqueStore.getFunction(value);
-      };
-
-      handleCategoryChange: any = (e: MouseEvent) => {
-        const { value }: any = e.target;
-        this.setState({ selectedcategory: value });
-        this.props.UniqueStore.getCategory(value);
-      };
-
       submitRecords = (e: any) => {
-        this.setState({ snackbarShow: true });
-
-        e.preventDefault();
-
-        this.props.UniqueStore.submitRecords(
-          this.props.DepartmentStore.selectedDepartment
-        );
-
-        this.props.UniqueStore.uniquerecords.proposedFunction = this.state.selectedfunction;
-        this.props.UniqueStore.uniquerecords.proposedCategory = this.state.selectedcategory;
-
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ smShow: true });
-        } else if (this.props.UniqueStore.uniquerecords.recordType === "") {
+        } else if (this.props.UniqueStore.uniquerecords.recordtype === "") {
           this.setState({ needRecordType: true });
         } else {
-          e.preventDefault();
-          this.props.UniqueStore.submitRecords(
-            this.props.DepartmentStore.selectedDepartment
-          );
-
-          this.setState({ selectedcategory: "" });
-          this.setState({ selectedfunction: "" });
-
-          window.scrollTo(0, 0);
-          this.props.UniqueStore.uniquerecords.recordType = "";
+          this.props.UniqueStore.getDepartmentName(this.props.DepartmentStore.selectedDepartment)
+          this.props.UniqueStore.submitRecords();          
+          this.setState({ snackbarShow: true });
           this.setState({ needRecordType: false });
-          window.location.reload();
-        }
+        }       
       };
 
       render() {
@@ -117,10 +82,10 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
         return (
           <Container style={{ flexGrow: 1 }}>
-            {/* <Formik> */}
             <Grid item sm={12}>
               <TextField
-                id="recordType"
+                id="recordtype"
+                name="recordtype"
                 label="Record Type"
                 style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
@@ -133,10 +98,11 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 Record Function
               </InputLabel>
               <Select
-                id="proposedFunction"
+                id="function"
+                name="function"
                 style={{ width: 500 }}
-                value={this.state.selectedfunction}
-                onChange={this.handleFunctionChange}
+                value={UniqueStore.uniquerecords.function}
+                onChange={UniqueStore.handleChange}
               >
                 <MenuItem>Choose...</MenuItem>
                 {this.props.UniqueStore.functionsDropdown
@@ -154,10 +120,11 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 Record Category
               </InputLabel>
               <Select
-                id="proposedCategory"
+                id="recordcategoryid"
+                name="recordcategoryid"
                 style={{ width: 500 }}
-                value={this.state.selectedcategory}
-                onChange={this.handleCategoryChange}
+                value={UniqueStore.uniquerecords.recordcategoryid}
+                onChange={UniqueStore.handleChange}
               >
                 <MenuItem>Choose...</MenuItem>
                 {this.props.UniqueStore.categoryDropdown
@@ -177,7 +144,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               <TextField
                 multiline
                 rows="2"
-                id="proposedRetention"
+                id="description"
+                name="description"
                 label="Retention Schedule"
                 style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
@@ -187,7 +155,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <FormControl component="fieldset">
               <FormLabel component="legend">Archival</FormLabel>
-              <RadioGroup row aria-label="archival" name="archival">
+              <RadioGroup row aria-label="archival" name="archival" id="archival">
                 {this.state.archivalOptions.map((x: string) => {
                   return (
                     <FormControlLabel
@@ -207,7 +175,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               <TextField
                 multiline
                 rows="4"
-                id="Comment"
+                id="notes"
+                name="notes"
                 label="Notes"
                 style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
@@ -221,14 +190,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               style={{ marginTop: 10, fontSize: 10 }}
               onClick={this.submitRecords}
             >
-              {/* <Link
-                to="/AddUniqueRecords"
-                style={{ fontSize: 10, textDecoration: "none" }}
-              > */}
               Submit
-              {/* </Link> */}
             </Button>
-            {/* </Formik> */}
 
             <Dialog
               open={this.state.smShow}

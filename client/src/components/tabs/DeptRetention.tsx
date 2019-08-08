@@ -57,7 +57,7 @@ interface IState {
   orderBy: string;
   sortDirection: any;
   filterbyFunction: string;
-  allRecords: any;
+  // allRecords: any;
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -86,14 +86,14 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           orderBy: "recordtype",
           sortDirection: "asc",
           filterbyFunction: "",
-          allRecords: this.props.DepartmentStore._allRecords
+          // allRecords: this.props.DepartmentStore._allRecords
         };
       }
 
       componentDidMount = () => {
         this.props.DepartmentStore.fetchAllRecords();
         this.props.UniqueStore.fetchArchival();
-        this.setState({ allRecords: this.props.DepartmentStore._allRecords });
+        // this.setState({ allRecords: this.props.DepartmentStore._allRecords });
       };
 
       showEditModal(postDetail: IPostDetail) {
@@ -131,7 +131,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       };
 
       //pass id to store for delete action
-      handleDelete(value: string) {
+      handleDelete(value: any) {
         //show delete modal
         this.setState({ confirmDelete: true });
         this.props.DepartmentStore.deleteID = value;
@@ -153,18 +153,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           openEdit: false
         });
       };
-
-      // stableSort<T>(array: IPostDetail[], cmp: (a: T, b: T) => number) {
-      //   const stabilizedThis = array.map(
-      //     (el: any, index: any) => [el, index] as [T, number]
-      //   );
-      //   stabilizedThis.sort((a: any, b: any) => {
-      //     const order = cmp(a[0], b[0]);
-      //     if (order !== 0) return order;
-      //     return a[1] - b[1];
-      //   });
-      //   return stabilizedThis.map((el: any) => el[0]);
-      // }
 
       stableSort<T>(array: IPostDetail[], cmp: (a: T, b: T) => number) {
         if (this.state.filterbyFunction === "") {
@@ -221,8 +209,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       handlefilterfunction = (e: any) => {
         const { value } = e.target;
         this.setState({ filterbyFunction: value });
-        // this.state.filterbyFunction === "" ?
-        // this.props.DepartmentStore.filterRecords(e)
       };
 
       render() {
@@ -231,8 +217,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         const { DepartmentStore, UniqueStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
-        console.log(this.state.allRecords);
-
         return (
           <Container style={styles.tableStyle}>
             <InputLabel shrink htmlFor="age-label-placeholder">
