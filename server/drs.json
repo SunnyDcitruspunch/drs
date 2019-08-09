@@ -119,14 +119,14 @@
       "id": "ETBslY7"
     },
     {
-      "department": "Computer Science",
+      "department": "Marriott School",
       "recordtype": "C++ exam 234567",
       "function": "Miscellaneous",
       "recordcategoryid": "STU02",
       "description": "234",
       "notes": "234",
       "archival": "Archival",
-      "status": "Pending",
+      "status": "Approved",
       "id": "pzBfAk2"
     },
     {
@@ -183,6 +183,86 @@
       "archival": "Archival",
       "status": "Approved",
       "id": "Tc1SHPb"
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "Budget Reports (monthly).",
+      "function": "Finance",
+      "recordcategoryid": "common",
+      "description": "monthly budget report",
+      "notes": "some notes.",
+      "archival": "Archival",
+      "status": "Approved",
+      "id": "9XPtRGo"
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "s",
+      "function": "Information Technology",
+      "recordcategoryid": "ADM01",
+      "description": "s",
+      "notes": "s",
+      "archival": "Archival",
+      "status": "Pending",
+      "id": "tx90VnL"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "s",
+      "function": "",
+      "recordcategoryid": "",
+      "description": "",
+      "notes": "",
+      "archival": "",
+      "status": "Pending",
+      "id": "dGppGZR"
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "s",
+      "function": "",
+      "recordcategoryid": "",
+      "description": "",
+      "notes": "",
+      "archival": "",
+      "status": "Pending",
+      "id": "5yUih6V"
+    },
+    {
+      "department": "Honor Code Office",
+      "code": "CACD1000",
+      "function": "Finance",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "today is a sunny day :)",
+      "archival": "Vital",
+      "notes": "common notes?",
+      "status": "Approved",
+      "id": "MmKSNKU"
+    },
+    {
+      "department": "Honor Code Office",
+      "code": "CHUM1100",
+      "function": "Employment",
+      "recordcategoryid": "common",
+      "recordtype": "Job descriptions.",
+      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
+      "archival": "Highly Confidential",
+      "notes": "common notes",
+      "status": "Approved",
+      "id": "R9iXq39"
+    },
+    {
+      "department": "Computer Science",
+      "code": "CACD1000",
+      "function": "Finance",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "today is a sunny day :)",
+      "archival": "Highly Confidential",
+      "notes": "common notes?",
+      "status": "Approved",
+      "id": "0z_ziao"
     }
   ],
   "functions": [
@@ -231,7 +311,7 @@
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "today is a sunny day :)",
-      "archival": "Vital",
+      "archival": "Highly Confidential",
       "notes": "common notes?"
     },
     {

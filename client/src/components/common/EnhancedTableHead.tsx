@@ -28,6 +28,7 @@ export interface IEnhancedTableProps {
   orderBy: string;
   rowCount?: number;
   id: string
+  headrows: any
 }
 
 export interface IHeadRow {
@@ -35,24 +36,8 @@ export interface IHeadRow {
   label: string;
 }
 
-const headRows: IHeadRow[] = [
-  {
-    id: "recordtype",
-    label: "Record Type"
-  },
-  {
-    id: "description",
-    label: "Description"
-  },
-  { id: "function", label: "Function" },
-  { id: "category", label: "Category" },
-  { id: "archival", label: "Archival" },
-  { id: "notes", label: "Notes" },
-  { id: "status", label: "Status" }
-];
-
 function EnhancedTableHead(props: IEnhancedTableProps) {
-  const { order, orderBy, onRequestSort, id } = props;
+  const { order, orderBy, onRequestSort, id, headrows } = props;
   const createSortHandler = (property: keyof IData) => (
     event: React.MouseEvent<unknown>
   ) => {
@@ -63,7 +48,7 @@ function EnhancedTableHead(props: IEnhancedTableProps) {
     <TableHead id={id}>
       <TableRow>
         <TableCell padding="checkbox" />
-        {headRows.map(row => (
+        {headrows.map((row: IHeadRow) => (
           <TableCell
             key={row.id}
             sortDirection={orderBy === row.id ? order : false}

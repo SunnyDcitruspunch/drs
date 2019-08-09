@@ -14,16 +14,13 @@ import {
   DialogContent,
   DialogActions,
   DialogContentText,
-  Select,
-  MenuItem,
-  InputLabel,
   Container
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
-import { IData, IOrder } from "../common/EnhancedTableHead";
+import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import MessageModal from "../common/MessageModal";
 import Snackbar from "../common/Snackbar";
@@ -61,6 +58,21 @@ function desc<T>(a: T, b: T, orderBy: keyof T) {
   }
   return 0;
 }
+
+const headrows: IHeadRow[] = [
+  { id: "function", label: "Function" },
+  {
+    id: "recordtype",
+    label: "Record Type"
+  },
+  {
+    id: "description",
+    label: "Retention Description"
+  },
+  { id: "archival", label: "Classification" },
+  { id: "notes", label: "Comments" },
+  { id: "status", label: "Status" }
+];
 
 const DeptRetention = inject("DepartmentStore", "UniqueStore")(
   observer(
@@ -151,27 +163,15 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       };
 
       stableSort<T>(array: IPostDetail[], cmp: (a: T, b: T) => number) {
-        if (this.state.filterbyFunction === "") {
-          const stabilizedThis = array.map(
-            (el: any, index: any) => [el, index] as [T, number]
-          );
-          stabilizedThis.sort((a: any, b: any) => {
-            const order = cmp(a[0], b[0]);
-            if (order !== 0) return order;
-            return a[1] - b[1];
-          });
-          return stabilizedThis.map((el: any) => el[0]);
-        } else {
-          const stabilizedThis = array
-            .filter(r => r.function === this.state.filterbyFunction)
-            .map((el: any, index: any) => [el, index] as [T, number]);
-          stabilizedThis.sort((a: any, b: any) => {
-            const order = cmp(a[0], b[0]);
-            if (order !== 0) return order;
-            return a[1] - b[1];
-          });
-          return stabilizedThis.map((el: any) => el[0]);
-        }
+        const stabilizedThis = array.map(
+          (el: any, index: any) => [el, index] as [T, number]
+        );
+        stabilizedThis.sort((a: any, b: any) => {
+          const order = cmp(a[0], b[0]);
+          if (order !== 0) return order;
+          return a[1] - b[1];
+        });
+        return stabilizedThis.map((el: any) => el[0]);
       }
 
       getSorting<K extends keyof any>(
@@ -213,7 +213,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         const functions = this.props.UniqueStore.functionsDropdown;
         return (
           <Container style={styles.tableStyle}>
-            <InputLabel shrink htmlFor="age-label-placeholder">
+            {/* <InputLabel shrink htmlFor="age-label-placeholder">
               Filter by Record Function
             </InputLabel>
             <Select
@@ -229,7 +229,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   {func.functiontype}
                 </MenuItem>
               ))}
-            </Select>
+            </Select> */}
 
             <Button
               variant="outlined"
@@ -240,11 +240,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               Download as PDF
             </Button>
             {/* <Progress /> */}
-            
+
             <Paper>
               <Table id="schedule">
                 <EnhancedTableHead
                   id="tablehead"
+                  headrows={headrows}
                   order={this.state.order}
                   orderBy={this.state.orderBy}
                   onRequestSort={this.handleRequestSort}
@@ -273,16 +274,13 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             />
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
+                            {postDetail.function}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
                             {postDetail.recordtype}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {postDetail.description}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.function}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.recordcategoryid}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {postDetail.archival}

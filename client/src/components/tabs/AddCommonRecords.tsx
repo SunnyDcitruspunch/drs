@@ -8,7 +8,7 @@ import {
   Checkbox,
   Button,
   Table,
-  Container,
+  Container
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
@@ -16,8 +16,9 @@ import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
-import EditModal from '../common/EditModal'
-import MessageModal from '../common/MessageModal'
+import EditModal from "../common/EditModal";
+import MessageModal from "../common/MessageModal";
+import { IHeadRow } from "../common/EnhancedTableHead";
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -51,6 +52,20 @@ interface IState {
 interface Document {
   createElement(tagName: "input"): HTMLInputElement;
 }
+
+const headrows: IHeadRow[] = [
+  { id: "function", label: "Function" },
+  {
+    id: "recordtype",
+    label: "Record Type"
+  },
+  {
+    id: "description",
+    label: "Retention Description"
+  },
+  { id: "archival", label: "Classification" },
+  { id: "notes", label: "Comments" }
+];
 
 const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
   observer(
@@ -159,7 +174,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             <Paper style={{ width: "100%", overflowX: "auto" }}>
               <Table>
                 <EnhancedTableHead
-                id="tablehead"
+                  id="tablehead"
+                  headrows={headrows}
                   order={this.state.order}
                   orderBy={this.state.orderBy}
                   onRequestSort={this.handleRequestSort}
@@ -187,26 +203,24 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             />
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
+                            {record.function}
+                          </TableCell>
+                          <TableCell style={{ fontSize: 10 }}>
                             {record.recordtype}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {record.description}
                           </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {record.function}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {record.recordcategoryid}
-                          </TableCell>
+
                           <TableCell style={{ fontSize: 10 }}>
                             {record.archival}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {record.notes}
                           </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
+                          {/* <TableCell style={{ fontSize: 10 }}>
                             {record.status}
-                          </TableCell>
+                          </TableCell> */}
                         </TableRow>
                       );
                     })}

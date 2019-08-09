@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
 import {
   Button,
   Container,
@@ -68,7 +69,9 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           setInterval(() => {
             this.setState({ snackbarShow: false });
           }, 3000);
-        }
+
+          // window.location.reload()
+        }       
       };
 
       render() {
@@ -138,7 +141,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
             </Grid>
 
             <FormControl component="fieldset">
-              <FormLabel component="legend">Archival</FormLabel>
+              <FormLabel component="legend">Classification</FormLabel>
               <RadioGroup
                 row
                 aria-label="archival"
@@ -173,15 +176,15 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 margin="normal"
               />
             </Grid>
-
-            <Button
-              variant="outlined"
-              color="primary"
-              style={{ marginTop: 10, fontSize: 10 }}
-              onClick={this.submitRecords}
-            >
-              Submit
-            </Button>
+            
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ marginTop: 10, fontSize: 10 }}
+                onClick={this.submitRecords}
+              >
+                Submit
+              </Button>
 
             <MessageModal
               open={this.state.smShow}

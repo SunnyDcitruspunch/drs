@@ -115,7 +115,7 @@ function EditModal(props: IProps) {
             rows="3"
             id="description"
             name="description"
-            label="Description"
+            label="Retention Description"
             defaultValue={record.description}
             variant="outlined"
             margin="normal"
@@ -124,7 +124,7 @@ function EditModal(props: IProps) {
         </Grid>
 
         <FormControl component="fieldset">
-          <FormLabel component="legend">Archival</FormLabel>
+          <FormLabel component="legend">Classification</FormLabel>
           <RadioGroup
             row
             aria-label="archival"

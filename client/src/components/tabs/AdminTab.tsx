@@ -5,7 +5,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableRow,
   Checkbox,
   Button,
@@ -14,8 +13,9 @@ import {
 import { inject, observer } from "mobx-react";
 import { IRecordStore } from "../../stores/RecordStore";
 import { IPostDetail } from "../../stores/DepartmentStore";
-import { IHeadRow } from "../common/EnhancedTableHead";
+import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import Snackbar from "../common/Snackbar";
+import EnhancedTableHead from "../common/EnhancedTableHead";
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -23,10 +23,22 @@ interface IProps {
 
 interface IState {
   approvedrecords: Array<Object>;
-  snackbar: boolean
+  snackbar: boolean;
+  order: IOrder;
+  orderBy: string;
 }
 
-const headRows: IHeadRow[] = [
+function desc<T>(a: T, b: T, orderBy: keyof T) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+const headrows: IHeadRow[] = [
   {
     id: "department",
     label: "Department"
@@ -37,12 +49,9 @@ const headRows: IHeadRow[] = [
   },
   {
     id: "description",
-    label: "Description"
+    label: "Retention Description"
   },
-  { id: "function", label: "Function" },
-  { id: "category", label: "Category" },
-  { id: "archival", label: "Archival" },
-  { id: "notes", label: "Notes" }
+  { id: "notes", label: "Comments" }
 ];
 
 const AdminTab = inject("RecordStore")(
@@ -54,7 +63,9 @@ const AdminTab = inject("RecordStore")(
 
         this.state = {
           approvedrecords: [],
-          snackbar: false
+          snackbar: false,
+          order: "asc",
+          orderBy: "recordtype"
         };
       }
 
@@ -83,8 +94,34 @@ const AdminTab = inject("RecordStore")(
           this.state.approvedrecords
         );
 
-        this.setState({ snackbar: true })
-        console.log('should show the snackbar')
+        this.setState({ snackbar: true });
+        console.log("should show the snackbar");
+      };
+
+      getSorting<K extends keyof any>(
+        order: IOrder,
+        orderBy: K
+      ): (
+        a: { [key in K]: number | string },
+        b: { [key in K]: number | string }
+      ) => number {
+        return order === "desc"
+          ? (a, b) => desc(a, b, orderBy)
+          : (a, b) => -desc(a, b, orderBy);
+      }
+
+      handleRequestSort = (
+        event: React.MouseEvent<unknown>,
+        property: keyof IData
+      ) => {
+        const isDesc =
+          this.state.orderBy === property && this.state.order === "desc";
+        if (isDesc === true) {
+          this.setState({ order: "asc" });
+        } else {
+          this.setState({ order: "desc" });
+        }
+        this.setState({ orderBy: property });
       };
 
       render() {
@@ -95,14 +132,13 @@ const AdminTab = inject("RecordStore")(
             <Paper style={{ width: "100%", overflowX: "auto" }}>
               <FormLabel style={{ marginTop: 5 }}>Pending Records</FormLabel>
               <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell padding="checkbox" />
-                    {headRows.map(row => (
-                      <TableCell key={row.id}>{row.label}</TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
+                <EnhancedTableHead
+                  id="tablehead"
+                  headrows={headrows}
+                  order={this.state.order}
+                  orderBy={this.state.orderBy}
+                  onRequestSort={this.handleRequestSort}
+                />
                 <TableBody>
                   {RecordStore.pendingRecords
                     // .slice()
@@ -131,16 +167,7 @@ const AdminTab = inject("RecordStore")(
                           {pendings.description}
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
-                          {pendings.function}
-                        </TableCell>
-                        <TableCell style={styles.tableStyle}>
-                          {pendings.recordcategoryid}
-                        </TableCell>
-                        <TableCell style={styles.tableStyle}>
                           {pendings.notes}
-                        </TableCell>
-                        <TableCell style={styles.tableStyle}>
-                          {pendings.archival}
                         </TableCell>
                       </TableRow>
                     ))}

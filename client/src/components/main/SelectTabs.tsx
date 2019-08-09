@@ -75,7 +75,7 @@ export default function FullWidthTabs() {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Department Retention" {...a11yProps(0)} />
+          <Tab label="Department Retention Schedule" {...a11yProps(0)} />
           <Tab label="Add Common Records" {...a11yProps(1)} />
           <Tab label="Add Unique Records" {...a11yProps(2)} />
           <Tab label="Admin" {...a11yProps(3)} />

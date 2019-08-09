@@ -67,6 +67,9 @@ class _RecordStore implements IRecordStore {
     this.selectedDepartment = dept;
   }
 
+  /*
+  !TODO: something wrong with this.
+  */
   //add selected common records
   async addCommonRecord(selects: string[]) {
     this.selectedCommonRecords = selects; //selected common record id
@@ -74,7 +77,7 @@ class _RecordStore implements IRecordStore {
     for (let i = 0; i < selects.length; i++) {
       let test: any = "";
       this.allRecords
-        .filter((x: any) => x.id === selects[i])
+        .filter((x: IPostDetail) => x.id === selects[i])
         .map(
           (postDetail: IPostDetail): void => {
             test = {
