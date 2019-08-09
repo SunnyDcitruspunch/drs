@@ -5,7 +5,7 @@ export interface IUniqueStore {
   uniquerecords: IPostDetail;
   functionsDropdown: Array<string>;
   categoryDropdown: Array<string>;
-  archivalDropdown: Array<Object>;
+  archivalDropdown: Array<string>;
   fetchArchival: () => void
   fetchFunctions: () => void
   fetchCategory: () => void

@@ -136,6 +136,7 @@ class _RecordStore implements IRecordStore {
     this.editcommonrecords.description = record.description;
     this.editcommonrecords.archival = record.archival;
     this.editcommonrecords.notes = record.notes;
+    console.log(this.editcommonrecords.function)
   }
 
   //update common records: PATCH
@@ -161,8 +162,9 @@ class _RecordStore implements IRecordStore {
   }
 
   handleChange = (e: any) => {
-    const { id, value } = e.target;
+    const { id, value, name } = e.target;
     this.editcommonrecords[id] = value;
+    this.editcommonrecords[name] = value;
   };
 
   changeArchival = (e: any) => {

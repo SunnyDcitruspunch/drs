@@ -14,17 +14,10 @@ import {
   DialogContent,
   DialogActions,
   DialogContentText,
-  TextField,
   Select,
-  Grid,
   MenuItem,
   InputLabel,
-  Container,
-  FormControl,
-  RadioGroup,
-  Radio,
-  FormLabel,
-  FormControlLabel
+  Container
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -34,6 +27,7 @@ import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import CannotEditModal from "../common/CannotEditModal";
 import Snackbar from "../common/Snackbar";
+import EditModal from '../common/EditModal'
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -346,149 +340,19 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               )
               .map((editDetail: IPostDetail) => {
                 return (
-                  <Dialog
-                    key={editDetail.id}
+                  <EditModal 
+                    record={editDetail}
                     open={this.state.openEdit}
-                    // onClose={confirmClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                  >
-                    <DialogTitle id="alert-dialog-title">
-                      {"Edit Record"}
-                    </DialogTitle>
-
-                    <DialogContent>
-                      <Grid>
-                        <TextField
-                          fullWidth
-                          id="recordtype"
-                          name="recordtype"
-                          label="Record Type"
-                          defaultValue={editDetail.recordtype}
-                          variant="outlined"
-                          onChange={DepartmentStore.handleChange}
-                          margin="normal"
-                        />
-                      </Grid>
-
-                      <Grid item style={{ marginBottom: 10 }}>
-                        <InputLabel shrink htmlFor="age-label-placeholder">
-                          Record Function
-                        </InputLabel>
-
-                        <Select
-                          id="function"
-                          name="function"
-                          style={{ width: 400 }}
-                          value={editDetail.function}
-                          onChange={DepartmentStore.handleChange}
-                        >
-                          <MenuItem>Choose...</MenuItem>
-                          {functions.slice().map((func: any) => (
-                            <MenuItem key={func.id} value={func.functiontype}>
-                              {func.functiontype}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </Grid>
-
-                      <Grid item style={{ marginTop: 10 }}>
-                        <InputLabel shrink htmlFor="age-label-placeholder">
-                          Record Category
-                        </InputLabel>
-                        <Select
-                          id="recordcategoryid"
-                          name="recordcategoryid"
-                          style={{ width: 400 }}
-                          value={editDetail.recordcategoryid}
-                          onChange={DepartmentStore.handleChange}
-                        >
-                          <MenuItem>Choose...</MenuItem>
-                          {this.props.UniqueStore.categoryDropdown
-                            .slice()
-                            .map((category: any) => (
-                              <MenuItem
-                                key={category.id}
-                                value={category.recordcategoryid}
-                              >
-                                {category.recordcategoryid}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </Grid>
-
-                      <Grid>
-                        <TextField
-                          fullWidth
-                          multiline
-                          rows="3"
-                          id="description"
-                          name="description"
-                          label="Description"
-                          defaultValue={editDetail.description}
-                          variant="outlined"
-                          margin="normal"
-                          onChange={DepartmentStore.handleChange}
-                        />
-                      </Grid>
-
-                      <FormControl component="fieldset">
-                        <FormLabel component="legend">Archival</FormLabel>
-                        <RadioGroup
-                          row
-                          aria-label="archival"
-                          name="archival"
-                          defaultValue={editDetail.archival}
-                        >
-                          {UniqueStore.archivalDropdown.map((x: any) => {
-                            return (
-                              <FormControlLabel
-                                key={x.id}
-                                value={x.archive}
-                                control={<Radio color="primary" />}
-                                label={x.archive}
-                                labelPlacement="end"
-                                id="archival"
-                                name="archival"
-                                onClick={DepartmentStore.handleChange}
-                              />
-                            );
-                          })}
-                        </RadioGroup>
-                      </FormControl>
-
-                      <Grid>
-                        <TextField
-                          fullWidth
-                          multiline
-                          rows="3"
-                          id="notes"
-                          name="notes"
-                          label="Notes"
-                          defaultValue={editDetail.notes}
-                          variant="outlined"
-                          margin="normal"
-                          onChange={DepartmentStore.handleChange}
-                        />
-                      </Grid>
-                    </DialogContent>
-
-                    <DialogActions>
-                      <Button
-                        onClick={this.editRecord}
-                        color="primary"
-                        autoFocus
-                      >
-                        Save Changes
-                      </Button>
-                      <Button onClick={this.closeEdit} color="primary">
-                        Cancel
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
+                    close={this.closeEdit}
+                    functionList={functions}
+                    categoryList={this.props.UniqueStore.categoryDropdown}
+                    archivalList={this.props.UniqueStore.archivalDropdown}
+                    change={DepartmentStore.handleChange}
+                    saveedit={this.editRecord}
+                  />
                 );
               })}
-            <Snackbar _open={this.state.snackbar}  msg="Record is edited" />
+            <Snackbar _open={this.state.snackbar}  msg="Successfully edited the record." />
           </Container>
         );
       }

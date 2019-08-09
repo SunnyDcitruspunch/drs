@@ -104,8 +104,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       };
 
       handleEditRecord(editRecord: IPostDetail) {
-        this.setState({ editShow: true });
         this.props.RecordStore.getEditRecord(editRecord);
+        this.setState({ editShow: true });        
+        console.log(editRecord.function)
       }
 
       saveEdit = (e: any) => {
@@ -274,8 +275,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           Record Function
                         </InputLabel>
                         <Select
-                          value={this.state.selectedfunction}
-                          id="editFunction"
+                          value={RecordStore.editcommonrecords.function}
+                          id="function"
+                          name="function"
                           style={{ width: 400 }}
                           onChange={RecordStore.handleChange}
                         >
@@ -290,13 +292,13 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         </Select>
                       </Grid>
 
-                      <Grid item style={{ marginTop: 10 }}>
+                      {/* <Grid item style={{ marginTop: 10 }}>
                         <InputLabel shrink htmlFor="age-label-placeholder">
                           Record Category
                         </InputLabel>
                         <Select
-                          value={this.state.selectedcategory}
-                          id="editCategory"
+                          value={RecordStore.editcommonrecords.recordcategoryid}
+                          id="recordcategoryid"
                           style={{ width: 400 }}
                           onChange={RecordStore.handleChange}
                         >
@@ -312,7 +314,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                               </MenuItem>
                             ))}
                         </Select>
-                      </Grid>
+                      </Grid> */}
 
                       <Grid>
                         <TextField
@@ -330,7 +332,12 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
                       <FormControl component="fieldset">
                         <FormLabel component="legend">Archival</FormLabel>
-                        <RadioGroup row aria-label="archival" name="archival">
+                        <RadioGroup
+                         row 
+                         aria-label="archival" 
+                         name="archival"
+                         defaultValue={RecordStore.editcommonrecords.archival}
+                         >
                           {this.state.archivalOptions.map((x: string) => {
                             return (
                               <FormControlLabel
@@ -338,6 +345,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                                 value={x}
                                 control={<Radio color="primary" />}
                                 label={x}
+                                id="archival"
+                                name="archival"
                                 labelPlacement="end"
                                 onChange={RecordStore.changeArchival}
                               />

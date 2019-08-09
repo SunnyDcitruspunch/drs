@@ -23,6 +23,7 @@ interface IProps {
 
 interface IState {
   approvedrecords: Array<Object>;
+  snackbar: boolean
 }
 
 const headRows: IHeadRow[] = [
@@ -52,7 +53,8 @@ const AdminTab = inject("RecordStore")(
         this.onSelect = this.onSelect.bind(this);
 
         this.state = {
-          approvedrecords: []
+          approvedrecords: [],
+          snackbar: false
         };
       }
 
@@ -80,6 +82,9 @@ const AdminTab = inject("RecordStore")(
         this.props.RecordStore.approveSelectedRecords(
           this.state.approvedrecords
         );
+
+        this.setState({ snackbar: true })
+        console.log('should show the snackbar')
       };
 
       render() {
@@ -150,7 +155,10 @@ const AdminTab = inject("RecordStore")(
             >
               Approve selected records
             </Button>
-            {/* <Snackbar msg="Records approved" /> */}
+            <Snackbar
+              _open={this.state.snackbar}
+              msg="Records has been approved."
+            />
           </Container>
         );
       }

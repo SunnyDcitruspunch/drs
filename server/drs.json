@@ -75,7 +75,7 @@
     {
       "recordtype": "Academic unit reviews",
       "department": "Marriott School",
-      "function": "Information Technology",
+      "function": "Miscellaneous",
       "recordcategoryid": "STU19",
       "description": "waiting for retention schedule.",
       "notes": "here is a note.",
@@ -86,7 +86,7 @@
     },
     {
       "recordtype": "Challenges Exams",
-      "department": "",
+      "department": "Information Systems",
       "function": "Information Technology",
       "recordcategoryid": "common",
       "description": "here is a retention schedule.",
@@ -97,10 +97,10 @@
       "id": "4eGiyjd"
     },
     {
-      "department": "",
+      "department": "BYU Catering",
       "recordtype": "qWERWER",
-      "function": "Finance",
-      "recordcategoryid": "STU02",
+      "function": "Athletics",
+      "recordcategoryid": "FIN10",
       "description": "WWWWWWWWWWWW",
       "notes": "WWWWWWWWWWW",
       "archival": "Highly Confidential",
@@ -120,14 +120,36 @@
     },
     {
       "department": "Computer Science",
-      "recordtype": "C++ exam 234",
+      "recordtype": "C++ exam 23456",
       "function": "Miscellaneous",
-      "recordcategoryid": "MISC9",
-      "description": "sdfgsdfg",
-      "notes": "sdfgsdfg",
+      "recordcategoryid": "STU02",
+      "description": "234",
+      "notes": "234",
       "archival": "Archival",
       "status": "Pending",
       "id": "pzBfAk2"
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "123",
+      "function": "Information Technology",
+      "recordcategoryid": "common",
+      "description": "123",
+      "notes": "123",
+      "archival": "Highly Confidential",
+      "status": "Pending",
+      "id": "tySiQoY"
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "this is a record type.",
+      "function": "Faculty",
+      "recordcategoryid": "STU19",
+      "description": "ee22",
+      "notes": "ee",
+      "archival": "Archival",
+      "status": "Approved",
+      "id": "8nCMqzE"
     }
   ],
   "functions": [
@@ -172,11 +194,11 @@
     {
       "id": "sadfasdf",
       "code": "CACD1000",
-      "function": "Academic",
+      "function": "Finance",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "today is a sunny day. ",
-      "archival": "Archival",
+      "archival": "Vital",
       "notes": "common notes?"
     },
     {
@@ -186,7 +208,7 @@
       "recordcategoryid": "common",
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "archival": "Vital",
+      "archival": "Highly Confidential",
       "notes": "common notes"
     },
     {

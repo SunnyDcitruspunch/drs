@@ -44,12 +44,12 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
       state: IState = {
         smShow: false,
-        snackbarShow: false,
+        snackbarShow: true,
         needRecordType: false,
         open: false,
         archivalOptions: ["Archival", "Vital", "Highly Confidential"]
       };
-      
+
       submitRecords = (e: any) => {
         if (this.props.DepartmentStore.selectedDepartment === "") {
           this.setState({ smShow: true });
@@ -62,11 +62,14 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           this.props.UniqueStore.submitRecords();
           this.setState({ snackbarShow: true });
           this.setState({ needRecordType: false });
-        }
+          this.setState({
+            snackbarShow: true
+          });
 
-        this.setState({
-          snackbarShow: true
-        });
+          setInterval(() => {
+            this.setState({ snackbarShow: false });
+          }, 3000);
+        }
       };
 
       render() {
@@ -229,7 +232,10 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 </Button>
               </DialogActions>
             </Dialog>
-            {/* <Snackbar _open={this.state.snackbarShow}   msg="Records approved" /> */}
+            <Snackbar
+              _open={this.state.snackbarShow}
+              msg="Successfully submitted the record."
+            />
           </Container>
         );
       }
