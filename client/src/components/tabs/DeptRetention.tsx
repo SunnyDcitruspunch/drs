@@ -25,7 +25,7 @@ import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
-import CannotEditModal from "../common/CannotEditModal";
+import MessageModal from "../common/MessageModal";
 import Snackbar from "../common/Snackbar";
 import EditModal from '../common/EditModal'
 
@@ -78,14 +78,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           sortDirection: "asc",
           filterbyFunction: "",
           snackbar: false
-          // allRecords: this.props.DepartmentStore._allRecords
         };
       }
 
       componentDidMount = () => {
         this.props.DepartmentStore.fetchAllRecords();
         this.props.UniqueStore.fetchArchival();
-        // this.setState({ allRecords: this.props.DepartmentStore._allRecords });
       };
 
       showEditModal(postDetail: IPostDetail) {
@@ -208,7 +206,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       render() {
         // let confirmClose = () => this.setState({ confirmDelete: false });
         let cannoteditClose = () => this.setState({ cannotEdit: false });
-        const { DepartmentStore, UniqueStore } = this.props;
+        const { DepartmentStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
         return (
@@ -327,10 +325,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             </Dialog>
 
             {/* cannot edit record */}
-            <CannotEditModal
+            <MessageModal
               open={this.state.cannotEdit}
               close={cannoteditClose}
               click={() => this.setState({ cannotEdit: false })}
+              title="Cannot Edit this Record"
+              msg="Cannot edit common records"
             />
 
             {/* edit record */}
@@ -341,6 +341,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               .map((editDetail: IPostDetail) => {
                 return (
                   <EditModal 
+                    key={editDetail.id}
                     record={editDetail}
                     open={this.state.openEdit}
                     close={this.closeEdit}

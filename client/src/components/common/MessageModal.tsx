@@ -8,8 +8,16 @@ import {
   DialogContentText
 } from "@material-ui/core";
 
-function CannotEditModal(props: any) {
-  const { open, close, click } = props;
+interface IProps {
+  open: boolean,
+  click:() => void,
+  close:() => void,
+  msg: string,
+  title: string
+}
+
+function MessageModal(props: IProps) {
+  const { open, close, click, msg, title } = props;
 
   return (
     <Dialog
@@ -18,10 +26,10 @@ function CannotEditModal(props: any) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{"Cannot Edit Record"}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Cannot edit common records.
+          {msg}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -33,4 +41,4 @@ function CannotEditModal(props: any) {
   );
 }
 
-export default CannotEditModal;
+export default MessageModal;

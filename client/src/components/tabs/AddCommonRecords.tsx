@@ -7,22 +7,8 @@ import {
   Paper,
   Checkbox,
   Button,
-  TextField,
   Table,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  InputLabel,
-  Select,
-  MenuItem,
   Container,
-  FormControl,
-  RadioGroup,
-  Radio,
-  FormLabel,
-  FormControlLabel
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
@@ -30,6 +16,8 @@ import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
+import EditModal from '../common/EditModal'
+import MessageModal from '../common/MessageModal'
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -105,8 +93,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
       handleEditRecord(editRecord: IPostDetail) {
         this.props.RecordStore.getEditRecord(editRecord);
-        this.setState({ editShow: true });        
-        console.log(editRecord.function)
+        this.setState({ editShow: true });
+        console.log(editRecord.function);
       }
 
       saveEdit = (e: any) => {
@@ -232,176 +220,40 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             >
               Add selected common records
             </Button>
-
             {/* edit common records */}
             {this.props.RecordStore.allRecords
               .slice()
               .filter(
-                (x: any) =>
-                  x.id === this.props.RecordStore.editcommonrecords.id
+                (x: any) => x.id === this.props.RecordStore.editcommonrecords.id
               )
               .map((postDetail: any) => {
                 return (
-                  <Dialog
+                  <EditModal
+                    record={postDetail}
                     key={postDetail.id}
                     open={this.state.editShow}
-                    onClose={editClose}
+                    functionList={this.props.UniqueStore.functionsDropdown}
+                    categoryList={this.props.UniqueStore.categoryDropdown}
+                    archivalList={this.props.UniqueStore.archivalDropdown}
+                    close={editClose}
+                    saveedit={this.saveEdit}
+                    disabled={true}
+                    change={RecordStore.handleChange}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
-                  >
-                    <DialogTitle
-                      id="example-modal-sizes-title-sm"
-                      style={{ fontSize: 16 }}
-                    >
-                      Edit Common Record
-                    </DialogTitle>
-                    <DialogContent>
-                      <Grid>
-                        <TextField
-                          fullWidth
-                          multiline
-                          rows="2"
-                          id="editType"
-                          label="Record Type"
-                          defaultValue={postDetail.recordtype}
-                          variant="outlined"
-                          onChange={RecordStore.handleChange}
-                          margin="normal"
-                        />
-                      </Grid>
-
-                      <Grid item style={{ marginBottom: 10 }}>
-                        <InputLabel shrink htmlFor="age-label-placeholder">
-                          Record Function
-                        </InputLabel>
-                        <Select
-                          value={RecordStore.editcommonrecords.function}
-                          id="function"
-                          name="function"
-                          style={{ width: 400 }}
-                          onChange={RecordStore.handleChange}
-                        >
-                          <MenuItem>Choose...</MenuItem>
-                          {this.props.UniqueStore.functionsDropdown
-                            .slice()
-                            .map((func: any) => (
-                              <MenuItem key={func.id} value={func.functiontype}>
-                                {func.functiontype}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </Grid>
-
-                      {/* <Grid item style={{ marginTop: 10 }}>
-                        <InputLabel shrink htmlFor="age-label-placeholder">
-                          Record Category
-                        </InputLabel>
-                        <Select
-                          value={RecordStore.editcommonrecords.recordcategoryid}
-                          id="recordcategoryid"
-                          style={{ width: 400 }}
-                          onChange={RecordStore.handleChange}
-                        >
-                          <MenuItem>Choose...</MenuItem>
-                          {this.props.UniqueStore.categoryDropdown
-                            .slice()
-                            .map((category: any) => (
-                              <MenuItem
-                                key={category.id}
-                                value={category.recordcategoryid}
-                              >
-                                {category.recordcategoryid}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </Grid> */}
-
-                      <Grid>
-                        <TextField
-                          fullWidth
-                          multiline
-                          rows="4"
-                          id="editDescription"
-                          label="Description"
-                          defaultValue={postDetail.description}
-                          variant="outlined"
-                          margin="normal"
-                          onChange={RecordStore.handleChange}
-                        />
-                      </Grid>
-
-                      <FormControl component="fieldset">
-                        <FormLabel component="legend">Archival</FormLabel>
-                        <RadioGroup
-                         row 
-                         aria-label="archival" 
-                         name="archival"
-                         defaultValue={RecordStore.editcommonrecords.archival}
-                         >
-                          {this.state.archivalOptions.map((x: string) => {
-                            return (
-                              <FormControlLabel
-                                key={x}
-                                value={x}
-                                control={<Radio color="primary" />}
-                                label={x}
-                                id="archival"
-                                name="archival"
-                                labelPlacement="end"
-                                onChange={RecordStore.changeArchival}
-                              />
-                            );
-                          })}
-                        </RadioGroup>
-                      </FormControl>
-
-                      <Grid>
-                        <TextField
-                          fullWidth
-                          multiline
-                          rows="3"
-                          id="editNotes"
-                          label="Notes"
-                          defaultValue={postDetail.notes}
-                          variant="outlined"
-                          margin="normal"
-                          onChange={RecordStore.handleChange}
-                        />
-                      </Grid>
-                    </DialogContent>
-
-                    <DialogActions>
-                      <Button color="primary" onClick={this.saveEdit}>
-                        Save Changes
-                      </Button>
-                      <Button
-                        onClick={() => this.setState({ editShow: false })}
-                      >
-                        Discard Changes
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
+                  />
                 );
               })}
 
-            <Dialog
+            <MessageModal
               open={this.state.modalShow}
-              onClose={modalClose}
+              close={modalClose}
+              title="Cannot Add this Record"
+              msg="Please select a department."
+              click={() => this.setState({ modalShow: false })}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Please select a department."}
-              </DialogTitle>
-              <DialogActions>
-                <Button
-                  color="primary"
-                  onClick={() => this.setState({ modalShow: false })}
-                >
-                  Close
-                </Button>
-              </DialogActions>
-            </Dialog>
+            />
           </Container>
         );
       }

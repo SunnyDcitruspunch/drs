@@ -31,7 +31,7 @@ class _UniqueStore {
   archivalDropdown = [];
 
   handleChange = (e: any) => {
-    const { id, value, name } = e.target;
+    const { value, name } = e.target;
     this.uniquerecords[name] = value;
   };
 
@@ -53,7 +53,7 @@ class _UniqueStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.categoryDropdown = json));
+      .then(json => (this.categoryDropdown = json))
   }
 
   async fetchArchival() {

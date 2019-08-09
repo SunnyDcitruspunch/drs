@@ -22,11 +22,12 @@ interface IProps {
   record: IPostDetail;
   open: boolean;
   close: () => void;
-  saveedit: () => void;
+  saveedit: (e: any) => void;
   functionList: Array<string>;
   categoryList: Array<string>;
   archivalList: Array<string>;
   change: (e: any) => void;
+  disabled?: boolean
 }
 
 function EditModal(props: IProps) {
@@ -38,7 +39,8 @@ function EditModal(props: IProps) {
     functionList,
     categoryList,
     archivalList,
-    saveedit
+    saveedit,
+    disabled
   } = props;
 
   return (
@@ -90,6 +92,7 @@ function EditModal(props: IProps) {
             Record Category
           </InputLabel>
           <Select
+            disabled={disabled}
             id="recordcategoryid"
             name="recordcategoryid"
             style={{ width: 400 }}

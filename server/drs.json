@@ -15,7 +15,7 @@
     {
       "recordtype": "Catering information data",
       "department": "BYU Catering",
-      "description": "this record is for BYU catering",
+      "description": "this record is for BYU catering..............",
       "notes": "notes",
       "status": "Approved",
       "id": "uLc8Dwp",
@@ -139,17 +139,6 @@
       "archival": "Highly Confidential",
       "status": "Pending",
       "id": "tySiQoY"
-    },
-    {
-      "department": "Information Systems",
-      "recordtype": "this is a record type.",
-      "function": "Faculty",
-      "recordcategoryid": "STU19",
-      "description": "ee22",
-      "notes": "ee",
-      "archival": "Archival",
-      "status": "Approved",
-      "id": "8nCMqzE"
     }
   ],
   "functions": [
@@ -197,9 +186,9 @@
       "function": "Finance",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "today is a sunny day. ",
+      "description": "today is a sunny day :)",
       "archival": "Vital",
-      "notes": "common notes?"
+      "notes": "common notes?????????????"
     },
     {
       "id": "asdfasdf5",

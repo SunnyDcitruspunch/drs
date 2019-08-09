@@ -117,7 +117,7 @@ class _RecordStore implements IRecordStore {
           department: this.selectedDepartment,
           status: "Approved"
         })
-      }).then(res => res.json());
+      })
     }
 
     fetch("http://localhost:3004/records")
@@ -136,7 +136,7 @@ class _RecordStore implements IRecordStore {
     this.editcommonrecords.description = record.description;
     this.editcommonrecords.archival = record.archival;
     this.editcommonrecords.notes = record.notes;
-    console.log(this.editcommonrecords.function)
+    console.log(this.editcommonrecords.function);
   }
 
   //update common records: PATCH
@@ -158,7 +158,15 @@ class _RecordStore implements IRecordStore {
         archival: this.editcommonrecords.archival,
         notes: this.editcommonrecords.notes
       })
-    }).then(res => res.json());
+    });
+
+    fetch("http://localhost:3004/commonrecords")
+      .then(response => {
+        return response.json();
+      })
+      .then(json => (this.allRecords = json))
+      .then(json => (this.allrecordsforSelections = json))
+      .then(() => console.log('updated'))
   }
 
   handleChange = (e: any) => {

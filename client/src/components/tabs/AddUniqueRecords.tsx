@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import {
   Button,
   Container,
-  Dialog,
-  DialogActions,
-  DialogTitle,
   TextField,
   Grid,
   MenuItem,
@@ -20,6 +17,8 @@ import { inject, observer } from "mobx-react";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IDepartmentStore } from "../../stores/DepartmentStore";
 import Snackbar from "../common/Snackbar";
+import MessageModal from "../common/MessageModal";
+import FunctionDropdown from "../common/FunctionDropdown";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -90,27 +89,13 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               />
             </Grid>
 
-            <Grid item style={{ marginBottom: 10 }}>
-              <InputLabel shrink htmlFor="age-label-placeholder">
-                Record Function
-              </InputLabel>
-              <Select
-                id="function"
-                name="function"
-                style={{ width: 500 }}
-                value={UniqueStore.uniquerecords.function}
-                onChange={UniqueStore.handleChange}
-              >
-                <MenuItem>Choose...</MenuItem>
-                {this.props.UniqueStore.functionsDropdown
-                  .slice()
-                  .map((func: any) => (
-                    <MenuItem key={func.id} value={func.functiontype}>
-                      {func.functiontype}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </Grid>
+            <FunctionDropdown
+              id="function"
+              name="function"
+              value={UniqueStore.uniquerecords.function}
+              change={UniqueStore.handleChange}
+              dropdown={this.props.UniqueStore.functionsDropdown}
+            />
 
             <Grid item style={{ marginTop: 10 }}>
               <InputLabel shrink htmlFor="age-label-placeholder">
@@ -195,43 +180,26 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               Submit
             </Button>
 
-            <Dialog
+            <MessageModal
               open={this.state.smShow}
-              onClose={smClose}
+              close={smClose}
+              title="Cannot Add this Record"
+              msg="Please select a department."
+              click={() => this.setState({ smShow: false })}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Please select a department."}
-              </DialogTitle>
-              <DialogActions>
-                <Button
-                  color="primary"
-                  onClick={() => this.setState({ smShow: false })}
-                >
-                  Close
-                </Button>
-              </DialogActions>
-            </Dialog>
+            />
 
-            <Dialog
+            <MessageModal
               open={this.state.needRecordType}
-              onClose={needRecordType}
+              close={needRecordType}
+              title="Cannot Add this Record"
+              msg="Please enter a record type."
+              click={() => this.setState({ needRecordType: false })}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Please enter a record type."}
-              </DialogTitle>
-              <DialogActions>
-                <Button
-                  color="primary"
-                  onClick={() => this.setState({ needRecordType: false })}
-                >
-                  Close
-                </Button>
-              </DialogActions>
-            </Dialog>
+            />
+
             <Snackbar
               _open={this.state.snackbarShow}
               msg="Successfully submitted the record."
