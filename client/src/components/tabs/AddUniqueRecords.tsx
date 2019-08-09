@@ -85,6 +85,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 label="Record Type"
                 style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
+                value={UniqueStore.uniquerecords.recordtype}
                 margin="normal"
               />
             </Grid>
@@ -128,9 +129,10 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 rows="2"
                 id="description"
                 name="description"
-                label="Retention Schedule"
+                label="Retention Description"
                 style={{ width: 500 }}
                 onChange={UniqueStore.handleChange}
+                value={UniqueStore.uniquerecords.description}
                 margin="normal"
               />
             </Grid>
@@ -166,6 +168,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 name="notes"
                 label="Notes"
                 style={{ width: 500 }}
+                value={UniqueStore.uniquerecords.notes}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />

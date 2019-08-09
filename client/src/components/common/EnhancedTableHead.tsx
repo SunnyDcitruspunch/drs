@@ -27,6 +27,7 @@ export interface IEnhancedTableProps {
   order: IOrder;
   orderBy: string;
   rowCount?: number;
+  id: string
 }
 
 export interface IHeadRow {
@@ -51,7 +52,7 @@ const headRows: IHeadRow[] = [
 ];
 
 function EnhancedTableHead(props: IEnhancedTableProps) {
-  const { order, orderBy, onRequestSort } = props;
+  const { order, orderBy, onRequestSort, id } = props;
   const createSortHandler = (property: keyof IData) => (
     event: React.MouseEvent<unknown>
   ) => {
@@ -59,7 +60,7 @@ function EnhancedTableHead(props: IEnhancedTableProps) {
   };
 
   return (
-    <TableHead>
+    <TableHead id={id}>
       <TableRow>
         <TableCell padding="checkbox" />
         {headRows.map(row => (

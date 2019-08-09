@@ -27,7 +27,8 @@ import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import MessageModal from "../common/MessageModal";
 import Snackbar from "../common/Snackbar";
-import EditModal from '../common/EditModal'
+import EditModal from "../common/EditModal";
+import Progress from "../common/Progress";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -48,7 +49,7 @@ interface IState {
   orderBy: string;
   sortDirection: any;
   filterbyFunction: string;
-  snackbar: boolean
+  snackbar: boolean;
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -98,19 +99,20 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       //html2canvas + jsPDF
       makePdf = () => {
         const dept = this.props.DepartmentStore.selectedDepartment;
-        const el: any = document.getElementById("schedule");
+        const schedule: any = document.getElementById("schedule");
 
         if (this.props.DepartmentStore.selectedDepartment !== "") {
-          html2canvas(el, {
-            width: 1200,
-            height: 1200
+          html2canvas(schedule, {
+            width: 2400,
+            height: 2000,
+            x: 120
           }).then(function(canvas: any) {
             var img = canvas.toDataURL("image/png");
             var doc = new jsPDF({
               orientation: "landscape"
             });
             doc.text("Department Retention Schedule: " + dept, 10, 10);
-            doc.addImage(img, "JPEG", -50, 15);
+            doc.addImage(img, "JPEG", -20, 15);
             doc.save("retention.pdf");
           });
         } else {
@@ -138,8 +140,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.setState({ openEdit: false });
         this.setState({ snackbar: true });
         setInterval(() => {
-          this.setState({ snackbar: false })
-        }, 3000)
+          this.setState({ snackbar: false });
+        }, 3000);
       };
 
       closeEdit: any = () => {
@@ -237,14 +239,17 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             >
               Download as PDF
             </Button>
+            {/* <Progress /> */}
+            
             <Paper>
               <Table id="schedule">
                 <EnhancedTableHead
+                  id="tablehead"
                   order={this.state.order}
                   orderBy={this.state.orderBy}
                   onRequestSort={this.handleRequestSort}
                 />
-                <TableBody style={{ fontSize: 11 }}>
+                <TableBody style={{ fontSize: 11 }} id="tablebody">
                   {this.stableSort(
                     DepartmentStore._allRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
@@ -340,7 +345,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               )
               .map((editDetail: IPostDetail) => {
                 return (
-                  <EditModal 
+                  <EditModal
                     key={editDetail.id}
                     record={editDetail}
                     open={this.state.openEdit}
@@ -353,7 +358,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                   />
                 );
               })}
-            <Snackbar _open={this.state.snackbar}  msg="Successfully edited the record." />
+            <Snackbar
+              _open={this.state.snackbar}
+              msg="Successfully edited the record."
+            />
           </Container>
         );
       }

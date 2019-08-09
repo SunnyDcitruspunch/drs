@@ -159,6 +159,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             <Paper style={{ width: "100%", overflowX: "auto" }}>
               <Table>
                 <EnhancedTableHead
+                id="tablehead"
                   order={this.state.order}
                   orderBy={this.state.orderBy}
                   onRequestSort={this.handleRequestSort}

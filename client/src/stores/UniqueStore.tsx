@@ -77,6 +77,13 @@ class _UniqueStore {
       },
       body: JSON.stringify(this.uniquerecords)
     });
+
+    this.uniquerecords.recordtype = ""
+    this.uniquerecords.function = ""
+    this.uniquerecords.recordcategoryid = ""
+    this.uniquerecords.description = ""
+    this.uniquerecords.archival = ""
+    this.uniquerecords.notes = ""
   }
 }
 

@@ -120,7 +120,7 @@
     },
     {
       "department": "Computer Science",
-      "recordtype": "C++ exam 23456",
+      "recordtype": "C++ exam 234567",
       "function": "Miscellaneous",
       "recordcategoryid": "STU02",
       "description": "234",
@@ -137,8 +137,52 @@
       "description": "123",
       "notes": "123",
       "archival": "Highly Confidential",
-      "status": "Pending",
+      "status": "Approved",
       "id": "tySiQoY"
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "rt",
+      "function": "Faculty",
+      "recordcategoryid": "STU19",
+      "description": "sd",
+      "notes": "sd",
+      "archival": "Archival",
+      "status": "Approved",
+      "id": "W5ulFkw"
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "e",
+      "function": "Finance",
+      "recordcategoryid": "ADM01",
+      "description": "e",
+      "notes": "e",
+      "archival": "Archival",
+      "status": "Approved",
+      "id": "n61_9qS"
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "df",
+      "function": "Faculty",
+      "recordcategoryid": "FIN10",
+      "description": "df",
+      "notes": "ij",
+      "archival": "Archival",
+      "status": "Approved",
+      "id": "d3gUNg9"
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "x",
+      "function": "Human Resources",
+      "recordcategoryid": "STU02",
+      "description": "x",
+      "notes": "x",
+      "archival": "Archival",
+      "status": "Approved",
+      "id": "Tc1SHPb"
     }
   ],
   "functions": [
@@ -188,7 +232,7 @@
       "recordtype": "Academic unit reviews / educational support unit reviews.",
       "description": "today is a sunny day :)",
       "archival": "Vital",
-      "notes": "common notes?????????????"
+      "notes": "common notes?"
     },
     {
       "id": "asdfasdf5",
