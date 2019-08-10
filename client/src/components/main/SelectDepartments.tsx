@@ -7,7 +7,7 @@ import {
   MenuItem
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore } from "../../stores/DepartmentStore";
+import { IDepartmentStore, DepartmentStore } from "../../stores/DepartmentStore";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -33,11 +33,15 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
         this.setState({ selecteddept: "" });
       }
 
+      /*
+        !TODO: why have 2 same functions??????
+      */
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
         this.setState({ selecteddept: value });
         this.props.DepartmentStore.handleSelected(value);
         this.props.RecordStore.handleSelected(value);
+        this.props.DepartmentStore.handleSelectedCommonRecords(value)
       };
 
       onChange = (e: MouseEvent) => {

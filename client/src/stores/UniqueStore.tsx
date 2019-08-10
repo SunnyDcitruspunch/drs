@@ -1,8 +1,8 @@
 import { observable, action, decorate } from "mobx";
-import { IPostDetail } from "./DepartmentStore";
+import { IRecord } from "./DepartmentStore";
 
 export interface IUniqueStore {
-  uniquerecords: IPostDetail;
+  uniquerecords: IRecord;
   functionsDropdown: Array<string>;
   categoryDropdown: Array<string>;
   archivalDropdown: Array<string>;
@@ -16,14 +16,14 @@ export interface IUniqueStore {
 }
 
 class _UniqueStore {
-  uniquerecords: IPostDetail = {
+  uniquerecords: IRecord = {
     department: "",
     recordtype: "",
     function: "",
     recordcategoryid: "",
     description: "",
-    notes: "",
-    archival: "",
+    comments: "",
+    classification: "",
     status: "Pending"
   };
   functionsDropdown = [];
@@ -37,7 +37,7 @@ class _UniqueStore {
 
   changeArchival = (e: any) => {
     const { value } = e.target;
-    this.uniquerecords.archival = value;
+    this.uniquerecords.classification = value;
   };
 
   async fetchFunctions() {
@@ -82,8 +82,8 @@ class _UniqueStore {
     this.uniquerecords.function = ""
     this.uniquerecords.recordcategoryid = ""
     this.uniquerecords.description = ""
-    this.uniquerecords.archival = ""
-    this.uniquerecords.notes = ""
+    this.uniquerecords.classification = ""
+    this.uniquerecords.comments = ""
   }
 }
 

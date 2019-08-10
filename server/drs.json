@@ -19,7 +19,7 @@
       "notes": "notes",
       "status": "Approved",
       "id": "uLc8Dwp",
-      "recordcategoryid": "MISC9",
+      "recordcategoryid": "common",
       "code": "U2",
       "departmentnumber": "909",
       "function": "Faculty",
@@ -89,10 +89,10 @@
       "department": "Information Systems",
       "function": "Information Technology",
       "recordcategoryid": "common",
+      "code": "CHUM1100",
       "description": "here is a retention schedule.",
       "notes": "here is a note.",
       "archival": "Highly Confidential",
-      "code": "N/A",
       "status": "Approved",
       "id": "4eGiyjd"
     },
@@ -134,6 +134,7 @@
       "recordtype": "123",
       "function": "Information Technology",
       "recordcategoryid": "common",
+      "code": "CHUM1100",
       "description": "123",
       "notes": "123",
       "archival": "Highly Confidential",
@@ -189,44 +190,12 @@
       "recordtype": "Budget Reports (monthly).",
       "function": "Finance",
       "recordcategoryid": "common",
+      "code": "CHUM1100",
       "description": "monthly budget report",
       "notes": "some notes.",
       "archival": "Archival",
       "status": "Approved",
       "id": "9XPtRGo"
-    },
-    {
-      "department": "Honor Code Office",
-      "recordtype": "s",
-      "function": "Information Technology",
-      "recordcategoryid": "ADM01",
-      "description": "s",
-      "notes": "s",
-      "archival": "Archival",
-      "status": "Pending",
-      "id": "tx90VnL"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "s",
-      "function": "",
-      "recordcategoryid": "",
-      "description": "",
-      "notes": "",
-      "archival": "",
-      "status": "Pending",
-      "id": "dGppGZR"
-    },
-    {
-      "department": "Computer Science",
-      "recordtype": "s",
-      "function": "",
-      "recordcategoryid": "",
-      "description": "",
-      "notes": "",
-      "archival": "",
-      "status": "Pending",
-      "id": "5yUih6V"
     },
     {
       "department": "Honor Code Office",
@@ -268,81 +237,465 @@
   "functions": [
     {
       "id": "1",
-      "functiontype": "Administrative"
+      "functiontype": "Academic Program & Student"
     },
     {
       "id": "2",
-      "functiontype": "Athletics"
+      "functiontype": "Administrative"
     },
     {
       "id": "3",
-      "functiontype": "Faculty"
+      "functiontype": "Employment"
     },
     {
       "id": "4",
-      "functiontype": "Miscellaneous"
+      "functiontype": "Faculty"
     },
     {
       "id": "5",
-      "functiontype": "Finance"
-    },
-    {
-      "id": "6",
-      "functiontype": "Information Technology"
-    },
-    {
-      "id": "7",
-      "functiontype": "Human Resources"
-    },
-    {
-      "id": "8",
-      "functiontype": "Library and Archives"
-    },
-    {
-      "id": "9",
-      "functiontype": "Risk Management"
+      "functiontype": "Financial, Budget, and Payroll"
     }
   ],
   "commonrecords": [
     {
-      "id": "sadfasdf",
+      "id": "1",
       "code": "CACD1000",
-      "function": "Finance",
-      "recordcategoryid": "common",
+      "function": "Academic",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "today is a sunny day :)",
-      "archival": "Highly Confidential",
-      "notes": "common notes?"
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": "Yes",
+      "comments": ""
     },
     {
-      "id": "asdfasdf5",
+      "id": "2",
+      "code": "CACD1100",
+      "function": "Academic",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "3",
+      "code": "CACD1200",
+      "function": "Academic",
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "4",
+      "code": "CACD1400",
+      "function": "Academic",
+      "recordtype": "Course materials & outlines (may include syllabi, course descriptions, and original exams.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not already retained in Learning Suite or Syllabi.byu.edu.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "5",
+      "code": "CACD1600",
+      "function": "Academic",
+      "recordtype": "Course/Faculty evaluations.",
+      "description": "Retain indefinitely, if not stored in online ratings system.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "6",
+      "code": "CACD1800",
+      "function": "Academic",
+      "recordtype": "Curriculum records (may include course proposals, course revisions, course requests, and curriculum committee minutes).",
+      "description": "Retain permanently, if not already maintained in online system, e.g. Learning Suite. Submit curriculum committee minutes to University Records Center for Archival review.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "7",
+      "code": "CACD1900",
+      "function": "Academic",
+      "recordtype": "Exams (administered) and coursework not returned to students.",
+      "description": "Retain 1 year after end of semester administered, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "8",
+      "code": "CACD2300",
+      "function": "Academic",
+      "recordtype": "Senior surveys & summaries (Graduating Student Exit Interviews).",
+      "description": "Retain surveys for 5 years, if not stored online by senior survey system, then destroy.  Transfer 1 copy of summaries to the University Records Center for Archival review.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "9",
+      "code": "CACD2400",
+      "function": "Academic",
+      "recordtype": "Student files retained by dept. (Academic Advisement Records) â graduate & undergrad.",
+      "description": "Retain 5 years after graduation or 8 years after last enrolled, then destroy. (Retain records associated with licensing and professional certifications permanently).",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "10",
       "code": "CHUM1100",
       "function": "Employment",
-      "recordcategoryid": "common",
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "archival": "Highly Confidential",
-      "notes": "common notes"
+      "classification": "No",
+      "comments": ""
     },
     {
-      "id": "3dfdfdfdf2",
+      "id": "11",
+      "code": "CHUM1200",
+      "function": "Employment",
+      "recordtype": "Recruitment files, including applications, application notes and search committee records.",
+      "description": "If hired, add to employeeâs file. If not hired, destroy initial application, resume and letters of reference in 2 years.  Retain remaining information, interview notes and committee records for 2 years, then destroy when no longer needed by department.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "12",
+      "code": "CHUM1400",
+      "function": "Employment",
+      "recordtype": "Employee files retained by Department â Admin, Staff and Students.",
+      "description": "Retain information originated by department indefinitely. Destroy remaining information 6 years after termination.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "13",
+      "code": "CHUM1600",
+      "function": "Employment",
+      "recordtype": "Employee files retained by department â Students.",
+      "description": "Retain information originated by department indefinitely. Destroy remaining information 6 years after departure from department.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "14",
+      "code": "CADM1100",
+      "function": "Administrative",
+      "recordtype": "Annual and summary reports.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival Review, if not submitted to college/division.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "15",
+      "code": "CADM1200",
+      "function": "Administrative",
+      "recordtype": "Contracts and agreements.",
+      "description": "Retain 6 years after expiration of contract or agreement, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "16",
+      "code": "CADM1400",
+      "function": "Administrative",
+      "recordtype": "Events â On/Off-campus activities and events. (may include press releases, newspaper clippings, photographs, recordings, presentation materials and handouts, schedules of speakers and activities, registration and attendee lists, etc.).",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "17",
+      "code": "CADM1500",
+      "function": "Administrative",
+      "recordtype": "Meeting Minutes, agendas and correspondence. Records documenting decisions and significant actions. Normally from deans, department heads and above.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "18",
+      "code": "CADM1900",
+      "function": "Administrative",
+      "recordtype": "Policies and Procedures â department.",
+      "description": "Retain 6 years after superseded, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "19",
+      "code": "CADM2100",
+      "function": "Administrative",
+      "recordtype": "Projects and studies.",
+      "description": "Retain for 3 years, then transfer 1 copy of final, published reports and studies to the University Records Center for Archival review.  Destroy remaining information.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "20",
+      "code": "CADM2200",
+      "function": "Administrative",
+      "recordtype": "Routine administrative support: weekly staff meeting notes, calendars, memos, mailing lists, schedules and routine correspondence.",
+      "description": "Destroy when no longer needed by department. These records are normally retained by department for 3 years.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "21",
+      "code": "CADM2300",
+      "function": "Administrative",
+      "recordtype": "Strategic planning records.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "22",
+      "code": "CFAC1000",
+      "function": "Faculty",
+      "recordtype": "Faculty employment files (including contracts, awards, and publications).",
+      "description": "Retain Indefinitely. Awards and publications are available online.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "23",
+      "code": "CFAC1100",
+      "function": "Faculty",
+      "recordtype": "Faculty annual reviews (Faculty Performance Development Plans).",
+      "description": "Retain Indefinitely.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "24",
       "code": "CFAC1200",
       "function": "Faculty",
-      "recordcategoryid": "common",
-      "recordtype": "Rank & Status records.",
-      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. “Paper Only” copies should be retained by department indefinitely.",
-      "archival": "Highly Confidential",
-      "notes": "common notes"
+      "recordtype": "Faculty biographical information, CVs, and awards.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not retained in Faculty Profile System.",
+      "classification": "Yes",
+      "comments": ""
     },
     {
-      "id": "30sdfsfs",
+      "id": "25",
+      "code": "CFAC1300",
+      "function": "Faculty",
+      "recordtype": "Faculty personal & professional papers (including presentation notes, career-related information).",
+      "description": "Not to be submitted to University Records Center. Contact Special Collections (dainan_skeem@byu.edu) for possible inclusion into Professional Papers program.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "26",
+      "code": "CFAC1500",
+      "function": "Faculty",
+      "recordtype": "Rank & Status records.",
+      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "27",
+      "code": "CFAC1600",
+      "function": "Faculty",
+      "recordtype": "Research data (including questionnaires and surveys).",
+      "description": "Research data is to be retained by faculty, as specified by grant or research project, normally 5 years, then destroy. Do not submit to the University Records Center.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "28",
+      "code": "CFAC1700",
+      "function": "Faculty",
+      "recordtype": "Research proposals and grants.",
+      "description": "Retain for 6 years after close of contract (retain longer if specified by grant or research project), then destroy. Retain denied proposals for 3 years, then destroy. These records are normally retained by ORCA and the Deanâs Office.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "29",
+      "code": "CFIN1450",
+      "function": "Financial",
+      "recordtype": "Deposits, including deposit reports and cash receipts (CASHNet).",
+      "description": "Retain supporting documentation from CASHNet deposits and transactions for current year + 6, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "30",
+      "code": "CFIN1200",
+      "function": "Financial",
+      "recordtype": "Budget adjustments, submitted by departments.",
+      "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
+      "classification": "No"
+    },
+    {
+      "id": "31",
+      "code": "CFIN1300",
+      "function": "Financial",
+      "recordtype": "Budget planning (annual financial planning documentation).",
+      "description": "Retain for 6 years, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "32",
+      "code": "CFIN1400",
+      "function": "Financial",
+      "recordtype": "Budget reports (monthly).",
+      "description": "These reports are available online and do not need to be printed or retained by departments.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "33",
+      "code": "CFIN1500",
+      "function": "Financial",
+      "recordtype": "Endowment accounts.",
+      "description": "Retain department endowment records permanently.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "34",
+      "code": "CFIN1600",
+      "function": "Financial",
+      "recordtype": "Fundraising records.",
+      "description": "Retain for current year + 6, then transfer 1 copy of summary report of activity to the University Records Center for Archival review, then destroy remaining records.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "35",
+      "code": "CFIN2150",
+      "function": "Financial",
+      "recordtype": "Restricted gift records.",
+      "description": "Retain for current year + 6 beyond when Donor Restricted Funds have been fully expended, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "36",
+      "code": "CFIN1800",
+      "function": "Financial",
+      "recordtype": "General accounting records, including accounts payable, accounts receivable, cash management, bank statements, cancelled checks, check registers, interuniversity accounting, general ledgers.",
+      "description": "Retain for current year + 6, then destroy. If these receipts have been submitted to Y-Expense, retain for only 1 year.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "37",
+      "code": "CFIN1900",
+      "function": "Financial",
+      "recordtype": "Inventory records and logs of capital equipment.",
+      "description": "Retain for current year + 6, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "38",
+      "code": "CFIN2000",
+      "function": "Financial",
+      "recordtype": "Journal Entry supporting documentation submitted by department.",
+      "description": "Retain supporting documentation for current year + 1, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "39",
+      "code": "CFIN2100",
+      "function": "Financial",
+      "recordtype": "Purchasing & travel receipts, expense receipts, P-Card receipts, Fast Track documentation and Y-Expense documentation.",
+      "description": "Upload into Y-Expense, retain for 1 year, then destroy. It is recommended to save some original receipts for warranty purposes or to document foreign travel.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "40",
+      "code": "CFIN2200",
+      "function": "Financial",
+      "recordtype": "Scholarships records.",
+      "description": "For records not stored in online scholarship system, retain awarded scholarships for 6 years after graduation, retain denied scholarship applications for 2 years, and retain awarded athletic scholarships for 10 years, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "41",
+      "code": "CFIN2500",
+      "function": "Financial",
+      "recordtype": "Sick and vacation tracking documentation retained by department.",
+      "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "42",
+      "code": "CFIN2600",
+      "function": "Financial",
+      "recordtype": "Work orders, BYU Store orders, print & mail services, physical facilities billings, OIT billings, central stores, testing services, and other department copies of records maintained by the originating departments.",
+      "description": "Retain copies of internal billing records until no longer needed by department, then destroy. These duplicate records are normally retained no longer than 2 years.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "43",
+      "code": "CFIN2700",
+      "function": "Financial",
+      "recordtype": "Y-Time exceptions (missed time punches) documentation retained by department.",
+      "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "44",
+      "code": "CACD2500",
+      "function": "Academic",
+      "recordtype": "Student certifications and licensing.",
+      "description": "Retain indefinitely.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "45",
+      "code": "CACD2200",
+      "function": "Academic",
+      "recordtype": "Internship Records.",
+      "description": "Retain 5 years, then destroy.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "46",
+      "code": "CFAC1800",
+      "function": "Faculty",
+      "recordtype": "Research (published) and publications.",
+      "description": "Submit published research to ScholarsArchive. Do not transfer to the University Records Center.",
+      "classification": "No",
+      "comments": ""
+    },
+    {
+      "id": "47",
+      "code": "CADM1350",
+      "function": "Administrative",
+      "recordtype": "Department Newsletters and Histories",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "48",
+      "code": "CADM2150",
+      "function": "Administrative",
+      "recordtype": "Publications produced by department. (including: advertisements & flyers, brochures,  newsletters, magazines, newspaper clippings, posters, programs, published speeches).",
+      "description": "Permanent. Transfer 1 copy to University Records Center for Archival review.",
+      "classification": "Yes",
+      "comments": ""
+    },
+    {
+      "id": "49",
       "code": "CADM2350",
       "function": "Administrative",
-      "recordcategoryid": "common",
       "recordtype": "Waivers (Risk Management waivers).",
-      "description": "test description 121212",
-      "archival": "Vital",
-      "notes": "common notes"
+      "description": "Retain permanently.",
+      "classification": "No",
+      "comments": ""
     }
   ],
   "category": [

@@ -6,52 +6,70 @@ export interface IDepartmentStore {
   fetchAll: () => void;
   updateEditID: any;
   selectedDepartment: string;
+  selectedCommonRecords: Array<IRecord>
   deleteID: string;
   deleteRecord: () => void;
   updateRecord: () => void;
-  _allRecords: Array<IPostDetail>;
+  _allRecords: Array<IRecord>;
   allRecords: Array<any>
   allDepartments: Array<any>;
   isLoading: boolean;
-  editrecord: IPostDetail;
+  editrecord: IRecord;
   handleSelected: (edpt: string) => void;
   handleChange: (e: any) => void;
+  handleSelectedCommonRecords: (dept: string) => void
+  CommonRecords: IRecord[]
 }
 
-export type IPostDetail = {
+export type IRecord = {
   id?: string;
-  code?:string | any
+  code?: string;
   department: string;
   recordtype: string;
   function: string;
   recordcategoryid: string;
   description: string;
-  notes: string;
-  archival: string;
+  comments: string;
+  classification: string;
   status: string;
 };
 
 class _DepartmentStore implements IDepartmentStore {
   selectedDepartment = "";
+  selectedCommonRecords = []
   allDepartments = [];
   _allRecords = [];
   isLoading = false;
   deleteID = "";
+  CommonRecords = []
 
-  editrecord: IPostDetail = {
+  editrecord: IRecord = {
     id: "",
     department: "",
     recordtype: "",
     function: "",
     recordcategoryid: "",
     description: "",
-    notes: "",
-    archival: "",
+    comments: "",
+    classification: "",
     status: ""
   };
 
   handleSelected(dept: string) {
     this.selectedDepartment = dept;
+  }
+
+  async fetchCommonRecords() {
+    await fetch("http://localhost:3004/commonrecords")
+      .then(response => {
+        return response.json();
+      })
+      .then(json => (this.CommonRecords = json))
+  }
+
+  handleSelectedCommonRecords(dept: string) {
+    this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept && r.recordcategoryid === 'common')
+    // console.log(this.selectedCommonRecords)
   }
 
   fetchAll = () => {
@@ -81,14 +99,14 @@ class _DepartmentStore implements IDepartmentStore {
     this.editrecord[name] = value
   };
 
-  updateEditID(postDetail: IPostDetail) {
+  updateEditID(postDetail: IRecord) {
     this.editrecord.id = postDetail.id
     this.editrecord.recordtype = postDetail.recordtype
     this.editrecord.function = postDetail.function
     this.editrecord.recordcategoryid = postDetail.recordcategoryid
     this.editrecord.description = postDetail.description
-    this.editrecord.notes = postDetail.notes
-    this.editrecord.archival = postDetail.archival
+    this.editrecord.comments = postDetail.comments
+    this.editrecord.classification = postDetail.classification
   }
 
   async deleteRecord() {
@@ -109,8 +127,8 @@ class _DepartmentStore implements IDepartmentStore {
     this.allRecords.find((r) => r.id === this.editrecord.id).function = this.editrecord.function
     this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid = this.editrecord.recordcategoryid
     this.allRecords.find((r) => r.id === this.editrecord.id).description = this.editrecord.description
-    this.allRecords.find((r) => r.id === this.editrecord.id).notes = this.editrecord.notes
-    this.allRecords.find((r) => r.id === this.editrecord.id).archival = this.editrecord.archival
+    this.allRecords.find((r) => r.id === this.editrecord.id).comments = this.editrecord.comments
+    this.allRecords.find((r) => r.id === this.editrecord.id).classification = this.editrecord.classification
 
     const baseUrl = "http://localhost:3004/records";
     await fetch(`${baseUrl}/${this.editrecord.id}`, {
@@ -124,8 +142,8 @@ class _DepartmentStore implements IDepartmentStore {
         function: this.allRecords.find((r) => r.id === this.editrecord.id).function,
         recordcategoryid: this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid,
         description: this.allRecords.find((r) => r.id === this.editrecord.id).description,
-        notes: this.allRecords.find((r) => r.id === this.editrecord.id).notes,
-        archival: this.allRecords.find((r) => r.id === this.editrecord.id).archival
+        comments: this.allRecords.find((r) => r.id === this.editrecord.id).comments,
+        classification: this.allRecords.find((r) => r.id === this.editrecord.id).classification
       })
     })
   }

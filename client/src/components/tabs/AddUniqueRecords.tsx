@@ -167,11 +167,11 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               <TextField
                 multiline
                 rows="4"
-                id="notes"
-                name="notes"
+                id="comments"
+                name="comments"
                 label="Notes"
                 style={{ width: 500 }}
-                value={UniqueStore.uniquerecords.notes}
+                value={UniqueStore.uniquerecords.comments}
                 onChange={UniqueStore.handleChange}
                 margin="normal"
               />

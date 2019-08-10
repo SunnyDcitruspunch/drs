@@ -12,13 +12,14 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { IRecordStore } from "../../stores/RecordStore";
-import { IPostDetail } from "../../stores/DepartmentStore";
+import { IRecord, IDepartmentStore, DepartmentStore } from "../../stores/DepartmentStore";
 import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import Snackbar from "../common/Snackbar";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 
 interface IProps {
   RecordStore: IRecordStore;
+  DepartmentStore: IDepartmentStore
 }
 
 interface IState {
@@ -54,7 +55,7 @@ const headrows: IHeadRow[] = [
   { id: "notes", label: "Comments" }
 ];
 
-const AdminTab = inject("RecordStore")(
+const AdminTab = inject("RecordStore", "DepartmentStore")(
   observer(
     class AdminTab extends Component<IProps, IState> {
       constructor(props: IProps) {
@@ -70,7 +71,7 @@ const AdminTab = inject("RecordStore")(
       }
 
       componentDidMount() {
-        this.props.RecordStore.fetchPendings();
+        this.props.DepartmentStore.fetchAllRecords()
       }
 
       onSelect = (e: any) => {
@@ -125,7 +126,7 @@ const AdminTab = inject("RecordStore")(
       };
 
       render() {
-        const { RecordStore }: IProps = this.props;
+        const { RecordStore, DepartmentStore }: IProps = this.props;
 
         return (
           <Container>
@@ -140,10 +141,10 @@ const AdminTab = inject("RecordStore")(
                   onRequestSort={this.handleRequestSort}
                 />
                 <TableBody>
-                  {RecordStore.pendingRecords
+                  {DepartmentStore._allRecords
                     // .slice()
-                    .filter((x: IPostDetail) => x.status === "Pending")
-                    .map((pendings: IPostDetail) => (
+                    .filter((x: IRecord) => x.status === "Pending")
+                    .map((pendings: IRecord) => (
                       <TableRow hover key={pendings.id}>
                         <TableCell
                           component="th"
@@ -167,7 +168,7 @@ const AdminTab = inject("RecordStore")(
                           {pendings.description}
                         </TableCell>
                         <TableCell style={styles.tableStyle}>
-                          {pendings.notes}
+                          {pendings.comments}
                         </TableCell>
                       </TableRow>
                     ))}

@@ -12,23 +12,13 @@ import {
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
-import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
+import { IDepartmentStore, IRecord, DepartmentStore } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import EditModal from "../common/EditModal";
 import MessageModal from "../common/MessageModal";
 import { IHeadRow } from "../common/EnhancedTableHead";
-
-function desc<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -43,10 +33,10 @@ interface IState {
   selectrecord: any;
   selectedfunction: string;
   selectedcategory: string;
-  archivalOptions: Array<string>;
   order: IOrder;
   orderBy: string;
   sortDirection: string;
+  selectedCommonRecords: IRecord[]
 }
 
 interface Document {
@@ -67,6 +57,16 @@ const headrows: IHeadRow[] = [
   { id: "notes", label: "Comments" }
 ];
 
+function desc<T>(a: T , b: T , orderBy: keyof T) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
 const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
   observer(
     class CommonRecords extends Component<IProps, IState> {
@@ -80,15 +80,16 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           selectrecord: [],
           selectedfunction: "",
           selectedcategory: "",
-          archivalOptions: ["Archival", "Vital", "Highly Confidential"],
           order: "asc",
           orderBy: "recordtype",
-          sortDirection: "asc"
+          sortDirection: "asc",
+          selectedCommonRecords: []
         };
       }
 
       componentDidMount() {
-        this.props.RecordStore.fetchCommonRecords();
+        this.props.RecordStore.fetchCommonRecords()
+        // this.props.DepartmentStore.fetchAllRecords()        
       }
 
       onSelect = (e: any) => {
@@ -106,7 +107,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         }
       };
 
-      handleEditRecord(editRecord: IPostDetail) {
+      handleEditRecord(editRecord: IRecord) {
         this.props.RecordStore.getEditRecord(editRecord);
         this.setState({ editShow: true });
         console.log(editRecord.function);
@@ -138,7 +139,28 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           : (a, b) => -desc(a, b, orderBy);
       }
 
-      stableSort<T>(array: T[], cmp: (a: T, b: T) => number) {
+      // stableSort<T>(array: IRecord[], cmp: (a: T, b: T) => number) {
+      //   // const stabilizedThis = 
+      //   let array2 = []
+      //   for (let i = 0; i < this.props.DepartmentStore.selectedCommonRecords.length; i++){
+      //     array
+      //     .filter((r: IRecord) => r.code !== this.props.DepartmentStore.selectedCommonRecords[i].code)  
+      //     .map(
+      //       (el: any, index: any) => [el, index] as [T, number]
+      //     );
+      //     array2.push(array[i])
+      //   }       
+
+      //   const stabilizedThis = array2
+      //   stabilizedThis.sort((a: any, b: any) => {
+      //     const order = cmp(a[0], b[0]);
+      //     if (order !== 0) return order;
+      //     return a[1] - b[1];
+      //   });
+      //   return stabilizedThis.map((el: any) => el[0]);
+      // }
+      
+      stableSort<T>(array: IRecord[], cmp: (a: T, b: T) => number) {
         const stabilizedThis = array.map(
           (el: any, index: any) => [el, index] as [T, number]
         );
@@ -182,11 +204,11 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 />
                 <TableBody>
                   {this.stableSort(
-                    RecordStore.allRecords,
+                    this.props.RecordStore.CommonRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
-                    .map((record: IPostDetail) => {
+                    .map((record: IRecord) => {
                       return (
                         <TableRow key={record.id} {...record}>
                           <TableCell>
@@ -200,6 +222,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                               value={record.id}
                               onClick={this.onSelect}
                               color="primary"
+                              disabled={false}
                             />
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
@@ -213,14 +236,11 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                           </TableCell>
 
                           <TableCell style={{ fontSize: 10 }}>
-                            {record.archival}
+                            {record.classification}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
-                            {record.notes}
+                            {record.comments}
                           </TableCell>
-                          {/* <TableCell style={{ fontSize: 10 }}>
-                            {record.status}
-                          </TableCell> */}
                         </TableRow>
                       );
                     })}
@@ -236,10 +256,10 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               Add selected common records
             </Button>
             {/* edit common records */}
-            {this.props.RecordStore.allRecords
+            {this.props.DepartmentStore._allRecords
               .slice()
               .filter(
-                (x: any) => x.id === this.props.RecordStore.editcommonrecords.id
+                (x: any) => x.id === this.props.RecordStore.record.id
               )
               .map((postDetail: any) => {
                 return (

@@ -16,10 +16,10 @@ import {
   FormLabel,
   FormControlLabel
 } from "@material-ui/core";
-import { IPostDetail } from "../../stores";
+import { IRecord } from "../../stores";
 
 interface IProps {
-  record: IPostDetail;
+  record: IRecord;
   open: boolean;
   close: () => void;
   saveedit: (e: any) => void;
@@ -128,8 +128,8 @@ function EditModal(props: IProps) {
           <RadioGroup
             row
             aria-label="archival"
-            name="archival"
-            defaultValue={record.archival}
+            name="classification"
+            defaultValue={record.classification}
           >
             {archivalList.map((x: any) => {
               return (
@@ -139,8 +139,8 @@ function EditModal(props: IProps) {
                   control={<Radio color="primary" />}
                   label={x.archive}
                   labelPlacement="end"
-                  id="archival"
-                  name="archival"
+                  id="classification"
+                  name="classification"
                   onClick={change}
                 />
               );
@@ -153,10 +153,10 @@ function EditModal(props: IProps) {
             fullWidth
             multiline
             rows="3"
-            id="notes"
-            name="notes"
-            label="Notes"
-            defaultValue={record.notes}
+            id="comments"
+            name="comments"
+            label="Comments"
+            defaultValue={record.comments}
             variant="outlined"
             margin="normal"
             onChange={change}

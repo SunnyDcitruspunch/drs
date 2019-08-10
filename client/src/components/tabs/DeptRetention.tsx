@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import { IDepartmentStore, IPostDetail } from "../../stores/DepartmentStore";
+import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
@@ -99,7 +99,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.props.UniqueStore.fetchArchival();
       };
 
-      showEditModal(postDetail: IPostDetail) {
+      showEditModal(postDetail: IRecord) {
         if (postDetail.recordcategoryid === "common") {
           this.setState({ cannotEdit: true });
         } else {
@@ -162,7 +162,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         });
       };
 
-      stableSort<T>(array: IPostDetail[], cmp: (a: T, b: T) => number) {
+      stableSort<T>(array: IRecord[], cmp: (a: T, b: T) => number) {
         const stabilizedThis = array.map(
           (el: any, index: any) => [el, index] as [T, number]
         );
@@ -256,8 +256,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
-                    .filter((x: IPostDetail) => x.department === department)
-                    .map((postDetail: IPostDetail) => {
+                    .filter((x: IRecord) => x.department === department)
+                    .map((postDetail: IRecord) => {
                       return (
                         <TableRow hover key={postDetail.id}>
                           <TableCell style={{ width: 100 }}>
@@ -283,10 +283,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                             {postDetail.description}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.archival}
+                            {postDetail.classification}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.notes}
+                            {postDetail.comments}
                           </TableCell>
                           <TableCell style={{ fontSize: 10 }}>
                             {postDetail.status}
@@ -341,7 +341,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               .filter(
                 (x: any) => x.id === this.props.DepartmentStore.editrecord.id
               )
-              .map((editDetail: IPostDetail) => {
+              .map((editDetail: IRecord) => {
                 return (
                   <EditModal
                     key={editDetail.id}
