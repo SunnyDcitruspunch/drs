@@ -32,10 +32,7 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
 
         this.setState({ selecteddept: "" });
       }
-
-      /*
-        !TODO: why have 2 same functions??????
-      */
+      
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
         this.setState({ selecteddept: value });

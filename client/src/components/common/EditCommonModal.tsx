@@ -9,6 +9,7 @@ import {
   Grid
 } from "@material-ui/core";
 import { IRecord } from "../../stores";
+import { observer } from "mobx-react";
 
 // Not useing this modal for now. 
 
@@ -23,7 +24,7 @@ interface IProps {
   record: IRecord
 }
 
-function EditCommonModal(props: IProps) {
+const EditCommonModal = observer((props: IProps) => {
   const {
     change,
     defaultvalue,
@@ -70,6 +71,6 @@ function EditCommonModal(props: IProps) {
       </DialogActions>
     </Dialog>
   );
-}
+})
 
 export default EditCommonModal;

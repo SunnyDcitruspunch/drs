@@ -3,7 +3,6 @@ import { IRecord } from "./DepartmentStore";
 
 export interface IRecordStore {
   CommonRecords: Array<IRecord>;
-  // pendingRecords: Array<any>;
   selectedDepartment: string;
   selectedCommonRecords: Array<String>;
   record: IRecord;
@@ -12,15 +11,12 @@ export interface IRecordStore {
   updateCommonRecord: () => void;
   addCommonRecord: (select: string[]) => void;
   handleChange: (e: any) => void;
-  // fetchPendings: () => void;
   approveSelectedRecords: (e: any) => void;
-  // showCommonRecords: any;
   changeArchival: (e: any) => void;
 }
 
 class _RecordStore implements IRecordStore {
   CommonRecords = []; 
-  // pendingRecords = [];
   selectedDepartment = "";
   selectedCommonRecords: string[] = [];
 
@@ -133,7 +129,6 @@ class _RecordStore implements IRecordStore {
     this.record.description = record.description;
     this.record.classification = record.classification;
     this.record.comments = record.comments;
-    console.log(this.record.function);
   }
 
   //update common records: PATCH

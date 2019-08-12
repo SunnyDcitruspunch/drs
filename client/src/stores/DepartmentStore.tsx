@@ -121,11 +121,8 @@ class _DepartmentStore {
   }
 
   handleChange = (e: any) => {
-    const { id, value, name } = e.target;
+    const { value, name } = e.target;
     this.editrecord[name] = value
-    // this.editrecord[id] = value
-    console.log(name)
-    console.log(this.editrecord.recordcategoryid)
     this.allRecords.find((r) => r.id === this.editrecord.id).function = this.editrecord.function
     this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid = this.editrecord.recordcategoryid
   };

@@ -5,6 +5,7 @@ import {
   TableRow,
   TableSortLabel
 } from "@material-ui/core";
+import { observer } from "mobx-react";
 
 export type IOrder = "asc" | "desc";
 
@@ -36,7 +37,7 @@ export interface IHeadRow {
   label: string;
 }
 
-function EnhancedTableHead(props: IEnhancedTableProps) {
+const EnhancedTableHead = observer((props: IEnhancedTableProps) => {
   const { order, orderBy, onRequestSort, id, headrows } = props;
   const createSortHandler = (property: keyof IData) => (
     event: React.MouseEvent<unknown>
@@ -65,6 +66,6 @@ function EnhancedTableHead(props: IEnhancedTableProps) {
       </TableRow>
     </TableHead>
   );
-}
+})
 
 export default EnhancedTableHead;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, MenuItem, Select, InputLabel } from "@material-ui/core";
+import { observer } from "mobx-react";
 
 interface IProps {
   value: string;
@@ -10,7 +11,7 @@ interface IProps {
   title: string;
 }
 
-export default function FunctionDropdown(props: IProps) {
+const FunctionDropdown = observer((props: IProps) => {
   const { value, change, id, name, dropdown, title } = props;
 
   return (
@@ -34,4 +35,6 @@ export default function FunctionDropdown(props: IProps) {
       </Select>
     </Grid>
   );
-}
+})
+
+export default FunctionDropdown;

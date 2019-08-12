@@ -4,6 +4,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import { observer } from "mobx-react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +21,7 @@ interface IProps {
   change: (e: any) => void
 }
 
-export default function ClassificationCheckboxesGroup(props: IProps) {
+const ClassificationCheckboxesGroup = observer((props: IProps) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     archival: true,
@@ -75,4 +76,6 @@ export default function ClassificationCheckboxesGroup(props: IProps) {
       </FormControl>
     </div>
   );
-}
+})
+
+export default ClassificationCheckboxesGroup;

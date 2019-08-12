@@ -7,6 +7,7 @@ import {
   DialogActions,
   DialogContentText
 } from "@material-ui/core";
+import { observer } from "mobx-react";
 
 interface IProps {
   open: boolean,
@@ -16,7 +17,7 @@ interface IProps {
   title: string
 }
 
-function MessageModal(props: IProps) {
+const MessageModal = observer((props: IProps) => {
   const { open, close, click, msg, title } = props;
 
   return (
@@ -39,6 +40,6 @@ function MessageModal(props: IProps) {
       </DialogActions>
     </Dialog>
   );
-}
+})
 
 export default MessageModal;

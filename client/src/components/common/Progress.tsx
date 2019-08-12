@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles({
   root: {
@@ -8,7 +9,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Progress() {
+const Progress = observer(() => {
   const classes = useStyles();
 
   return (
@@ -16,4 +17,6 @@ export default function Progress() {
       <LinearProgress />
     </div>
   );
-}
+})
+
+export default Progress;

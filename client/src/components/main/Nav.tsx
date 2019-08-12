@@ -1,7 +1,8 @@
 import * as React from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { observer } from "mobx-react";
 
-function Nav(): JSX.Element {
+const Nav = observer(() => {
   return (
     <AppBar position="static" color="default">
       <Toolbar>
@@ -11,6 +12,6 @@ function Nav(): JSX.Element {
       </Toolbar>
     </AppBar>
   );
-}
+})
 
 export default Nav;

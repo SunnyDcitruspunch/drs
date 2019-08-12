@@ -14,11 +14,10 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
 import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
-import { IData, IOrder } from "../common/EnhancedTableHead";
+import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import EditModal from "../common/EditModal";
 import MessageModal from "../common/MessageModal";
-import { IHeadRow } from "../common/EnhancedTableHead";
 
 interface IProps {
   RecordStore: IRecordStore;

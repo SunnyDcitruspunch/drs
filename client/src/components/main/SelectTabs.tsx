@@ -11,6 +11,7 @@ import DeptRetention from "../tabs/DeptRetention";
 import AddCommonRecords from "../tabs/AddCommonRecords";
 import AddUniqueRecords from "../tabs/AddUniqueRecords";
 import AdminTab from "../tabs/AdminTab";
+import { observer } from "mobx-react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function FullWidthTabs() {
+const FullWidthTabs = observer(() => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -101,4 +102,6 @@ export default function FullWidthTabs() {
       </SwipeableViews>
     </div>
   );
-}
+})
+
+export default FullWidthTabs;
