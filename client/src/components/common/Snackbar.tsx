@@ -32,19 +32,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SimpleSnackbar(props: IProps) {
   const { msg, _open } = props;
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
   const classes = useStyles()
 
-  function handleClose(
-    event: React.SyntheticEvent | React.MouseEvent,
-    reason?: string
-  ) {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(_open);
-    console.log("closed");
-  }
+  // function handleClose(
+  //   event: React.SyntheticEvent | React.MouseEvent,
+  //   reason?: string
+  // ) {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   setOpen(_open);
+  //   console.log("closed");
+  // }
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { observable, action, decorate, computed } from "mobx";
+import { action, decorate } from "mobx";
 import { IRecord } from "./DepartmentStore";
 
 export interface IRecordStore {

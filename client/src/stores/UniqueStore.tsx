@@ -3,9 +3,9 @@ import { IRecord } from "./DepartmentStore";
 
 export interface IUniqueStore {
   uniquerecords: IRecord;
-  functionsDropdown: Array<string>;
-  categoryDropdown: Array<string>;
-  archivalDropdown: Array<string>;
+  functionsDropdown: Array<Object>;
+  categoryDropdown: Array<Object>;
+  archivalDropdown: Array<Object>;
   fetchArchival: () => void
   fetchFunctions: () => void
   fetchCategory: () => void
@@ -45,7 +45,8 @@ class _UniqueStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.functionsDropdown = json));
+      .then(json => (this.functionsDropdown = json))
+      // .then(() => console.log(this.functionsDropdown))
   }
 
   async fetchCategory() {

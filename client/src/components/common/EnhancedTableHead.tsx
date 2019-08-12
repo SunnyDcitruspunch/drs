@@ -14,8 +14,8 @@ export interface IData {
   description: string;
   category?: string;
   function: string;
-  archival: string;
-  notes: string;
+  classification: string;
+  comments: string;
   status?: string;
 }
 

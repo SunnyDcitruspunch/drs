@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { IRecordStore } from "../../stores/RecordStore";
-import { IDepartmentStore, IRecord, DepartmentStore } from "../../stores/DepartmentStore";
+import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
@@ -53,8 +53,8 @@ const headrows: IHeadRow[] = [
     id: "description",
     label: "Retention Description"
   },
-  { id: "archival", label: "Classification" },
-  { id: "notes", label: "Comments" }
+  { id: "classification", label: "Classification" },
+  { id: "comments", label: "Comments" }
 ];
 
 function desc<T>(a: T , b: T , orderBy: keyof T) {

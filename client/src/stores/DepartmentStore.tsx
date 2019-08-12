@@ -80,21 +80,20 @@ class _DepartmentStore {
         return response.json();
       })
       .then(json => (this.CommonRecords = json))
-      .then(() => console.log(this.CommonRecords))
   }
 
   //this.selectedCommonRecords = selected common records in a department
   handleSelectedCommonRecords(dept: string) {
     this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept && r.recordcategoryid === 'common')
-    console.log(this.selectedCommonRecords)
+    // console.log(this.selectedCommonRecords)
 
-    let array = []
-    let x = 49
+    // let array = []
+    // let x = 49
     for (let i = 0; i < this.selectedCommonRecords.length; i++) {
       let recordObj = this._allRecords[i]
       let selectedObj = this.selectedCommonRecords[i]
       if(selectedObj['code'] !== recordObj['code']) {
-        console.log(x--)
+        // console.log(x--)
       }
     }
   }
@@ -122,8 +121,13 @@ class _DepartmentStore {
   }
 
   handleChange = (e: any) => {
-    const { value, name } = e.target;
+    const { id, value, name } = e.target;
     this.editrecord[name] = value
+    // this.editrecord[id] = value
+    console.log(name)
+    console.log(this.editrecord.recordcategoryid)
+    this.allRecords.find((r) => r.id === this.editrecord.id).function = this.editrecord.function
+    this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid = this.editrecord.recordcategoryid
   };
 
   updateEditID(postDetail: IRecord) {

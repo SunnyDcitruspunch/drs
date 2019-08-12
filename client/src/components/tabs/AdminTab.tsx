@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { IRecordStore } from "../../stores/RecordStore";
-import { IRecord, IDepartmentStore, DepartmentStore } from "../../stores/DepartmentStore";
+import { IRecord, IDepartmentStore } from "../../stores/DepartmentStore";
 import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import Snackbar from "../common/Snackbar";
 import EnhancedTableHead from "../common/EnhancedTableHead";
@@ -52,7 +52,7 @@ const headrows: IHeadRow[] = [
     id: "description",
     label: "Retention Description"
   },
-  { id: "notes", label: "Comments" }
+  { id: "comments", label: "Comments" }
 ];
 
 const AdminTab = inject("RecordStore", "DepartmentStore")(
@@ -126,7 +126,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
       };
 
       render() {
-        const { RecordStore, DepartmentStore }: IProps = this.props;
+        const { DepartmentStore }: IProps = this.props;
 
         return (
           <Container>

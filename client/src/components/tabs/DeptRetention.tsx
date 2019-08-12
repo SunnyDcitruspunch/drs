@@ -23,9 +23,9 @@ import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import MessageModal from "../common/MessageModal";
-import Snackbar from "../common/Snackbar";
+// import Snackbar from "../common/Snackbar";
 import EditModal from "../common/EditModal";
-import Progress from "../common/Progress";
+// import Progress from "../common/Progress";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -47,6 +47,7 @@ interface IState {
   sortDirection: any;
   filterbyFunction: string;
   snackbar: boolean;
+  disable: boolean
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -69,8 +70,8 @@ const headrows: IHeadRow[] = [
     id: "description",
     label: "Retention Description"
   },
-  { id: "archival", label: "Classification" },
-  { id: "notes", label: "Comments" },
+  { id: "classification", label: "Classification" },
+  { id: "comments", label: "Comments" },
   { id: "status", label: "Status" }
 ];
 
@@ -90,7 +91,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           orderBy: "recordtype",
           sortDirection: "asc",
           filterbyFunction: "",
-          snackbar: false
+          snackbar: false,
+          disable: false //can only edit comments if is common record
         };
       }
 
@@ -100,12 +102,12 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       };
 
       showEditModal(postDetail: IRecord) {
-        if (postDetail.recordcategoryid === "common") {
-          this.setState({ cannotEdit: true });
-        } else {
+        // if (postDetail.recordcategoryid === "common") {
+        //   this.setState({ cannotEdit: true });
+        // } else {
           this.setState({ openEdit: true });
           this.props.DepartmentStore.updateEditID(postDetail);
-        }
+        //}
       }
 
       //html2canvas + jsPDF
@@ -151,9 +153,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         await this.props.DepartmentStore.updateRecord();
         this.setState({ openEdit: false });
         this.setState({ snackbar: true });
-        setInterval(() => {
-          this.setState({ snackbar: false });
-        }, 3000);
       };
 
       closeEdit: any = () => {
@@ -211,25 +210,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         const { DepartmentStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
+        const categories = this.props.UniqueStore.categoryDropdown;
+
         return (
           <Container style={styles.tableStyle}>
-            {/* <InputLabel shrink htmlFor="age-label-placeholder">
-              Filter by Record Function
-            </InputLabel>
-            <Select
-              id="function"
-              name="function"
-              style={{ width: 100 }}
-              value={this.state.filterbyFunction}
-              onChange={this.handlefilterfunction}
-            >
-              <MenuItem value="">Show all records</MenuItem>
-              {functions.slice().map((func: any) => (
-                <MenuItem key={func.id} value={func.functiontype}>
-                  {func.functiontype}
-                </MenuItem>
-              ))}
-            </Select> */}
 
             <Button
               variant="outlined"
@@ -252,7 +236,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                 />
                 <TableBody style={{ fontSize: 11 }} id="tablebody">
                   {this.stableSort(
-                    DepartmentStore._allRecords,
+                    DepartmentStore.allRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
@@ -339,7 +323,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
               .filter(
-                (x: any) => x.id === this.props.DepartmentStore.editrecord.id
+                (x: IRecord) => x.id === this.props.DepartmentStore.editrecord.id
               )
               .map((editDetail: IRecord) => {
                 return (
@@ -349,17 +333,16 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     open={this.state.openEdit}
                     close={this.closeEdit}
                     functionList={functions}
-                    categoryList={this.props.UniqueStore.categoryDropdown}
-                    // archivalList={this.props.UniqueStore.archivalDropdown}
+                    categoryList={categories}
                     change={DepartmentStore.handleChange}
                     saveedit={this.editRecord}
                   />
                 );
               })}
-            <Snackbar
+            {/* <Snackbar
               _open={this.state.snackbar}
               msg="Successfully edited the record."
-            />
+            /> */}
           </Container>
         );
       }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   Button,
   Container,
@@ -8,10 +7,7 @@ import {
   MenuItem,
   Select,
   InputLabel,
-  RadioGroup,
-  Radio,
   FormLabel,
-  FormControlLabel,
   FormControl
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
@@ -20,7 +16,7 @@ import { IDepartmentStore } from "../../stores/DepartmentStore";
 import Snackbar from "../common/Snackbar";
 import MessageModal from "../common/MessageModal";
 import FunctionDropdown from "../common/FunctionDropdown";
-import ClassificationCheckboxes from '../common/ClassificationCheckboxes'
+import ClassificationCheckboxes from "../common/ClassificationCheckboxes";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -95,6 +91,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
             </Grid>
 
             <FunctionDropdown
+              title="Function Type"
               id="function"
               name="function"
               value={UniqueStore.uniquerecords.function}
@@ -143,9 +140,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <FormControl component="fieldset">
               <FormLabel component="legend">Classification</FormLabel>
-              <ClassificationCheckboxes
-                change={UniqueStore.changeArchival}
-              />
+              <ClassificationCheckboxes change={UniqueStore.changeArchival} />
             </FormControl>
 
             <Grid item sm={12}>

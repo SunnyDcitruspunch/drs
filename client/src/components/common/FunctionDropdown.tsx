@@ -1,26 +1,22 @@
 import React from "react";
-import {
-  Grid,
-  MenuItem,
-  Select,
-  InputLabel,
-} from "@material-ui/core";
+import { Grid, MenuItem, Select, InputLabel } from "@material-ui/core";
 
 interface IProps {
-  value: string,
-  change: (e: any) => void,
-  id: string,
-  name: string,
-  dropdown: Array<Object>
+  value: string;
+  change: (e: any) => void;
+  id: string;
+  name: string;
+  dropdown: Array<Object>;
+  title: string;
 }
 
 export default function FunctionDropdown(props: IProps) {
-    const { value, change, id, name, dropdown } = props
+  const { value, change, id, name, dropdown, title } = props;
 
   return (
     <Grid item style={{ marginBottom: 10 }}>
-      <InputLabel shrink htmlFor="age-label-placeholder">
-        Record Function
+      <InputLabel shrink>
+        {title}
       </InputLabel>
       <Select
         id={id}
@@ -30,9 +26,9 @@ export default function FunctionDropdown(props: IProps) {
         onChange={change}
       >
         <MenuItem>Choose...</MenuItem>
-        {dropdown.slice().map((func: any) => (
-          <MenuItem key={func.id} value={func.functiontype}>
-            {func.functiontype}
+        {dropdown.map((item: any) => (
+          <MenuItem key={item.id} value={item.functiontype}>
+            {item.functiontype}
           </MenuItem>
         ))}
       </Select>

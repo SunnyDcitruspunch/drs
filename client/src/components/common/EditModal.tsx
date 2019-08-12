@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Button,
   Dialog,
@@ -11,27 +12,25 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  RadioGroup,
-  Radio,
-  FormLabel,
-  FormControlLabel
+  FormLabel
 } from "@material-ui/core";
 import { IRecord } from "../../stores";
-import ClassificationCheckboxes from './ClassificationCheckboxes'
+import ClassificationCheckboxes from "./ClassificationCheckboxes";
+import FunctionDropdown from "./FunctionDropdown";
+import { observer } from "mobx-react";
 
 interface IProps {
   record: IRecord;
   open: boolean;
   close: () => void;
   saveedit: (e: any) => void;
-  functionList: Array<string>;
-  categoryList: Array<string>;
-  // archivalList: Array<string>;
+  functionList: Array<Object>;
+  categoryList: Array<Object>;
   change: (e: any) => void;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
-function EditModal(props: IProps) {
+const EditModal = observer((props: IProps) => {
   const {
     change,
     record,
@@ -39,9 +38,7 @@ function EditModal(props: IProps) {
     close,
     functionList,
     categoryList,
-    // archivalList,
-    saveedit,
-    disabled
+    saveedit
   } = props;
 
   return (
@@ -68,32 +65,19 @@ function EditModal(props: IProps) {
         </Grid>
 
         <Grid item style={{ marginBottom: 10 }}>
-          <InputLabel shrink htmlFor="age-label-placeholder">
-            Record Function
-          </InputLabel>
-
-          <Select
-            id="function"
-            name="function"
-            style={{ width: 400 }}
+          <FunctionDropdown
+            title={"Record Function"}
+            id={"function"}
+            name={"function"}
             value={record.function}
-            onChange={change}
-          >
-            <MenuItem>Choose...</MenuItem>
-            {functionList.slice().map((func: any) => (
-              <MenuItem key={func.id} value={func.functiontype}>
-                {func.functiontype}
-              </MenuItem>
-            ))}
-          </Select>
+            change={change}
+            dropdown={functionList}
+          />
         </Grid>
 
         <Grid item style={{ marginTop: 10 }}>
-          <InputLabel shrink htmlFor="age-label-placeholder">
-            Record Category
-          </InputLabel>
+          <InputLabel shrink>Record Category</InputLabel>
           <Select
-            disabled={disabled}
             id="recordcategoryid"
             name="recordcategoryid"
             style={{ width: 400 }}
@@ -124,13 +108,6 @@ function EditModal(props: IProps) {
           />
         </Grid>
 
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Classification</FormLabel>
-          <ClassificationCheckboxes
-            change={change}
-          />
-        </FormControl>
-
         <Grid>
           <TextField
             fullWidth
@@ -145,6 +122,13 @@ function EditModal(props: IProps) {
             onChange={change}
           />
         </Grid>
+
+        <Grid>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Classification</FormLabel>
+            <ClassificationCheckboxes change={change} />
+          </FormControl>
+        </Grid>
       </DialogContent>
 
       <DialogActions>
@@ -157,6 +141,6 @@ function EditModal(props: IProps) {
       </DialogActions>
     </Dialog>
   );
-}
+});
 
 export default EditModal;

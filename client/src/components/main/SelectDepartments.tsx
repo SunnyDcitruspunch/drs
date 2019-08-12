@@ -7,7 +7,7 @@ import {
   MenuItem
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore, DepartmentStore } from "../../stores/DepartmentStore";
+import { IDepartmentStore } from "../../stores/DepartmentStore";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -62,7 +62,7 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
                   onChange={this.onSelect}
                   value={this.state.selecteddept}
                 >
-                  <MenuItem style={{ height: 30 }}>
+                  <MenuItem style={{ height: 30 }} value="">
                     Please Select a Department...
                   </MenuItem>
                   {DepartmentStore.allDepartments.slice().map((dept: any) => (

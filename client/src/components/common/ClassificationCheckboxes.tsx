@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -36,7 +35,7 @@ export default function ClassificationCheckboxesGroup(props: IProps) {
   };
 
   const { archival, vital, highlyconfidential } = state;
-  const { change } = props
+  // const { change } = props
 
   return (
     <div className={classes.root}>
