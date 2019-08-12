@@ -24,7 +24,8 @@ class _UniqueStore {
     description: "",
     comments: "",
     classification: "",
-    status: "Pending"
+    status: "Pending",
+    code:""
   };
   functionsDropdown = [];
   categoryDropdown = [];

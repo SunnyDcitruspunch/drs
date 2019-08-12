@@ -23,7 +23,7 @@ export interface IDepartmentStore {
 
 export type IRecord = {
   id?: string;
-  code?: string;
+  code: string;
   department: string;
   recordtype: string;
   function: string;
@@ -179,6 +179,8 @@ class _DepartmentStore {
 
 decorate(_DepartmentStore, {
   selectedDepartment: observable,
+  fetchCommonRecords:action,
+  CommonRecords:observable,
   editrecord: observable,
   allDepartments: observable,
   isLoading: observable,

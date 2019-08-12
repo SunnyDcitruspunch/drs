@@ -38,7 +38,8 @@ const EditModal = observer((props: IProps) => {
     close,
     functionList,
     categoryList,
-    saveedit
+    saveedit,
+    disabled
   } = props;
 
   return (
@@ -78,6 +79,7 @@ const EditModal = observer((props: IProps) => {
         <Grid item style={{ marginTop: 10 }}>
           <InputLabel shrink>Record Category</InputLabel>
           <Select
+            disabled={disabled}
             id="recordcategoryid"
             name="recordcategoryid"
             style={{ width: 400 }}

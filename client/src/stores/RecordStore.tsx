@@ -6,7 +6,7 @@ export interface IRecordStore {
   selectedDepartment: string;
   selectedCommonRecords: Array<String>;
   record: IRecord;
-  fetchCommonRecords: () => void;
+  // fetchCommonRecords: () => void;
   getEditRecord: (record: IRecord) => void;
   updateCommonRecord: () => void;
   addCommonRecord: (select: string[]) => void;
@@ -35,24 +35,16 @@ class _RecordStore implements IRecordStore {
 
   addcommonrecords = {};
 
-  async fetchCommonRecords() {
-    await fetch("http://localhost:3004/commonrecords")
-      .then(response => {
-        return response.json();
-      })
-      .then(json => (this.CommonRecords = json))
-  }
-
-  // get showCommonRecords() {
-  //   return this.selectedDepartment;
-  // }
-
-  // async fetchPendings() {
-  //   await fetch("http://localhost:3004/records")
+  // async fetchCommonRecords() {
+  //   await fetch("http://localhost:3004/commonrecords")
   //     .then(response => {
   //       return response.json();
   //     })
-  //     .then(json => (this.pendingRecords = json));
+  //     .then(json => (this.CommonRecords = json))
+  // }
+
+  // get showCommonRecords() {
+  //   return this.selectedDepartment;
   // }
 
   handleSelected(dept: string) {
@@ -71,7 +63,7 @@ class _RecordStore implements IRecordStore {
       this.CommonRecords
         .filter((x: IRecord) => x.id === selects[i])
         .map(
-          (postDetail: IRecord): void => {
+          (postDetail: IRecord) => {
             test = {
               department: this.selectedDepartment,
               function: postDetail.function,
@@ -80,10 +72,13 @@ class _RecordStore implements IRecordStore {
               description: postDetail.description,
               classification: postDetail.classification,
               comments: postDetail.comments,
+              code:"",
               status: "Approved"
             };
           }
         );
+
+// https://stackoverflow.com/questions/48163744/expected-to-return-a-value-in-arrow-function-array-callback-return-why/48163905
 
       fetch("http://localhost:3004/records", {
         method: "POST",
@@ -129,6 +124,8 @@ class _RecordStore implements IRecordStore {
     this.record.description = record.description;
     this.record.classification = record.classification;
     this.record.comments = record.comments;
+    this.record.code = record.code;
+    console.log(this.record.code)
   }
 
   //update common records: PATCH

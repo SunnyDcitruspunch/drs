@@ -19,7 +19,7 @@ import EnhancedTableHead from "../common/EnhancedTableHead";
 
 interface IProps {
   RecordStore: IRecordStore;
-  DepartmentStore: IDepartmentStore
+  DepartmentStore: IDepartmentStore;
 }
 
 interface IState {
@@ -71,7 +71,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
       }
 
       componentDidMount() {
-        this.props.DepartmentStore.fetchAllRecords()
+        this.props.DepartmentStore.fetchAllRecords();
       }
 
       onSelect = (e: any) => {
@@ -132,7 +132,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
           <Container>
             <Paper style={{ width: "100%", overflowX: "auto" }}>
               <FormLabel style={{ marginTop: 5 }}>Pending Records</FormLabel>
-              <Table>
+              <Table size="small">
                 <EnhancedTableHead
                   id="tablehead"
                   headrows={headrows}

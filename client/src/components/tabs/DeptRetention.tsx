@@ -17,6 +17,7 @@ import {
   DialogContentText,
   Container
 } from "@material-ui/core";
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { inject, observer } from "mobx-react";
 import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
@@ -98,6 +99,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       componentDidMount = () => {
         this.props.DepartmentStore.fetchAllRecords();
+        this.props.DepartmentStore.fetchCommonRecords();
         this.props.UniqueStore.fetchArchival();
       };
 
@@ -226,7 +228,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             {/* <Progress /> */}
 
             <Paper>
-              <Table id="schedule">
+              <Table id="schedule" size="small">
                 <EnhancedTableHead
                   id="tablehead"
                   headrows={headrows}
