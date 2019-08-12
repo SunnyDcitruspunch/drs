@@ -1,5 +1,6 @@
 import * as React from "react";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import {
@@ -17,7 +18,6 @@ import {
   Container
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
@@ -267,7 +267,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                               style={styles.buttonStyle}
                             />
                             &nbsp;
-                            <DeleteOutlinedIcon
+                            <DeleteForeverSharpIcon
                               name="delete"
                               onClick={() => this.handleDelete(postDetail.id)}
                               style={styles.buttonStyle}
@@ -350,7 +350,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     close={this.closeEdit}
                     functionList={functions}
                     categoryList={this.props.UniqueStore.categoryDropdown}
-                    archivalList={this.props.UniqueStore.archivalDropdown}
+                    // archivalList={this.props.UniqueStore.archivalDropdown}
                     change={DepartmentStore.handleChange}
                     saveedit={this.editRecord}
                   />

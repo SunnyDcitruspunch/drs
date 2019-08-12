@@ -1,8 +1,8 @@
 import { observable, decorate, action, computed } from "mobx";
 
-
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
+  fetchCommonRecords: () => void
   fetchAll: () => void;
   updateEditID: any;
   selectedDepartment: string;
@@ -34,7 +34,7 @@ export type IRecord = {
   status: string;
 };
 
-class _DepartmentStore implements IDepartmentStore {
+class _DepartmentStore {
   selectedDepartment = "";
   selectedCommonRecords = []
   allDepartments = [];
@@ -52,24 +52,51 @@ class _DepartmentStore implements IDepartmentStore {
     description: "",
     comments: "",
     classification: "",
-    status: ""
+    status: "",
+    code:""
   };
 
+  //select a department
   handleSelected(dept: string) {
     this.selectedDepartment = dept;
+    // this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept)
+    //console.log(this.selectedCommonRecords)
+    
+    // let array = []
+    // for (let i = 0; i < this.selectedCommonRecords.length; i++) {
+    //   let commonObj = this.CommonRecords[i]
+    //   let selectedObj = this.selectedCommonRecords[i]
+    //   let x = 0
+    //   if(selectedObj['code'] !== commonObj['code']) {
+    //     console.log(x++)
+    //   }
+    // }
   }
 
+  //fetch all common records
   async fetchCommonRecords() {
     await fetch("http://localhost:3004/commonrecords")
       .then(response => {
         return response.json();
       })
       .then(json => (this.CommonRecords = json))
+      .then(() => console.log(this.CommonRecords))
   }
 
+  //this.selectedCommonRecords = selected common records in a department
   handleSelectedCommonRecords(dept: string) {
     this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept && r.recordcategoryid === 'common')
-    // console.log(this.selectedCommonRecords)
+    console.log(this.selectedCommonRecords)
+
+    let array = []
+    let x = 49
+    for (let i = 0; i < this.selectedCommonRecords.length; i++) {
+      let recordObj = this._allRecords[i]
+      let selectedObj = this.selectedCommonRecords[i]
+      if(selectedObj['code'] !== recordObj['code']) {
+        console.log(x--)
+      }
+    }
   }
 
   fetchAll = () => {

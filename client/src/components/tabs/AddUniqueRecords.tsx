@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import {
   Button,
   Container,
@@ -20,6 +20,7 @@ import { IDepartmentStore } from "../../stores/DepartmentStore";
 import Snackbar from "../common/Snackbar";
 import MessageModal from "../common/MessageModal";
 import FunctionDropdown from "../common/FunctionDropdown";
+import ClassificationCheckboxes from '../common/ClassificationCheckboxes'
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -71,7 +72,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           }, 3000);
 
           // window.location.reload()
-        }       
+        }
       };
 
       render() {
@@ -142,25 +143,9 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <FormControl component="fieldset">
               <FormLabel component="legend">Classification</FormLabel>
-              <RadioGroup
-                row
-                aria-label="archival"
-                name="archival"
-                id="archival"
-              >
-                {this.state.archivalOptions.map((x: string) => {
-                  return (
-                    <FormControlLabel
-                      key={x}
-                      value={x}
-                      control={<Radio color="primary" />}
-                      label={x}
-                      labelPlacement="end"
-                      onChange={UniqueStore.changeArchival}
-                    />
-                  );
-                })}
-              </RadioGroup>
+              <ClassificationCheckboxes
+                change={UniqueStore.changeArchival}
+              />
             </FormControl>
 
             <Grid item sm={12}>
@@ -176,15 +161,15 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
                 margin="normal"
               />
             </Grid>
-            
-              <Button
-                variant="outlined"
-                color="primary"
-                style={{ marginTop: 10, fontSize: 10 }}
-                onClick={this.submitRecords}
-              >
-                Submit
-              </Button>
+
+            <Button
+              variant="outlined"
+              color="primary"
+              style={{ marginTop: 10, fontSize: 10 }}
+              onClick={this.submitRecords}
+            >
+              Submit
+            </Button>
 
             <MessageModal
               open={this.state.smShow}

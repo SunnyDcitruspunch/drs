@@ -88,7 +88,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       }
 
       componentDidMount() {
-        this.props.RecordStore.fetchCommonRecords()
+        this.props.DepartmentStore.fetchCommonRecords()
         // this.props.DepartmentStore.fetchAllRecords()        
       }
 
@@ -204,7 +204,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 />
                 <TableBody>
                   {this.stableSort(
-                    this.props.RecordStore.CommonRecords,
+                    this.props.DepartmentStore.CommonRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
@@ -269,7 +269,6 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     open={this.state.editShow}
                     functionList={this.props.UniqueStore.functionsDropdown}
                     categoryList={this.props.UniqueStore.categoryDropdown}
-                    archivalList={this.props.UniqueStore.archivalDropdown}
                     close={editClose}
                     saveedit={this.saveEdit}
                     disabled={true}

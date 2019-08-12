@@ -17,6 +17,7 @@ import {
   FormControlLabel
 } from "@material-ui/core";
 import { IRecord } from "../../stores";
+import ClassificationCheckboxes from './ClassificationCheckboxes'
 
 interface IProps {
   record: IRecord;
@@ -25,7 +26,7 @@ interface IProps {
   saveedit: (e: any) => void;
   functionList: Array<string>;
   categoryList: Array<string>;
-  archivalList: Array<string>;
+  // archivalList: Array<string>;
   change: (e: any) => void;
   disabled?: boolean
 }
@@ -38,7 +39,7 @@ function EditModal(props: IProps) {
     close,
     functionList,
     categoryList,
-    archivalList,
+    // archivalList,
     saveedit,
     disabled
   } = props;
@@ -125,27 +126,9 @@ function EditModal(props: IProps) {
 
         <FormControl component="fieldset">
           <FormLabel component="legend">Classification</FormLabel>
-          <RadioGroup
-            row
-            aria-label="archival"
-            name="classification"
-            defaultValue={record.classification}
-          >
-            {archivalList.map((x: any) => {
-              return (
-                <FormControlLabel
-                  key={x.id}
-                  value={x.archive}
-                  control={<Radio color="primary" />}
-                  label={x.archive}
-                  labelPlacement="end"
-                  id="classification"
-                  name="classification"
-                  onClick={change}
-                />
-              );
-            })}
-          </RadioGroup>
+          <ClassificationCheckboxes
+            change={change}
+          />
         </FormControl>
 
         <Grid>
