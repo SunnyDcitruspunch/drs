@@ -29,6 +29,7 @@ interface IProps {
   change: (e: any) => void;
   disabled: boolean;
   title: any
+  disablecomment?: boolean
 }
 
 const EditModal = observer((props: IProps) => {
@@ -41,7 +42,8 @@ const EditModal = observer((props: IProps) => {
     categoryList,
     saveedit,
     disabled,
-    title
+    title,
+    disablecomment
   } = props;
 
   return (
@@ -127,6 +129,7 @@ const EditModal = observer((props: IProps) => {
             variant="outlined"
             margin="normal"
             onChange={change}
+            disabled={disablecomment}
           />
         </Grid>
 

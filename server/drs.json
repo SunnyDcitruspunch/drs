@@ -90,7 +90,7 @@
       "department": "Information Systems",
       "function": "Academic",
       "recordcategoryid": "common",
-      "code": "CHUM1300",
+      "code": "CHUM1400",
       "description": "here is a retention schedule.",
       "notes": "here is a note.",
       "classification": [
@@ -262,36 +262,58 @@
       "comments": "common notes?",
       "status": "Approved",
       "id": "0z_ziao"
-    }
-  ],
-  "functions": [
-    {
-      "id": "1",
-      "functiontype": "Academic"
     },
     {
-      "id": "2",
-      "functiontype": "Administrative"
+      "department": "Information Systems",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        "Archival"
+      ],
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": "lH3_e9w"
     },
     {
-      "id": "3",
-      "functiontype": "Employment"
+      "department": "BYU Catering",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        "Archival"
+      ],
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": "nS2OSfx"
     },
     {
-      "id": "4",
-      "functiontype": "Faculty"
+      "department": "Honor Code Office",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        "Archival"
+      ],
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": "wzwFM58"
     },
     {
-      "id": "5",
-      "functiontype": "Financial"
-    },
-    {
-      "id": "6",
-      "functiontype": "Human Resource"
-    },
-    {
-      "id": "7",
-      "functiontype": "Miscellaneous"
+      "department": "Honor Code Office",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        "Archival"
+      ],
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": "3RzQCbd"
     }
   ],
   "commonrecords": [
@@ -304,6 +326,9 @@
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
       "classification": [
         "Archival"
+      ],
+      "selectedbydepartment": [
+        "Computer Science"
       ]
     },
     {
@@ -315,6 +340,10 @@
       "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
       "classification": [
         "Archival"
+      ],
+      "selectedbydepartment": [
+        "BYU Catering",
+        "Honor Code Office"
       ]
     },
     {
@@ -324,7 +353,8 @@
       "recordcategoryid": "common",
       "recordtype": "Challenge exams.",
       "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "4",
@@ -387,7 +417,11 @@
       "function": "Employment",
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": [
+        "Marriott School",
+        "Honor Code Office"
+      ]
     },
     {
       "id": "11",
@@ -403,7 +437,8 @@
       "function": "Employment",
       "recordtype": "Employee files retained by Department â Admin, Staff and Students.",
       "description": "Retain information originated by department indefinitely. Destroy remaining information 6 years after termination.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "13",
@@ -411,7 +446,8 @@
       "function": "Employment",
       "recordtype": "Employee files retained by department â Students.",
       "description": "Retain information originated by department indefinitely. Destroy remaining information 6 years after departure from department.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "14",
@@ -421,7 +457,8 @@
       "description": "Permanent. Transfer 1 copy to the University Records Center for Archival Review, if not submitted to college/division.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "15",
@@ -429,7 +466,8 @@
       "function": "Administrative",
       "recordtype": "Contracts and agreements.",
       "description": "Retain 6 years after expiration of contract or agreement, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "16",
@@ -439,7 +477,8 @@
       "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "17",
@@ -449,7 +488,8 @@
       "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "18",
@@ -457,7 +497,8 @@
       "function": "Administrative",
       "recordtype": "Policies and Procedures â department.",
       "description": "Retain 6 years after superseded, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "19",
@@ -467,7 +508,8 @@
       "description": "Retain for 3 years, then transfer 1 copy of final, published reports and studies to the University Records Center for Archival review.  Destroy remaining information.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "20",
@@ -475,7 +517,8 @@
       "function": "Administrative",
       "recordtype": "Routine administrative support: weekly staff meeting notes, calendars, memos, mailing lists, schedules and routine correspondence.",
       "description": "Destroy when no longer needed by department. These records are normally retained by department for 3 years.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "21",
@@ -485,7 +528,8 @@
       "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "22",
@@ -493,7 +537,8 @@
       "function": "Faculty",
       "recordtype": "Faculty employment files (including contracts, awards, and publications).",
       "description": "Retain Indefinitely. Awards and publications are available online.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "23",
@@ -501,7 +546,8 @@
       "function": "Faculty",
       "recordtype": "Faculty annual reviews (Faculty Performance Development Plans).",
       "description": "Retain Indefinitely.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "24",
@@ -511,7 +557,8 @@
       "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not retained in Faculty Profile System.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "25",
@@ -527,7 +574,8 @@
       "function": "Faculty",
       "recordtype": "Rank & Status records.",
       "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "27",
@@ -535,7 +583,8 @@
       "function": "Faculty",
       "recordtype": "Research data (including questionnaires and surveys).",
       "description": "Research data is to be retained by faculty, as specified by grant or research project, normally 5 years, then destroy. Do not submit to the University Records Center.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "28",
@@ -543,7 +592,8 @@
       "function": "Faculty",
       "recordtype": "Research proposals and grants.",
       "description": "Retain for 6 years after close of contract (retain longer if specified by grant or research project), then destroy. Retain denied proposals for 3 years, then destroy. These records are normally retained by ORCA and the Deanâs Office.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "29",
@@ -551,7 +601,8 @@
       "function": "Financial",
       "recordtype": "Deposits, including deposit reports and cash receipts (CASHNet).",
       "description": "Retain supporting documentation from CASHNet deposits and transactions for current year + 6, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "30",
@@ -559,7 +610,8 @@
       "function": "Financial",
       "recordtype": "Budget adjustments, submitted by departments.",
       "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "31",
@@ -567,7 +619,8 @@
       "function": "Financial",
       "recordtype": "Budget planning (annual financial planning documentation).",
       "description": "Retain for 6 years, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "32",
@@ -575,7 +628,8 @@
       "function": "Financial",
       "recordtype": "Budget reports (monthly).",
       "description": "These reports are available online and do not need to be printed or retained by departments.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "33",
@@ -583,7 +637,8 @@
       "function": "Financial",
       "recordtype": "Endowment accounts.",
       "description": "Retain department endowment records permanently.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "34",
@@ -593,7 +648,8 @@
       "description": "Retain for current year + 6, then transfer 1 copy of summary report of activity to the University Records Center for Archival review, then destroy remaining records.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "35",
@@ -601,7 +657,8 @@
       "function": "Financial",
       "recordtype": "Restricted gift records.",
       "description": "Retain for current year + 6 beyond when Donor Restricted Funds have been fully expended, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "36",
@@ -609,7 +666,8 @@
       "function": "Financial",
       "recordtype": "General accounting records, including accounts payable, accounts receivable, cash management, bank statements, cancelled checks, check registers, interuniversity accounting, general ledgers.",
       "description": "Retain for current year + 6, then destroy. If these receipts have been submitted to Y-Expense, retain for only 1 year.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "37",
@@ -617,7 +675,8 @@
       "function": "Financial",
       "recordtype": "Inventory records and logs of capital equipment.",
       "description": "Retain for current year + 6, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "38",
@@ -625,7 +684,8 @@
       "function": "Financial",
       "recordtype": "Journal Entry supporting documentation submitted by department.",
       "description": "Retain supporting documentation for current year + 1, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "39",
@@ -633,7 +693,8 @@
       "function": "Financial",
       "recordtype": "Purchasing & travel receipts, expense receipts, P-Card receipts, Fast Track documentation and Y-Expense documentation.",
       "description": "Upload into Y-Expense, retain for 1 year, then destroy. It is recommended to save some original receipts for warranty purposes or to document foreign travel.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "40",
@@ -641,7 +702,8 @@
       "function": "Financial",
       "recordtype": "Scholarships records.",
       "description": "For records not stored in online scholarship system, retain awarded scholarships for 6 years after graduation, retain denied scholarship applications for 2 years, and retain awarded athletic scholarships for 10 years, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "41",
@@ -649,7 +711,8 @@
       "function": "Financial",
       "recordtype": "Sick and vacation tracking documentation retained by department.",
       "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "42",
@@ -657,7 +720,8 @@
       "function": "Financial",
       "recordtype": "Work orders, BYU Store orders, print & mail services, physical facilities billings, OIT billings, central stores, testing services, and other department copies of records maintained by the originating departments.",
       "description": "Retain copies of internal billing records until no longer needed by department, then destroy. These duplicate records are normally retained no longer than 2 years.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "43",
@@ -665,7 +729,8 @@
       "function": "Financial",
       "recordtype": "Y-Time exceptions (missed time punches) documentation retained by department.",
       "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "44",
@@ -673,7 +738,8 @@
       "function": "Academic",
       "recordtype": "Student certifications and licensing.",
       "description": "Retain indefinitely.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "45",
@@ -681,7 +747,8 @@
       "function": "Academic",
       "recordtype": "Internship Records.",
       "description": "Retain 5 years, then destroy.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "46",
@@ -689,7 +756,8 @@
       "function": "Faculty",
       "recordtype": "Research (published) and publications.",
       "description": "Submit published research to ScholarsArchive. Do not transfer to the University Records Center.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
     },
     {
       "id": "47",
@@ -699,7 +767,8 @@
       "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "48",
@@ -709,7 +778,8 @@
       "description": "Permanent. Transfer 1 copy to University Records Center for Archival review.",
       "classification": [
         "Archival"
-      ]
+      ],
+      "selectedbydepartment": []
     },
     {
       "id": "49",
@@ -717,7 +787,38 @@
       "function": "Administrative",
       "recordtype": "Waivers (Risk Management waivers).",
       "description": "Retain permanently.",
-      "classification": []
+      "classification": [],
+      "selectedbydepartment": []
+    }
+  ],
+  "functions": [
+    {
+      "id": "1",
+      "functiontype": "Academic"
+    },
+    {
+      "id": "2",
+      "functiontype": "Administrative"
+    },
+    {
+      "id": "3",
+      "functiontype": "Employment"
+    },
+    {
+      "id": "4",
+      "functiontype": "Faculty"
+    },
+    {
+      "id": "5",
+      "functiontype": "Financial"
+    },
+    {
+      "id": "6",
+      "functiontype": "Human Resource"
+    },
+    {
+      "id": "7",
+      "functiontype": "Miscellaneous"
     }
   ],
   "category": [

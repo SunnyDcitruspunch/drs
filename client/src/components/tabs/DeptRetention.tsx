@@ -102,6 +102,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.props.DepartmentStore.fetchAllRecords();
         this.props.DepartmentStore.fetchCommonRecords();
         this.props.UniqueStore.fetchArchival();
+        
       };
 
       showEditModal(postDetail: IRecord) {

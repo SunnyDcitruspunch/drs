@@ -6,23 +6,40 @@ export interface IRecordStore {
   selectedDepartment: string;
   selectedCommonRecords: Array<String>;
   record: IRecord;
-  // fetchCommonRecords: () => void;
   getEditRecord: (record: IRecord) => void;
   updateCommonRecord: () => void;
   addCommonRecord: (select: string[]) => void;
   handleChange: (e: any) => void;
   approveSelectedRecords: (e: any) => void;
   changeArchival: (e: any) => void;
+  fetchCommonRecords: () => void
+  // adddepts: string[]
+  adddepts: string[]
 }
 
-class _RecordStore implements IRecordStore {
-  CommonRecords = []; 
-  selectedDepartment = "";
-  selectedCommonRecords: string[] = [];
+export type ICommonRecord = {
+  id?: string;
+  code: string;
+  department: string;
+  recordtype: string;
+  function: string;
+  recordcategoryid: string;
+  description: string;
+  comments: string;
+  classification: string;
+  status: string;
+  selectedbydepartment: string[];
+};
 
-  record: IRecord = {
+class _RecordStore implements IRecordStore {
+  CommonRecords = [];
+  selectedDepartment = "";
+  selectedCommonRecords = [];
+  adddepts = []
+
+  record: ICommonRecord = {
     id: "",
-    code:"",
+    code: "",
     department: "",
     recordtype: "",
     function: "",
@@ -30,25 +47,23 @@ class _RecordStore implements IRecordStore {
     description: "",
     comments: "",
     classification: "",
-    status: ""
+    status: "",
+    selectedbydepartment: []
   };
 
-  addcommonrecords = {};
-
-  // async fetchCommonRecords() {
-  //   await fetch("http://localhost:3004/commonrecords")
-  //     .then(response => {
-  //       return response.json();
-  //     })
-  //     .then(json => (this.CommonRecords = json))
-  // }
-
-  // get showCommonRecords() {
-  //   return this.selectedDepartment;
-  // }
+  // addcommonrecords = {};
 
   handleSelected(dept: string) {
     this.selectedDepartment = dept;
+    console.log(this.selectedDepartment);
+  }
+
+  async fetchCommonRecords() {
+    await fetch("http://localhost:3004/commonrecords")
+      .then(response => {
+        return response.json();
+      })
+      .then(json => (this.CommonRecords = json));
   }
 
   /*
@@ -56,37 +71,65 @@ class _RecordStore implements IRecordStore {
   */
   //add selected common records
   async addCommonRecord(selects: string[]) {
-    this.selectedCommonRecords = selects; //selected common record id
+    // this.selectedCommonRecords = selects;
+    console.log(selects); //selected common record id
 
     for (let i = 0; i < selects.length; i++) {
-      let test: any = "";
-      this.CommonRecords
-        .filter((x: IRecord) => x.id === selects[i])
-        .map(
-          (postDetail: IRecord) => {
-            test = {
-              department: this.selectedDepartment,
-              function: postDetail.function,
-              recordcategoryid: postDetail.recordcategoryid,
-              recordtype: postDetail.recordtype,
-              description: postDetail.description,
-              classification: postDetail.classification,
-              comments: postDetail.comments,
-              code:"",
-              status: "Approved"
-            };
-          }
-        );
+      let test: IRecord = {
+        department: "",
+        recordtype: "",
+        function: "",
+        recordcategoryid: "",
+        description: "",
+        comments: "",
+        classification: "",
+        status: "Approved",
+        code: ""
+      };
+      let addselectedDepartment: string[] = []
+      this.CommonRecords.filter((x: ICommonRecord) => x.id === selects[i]).map(
+        (postDetail: ICommonRecord) => {
+          //post common records to records list
+          test = {
+            department: this.selectedDepartment,
+            function: postDetail.function,
+            recordcategoryid: postDetail.recordcategoryid,
+            recordtype: postDetail.recordtype,
+            description: postDetail.description,
+            classification: postDetail.classification,
+            comments: postDetail.comments,
+            code: postDetail.code,
+            status: "Approved"
+          };
 
-// https://stackoverflow.com/questions/48163744/expected-to-return-a-value-in-arrow-function-array-callback-return-why/48163905
+          addselectedDepartment = postDetail.selectedbydepartment
+          addselectedDepartment.push(this.selectedDepartment);
+          // this.adddepts = addselectedDepartment;
+          console.log(addselectedDepartment);
+        }
+      );
 
-      fetch("http://localhost:3004/records", {
+      await fetch("http://localhost:3004/records", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
         },
         body: JSON.stringify(test)
+      });
+      // https://stackoverflow.com/questions/48163744/expected-to-return-a-value-in-arrow-function-array-callback-return-why/48163905
+
+      const baseUrl = "http://localhost:3004/commonrecords";
+      await fetch(`${baseUrl}/${selects[i]}`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          //post department name to selected common records
+          selectedbydepartment: addselectedDepartment
+        })
       });
     }
   }
@@ -106,7 +149,7 @@ class _RecordStore implements IRecordStore {
           department: this.selectedDepartment,
           status: "Approved"
         })
-      })
+      });
     }
 
     // fetch("http://localhost:3004/records")
@@ -125,7 +168,7 @@ class _RecordStore implements IRecordStore {
     this.record.classification = record.classification;
     this.record.comments = record.comments;
     this.record.code = record.code;
-    console.log(this.record.code)
+    console.log(this.record.code);
   }
 
   //update common records: PATCH
@@ -153,7 +196,7 @@ class _RecordStore implements IRecordStore {
         return response.json();
       })
       .then(json => (this.CommonRecords = json))
-      .then(() => console.log('updated'))
+      .then(() => console.log("updated"));
   }
 
   handleChange = (e: any) => {
@@ -169,16 +212,13 @@ class _RecordStore implements IRecordStore {
 }
 
 decorate(_RecordStore, {
-  // pendingRecords: observable,
-  // fetchCommonRecords: action,
-  // showCommonRecords: computed,
-  // fetchPendings: action,
   handleChange: action,
   getEditRecord: action,
   addCommonRecord: action,
   approveSelectedRecords: action,
   updateCommonRecord: action,
-  changeArchival: action
+  changeArchival: action,
+  fetchCommonRecords: action
 });
 
 export const RecordStore = new _RecordStore();

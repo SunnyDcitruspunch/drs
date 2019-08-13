@@ -52,8 +52,8 @@ const headrows: IHeadRow[] = [
     id: "description",
     label: "Retention Description"
   },
-  { id: "classification", label: "Classification" },
-  { id: "comments", label: "Comments" }
+  { id: "classification", label: "Classification" }
+  // { id: "comments", label: "Comments" }
 ];
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -88,6 +88,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
       componentDidMount() {
         this.props.DepartmentStore.fetchCommonRecords();
+        this.props.RecordStore.fetchCommonRecords();
         this.props.DepartmentStore.fetchAllRecords();
         // console.log(this.props.DepartmentStore.CommonRecords)
       }
@@ -123,7 +124,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           this.setState({ modalShow: true });
         } else {
           this.props.RecordStore.addCommonRecord(this.state.selectrecord);
-          window.location.reload();
+          // window.location.reload();
         }
       };
 
@@ -214,9 +215,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         <TableCell style={{ fontSize: 10 }}>
                           {record.classification}
                         </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
+                        {/* <TableCell style={{ fontSize: 10 }}>
                           {record.comments}
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}
@@ -240,7 +241,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               .map((postDetail: IRecord) => {
                 return (
                   <EditModal
-                    title="Edit Comment Only"
+                    title="Edit Comment Record"
                     record={postDetail}
                     key={postDetail.id}
                     open={this.state.editShow}
@@ -248,7 +249,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     categoryList={this.props.UniqueStore.categoryDropdown}
                     close={editClose}
                     saveedit={this.saveEdit}
-                    disabled={true}
+                    disabled={false}
+                    disablecomment={true}
                     change={RecordStore.handleChange}
                   />
                 );
