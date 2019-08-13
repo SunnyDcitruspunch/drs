@@ -27,7 +27,8 @@ interface IProps {
   functionList: Array<Object>;
   categoryList: Array<Object>;
   change: (e: any) => void;
-  disabled?: boolean;
+  disabled: boolean;
+  title: any
 }
 
 const EditModal = observer((props: IProps) => {
@@ -39,7 +40,8 @@ const EditModal = observer((props: IProps) => {
     functionList,
     categoryList,
     saveedit,
-    disabled
+    disabled,
+    title
   } = props;
 
   return (
@@ -49,11 +51,12 @@ const EditModal = observer((props: IProps) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{"Edit Record"}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
 
       <DialogContent>
         <Grid>
           <TextField
+            disabled={disabled}
             fullWidth
             id="recordtype"
             name="recordtype"
@@ -67,6 +70,7 @@ const EditModal = observer((props: IProps) => {
 
         <Grid item style={{ marginBottom: 10 }}>
           <FunctionDropdown
+            disabled={disabled}
             title={"Record Function"}
             id={"function"}
             name={"function"}
@@ -106,6 +110,7 @@ const EditModal = observer((props: IProps) => {
             defaultValue={record.description}
             variant="outlined"
             margin="normal"
+            disabled={disabled}
             onChange={change}
           />
         </Grid>
@@ -128,7 +133,10 @@ const EditModal = observer((props: IProps) => {
         <Grid>
           <FormControl component="fieldset">
             <FormLabel component="legend">Classification</FormLabel>
-            <ClassificationCheckboxes change={change} />
+            <ClassificationCheckboxes 
+            disabled={disabled}
+            change={change} 
+              />
           </FormControl>
         </Grid>
       </DialogContent>

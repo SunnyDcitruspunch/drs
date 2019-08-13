@@ -17,7 +17,6 @@ import {
   DialogContentText,
   Container
 } from "@material-ui/core";
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { inject, observer } from "mobx-react";
 import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
@@ -48,7 +47,8 @@ interface IState {
   sortDirection: any;
   filterbyFunction: string;
   snackbar: boolean;
-  disable: boolean
+  disable: boolean,
+  onlycommentEdit: boolean
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -83,6 +83,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         super(props);
 
         this.state = {
+          onlycommentEdit: false,
           smShow: false,
           openEdit: false,
           cannotEdit: false,
@@ -104,12 +105,14 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       };
 
       showEditModal(postDetail: IRecord) {
-        // if (postDetail.recordcategoryid === "common") {
-        //   this.setState({ cannotEdit: true });
-        // } else {
-          this.setState({ openEdit: true });
-          this.props.DepartmentStore.updateEditID(postDetail);
-        //}
+        if (postDetail.recordcategoryid === "common") {
+          this.setState({ onlycommentEdit: true });
+          // console.log('only edit comment')
+        } else {
+          this.setState({ onlycommentEdit: false });          
+        }
+        this.setState({ openEdit: true });
+        this.props.DepartmentStore.updateEditID(postDetail);
       }
 
       //html2canvas + jsPDF
@@ -330,6 +333,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
               .map((editDetail: IRecord) => {
                 return (
                   <EditModal
+                    title={editDetail.recordcategoryid === 'common'? "Edit Comment Only" : "Edit Record"}
+                    disabled={this.state.onlycommentEdit}
                     key={editDetail.id}
                     record={editDetail}
                     open={this.state.openEdit}

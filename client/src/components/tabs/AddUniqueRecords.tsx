@@ -94,6 +94,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
               title="Function Type"
               id="function"
               name="function"
+              disabled={false}
               value={UniqueStore.uniquerecords.function}
               change={UniqueStore.handleChange}
               dropdown={this.props.UniqueStore.functionsDropdown}
@@ -140,7 +141,10 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
 
             <FormControl component="fieldset">
               <FormLabel component="legend">Classification</FormLabel>
-              <ClassificationCheckboxes change={UniqueStore.changeArchival} />
+              <ClassificationCheckboxes 
+                change={UniqueStore.changeArchival} 
+                disabled={false}
+              />
             </FormControl>
 
             <Grid item sm={12}>

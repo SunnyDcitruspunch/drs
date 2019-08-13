@@ -89,7 +89,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       componentDidMount() {
         this.props.DepartmentStore.fetchCommonRecords();
         this.props.DepartmentStore.fetchAllRecords();
-        console.log(this.props.DepartmentStore.CommonRecords)
+        // console.log(this.props.DepartmentStore.CommonRecords)
       }
 
       onSelect = (e: any) => {
@@ -233,13 +233,14 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             </Button>
 
             {/* edit common records */}
-            {/* {this.props.DepartmentStore.CommonRecords
+            {this.props.DepartmentStore.CommonRecords
               .filter(
                 (x: IRecord) => x.code === this.props.RecordStore.record.code
               )
               .map((postDetail: IRecord) => {
                 return (
                   <EditModal
+                    title="Edit Comment Only"
                     record={postDetail}
                     key={postDetail.id}
                     open={this.state.editShow}
@@ -251,7 +252,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     change={RecordStore.handleChange}
                   />
                 );
-              })} */}
+              })}
 
             <MessageModal
               open={this.state.modalShow}

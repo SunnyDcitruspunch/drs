@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  change: (e: any) => void
+  change: (e: any) => void;
+  disabled: boolean;
 }
 
 const ClassificationCheckboxesGroup = observer((props: IProps) => {
@@ -36,7 +37,7 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
   };
 
   const { archival, vital, highlyconfidential } = state;
-  // const { change } = props
+  const { disabled } = props;
 
   return (
     <div className={classes.root}>
@@ -45,6 +46,7 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={disabled}
                 checked={archival}
                 onChange={handleChange("archival")}
                 value="archival"
@@ -55,6 +57,7 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={disabled}
                 checked={vital}
                 onChange={handleChange("vital")}
                 value="vital"
@@ -65,6 +68,7 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
           <FormControlLabel
             control={
               <Checkbox
+                disabled={disabled}
                 checked={highlyconfidential}
                 onChange={handleChange("highlyconfidential")}
                 value="highlyconfidential"
@@ -76,6 +80,6 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
       </FormControl>
     </div>
   );
-})
+});
 
 export default ClassificationCheckboxesGroup;

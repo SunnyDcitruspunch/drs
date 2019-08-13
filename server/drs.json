@@ -60,8 +60,8 @@
     {
       "recordtype": "test IS record",
       "department": "Information Systems",
-      "function": "Administrative",
-      "recordcategoryid": "FIN10",
+      "function": "Academic",
+      "recordcategoryid": "ADM01",
       "description": "a description for is record...",
       "classification": [
         "Vital"
@@ -152,7 +152,7 @@
         "Highly Confidential"
       ],
       "status": "Approved",
-      "comments": "sdf",
+      "comments": "comments here",
       "id": "tySiQoY"
     },
     {

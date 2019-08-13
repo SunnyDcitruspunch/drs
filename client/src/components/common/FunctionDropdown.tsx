@@ -9,10 +9,11 @@ interface IProps {
   name: string;
   dropdown: Array<Object>;
   title: string;
+  disabled: boolean;
 }
 
 const FunctionDropdown = observer((props: IProps) => {
-  const { value, change, id, name, dropdown, title } = props;
+  const { value, change, id, name, dropdown, title, disabled } = props;
 
   return (
     <Grid item style={{ marginBottom: 10 }}>
@@ -25,6 +26,7 @@ const FunctionDropdown = observer((props: IProps) => {
         style={{ width: 500 }}
         value={value}
         onChange={change}
+        disabled={disabled}
       >
         <MenuItem>Choose...</MenuItem>
         {dropdown.map((item: any) => (
