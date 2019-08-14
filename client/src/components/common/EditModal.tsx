@@ -20,7 +20,7 @@ import FunctionDropdown from "./FunctionDropdown";
 import { observer } from "mobx-react";
 
 interface IProps {
-  record: IRecord;
+  record: IRecord 
   open: boolean;
   close: () => void;
   saveedit: (e: any) => void;

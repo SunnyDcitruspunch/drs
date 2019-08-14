@@ -11,13 +11,14 @@ import {
   Container
 } from "@material-ui/core";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
-import { IRecordStore } from "../../stores/RecordStore";
+import { IRecordStore, IDepartment } from "../../stores/RecordStore";
 import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
 import { IUniqueStore } from "../../stores/UniqueStore";
 import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import EditModal from "../common/EditModal";
 import MessageModal from "../common/MessageModal";
+import CommonRecordsCheck from "../common/CommonRecordsCheck";
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -36,6 +37,20 @@ interface IState {
   orderBy: string;
   sortDirection: string;
   selectedCommonRecords: IRecord[];
+  disabled: boolean;
+  commonRecords: ICommonRecord[];
+  // commonRecords: any[]
+}
+
+interface ICommonRecord {
+  id?: string;
+  recordtype: string;
+  code: string;
+  function: string;
+  description: string;
+  classification: string;
+  checked?: boolean;
+  disabled?: boolean;
 }
 
 interface Document {
@@ -82,7 +97,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           order: "asc",
           orderBy: "recordtype",
           sortDirection: "asc",
-          selectedCommonRecords: []
+          selectedCommonRecords: [],
+          disabled: false,
+          commonRecords: []
         };
       }
 
@@ -90,7 +107,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         this.props.DepartmentStore.fetchCommonRecords();
         this.props.RecordStore.fetchCommonRecords();
         this.props.DepartmentStore.fetchAllRecords();
-        // console.log(this.props.DepartmentStore.CommonRecords)
+        this.setState({
+          commonRecords: this.props.DepartmentStore.CommonRecords
+        });        
       }
 
       onSelect = (e: any) => {
@@ -120,7 +139,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       };
 
       addRecord = (e: any) => {
-        if (this.props.DepartmentStore.selectedDepartment === "") {
+        if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ modalShow: true });
         } else {
           this.props.RecordStore.addCommonRecord(this.state.selectrecord);
@@ -140,7 +159,35 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           : (a, b) => -desc(a, b, orderBy);
       }
 
-      stableSort<T>(array: IRecord[], cmp: (a: T, b: T) => number) {
+      //array = all common records
+      //dept = commoncodes array
+      stableSort<T>(
+        array: ICommonRecord[],
+        cmp: (a: T, b: T) => number
+      ) {
+        
+        for (let i = 0; i < this.state.commonRecords.length; i++) {
+          for (let x = 0; x < this.props.DepartmentStore.selectedDepartment.department.length; x++) {
+            if (
+              array[i].code === this.props.DepartmentStore.selectedDepartment.department[x]
+            ) {
+              array[i].checked = true
+              array[i].disabled = true
+              // this.setState(prevState => ({
+              //   commonRecords: {
+              //     ...prevState.commonRecords,
+              //     checked: true,
+              //     disabled: true
+              //   }
+              // }));
+              console.log(this.state.commonRecords[i].checked)
+            }
+            console.log('hello')
+          }
+        }
+
+        console.log('hi')
+
         const stabilizedThis = array.map(
           (el: any, index: any) => [el, index] as [T, number]
         );
@@ -182,6 +229,56 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   onRequestSort={this.handleRequestSort}
                 />
                 <TableBody>
+                  {
+                    // this.stableSort(
+                   
+                  //   this.getSorting(this.state.order, this.state.orderBy)
+                  // )
+                  // .map((x: ICommonRecord) => )
+                  this.props.DepartmentStore.CommonRecords.map((record: ICommonRecord) => {
+                    return (
+                      <TableRow key={record.id} {...record}>
+                        <TableCell>
+                          <CreateOutlinedIcon
+                            style={styles.buttonStyle}
+                            name="edit"
+                            // onClick={() => this.handleEditRecord(record)}
+                          />
+                          <Checkbox
+                            id={record.id}
+                            value={record.id}
+                            onClick={this.onSelect}
+                            color="primary"
+                            disabled={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
+                            checked={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
+                          />
+                          {/* <CommonRecordsCheck
+                            id={record.id}
+                            value={record.code}
+                            onclick={this.onSelect}
+                          /> */}
+                        </TableCell>
+                        <TableCell style={{ fontSize: 10 }}>
+                          {record.function}
+                        </TableCell>
+                        <TableCell style={{ fontSize: 10 }}>
+                          {record.recordtype}
+                        </TableCell>
+                        <TableCell style={{ fontSize: 10 }}>
+                          {record.description}
+                        </TableCell>
+
+                        <TableCell style={{ fontSize: 10 }}>
+                          {record.classification}
+                        </TableCell>
+                        {/* <TableCell style={{ fontSize: 10 }}>
+                          {record.comments}
+                        </TableCell> */}
+                      </TableRow>
+                    );
+                  })}
+
+                  {/* just testing... */}
                   {this.stableSort(
                     this.props.DepartmentStore.CommonRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
@@ -234,27 +331,25 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             </Button>
 
             {/* edit common records */}
-            {this.props.DepartmentStore.CommonRecords
-              .filter(
-                (x: IRecord) => x.code === this.props.RecordStore.record.code
-              )
-              .map((postDetail: IRecord) => {
-                return (
-                  <EditModal
-                    title="Edit Comment Record"
-                    record={postDetail}
-                    key={postDetail.id}
-                    open={this.state.editShow}
-                    functionList={this.props.UniqueStore.functionsDropdown}
-                    categoryList={this.props.UniqueStore.categoryDropdown}
-                    close={editClose}
-                    saveedit={this.saveEdit}
-                    disabled={false}
-                    disablecomment={true}
-                    change={RecordStore.handleChange}
-                  />
-                );
-              })}
+            {this.props.DepartmentStore.CommonRecords.filter(
+              (x: IRecord) => x.code === this.props.RecordStore.record.code
+            ).map((postDetail: IRecord) => {
+              return (
+                <EditModal
+                  title="Edit Comment Record"
+                  record={postDetail}
+                  key={postDetail.id}
+                  open={this.state.editShow}
+                  functionList={this.props.UniqueStore.functionsDropdown}
+                  categoryList={this.props.UniqueStore.categoryDropdown}
+                  close={editClose}
+                  saveedit={this.saveEdit}
+                  disabled={false}
+                  disablecomment={true}
+                  change={RecordStore.handleChange}
+                />
+              );
+            })}
 
             <MessageModal
               open={this.state.modalShow}

@@ -121,7 +121,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         const dept = this.props.DepartmentStore.selectedDepartment;
         const schedule: any = document.getElementById("schedule");
 
-        if (this.props.DepartmentStore.selectedDepartment !== "") {
+        if (this.props.DepartmentStore.selectedDepartment.department !== "") {
           html2canvas(schedule, {
             width: 2400,
             height: 2000,
@@ -246,7 +246,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
-                    .filter((x: IRecord) => x.department === department)
+                    .filter((x: IRecord) => x.department === department.department)
                     .map((postDetail: IRecord) => {
                       return (
                         <TableRow hover key={postDetail.id}>

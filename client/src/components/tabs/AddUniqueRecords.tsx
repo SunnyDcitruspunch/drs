@@ -48,13 +48,13 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       };
 
       submitRecords = (e: any) => {
-        if (this.props.DepartmentStore.selectedDepartment === "") {
+        if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ smShow: true });
         } else if (this.props.UniqueStore.uniquerecords.recordtype === "") {
           this.setState({ needRecordType: true });
         } else {
           this.props.UniqueStore.getDepartmentName(
-            this.props.DepartmentStore.selectedDepartment
+            this.props.DepartmentStore.selectedDepartment.department
           );
           this.props.UniqueStore.submitRecords();
           this.setState({ snackbarShow: true });

@@ -1,24 +1,25 @@
-import { observable, decorate, action, computed } from "mobx";
+import { observable, decorate, action, computed, runInAction } from "mobx";
+import { IDepartment } from "./RecordStore";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
-  fetchCommonRecords: () => void
+  fetchCommonRecords: () => void;
   fetchAll: () => void;
   updateEditID: any;
-  selectedDepartment: string;
-  selectedCommonRecords: Array<IRecord>
+  selectedDepartment: IDepartment;
+  selectedCommonRecords: Array<IRecord>;
   deleteID: string;
   deleteRecord: () => void;
   updateRecord: () => void;
   _allRecords: Array<IRecord>;
-  allRecords: Array<any>
+  allRecords: Array<any>;
   allDepartments: Array<any>;
   isLoading: boolean;
   editrecord: IRecord;
-  handleSelected: (edpt: string) => void;
+  handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
-  handleSelectedCommonRecords: (dept: string) => void
-  CommonRecords: IRecord[]
+  handleSelectedCommonRecords: (dept: string) => void;
+  CommonRecords: IRecord[];
 }
 
 export type IRecord = {
@@ -34,14 +35,19 @@ export type IRecord = {
   status: string;
 };
 
-class _DepartmentStore {
-  selectedDepartment = "";
-  selectedCommonRecords = []
+class _DepartmentStore implements IDepartmentStore {
+  selectedDepartment: IDepartment = {
+    id: "",
+    department: "",
+    departmentnumber:"",
+    commoncodes:[]
+  };
+  selectedCommonRecords: IRecord[] = [];
   allDepartments = [];
-  _allRecords = [];
+  _allRecords: IRecord[] = [];
   isLoading = false;
   deleteID = "";
-  CommonRecords = []
+  CommonRecords = [];
 
   editrecord: IRecord = {
     id: "",
@@ -53,15 +59,16 @@ class _DepartmentStore {
     comments: "",
     classification: "",
     status: "",
-    code:""
+    code: ""
   };
 
   //select a department
-  handleSelected(dept: string) {
-    this.selectedDepartment = dept;
+  handleSelected(dept: IDepartment) {
+    console.log(dept);
+    this.selectedDepartment = dept
     // this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept)
     //console.log(this.selectedCommonRecords)
-    
+
     // let array = []
     // for (let i = 0; i < this.selectedCommonRecords.length; i++) {
     //   let commonObj = this.CommonRecords[i]
@@ -79,20 +86,22 @@ class _DepartmentStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.CommonRecords = json))
+      .then(json => (this.CommonRecords = json));
   }
 
   //this.selectedCommonRecords = selected common records in a department
   handleSelectedCommonRecords(dept: string) {
-    this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept && r.recordcategoryid === 'common')
+    this.selectedCommonRecords = this._allRecords.filter(
+      (r: IRecord) => r.department === dept && r.recordcategoryid === "common"
+    );
     // console.log(this.selectedCommonRecords)
 
     // let array = []
     // let x = 49
     for (let i = 0; i < this.selectedCommonRecords.length; i++) {
-      let recordObj = this._allRecords[i]
-      let selectedObj = this.selectedCommonRecords[i]
-      if(selectedObj['code'] !== recordObj['code']) {
+      let recordObj = this._allRecords[i];
+      let selectedObj = this.selectedCommonRecords[i];
+      if (selectedObj["code"] !== recordObj["code"]) {
         // console.log(x--)
       }
     }
@@ -107,41 +116,59 @@ class _DepartmentStore {
       .then(json => (this.allDepartments = json));
   };
 
-  async fetchAllRecords () {
+  async fetchAllRecords() {
     this.isLoading = false;
     await fetch("http://localhost:3004/records")
       .then(response => {
         return response.json();
       })
-      .then(json => (this._allRecords = json))
+      .then(json => (this._allRecords = json));
   }
 
-  get allRecords ():Array<any> {
-    return this._allRecords
+  get allRecords(): Array<any> {
+    return this._allRecords;
+  }
+
+  setAllRecords(records: IRecord[]) {
+    runInAction(() => 
+    this._allRecords = records
+    )
+  }
+
+  setRecord(record: IRecord) {
+    const i = this._allRecords.findIndex((r)=> r.id = record.id)
+    //  = records
+    runInAction(() => 
+    this._allRecords[i] = record
+    )
   }
 
   handleChange = (e: any) => {
     const { value, name } = e.target;
-    this.editrecord[name] = value
-    this.allRecords.find((r) => r.id === this.editrecord.id).function = this.editrecord.function
-    this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid = this.editrecord.recordcategoryid
+    this.editrecord[name] = value;
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).function = this.editrecord.function;
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).recordcategoryid = this.editrecord.recordcategoryid;
   };
 
   updateEditID(postDetail: IRecord) {
-    this.editrecord.id = postDetail.id
-    this.editrecord.recordtype = postDetail.recordtype
-    this.editrecord.function = postDetail.function
-    this.editrecord.recordcategoryid = postDetail.recordcategoryid
-    this.editrecord.description = postDetail.description
-    this.editrecord.comments = postDetail.comments
-    this.editrecord.classification = postDetail.classification
+    this.editrecord.id = postDetail.id;
+    this.editrecord.recordtype = postDetail.recordtype;
+    this.editrecord.function = postDetail.function;
+    this.editrecord.recordcategoryid = postDetail.recordcategoryid;
+    this.editrecord.description = postDetail.description;
+    this.editrecord.comments = postDetail.comments;
+    this.editrecord.classification = postDetail.classification;
   }
 
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
     let options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.deleteID}`, options);
-    
+
     await fetch("http://localhost:3004/records")
       .then(response => {
         return response.json();
@@ -151,36 +178,56 @@ class _DepartmentStore {
 
   //PATCH request
   async updateRecord() {
-    this.allRecords.find((r) => r.id === this.editrecord.id).recordtype = this.editrecord.recordtype
-    this.allRecords.find((r) => r.id === this.editrecord.id).function = this.editrecord.function
-    this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid = this.editrecord.recordcategoryid
-    this.allRecords.find((r) => r.id === this.editrecord.id).description = this.editrecord.description
-    this.allRecords.find((r) => r.id === this.editrecord.id).comments = this.editrecord.comments
-    this.allRecords.find((r) => r.id === this.editrecord.id).classification = this.editrecord.classification
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).recordtype = this.editrecord.recordtype;
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).function = this.editrecord.function;
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).recordcategoryid = this.editrecord.recordcategoryid;
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).description = this.editrecord.description;
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).comments = this.editrecord.comments;
+    this.allRecords.find(
+      r => r.id === this.editrecord.id
+    ).classification = this.editrecord.classification;
 
     const baseUrl = "http://localhost:3004/records";
-    await fetch(`${baseUrl}/${this.editrecord.id}`, {
+    const res = await fetch(`${baseUrl}/${this.editrecord.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        recordtype: this.allRecords.find((r) => r.id === this.editrecord.id).recordtype,
-        function: this.allRecords.find((r) => r.id === this.editrecord.id).function,
-        recordcategoryid: this.allRecords.find((r) => r.id === this.editrecord.id).recordcategoryid,
-        description: this.allRecords.find((r) => r.id === this.editrecord.id).description,
-        comments: this.allRecords.find((r) => r.id === this.editrecord.id).comments,
-        classification: this.allRecords.find((r) => r.id === this.editrecord.id).classification
+        recordtype: this.allRecords.find(r => r.id === this.editrecord.id)
+          .recordtype,
+        function: this.allRecords.find(r => r.id === this.editrecord.id)
+          .function,
+        recordcategoryid: this.allRecords.find(r => r.id === this.editrecord.id)
+          .recordcategoryid,
+        description: this.allRecords.find(r => r.id === this.editrecord.id)
+          .description,
+        comments: this.allRecords.find(r => r.id === this.editrecord.id)
+          .comments,
+        classification: this.allRecords.find(r => r.id === this.editrecord.id)
+          .classification
       })
-    })
+    });
+    const newRecord = await res.json() 
+    this.setRecord(newRecord)
   }
 }
 
 decorate(_DepartmentStore, {
   selectedDepartment: observable,
-  fetchCommonRecords:action,
-  CommonRecords:observable,
+  fetchCommonRecords: action,
+  CommonRecords: observable,
   editrecord: observable,
   allDepartments: observable,
   isLoading: observable,
