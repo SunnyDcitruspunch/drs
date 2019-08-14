@@ -66,7 +66,7 @@ class _RecordStore implements IRecordStore {
   // addcommonrecords = {};
 
   handleSelected(dept: IDepartment) {
-    console.log(dept)
+    // console.log(dept)
     this.selectedDepartment = dept
     // this.selectedDepartment = dept;
     // console.log(dept);

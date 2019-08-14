@@ -37,8 +37,8 @@ interface IState {
   orderBy: string;
   sortDirection: string;
   selectedCommonRecords: IRecord[];
-  disabled: boolean;
-  commonRecords: ICommonRecord[];
+  // disabled: boolean;
+  // commonRecords: ICommonRecord[];
   // commonRecords: any[]
 }
 
@@ -68,7 +68,6 @@ const headrows: IHeadRow[] = [
     label: "Retention Description"
   },
   { id: "classification", label: "Classification" }
-  // { id: "comments", label: "Comments" }
 ];
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -98,21 +97,19 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           orderBy: "recordtype",
           sortDirection: "asc",
           selectedCommonRecords: [],
-          disabled: false,
-          commonRecords: []
+          // disabled: false,
+          // commonRecords: []
         };
       }
 
       componentDidMount() {
         this.props.DepartmentStore.fetchCommonRecords();
-        this.props.RecordStore.fetchCommonRecords();
-        this.props.DepartmentStore.fetchAllRecords();
-        this.setState({
-          commonRecords: this.props.DepartmentStore.CommonRecords
-        });        
+        // this.props.RecordStore.fetchCommonRecords();
+        // this.props.DepartmentStore.fetchAllRecords();
       }
 
       onSelect = (e: any) => {
+        console.log('clicked')
         if (e.target.checked) {
           this.setState({
             selectrecord: [...this.state.selectrecord, e.target.value]
@@ -127,7 +124,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         }
       };
 
-      handleEditRecord(editRecord: IRecord) {
+      handleEditRecord = (editRecord: IRecord) => {
         this.props.RecordStore.getEditRecord(editRecord);
         this.setState({ editShow: true });
         console.log(this.state.editShow);
@@ -159,35 +156,10 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           : (a, b) => -desc(a, b, orderBy);
       }
 
-      //array = all common records
-      //dept = commoncodes array
       stableSort<T>(
         array: ICommonRecord[],
         cmp: (a: T, b: T) => number
       ) {
-        
-        for (let i = 0; i < this.state.commonRecords.length; i++) {
-          for (let x = 0; x < this.props.DepartmentStore.selectedDepartment.department.length; x++) {
-            if (
-              array[i].code === this.props.DepartmentStore.selectedDepartment.department[x]
-            ) {
-              array[i].checked = true
-              array[i].disabled = true
-              // this.setState(prevState => ({
-              //   commonRecords: {
-              //     ...prevState.commonRecords,
-              //     checked: true,
-              //     disabled: true
-              //   }
-              // }));
-              console.log(this.state.commonRecords[i].checked)
-            }
-            console.log('hello')
-          }
-        }
-
-        console.log('hi')
-
         const stabilizedThis = array.map(
           (el: any, index: any) => [el, index] as [T, number]
         );
@@ -199,7 +171,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         return stabilizedThis.map((el: any) => el[0]);
       }
 
-      handleRequestSort = (
+      handleRequestSort = () => (
         event: React.MouseEvent<unknown>,
         property: keyof IData
       ) => {
@@ -215,8 +187,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
-        const { RecordStore } = this.props;
+        const { RecordStore, DepartmentStore } = this.props;
 
+        console.log(this.props.DepartmentStore.CommonRecords)
         return (
           <Container style={styles.tableStyle}>
             <Paper style={{ width: "100%", overflowX: "auto" }}>
@@ -230,12 +203,10 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 />
                 <TableBody>
                   {
-                    // this.stableSort(
-                   
-                  //   this.getSorting(this.state.order, this.state.orderBy)
-                  // )
-                  // .map((x: ICommonRecord) => )
-                  this.props.DepartmentStore.CommonRecords.map((record: ICommonRecord) => {
+                  this.stableSort(
+                   this.props.DepartmentStore.CommonRecords,
+                    this.getSorting(this.state.order, this.state.orderBy)
+                  ).map((record: ICommonRecord) => {
                     return (
                       <TableRow key={record.id} {...record}>
                         <TableCell>
@@ -249,54 +220,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                             value={record.id}
                             onClick={this.onSelect}
                             color="primary"
+                            // checked={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
                             disabled={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
-                            checked={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
-                          />
-                          {/* <CommonRecordsCheck
-                            id={record.id}
-                            value={record.code}
-                            onclick={this.onSelect}
-                          /> */}
-                        </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.function}
-                        </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.recordtype}
-                        </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.description}
-                        </TableCell>
-
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.classification}
-                        </TableCell>
-                        {/* <TableCell style={{ fontSize: 10 }}>
-                          {record.comments}
-                        </TableCell> */}
-                      </TableRow>
-                    );
-                  })}
-
-                  {/* just testing... */}
-                  {this.stableSort(
-                    this.props.DepartmentStore.CommonRecords,
-                    this.getSorting(this.state.order, this.state.orderBy)
-                  ).map((record: IRecord) => {
-                    return (
-                      <TableRow key={record.id} {...record}>
-                        <TableCell>
-                          <CreateOutlinedIcon
-                            style={styles.buttonStyle}
-                            name="edit"
-                            onClick={() => this.handleEditRecord(record)}
-                          />
-                          <Checkbox
-                            id={record.id}
-                            value={record.id}
-                            onClick={this.onSelect}
-                            color="primary"
-                            disabled={false}
                           />
                         </TableCell>
                         <TableCell style={{ fontSize: 10 }}>
@@ -312,12 +237,9 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         <TableCell style={{ fontSize: 10 }}>
                           {record.classification}
                         </TableCell>
-                        {/* <TableCell style={{ fontSize: 10 }}>
-                          {record.comments}
-                        </TableCell> */}
                       </TableRow>
                     );
-                  })}
+                  })}               
                 </TableBody>
               </Table>
             </Paper>

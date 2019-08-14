@@ -64,7 +64,7 @@ class _DepartmentStore implements IDepartmentStore {
 
   //select a department
   handleSelected(dept: IDepartment) {
-    console.log(dept);
+    // console.log(dept);
     this.selectedDepartment = dept
     // this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept)
     //console.log(this.selectedCommonRecords)

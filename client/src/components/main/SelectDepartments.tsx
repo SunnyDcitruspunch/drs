@@ -37,7 +37,7 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
 
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
-        console.log(value)
+        // console.log(value)
         const dept: IDepartment = this.props.DepartmentStore.allDepartments.find(
           (x: IDepartment) => x.department === value
         );
@@ -45,7 +45,7 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
         this.props.DepartmentStore.handleSelected(dept);
         this.props.RecordStore.handleSelected(dept);
         this.props.DepartmentStore.handleSelectedCommonRecords(value);
-        console.log(dept);
+        // console.log(dept);
       };
 
       onChange = (e: MouseEvent) => {
