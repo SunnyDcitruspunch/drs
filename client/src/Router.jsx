@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import DeptRetention from "./components/tabs/DeptRetention";
-import AddCommonRecords from "./components/tabs/AddCommonRecords";
-import AddUniqueRecords from "./components/tabs/AddCommonRecords";
+import DeptRetention from "./components/tabs/DeptRetention/DeptRetention";
+import AddCommonRecords from "./components/tabs/CommonRecords/AddCommonRecords";
+import AddUniqueRecords from "./components/tabs/CommonRecords/AddCommonRecords";
 import AdminTab from "./components/tabs/AdminTab";
 
 class Router extends Component {

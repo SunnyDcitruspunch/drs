@@ -8,7 +8,6 @@ import {
 import { observer } from "mobx-react";
 
 export type IOrder = "asc" | "desc";
-
 export interface IData {
   department?: string;
   recordtype: string;
@@ -19,7 +18,6 @@ export interface IData {
   comments: string;
   status?: string;
 }
-
 export interface IEnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -28,14 +26,14 @@ export interface IEnhancedTableProps {
   order: IOrder;
   orderBy: string;
   rowCount?: number;
-  id: string
-  headrows: any
+  id: string;
+  headrows: any;
 }
-
 export interface IHeadRow {
   id: keyof IData;
   label: string;
 }
+
 
 const EnhancedTableHead = observer((props: IEnhancedTableProps) => {
   const { order, orderBy, onRequestSort, id, headrows } = props;
@@ -66,6 +64,6 @@ const EnhancedTableHead = observer((props: IEnhancedTableProps) => {
       </TableRow>
     </TableHead>
   );
-})
+});
 
 export default EnhancedTableHead;

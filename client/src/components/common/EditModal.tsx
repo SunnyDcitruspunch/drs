@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   Button,
   Dialog,
@@ -27,6 +26,7 @@ interface IProps {
   functionList: Array<Object>;
   categoryList: Array<Object>;
   change: (e: any) => void;
+  changecheckbox: (e: any) => void;
   disabled: boolean;
   title: any
   disablecomment?: boolean
@@ -43,7 +43,8 @@ const EditModal = observer((props: IProps) => {
     saveedit,
     disabled,
     title,
-    disablecomment
+    disablecomment,
+    changecheckbox
   } = props;
 
   return (
@@ -138,7 +139,7 @@ const EditModal = observer((props: IProps) => {
             <FormLabel component="legend">Classification</FormLabel>
             <ClassificationCheckboxes 
             disabled={disabled}
-            change={change} 
+            change={changecheckbox} 
               />
           </FormControl>
         </Grid>

@@ -11,12 +11,12 @@ import {
   FormControl
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IUniqueStore } from "../../stores/UniqueStore";
-import { IDepartmentStore } from "../../stores/DepartmentStore";
-import Snackbar from "../common/Snackbar";
-import MessageModal from "../common/MessageModal";
-import FunctionDropdown from "../common/FunctionDropdown";
-import ClassificationCheckboxes from "../common/ClassificationCheckboxes";
+import { IUniqueStore } from "../../../stores/UniqueStore";
+import { IDepartmentStore } from "../../../stores/DepartmentStore";
+import Snackbar from "../../common/Snackbar";
+import MessageModal from "../../common/MessageModal";
+import FunctionDropdown from "../../common/FunctionDropdown";
+import ClassificationCheckboxes from "../../common/ClassificationCheckboxes";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -62,11 +62,6 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
           this.setState({
             snackbarShow: true
           });
-
-          setInterval(() => {
-            this.setState({ snackbarShow: false });
-          }, 3000);
-
           // window.location.reload()
         }
       };

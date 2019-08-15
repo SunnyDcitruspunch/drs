@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  TextField,
   FormGroup,
   Container,
   Grid,
@@ -37,15 +36,12 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
 
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
-        // console.log(value)
         const dept: IDepartment = this.props.DepartmentStore.allDepartments.find(
           (x: IDepartment) => x.department === value
         );
         this.setState({ selecteddept: value });
         this.props.DepartmentStore.handleSelected(dept);
         this.props.RecordStore.handleSelected(dept);
-        this.props.DepartmentStore.handleSelectedCommonRecords(value);
-        // console.log(dept);
       };
 
       onChange = (e: MouseEvent) => {
@@ -65,9 +61,6 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
                   onChange={this.onSelect}
                   value={this.state.selecteddept}
                 >
-                  {/* <MenuItem style={{ height: 30 }} value="">
-                    Please Select a Department...
-                  </MenuItem> */}
                   {DepartmentStore.allDepartments.slice().map((dept: any) => (
                     <MenuItem
                       style={{ height: 30 }}

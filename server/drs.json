@@ -18,7 +18,7 @@
     {
       "department": "Records",
       "code": "CACD1000",
-      "comments": "notes123",
+      "comments": "notes",
       "function": "Academic",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
@@ -55,7 +55,7 @@
       "classification": [
         "Vital"
       ],
-      "comments": "yes this is fore sure a note.   jjjj",
+      "comments": "yes this is fore sure a note.  ",
       "status": "Approved",
       "id": "LPX4H13",
       "departmentnumber": "238"
@@ -278,12 +278,9 @@
       "code": "CACD1100",
       "status": "Approved",
       "id": "lH3_e9w"
-    }
-  ],
-  "commonrecords": [
+    },
     {
-      "id": "1",
-      "code": "CACD1000",
+      "department": "Information Systems",
       "function": "Academic",
       "recordcategoryid": "common",
       "recordtype": "Academic unit reviews / educational support unit reviews.",
@@ -291,8 +288,195 @@
       "classification": [
         "Archival"
       ],
-      "selectedbydepartment": [
-        "Computer Science"
+      "comments": "",
+      "code": "CACD1000",
+      "status": "Approved",
+      "id": "b6HZ3S8"
+    },
+    {
+      "department": "Information Systems",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": "77V-RNU"
+    },
+    {
+      "department": "Information Systems",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1000",
+      "status": "Approved",
+      "id": "oMMg1mJ"
+    },
+    {
+      "department": "Records",
+      "function": "Administrative",
+      "recordtype": "Annual and summary reports.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival Review, if not submitted to college/division.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CADM1100",
+      "status": "Approved",
+      "id": "k8aOBUN"
+    },
+    {
+      "department": "Marriott School",
+      "function": "Financial",
+      "recordtype": "Budget adjustments, submitted by departments.",
+      "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CFIN1200",
+      "status": "Approved",
+      "id": "kukZ1wc"
+    },
+    {
+      "department": "Records",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1000",
+      "status": "Approved",
+      "id": "PBYDubg"
+    },
+    {
+      "department": "Records",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": "039rFHs"
+    },
+    {
+      "department": "Records",
+      "function": "Administrative",
+      "recordtype": "Annual and summary reports.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival Review, if not submitted to college/division.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CADM1100",
+      "status": "Approved",
+      "id": "E8ZaRBw"
+    },
+    {
+      "department": "Records",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1000",
+      "status": "Approved",
+      "id": "kpEqBm4"
+    },
+    {
+      "department": "Records",
+      "function": "Financial",
+      "recordtype": "Budget adjustments, submitted by departments.",
+      "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CFIN1200",
+      "status": "Approved",
+      "id": "DQ-yBdP"
+    },
+    {
+      "department": "Marriott School",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1000",
+      "status": "Approved",
+      "id": "JqO7feg"
+    },
+    {
+      "department": "Records",
+      "function": "Administrative",
+      "recordtype": "Annual and summary reports.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival Review, if not submitted to college/division.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CADM1100",
+      "status": "Approved",
+      "id": "GxQsL2L"
+    },
+    {
+      "department": "Records",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": "2LAUwrK"
+    },
+    {
+      "department": "Records",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1000",
+      "status": "Approved",
+      "id": "fnMeJan"
+    }
+  ],
+  "commonrecords": [
+    {
+      "id": "1",
+      "code": "CACD1000",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        "Archival"
       ]
     },
     {
@@ -376,11 +560,7 @@
       "function": "Employment",
       "recordtype": "Job descriptions.",
       "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "classification": [],
-      "selectedbydepartment": [
-        "Marriott School",
-        "Honor Code Office"
-      ]
+      "classification": []
     },
     {
       "id": "11",
@@ -779,23 +959,25 @@
       "department": "Records",
       "departmentnumber": "200",
       "commoncodes": [
-        "CACD1000",
-        "CACD1100"
+        "CFIN1200",
+        "CADM1100",
+        "CACD1100",
+        "CACD1000"
       ]
     },
     {
       "id": "1",
       "department": "Information Systems",
       "departmentnumber": "401",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1000"
+      ]
     },
     {
       "id": "2",
       "department": "Marriott School",
       "departmentnumber": "403",
       "commoncodes": [
-        "CADM1100",
-        "CACD1100",
         "CACD1000"
       ]
     },

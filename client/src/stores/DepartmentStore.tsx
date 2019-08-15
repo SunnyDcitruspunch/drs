@@ -18,7 +18,6 @@ export interface IDepartmentStore {
   editrecord: IRecord;
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
-  handleSelectedCommonRecords: (dept: string) => void;
   CommonRecords: IRecord[];
 }
 
@@ -64,20 +63,7 @@ class _DepartmentStore implements IDepartmentStore {
 
   //select a department
   handleSelected(dept: IDepartment) {
-    // console.log(dept);
     this.selectedDepartment = dept
-    // this.selectedCommonRecords = this._allRecords.filter((r:IRecord) => r.department === dept)
-    //console.log(this.selectedCommonRecords)
-
-    // let array = []
-    // for (let i = 0; i < this.selectedCommonRecords.length; i++) {
-    //   let commonObj = this.CommonRecords[i]
-    //   let selectedObj = this.selectedCommonRecords[i]
-    //   let x = 0
-    //   if(selectedObj['code'] !== commonObj['code']) {
-    //     console.log(x++)
-    //   }
-    // }
   }
 
   //fetch all common records
@@ -87,24 +73,6 @@ class _DepartmentStore implements IDepartmentStore {
         return response.json();
       })
       .then(json => (this.CommonRecords = json));
-  }
-
-  //this.selectedCommonRecords = selected common records in a department
-  handleSelectedCommonRecords(dept: string) {
-    this.selectedCommonRecords = this._allRecords.filter(
-      (r: IRecord) => r.department === dept && r.recordcategoryid === "common"
-    );
-    // console.log(this.selectedCommonRecords)
-
-    // let array = []
-    // let x = 49
-    for (let i = 0; i < this.selectedCommonRecords.length; i++) {
-      let recordObj = this._allRecords[i];
-      let selectedObj = this.selectedCommonRecords[i];
-      if (selectedObj["code"] !== recordObj["code"]) {
-        // console.log(x--)
-      }
-    }
   }
 
   fetchAll = () => {
@@ -155,13 +123,7 @@ class _DepartmentStore implements IDepartmentStore {
   };
 
   updateEditID(postDetail: IRecord) {
-    this.editrecord.id = postDetail.id;
-    this.editrecord.recordtype = postDetail.recordtype;
-    this.editrecord.function = postDetail.function;
-    this.editrecord.recordcategoryid = postDetail.recordcategoryid;
-    this.editrecord.description = postDetail.description;
-    this.editrecord.comments = postDetail.comments;
-    this.editrecord.classification = postDetail.classification;
+    this.editrecord = postDetail;
   }
 
   async deleteRecord() {

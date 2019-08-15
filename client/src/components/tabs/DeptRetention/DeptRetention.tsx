@@ -1,30 +1,17 @@
 import * as React from "react";
-import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
-import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  DialogContentText,
-  Container
-} from "@material-ui/core";
+import { Paper, Table, TableBody, Button, Container } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
-import { IUniqueStore } from "../../stores/UniqueStore";
-import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
-import EnhancedTableHead from "../common/EnhancedTableHead";
-import MessageModal from "../common/MessageModal";
+import { IDepartmentStore, IRecord } from "../../../stores/DepartmentStore";
+import { IUniqueStore } from "../../../stores/UniqueStore";
+import { IData, IOrder, IHeadRow } from "../../common/EnhancedTableHead";
+import EnhancedTableHead from "../../common/EnhancedTableHead";
+import EditModal from "../../common/EditModal";
+import DepartmentTable from "../DeptRetention/DepartmentTable";
+import DeleteModal from "../DeptRetention/DeleteModal";
+import { RecordStore } from "../../../stores";
 // import Snackbar from "../common/Snackbar";
-import EditModal from "../common/EditModal";
 // import Progress from "../common/Progress";
 
 /* 
@@ -39,7 +26,6 @@ interface IProps {
 interface IState {
   smShow: boolean;
   openEdit: boolean;
-  cannotEdit: boolean;
   pdfShow: boolean;
   confirmDelete: boolean;
   order: IOrder;
@@ -47,8 +33,8 @@ interface IState {
   sortDirection: any;
   filterbyFunction: string;
   snackbar: boolean;
-  disable: boolean,
-  onlycommentEdit: boolean
+  disable: boolean;
+  onlycommentEdit: boolean;
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -86,7 +72,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           onlycommentEdit: false,
           smShow: false,
           openEdit: false,
-          cannotEdit: false,
           pdfShow: false,
           confirmDelete: false,
           order: "asc",
@@ -102,7 +87,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.props.DepartmentStore.fetchAllRecords();
         this.props.DepartmentStore.fetchCommonRecords();
         this.props.UniqueStore.fetchArchival();
-        
       };
 
       showEditModal(postDetail: IRecord) {
@@ -110,7 +94,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
           this.setState({ onlycommentEdit: true });
           // console.log('only edit comment')
         } else {
-          this.setState({ onlycommentEdit: false });          
+          this.setState({ onlycommentEdit: false });
         }
         this.setState({ openEdit: true });
         this.props.DepartmentStore.updateEditID(postDetail);
@@ -205,32 +189,17 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.setState({ orderBy: property });
       };
 
-      handlefilterfunction = (e: any) => {
-        const { value } = e.target;
-        this.setState({ filterbyFunction: value });
-      };
-
       render() {
-        // let confirmClose = () => this.setState({ confirmDelete: false });
-        let cannoteditClose = () => this.setState({ cannotEdit: false });
         const { DepartmentStore } = this.props;
         const department = DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
         const categories = this.props.UniqueStore.categoryDropdown;
 
         return (
-          <Container style={styles.tableStyle}>
-
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={this.makePdf}
-              style={{ fontSize: 12, marginBottom: 10 }}
-            >
+          <Container>
+            <Button variant="outlined" color="primary" onClick={this.makePdf}>
               Download as PDF
             </Button>
-            {/* <Progress /> */}
-
             <Paper>
               <Table id="schedule" size="small">
                 <EnhancedTableHead
@@ -246,42 +215,22 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     this.getSorting(this.state.order, this.state.orderBy)
                   )
                     .slice()
-                    .filter((x: IRecord) => x.department === department.department)
-                    .map((postDetail: IRecord) => {
+                    .filter(
+                      (x: IRecord) => x.department === department.department
+                    )
+                    .map((postDetail: IRecord, index) => {
                       return (
-                        <TableRow hover key={postDetail.id}>
-                          <TableCell style={{ width: 100 }}>
-                            <CreateOutlinedIcon
-                              name="edit"
-                              onClick={() => this.showEditModal(postDetail)}
-                              style={styles.buttonStyle}
-                            />
-                            &nbsp;
-                            <DeleteForeverSharpIcon
-                              name="delete"
-                              onClick={() => this.handleDelete(postDetail.id)}
-                              style={styles.buttonStyle}
-                            />
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.function}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.recordtype}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.description}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.classification}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.comments}
-                          </TableCell>
-                          <TableCell style={{ fontSize: 10 }}>
-                            {postDetail.status}
-                          </TableCell>
-                        </TableRow>
+                        <DepartmentTable
+                          key={index}
+                          onedit={() => this.showEditModal(postDetail)}
+                          ondelete={() => this.handleDelete(postDetail.id)}
+                          pfunction={postDetail.function}
+                          recordtype={postDetail.recordtype}
+                          description={postDetail.description}
+                          classification={postDetail.classification}
+                          comments={postDetail.comments}
+                          status={postDetail.status}
+                        />
                       );
                     })}
                 </TableBody>
@@ -289,52 +238,28 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
             </Paper>
 
             {/* delete record */}
-            <Dialog
+            <DeleteModal
               open={this.state.confirmDelete}
-              // onClose={confirmClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Delete Record"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  Are you sure you want to delete this record?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.onDelete} color="primary" autoFocus>
-                  Delete this record
-                </Button>
-                <Button
-                  onClick={() => this.setState({ confirmDelete: false })}
-                  color="primary"
-                  autoFocus
-                >
-                  Cancel
-                </Button>
-              </DialogActions>
-            </Dialog>
-
-            {/* cannot edit record */}
-            <MessageModal
-              open={this.state.cannotEdit}
-              close={cannoteditClose}
-              click={() => this.setState({ cannotEdit: false })}
-              title="Cannot Edit this Record"
-              msg="Cannot edit common records"
+              title={"Delete Record"}
+              msg={"Are you sure you want to delete this record?"}
+              pdelete={this.onDelete}
+              click={() => this.setState({ confirmDelete: false })}
             />
 
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
               .filter(
-                (x: IRecord) => x.id === this.props.DepartmentStore.editrecord.id
+                (x: IRecord) =>
+                  x.id === this.props.DepartmentStore.editrecord.id
               )
               .map((editDetail: IRecord) => {
                 return (
                   <EditModal
-                    title={editDetail.recordcategoryid === 'common'? "Edit Comment Only" : "Edit Record"}
+                    title={
+                      editDetail.recordcategoryid === "common"
+                        ? "Edit Comment Only"
+                        : "Edit Record"
+                    }
                     disabled={this.state.onlycommentEdit}
                     key={editDetail.id}
                     record={editDetail}
@@ -344,13 +269,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     categoryList={categories}
                     change={DepartmentStore.handleChange}
                     saveedit={this.editRecord}
+                    changecheckbox={RecordStore.handleCheckbox}
                   />
                 );
               })}
-            {/* <Snackbar
-              _open={this.state.snackbar}
-              msg="Successfully edited the record."
-            /> */}
           </Container>
         );
       }
@@ -359,15 +281,3 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 );
 
 export default DeptRetention as any;
-
-const styles = {
-  tableStyle: {
-    paddingTop: 14
-  },
-  buttonStyle: {
-    width: 20,
-    height: 16,
-    padding: 0,
-    fontSize: 10
-  }
-};

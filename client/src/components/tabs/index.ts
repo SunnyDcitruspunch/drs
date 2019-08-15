@@ -1,4 +1,4 @@
-export * from './AddCommonRecords'
-export * from './AddUniqueRecords'
+export * from './CommonRecords/AddCommonRecords'
+export * from './UniqueRecords/AddUniqueRecords'
 export * from './AdminTab'
-export * from './DeptRetention'
+export * from './DeptRetention/DeptRetention'

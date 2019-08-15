@@ -7,9 +7,9 @@ import {
   createStyles
 } from "@material-ui/core/styles";
 import { AppBar, Tabs, Tab, Typography, Box } from "@material-ui/core";
-import DeptRetention from "../tabs/DeptRetention";
-import AddCommonRecords from "../tabs/AddCommonRecords";
-import AddUniqueRecords from "../tabs/AddUniqueRecords";
+import DeptRetention from "../tabs/DeptRetention/DeptRetention";
+import AddCommonRecords from "../tabs/CommonRecords/AddCommonRecords";
+import AddUniqueRecords from "../tabs/UniqueRecords/AddUniqueRecords";
 import AdminTab from "../tabs/AdminTab";
 import { observer } from "mobx-react";
 
@@ -66,7 +66,7 @@ const FullWidthTabs = observer(() => {
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <AppBar position="static" color="default">
         <Tabs
           value={value}

@@ -2,23 +2,19 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import {
   TableBody,
-  TableCell,
-  TableRow,
   Paper,
-  Checkbox,
   Button,
   Table,
   Container
 } from "@material-ui/core";
-import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
-import { IRecordStore, IDepartment } from "../../stores/RecordStore";
-import { IDepartmentStore, IRecord } from "../../stores/DepartmentStore";
-import { IUniqueStore } from "../../stores/UniqueStore";
-import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
-import EnhancedTableHead from "../common/EnhancedTableHead";
-import EditModal from "../common/EditModal";
-import MessageModal from "../common/MessageModal";
-import CommonRecordsCheck from "../common/CommonRecordsCheck";
+import { IRecordStore } from "../../../stores/RecordStore";
+import { IDepartmentStore, IRecord } from "../../../stores/DepartmentStore";
+import { IUniqueStore } from "../../../stores/UniqueStore";
+import { IData, IOrder, IHeadRow } from "../../common/EnhancedTableHead";
+import EnhancedTableHead from "../../common/EnhancedTableHead";
+import EditModal from "../../common/EditModal";
+import MessageModal from "../../common/MessageModal";
+import RecordTable from './RecordTable'
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -31,26 +27,10 @@ interface IState {
   modalShow: boolean;
   editShow: boolean;
   selectrecord: any;
-  selectedfunction: string;
-  selectedcategory: string;
   order: IOrder;
   orderBy: string;
   sortDirection: string;
   selectedCommonRecords: IRecord[];
-  // disabled: boolean;
-  // commonRecords: ICommonRecord[];
-  // commonRecords: any[]
-}
-
-interface ICommonRecord {
-  id?: string;
-  recordtype: string;
-  code: string;
-  function: string;
-  description: string;
-  classification: string;
-  checked?: boolean;
-  disabled?: boolean;
 }
 
 interface Document {
@@ -85,35 +65,32 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
     class CommonRecords extends Component<IProps, IState> {
       constructor(props: IProps) {
         super(props);
-        this.onSelect = this.onSelect.bind(this);
+        // this.onSelect = this.onSelect.bind(this);
 
         this.state = {
           modalShow: false, //if not select a department
           editShow: false,
           selectrecord: [],
-          selectedfunction: "",
-          selectedcategory: "",
           order: "asc",
           orderBy: "recordtype",
           sortDirection: "asc",
           selectedCommonRecords: [],
-          // disabled: false,
-          // commonRecords: []
         };
       }
 
       componentDidMount() {
         this.props.DepartmentStore.fetchCommonRecords();
-        // this.props.RecordStore.fetchCommonRecords();
-        // this.props.DepartmentStore.fetchAllRecords();
+        this.props.RecordStore.fetchCommonRecords();
       }
 
       onSelect = (e: any) => {
-        console.log('clicked')
+        // this.setState({ selectrecord:  })
+        console.log(e.target.value)
         if (e.target.checked) {
           this.setState({
             selectrecord: [...this.state.selectrecord, e.target.value]
           });
+          console.log(this.state.selectrecord)
         } else {
           let remove = this.state.selectrecord.indexOf(e.target.value);
           this.setState({
@@ -122,6 +99,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             )
           });
         }
+        console.log(this.state.selectrecord)
       };
 
       handleEditRecord = (editRecord: IRecord) => {
@@ -136,6 +114,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       };
 
       addRecord = (e: any) => {
+        console.log(this.state.selectrecord)
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ modalShow: true });
         } else {
@@ -157,7 +136,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       }
 
       stableSort<T>(
-        array: ICommonRecord[],
+        array: IRecord[],
         cmp: (a: T, b: T) => number
       ) {
         const stabilizedThis = array.map(
@@ -187,9 +166,8 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
-        const { RecordStore, DepartmentStore } = this.props;
+        const { RecordStore } = this.props;
 
-        console.log(this.props.DepartmentStore.CommonRecords)
         return (
           <Container style={styles.tableStyle}>
             <Paper style={{ width: "100%", overflowX: "auto" }}>
@@ -206,38 +184,15 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   this.stableSort(
                    this.props.DepartmentStore.CommonRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
-                  ).map((record: ICommonRecord) => {
+                  ).map((record: IRecord, index) => {
                     return (
-                      <TableRow key={record.id} {...record}>
-                        <TableCell>
-                          <CreateOutlinedIcon
-                            style={styles.buttonStyle}
-                            name="edit"
-                            // onClick={() => this.handleEditRecord(record)}
-                          />
-                          <Checkbox
-                            id={record.id}
-                            value={record.id}
-                            onClick={this.onSelect}
-                            color="primary"
-                            // checked={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
-                            disabled={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
-                          />
-                        </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.function}
-                        </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.recordtype}
-                        </TableCell>
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.description}
-                        </TableCell>
-
-                        <TableCell style={{ fontSize: 10 }}>
-                          {record.classification}
-                        </TableCell>
-                      </TableRow>
+                      <RecordTable 
+                        key={index}
+                        record={record}
+                        click={() => this.handleEditRecord(record)}
+                        select={this.onSelect}
+                        disabled={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
+                      />
                     );
                   })}               
                 </TableBody>
@@ -269,6 +224,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   disabled={false}
                   disablecomment={true}
                   change={RecordStore.handleChange}
+                  changecheckbox={RecordStore.handleCheckbox}
                 />
               );
             })}
