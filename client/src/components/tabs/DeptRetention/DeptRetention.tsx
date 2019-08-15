@@ -270,6 +270,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     change={DepartmentStore.handleChange}
                     saveedit={this.editRecord}
                     changecheckbox={RecordStore.handleCheckbox}
+                    disablecategory={
+                      editDetail.recordcategoryid === "common" ? true : false
+                    }
                   />
                 );
               })}

@@ -30,6 +30,7 @@ interface IProps {
   disabled: boolean;
   title: any
   disablecomment?: boolean
+  disablecategory?:boolean
 }
 
 const EditModal = observer((props: IProps) => {
@@ -44,6 +45,7 @@ const EditModal = observer((props: IProps) => {
     disabled,
     title,
     disablecomment,
+    disablecategory,
     changecheckbox
   } = props;
 
@@ -86,7 +88,7 @@ const EditModal = observer((props: IProps) => {
         <Grid item style={{ marginTop: 10 }}>
           <InputLabel shrink>Record Category</InputLabel>
           <Select
-            disabled={disabled}
+            disabled={disablecategory}
             id="recordcategoryid"
             name="recordcategoryid"
             style={{ width: 400 }}

@@ -5,12 +5,12 @@ export interface IDepartment {
   id: string;
   department: string;
   departmentnumber: string;
-  commoncodes: string[]
+  commoncodes: string[];
 }
 
 export interface IRecordStore {
   CommonRecords: Array<IRecord>;
-  selectedDepartment: IDepartment
+  selectedDepartment: IDepartment;
   selectedCommonRecords: Array<String>;
   record: IRecord;
   getEditRecord: (record: IRecord) => void;
@@ -20,8 +20,8 @@ export interface IRecordStore {
   handleCheckbox: (e: any) => void;
   approveSelectedRecords: (e: any) => void;
   // changeArchival: (e: any) => void;
-  fetchCommonRecords: () => void
-  adddepts: string[]
+  fetchCommonRecords: () => void;
+  adddepts: string[];
 }
 
 class _RecordStore implements IRecordStore {
@@ -31,9 +31,9 @@ class _RecordStore implements IRecordStore {
     department: "",
     departmentnumber: "",
     commoncodes: []
-  }
+  };
   selectedCommonRecords = [];
-  adddepts = []
+  adddepts = [];
 
   record: IRecord = {
     id: "",
@@ -49,7 +49,7 @@ class _RecordStore implements IRecordStore {
   };
 
   handleSelected(dept: IDepartment) {
-    this.selectedDepartment = dept
+    this.selectedDepartment = dept;
   }
 
   async fetchCommonRecords() {
@@ -57,16 +57,14 @@ class _RecordStore implements IRecordStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.CommonRecords = json))
+      .then(json => (this.CommonRecords = json));
   }
 
   //add selected common records
   async addCommonRecord(selects: string[]) {
-    console.log(selects); //selected common record id
+    //initial value should not be empty... should have pre selected data.
+    let commoncodes: string[] = [];
 
-    //initial value should not be empty... should have pre selected data. 
-    let commoncodes: string[] = []
-    
     for (let i = 0; i < selects.length; i++) {
       let test: IRecord = {
         department: "",
@@ -81,8 +79,8 @@ class _RecordStore implements IRecordStore {
       };
       this.CommonRecords.filter((x: IRecord) => x.id === selects[i]).map(
         (postDetail: IRecord) => {
-          commoncodes = this.selectedDepartment.commoncodes
-          console.log(commoncodes)
+          commoncodes = this.selectedDepartment.commoncodes;
+          console.log(commoncodes);
 
           //post common records to records list
           test = {
@@ -96,12 +94,7 @@ class _RecordStore implements IRecordStore {
             code: postDetail.code,
             status: "Approved"
           };
-
-          //add common code to departments
-          console.log(postDetail)
-          // commoncodes = [...[postDetail.code]]
-          commoncodes.push(postDetail.code)
-          console.log(commoncodes)         
+          commoncodes.push(postDetail.code);
         }
       );
 
@@ -128,7 +121,7 @@ class _RecordStore implements IRecordStore {
           commoncodes: commoncodes
         })
       });
-      console.log("id" + this.selectedDepartment.id)
+      console.log("id" + this.selectedDepartment.id);
     }
   }
 
@@ -153,12 +146,12 @@ class _RecordStore implements IRecordStore {
   }
 
   getEditRecord(record: IRecord) {
-    this.record = record
+    this.record = record;
   }
 
   //update common records: PATCH
   async updateCommonRecord() {
-    console.log(this.record.id)
+    console.log(this.record.id);
     const baseUrl = "http://localhost:3004/commonrecords";
 
     await fetch(`${baseUrl}/${this.record.id}`, {
@@ -193,8 +186,8 @@ class _RecordStore implements IRecordStore {
 
   //handle multiple classification select
   handleCheckbox = (e: any) => {
-   console.log('what is up???')
-  }
+    console.log("what is up???");
+  };
 }
 
 decorate(_RecordStore, {

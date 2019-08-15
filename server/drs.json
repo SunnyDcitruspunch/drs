@@ -465,6 +465,17 @@
       "code": "CACD1000",
       "status": "Approved",
       "id": "fnMeJan"
+    },
+    {
+      "department": "Computer Science",
+      "function": "Financial",
+      "recordtype": "Y-Time exceptions (missed time punches) documentation retained by department.",
+      "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CFIN2700",
+      "status": "Approved",
+      "id": "eV7XtDe"
     }
   ],
   "commonrecords": [

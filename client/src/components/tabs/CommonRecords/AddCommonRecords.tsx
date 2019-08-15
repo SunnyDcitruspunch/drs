@@ -225,6 +225,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   disablecomment={true}
                   change={RecordStore.handleChange}
                   changecheckbox={RecordStore.handleCheckbox}
+                  disablecategory={true}
                 />
               );
             })}
