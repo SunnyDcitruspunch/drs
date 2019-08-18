@@ -72,7 +72,7 @@
       "code": "N/A",
       "status": "Approved",
       "id": "tpRYc5g",
-      "comments": "ggggg"
+      "comments": ""
     },
     {
       "recordtype": "Academic unit reviews",
@@ -187,39 +187,12 @@
     },
     {
       "department": "Marriott School",
-      "recordtype": "df",
-      "function": "Faculty",
-      "recordcategoryid": "OIT04",
-      "description": "df",
-      "comments": "ij",
-      "classification": [
-        "Archival"
-      ],
-      "status": "Approved",
-      "id": "d3gUNg9"
-    },
-    {
-      "department": "Marriott School",
-      "recordtype": "x",
-      "function": "Academic",
-      "recordcategoryid": "STU19",
-      "description": "x",
-      "notes": "x",
-      "classification": [
-        "Archival"
-      ],
-      "status": "Approved",
-      "id": "Tc1SHPb",
-      "comments": "asdf"
-    },
-    {
-      "department": "Marriott School",
       "recordtype": "Budget Reports (monthly).",
       "function": "Financial",
       "recordcategoryid": "common",
       "code": "CHUM1400",
       "description": "monthly budget report",
-      "comments": "some notes.",
+      "comments": "some notes",
       "classification": [
         "Archival"
       ],
@@ -478,28 +451,50 @@
       "id": "eV7XtDe"
     },
     {
-      "department": "BYU Catering",
+      "department": {
+        "id": "3",
+        "department": "Computer Science",
+        "departmentnumber": "503",
+        "commoncodes": []
+      },
       "recordtype": "123",
       "function": "Financial",
       "recordcategoryid": "STU02",
       "description": "123",
       "comments": "123",
       "classification": "",
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "G76QH8N"
     },
     {
-      "department": "Honor Code Office",
+      "department": {
+        "id": "",
+        "department": "",
+        "departmentnumber": "",
+        "commoncodes": []
+      },
       "recordtype": "ert",
       "function": "Faculty",
       "recordcategoryid": "MISC9",
       "description": "ert",
       "comments": "ert",
       "classification": "",
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "P5GNDFI"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "wer123",
+      "function": "Faculty",
+      "recordcategoryid": "STU02",
+      "description": "wer",
+      "comments": "wer",
+      "classification": "",
+      "status": "Pending",
+      "code": "",
+      "id": "HLUCsX3"
     }
   ],
   "commonrecords": [
@@ -508,7 +503,7 @@
       "code": "CACD1000",
       "function": "Administrative",
       "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews!!!",
+      "recordtype": "Academic unit reviews / educational support unit reviews",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
       "classification": [
         "Archival"

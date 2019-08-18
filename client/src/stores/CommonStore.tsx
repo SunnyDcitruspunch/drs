@@ -34,7 +34,7 @@ class _CommonStore implements ICommonStore {
   };
 
   async fetchCommonRecords() {
-    console.log("fetching");
+    console.log("fetching common records");
     await fetch("http://localhost:3004/commonrecords")
       .then(response => {
         return response.json();

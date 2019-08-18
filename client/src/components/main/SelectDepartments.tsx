@@ -7,12 +7,19 @@ import {
   Select
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore, IDepartment } from "../../stores";
+import {
+  IDepartmentStore,
+  IDepartment,
+  ICommonStore,
+  IUniqueStore
+} from "../../stores";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
+  CommonStore: ICommonStore;
   history: any;
   RecordStore: IRecordStore;
+  UniqueStore: IUniqueStore;
   selecteddept: string;
 }
 
@@ -24,11 +31,19 @@ export interface IRecordStore {
   handleSelected: (dept: IDepartment) => void;
 }
 
-const SelectDepartment = inject("DepartmentStore", "RecordStore")(
+const SelectDepartment = inject(
+  "UniqueStore",
+  "DepartmentStore",
+  "RecordStore",
+  "CommonStore"
+)(
   observer(
     class SelectDepartment extends Component<IProps, IState> {
-      componentWillMount() {
+      componentWillMount = () => {
         this.props.DepartmentStore.fetchAll();
+        this.props.CommonStore.fetchCommonRecords();
+        this.props.DepartmentStore.fetchAllRecords();
+        this.props.UniqueStore.fetchArchival();
 
         this.setState({ selecteddept: "" });
       }
@@ -40,7 +55,6 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
         );
         this.setState({ selecteddept: value });
         this.props.DepartmentStore.handleSelected(dept);
-        this.props.RecordStore.handleSelected(dept);
       };
 
       onChange = (e: MouseEvent) => {

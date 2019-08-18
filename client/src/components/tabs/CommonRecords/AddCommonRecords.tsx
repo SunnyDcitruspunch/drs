@@ -5,6 +5,7 @@ import {
   IRecordStore,
   IRecord,
   IDepartmentStore,
+  IDepartment,
   IUniqueStore,
   ICommonStore,
   ICommonRecord
@@ -86,12 +87,7 @@ const CommonRecords = inject(
         };
       }
 
-      componentDidMount() {
-        this.props.CommonStore.fetchCommonRecords();
-      }
-
       onSelect = (e: any) => {
-        // this.setState({ selectrecord:  })
         console.log(e.target.value);
         if (e.target.checked) {
           this.setState({
@@ -125,7 +121,7 @@ const CommonRecords = inject(
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ modalShow: true });
         } else {
-          this.props.RecordStore.addCommonRecord(this.state.selectrecord);
+          this.props.RecordStore.addCommonRecord(this.state.selectrecord, this.props.DepartmentStore.selectedDepartment);
           // window.location.reload();
         }
       };
@@ -185,7 +181,6 @@ const CommonRecords = inject(
                 />
                 <TableBody>
                   {this.stableSort(
-                    // this.props.DepartmentStore.CommonRecords,
                     CommonStore.commonRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
                   ).map((record: ICommonRecord, index: number) => {
@@ -196,7 +191,7 @@ const CommonRecords = inject(
                         click={() => this.handleEditRecord(record)}
                         select={this.onSelect}
                         disabled={
-                          !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
+                          !!this.props.RecordStore.selectedDepartment.commoncodes.find(
                             (x: string) => x === record.code
                           )
                         }

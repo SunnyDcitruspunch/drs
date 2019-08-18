@@ -4,20 +4,23 @@ import {
   Paper,
   Table,
   TableBody,
-  TableCell,
-  TableRow,
-  Checkbox,
   Button,
   FormLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IRecord, IRecordStore, IDepartmentStore } from "../../stores";
-import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
-import Snackbar from "../common/Snackbar";
-import EnhancedTableHead from "../common/EnhancedTableHead";
+import { IRecord, IRecordStore, IDepartmentStore, IUniqueStore } from "../../../stores";
+import EnhancedTableHead, {
+  IData,
+  IOrder,
+  IHeadRow
+} from "../../common/EnhancedTableHead";
+import Snackbar from "../../common/Snackbar";
+import AdminTable from './AdminTable'
+import EditModal from '../../common/EditModal'
 
 interface IProps {
   RecordStore: IRecordStore;
+  UniqueStore: IUniqueStore
   DepartmentStore: IDepartmentStore;
 }
 
@@ -26,6 +29,7 @@ interface IState {
   snackbar: boolean;
   order: IOrder;
   orderBy: string;
+  openEdit: boolean
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -54,23 +58,19 @@ const headrows: IHeadRow[] = [
   { id: "comments", label: "Comments" }
 ];
 
-const AdminTab = inject("RecordStore", "DepartmentStore")(
+const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
   observer(
     class AdminTab extends Component<IProps, IState> {
       constructor(props: IProps) {
         super(props);
-        this.onSelect = this.onSelect.bind(this);
 
         this.state = {
           approvedrecords: [],
           snackbar: false,
           order: "asc",
-          orderBy: "recordtype"
+          orderBy: "recordtype",
+          openEdit: false
         };
-      }
-
-      componentDidMount() {
-        // this.props.DepartmentStore.fetchAllRecords();
       }
 
       onSelect = (e: any) => {
@@ -124,8 +124,19 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
         this.setState({ orderBy: property });
       };
 
+      handleEdit = (record: IRecord) => {
+        this.setState({ openEdit: true })
+        this.props.DepartmentStore.updateEditID(record)
+      }
+
+      editRecord: any = async () => {
+        await this.props.DepartmentStore.updateRecord();
+        this.setState({ openEdit: false })
+      }
+
       render() {
-        const { DepartmentStore }: IProps = this.props;
+        let editClose = () => this.setState({ openEdit: false })
+        const { DepartmentStore, RecordStore, UniqueStore }: IProps = this.props;
 
         return (
           <Container>
@@ -143,33 +154,13 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
                   {DepartmentStore._allRecords
                     // .slice()
                     .filter((x: IRecord) => x.status === "Pending")
-                    .map((pendings: IRecord) => (
-                      <TableRow hover key={pendings.id}>
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          style={{ fontSize: 10 }}
-                        >
-                          <Checkbox
-                            color="primary"
-                            style={{ height: 1, width: 1, marginRight: 5 }}
-                            onChange={this.onSelect}
-                            value={pendings.id}
-                          />
-                        </TableCell>
-                        <TableCell style={styles.tableStyle}>
-                          {pendings.department}
-                        </TableCell>
-                        <TableCell style={styles.tableStyle}>
-                          {pendings.recordtype}
-                        </TableCell>
-                        <TableCell style={styles.tableStyle}>
-                          {pendings.description}
-                        </TableCell>
-                        <TableCell style={styles.tableStyle}>
-                          {pendings.comments}
-                        </TableCell>
-                      </TableRow>
+                    .map((pending: IRecord, index) => (
+                      <AdminTable
+                        key={index}
+                        record={pending}
+                        onedit={() => this.handleEdit(pending)}
+                        onselect={this.onSelect}
+                      />
                     ))}
                 </TableBody>
               </Table>
@@ -186,6 +177,37 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
               _open={this.state.snackbar}
               msg="Records has been approved."
             />
+
+            {/* edit record */}
+            {this.props.DepartmentStore.allRecords
+              .filter(
+                (x: IRecord) =>
+                  x.id === this.props.DepartmentStore.editrecord.id
+              )
+              .map((editDetail: IRecord) => {
+                return (
+                  <EditModal
+                    title={
+                      editDetail.recordcategoryid === "common"
+                        ? "Edit Comment Only"
+                        : "Edit Record"
+                    }
+                    disabled={false}
+                    key={editDetail.id}
+                    record={editDetail}
+                    open={this.state.openEdit}
+                    close={editClose}
+                    functionList={UniqueStore.functionsDropdown}
+                    categoryList={UniqueStore.categoryDropdown}
+                    change={DepartmentStore.handleChange}
+                    saveedit={this.editRecord}
+                    changecheckbox={RecordStore.handleCheckbox}
+                    disablecategory={
+                      editDetail.recordcategoryid === "common" ? true : false
+                    }
+                  />
+                );
+              })}
           </Container>
         );
       }
@@ -195,8 +217,3 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
 
 export default AdminTab as any;
 
-const styles = {
-  tableStyle: {
-    fontSize: 10
-  }
-};

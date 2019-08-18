@@ -27,8 +27,6 @@ export interface IDepartment {
   commoncodes: string[];
 }
 
-
-
 class _DepartmentStore implements IDepartmentStore {
   selectedDepartment: IDepartment = {
     id: "",
@@ -55,7 +53,7 @@ class _DepartmentStore implements IDepartmentStore {
     code: ""
   };
 
-  //select a department
+  // select a department
   handleSelected(dept: IDepartment) {
     this.selectedDepartment = dept
   }
@@ -168,8 +166,9 @@ class _DepartmentStore implements IDepartmentStore {
           .classification
       })
     });
-    const newRecord = await res.json() 
-    this.setRecord(newRecord)
+    //Tylor's code: made new record => cause double record after edit
+    // const newRecord = await res.json() 
+    // this.setRecord(newRecord)
   }
 }
 

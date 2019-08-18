@@ -10,7 +10,7 @@ import { AppBar, Tabs, Tab, Typography, Box } from "@material-ui/core";
 import DeptRetention from "../tabs/DeptRetention/DeptRetention";
 import AddCommonRecords from "../tabs/CommonRecords/AddCommonRecords";
 import AddUniqueRecords from "../tabs/UniqueRecords/AddUniqueRecords";
-import AdminTab from "../tabs/AdminTab";
+import AdminTab from "../tabs/Admin/AdminTab";
 import { observer } from "mobx-react";
 
 interface TabPanelProps {

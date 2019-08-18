@@ -11,8 +11,7 @@ import {
   FormControl
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IUniqueStore } from "../../../stores/UniqueStore";
-import { IDepartmentStore } from "../../../stores/DepartmentStore";
+import { IUniqueStore, IDepartmentStore, IRecordStore } from "../../../stores";
 import Snackbar from "../../common/Snackbar";
 import MessageModal from "../../common/MessageModal";
 import FunctionDropdown from "../../common/FunctionDropdown";
@@ -21,6 +20,7 @@ import ClassificationCheckboxes from "../../common/ClassificationCheckboxes";
 interface IProps {
   DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
+  RecordStore: IRecordStore
 }
 
 interface IState {
@@ -31,7 +31,7 @@ interface IState {
   archivalOptions: Array<string>;
 }
 
-const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
+const AddUniqueRecords = inject("UniqueStore", "DepartmentStore", "RecordStore")(
   observer(
     class AddUniqueRecords extends Component<IProps, IState> {
       componentDidMount() {
@@ -48,13 +48,13 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore")(
       };
 
       submitRecords = (e: any) => {
-        if (this.props.DepartmentStore.selectedDepartment.department === "") {
+        if (this.props.RecordStore.selectedDepartment.department === "") {
           this.setState({ smShow: true });
         } else if (this.props.UniqueStore.uniquerecords.recordtype === "") {
           this.setState({ needRecordType: true });
         } else {
           this.props.UniqueStore.getDepartmentName(
-            this.props.DepartmentStore.selectedDepartment.department
+            this.props.RecordStore.selectedDepartment.department
           );
           this.props.UniqueStore.submitRecords();
           this.setState({ snackbarShow: true });

@@ -3,14 +3,11 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { Paper, Table, TableBody, Button, Container } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore, IUniqueStore, IRecord } from "../../../stores";
+import { IDepartmentStore, IUniqueStore, IRecord, IRecordStore } from "../../../stores";
 import EnhancedTableHead, { IData, IOrder, IHeadRow } from "../../common/EnhancedTableHead";
 import EditModal from "../../common/EditModal";
 import DepartmentTable from "../DeptRetention/DepartmentTable";
 import DeleteModal from "../DeptRetention/DeleteModal";
-import { RecordStore } from "../../../stores";
-// import Snackbar from "../common/Snackbar";
-// import Progress from "../common/Progress";
 
 /* 
   TODO: snackbar after edit/ delete/ submission
@@ -19,6 +16,7 @@ import { RecordStore } from "../../../stores";
 interface IProps {
   DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
+  RecordStore: IRecordStore
 }
 
 interface IState {
@@ -60,7 +58,7 @@ const headrows: IHeadRow[] = [
   { id: "status", label: "Status" }
 ];
 
-const DeptRetention = inject("DepartmentStore", "UniqueStore")(
+const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
   observer(
     class DeptRetnetion extends React.Component<IProps, IState> {
       constructor(props: IProps) {
@@ -81,10 +79,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         };
       }
 
-      componentDidMount = () => {
-        this.props.DepartmentStore.fetchAllRecords();
-        this.props.UniqueStore.fetchArchival();
-      };
+      // componentDidMount = () => {
+      //   this.props.DepartmentStore.fetchAllRecords();
+      //   this.props.UniqueStore.fetchArchival();
+      // };
 
       showEditModal(postDetail: IRecord) {
         if (postDetail.recordcategoryid === "common") {
@@ -99,10 +97,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       //html2canvas + jsPDF
       makePdf = () => {
-        const dept = this.props.DepartmentStore.selectedDepartment;
+        const dept = this.props.RecordStore.selectedDepartment;
         const schedule: any = document.getElementById("schedule");
 
-        if (this.props.DepartmentStore.selectedDepartment.department !== "") {
+        if (this.props.RecordStore.selectedDepartment.department !== "") {
           html2canvas(schedule, {
             width: 2400,
             height: 2000,
@@ -142,11 +140,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
         this.setState({ snackbar: true });
       };
 
-      closeEdit: any = () => {
-        this.setState({
-          openEdit: false
-        });
-      };
 
       stableSort<T>(array: IRecord[], cmp: (a: T, b: T) => number) {
         const stabilizedThis = array.map(
@@ -187,8 +180,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
       };
 
       render() {
-        const { DepartmentStore } = this.props;
-        const department = DepartmentStore.selectedDepartment;
+        let editClose = () => this.setState({ openEdit: false })
+        const { DepartmentStore, RecordStore } = this.props;
+        const department = this.props.DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
         const categories = this.props.UniqueStore.categoryDropdown;
 
@@ -216,6 +210,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                       (x: IRecord) => x.department === department.department
                     )
                     .map((postDetail: IRecord, index) => {
+                      // console.log(DepartmentStore._allRecords)
                       return (
                         <DepartmentTable
                           key={index}
@@ -261,7 +256,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
                     key={editDetail.id}
                     record={editDetail}
                     open={this.state.openEdit}
-                    close={this.closeEdit}
+                    close={editClose}
                     functionList={functions}
                     categoryList={categories}
                     change={DepartmentStore.handleChange}

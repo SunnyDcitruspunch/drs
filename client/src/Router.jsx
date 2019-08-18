@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import DeptRetention from "./components/tabs/DeptRetention/DeptRetention";
 import AddCommonRecords from "./components/tabs/CommonRecords/AddCommonRecords";
 import AddUniqueRecords from "./components/tabs/CommonRecords/AddCommonRecords";
-import AdminTab from "./components/tabs/AdminTab";
+import AdminTab from "./components/tabs/Admin/AdminTab";
 
 class Router extends Component {
   render() {

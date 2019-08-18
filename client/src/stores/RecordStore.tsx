@@ -19,7 +19,7 @@ export interface IRecordStore {
   selectedDepartment: IDepartment;
   selectedCommonRecords: Array<String>;
   record: IRecord;
-  addCommonRecord: (select: string[]) => void;
+  addCommonRecord: (select: string[], dept: IDepartment) => void;
   handleCheckbox: (e: any) => void;
   approveSelectedRecords: (e: any) => void;
   adddepts: string[];
@@ -49,12 +49,9 @@ class _RecordStore implements IRecordStore {
     status: ""
   };
 
-  handleSelected(dept: IDepartment) {
-    this.selectedDepartment = dept;
-  }
-
   //add selected common records
-  async addCommonRecord(selects: string[]) {
+  async addCommonRecord(selects: string[], dept: IDepartment) {
+    this.selectedDepartment = dept
     //initial value should not be empty... should have pre selected data.
     let commoncodes: string[] = [];
 
@@ -136,6 +133,12 @@ class _RecordStore implements IRecordStore {
         })
       });
     }
+
+    await fetch("http://localhost:3004/records")
+      .then(response => {
+        return response.json();
+      })
+      // .then(json => (this._allRecords = json));
   }
 
   //handle multiple classification select
