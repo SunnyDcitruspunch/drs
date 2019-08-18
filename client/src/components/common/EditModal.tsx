@@ -13,13 +13,13 @@ import {
   FormControl,
   FormLabel
 } from "@material-ui/core";
-import { IRecord } from "../../stores";
+import { IRecord, ICommonRecord } from "../../stores";
 import ClassificationCheckboxes from "./ClassificationCheckboxes";
 import FunctionDropdown from "./FunctionDropdown";
 import { observer } from "mobx-react";
 
 interface IProps {
-  record: IRecord 
+  record: IRecord | ICommonRecord
   open: boolean;
   close: () => void;
   saveedit: (e: any) => void;
@@ -95,7 +95,7 @@ const EditModal = observer((props: IProps) => {
             value={record.recordcategoryid}
             onChange={change}
           >
-            <MenuItem>Choose...</MenuItem>
+            <MenuItem value={""}>Choose...</MenuItem>
             {categoryList.map((category: any) => (
               <MenuItem key={category.id} value={category.recordcategoryid}>
                 {category.recordcategoryid}

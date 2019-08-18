@@ -1,9 +1,8 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
-import { IDepartment } from "./RecordStore";
+import { IRecord } from "./RecordStore";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
-  fetchCommonRecords: () => void;
   fetchAll: () => void;
   updateEditID: any;
   selectedDepartment: IDepartment;
@@ -18,21 +17,17 @@ export interface IDepartmentStore {
   editrecord: IRecord;
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
-  CommonRecords: IRecord[];
 }
 
-export type IRecord = {
-  id?: string;
-  code: string;
+
+export interface IDepartment {
+  id: string;
   department: string;
-  recordtype: string;
-  function: string;
-  recordcategoryid: string;
-  description: string;
-  comments: string;
-  classification: string;
-  status: string;
-};
+  departmentnumber: string;
+  commoncodes: string[];
+}
+
+
 
 class _DepartmentStore implements IDepartmentStore {
   selectedDepartment: IDepartment = {
@@ -46,7 +41,6 @@ class _DepartmentStore implements IDepartmentStore {
   _allRecords: IRecord[] = [];
   isLoading = false;
   deleteID = "";
-  CommonRecords = [];
 
   editrecord: IRecord = {
     id: "",
@@ -66,16 +60,8 @@ class _DepartmentStore implements IDepartmentStore {
     this.selectedDepartment = dept
   }
 
-  //fetch all common records
-  async fetchCommonRecords() {
-    await fetch("http://localhost:3004/commonrecords")
-      .then(response => {
-        return response.json();
-      })
-      .then(json => (this.CommonRecords = json));
-  }
-
   fetchAll = () => {
+    console.log('deptstore, all departments')
     this.isLoading = false;
     fetch("http://localhost:3004/departments")
       .then(response => {
@@ -85,6 +71,7 @@ class _DepartmentStore implements IDepartmentStore {
   };
 
   async fetchAllRecords() {
+    console.log('deptstore, all records')
     this.isLoading = false;
     await fetch("http://localhost:3004/records")
       .then(response => {
@@ -188,8 +175,6 @@ class _DepartmentStore implements IDepartmentStore {
 
 decorate(_DepartmentStore, {
   selectedDepartment: observable,
-  fetchCommonRecords: action,
-  CommonRecords: observable,
   editrecord: observable,
   allDepartments: observable,
   isLoading: observable,

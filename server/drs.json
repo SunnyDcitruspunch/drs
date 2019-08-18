@@ -132,7 +132,7 @@
     },
     {
       "department": "Marriott School",
-      "recordtype": "C++ exam 234567",
+      "recordtype": "C++ exam",
       "function": "Miscellaneous",
       "recordcategoryid": "STU02",
       "description": "234",
@@ -145,7 +145,7 @@
     },
     {
       "department": "Computer Science",
-      "recordtype": "456",
+      "recordtype": "C# exam",
       "function": "Employment",
       "recordcategoryid": "common",
       "code": "CHUM1200",
@@ -476,6 +476,30 @@
       "code": "CFIN2700",
       "status": "Approved",
       "id": "eV7XtDe"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "123",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "123",
+      "comments": "123",
+      "classification": "",
+      "status": "Pending",
+      "code": "",
+      "id": "G76QH8N"
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "ert",
+      "function": "Faculty",
+      "recordcategoryid": "MISC9",
+      "description": "ert",
+      "comments": "ert",
+      "classification": "",
+      "status": "Pending",
+      "code": "",
+      "id": "P5GNDFI"
     }
   ],
   "commonrecords": [
@@ -484,7 +508,7 @@
       "code": "CACD1000",
       "function": "Administrative",
       "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
+      "recordtype": "Academic unit reviews / educational support unit reviews!!!",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
       "classification": [
         "Archival"
@@ -493,7 +517,7 @@
     {
       "id": "2",
       "code": "CACD1100",
-      "function": "Academic",
+      "function": "Administrative",
       "recordcategoryid": "common",
       "recordtype": "Accreditation records, reports and self-evaluations.",
       "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
@@ -619,7 +643,7 @@
       "id": "16",
       "code": "CADM1400",
       "function": "Administrative",
-      "recordtype": "Events â On/Off-campus activities and events. (may include press releases, newspaper clippings, photographs, recordings, presentation materials and handouts, schedules of speakers and activities, registration and attendee lists, etc.).",
+      "recordtype": "Off-campus activities and events. (may include press releases, newspaper clippings, photographs, recordings, presentation materials and handouts, schedules of speakers and activities, registration and attendee lists, etc.).",
       "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
       "classification": [
         "Archival"
@@ -639,7 +663,7 @@
       "id": "18",
       "code": "CADM1900",
       "function": "Administrative",
-      "recordtype": "Policies and Procedures â department.",
+      "recordtype": "Policies and Procedures department.",
       "description": "Retain 6 years after superseded, then destroy.",
       "classification": []
     },
@@ -708,7 +732,7 @@
     {
       "id": "26",
       "code": "CFAC1500",
-      "function": "Faculty",
+      "function": "Human Resource",
       "recordtype": "Rank & Status records.",
       "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
       "classification": []
@@ -783,7 +807,7 @@
       "id": "35",
       "code": "CFIN2150",
       "function": "Financial",
-      "recordtype": "Restricted gift records.",
+      "recordtype": "Restricted gift records~~~",
       "description": "Retain for current year + 6 beyond when Donor Restricted Funds have been fully expended, then destroy.",
       "classification": []
     },

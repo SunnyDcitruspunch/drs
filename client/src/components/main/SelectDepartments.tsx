@@ -7,8 +7,7 @@ import {
   Select
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore } from "../../stores/DepartmentStore";
-import { IDepartment } from "../../stores/RecordStore";
+import { IDepartmentStore, IDepartment } from "../../stores";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -61,7 +60,7 @@ const SelectDepartment = inject("DepartmentStore", "RecordStore")(
                   onChange={this.onSelect}
                   value={this.state.selecteddept}
                 >
-                  {DepartmentStore.allDepartments.slice().map((dept: any) => (
+                  {DepartmentStore.allDepartments.map((dept: any) => (
                     <MenuItem
                       style={{ height: 30 }}
                       key={dept.id}

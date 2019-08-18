@@ -3,10 +3,8 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { Paper, Table, TableBody, Button, Container } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore, IRecord } from "../../../stores/DepartmentStore";
-import { IUniqueStore } from "../../../stores/UniqueStore";
-import { IData, IOrder, IHeadRow } from "../../common/EnhancedTableHead";
-import EnhancedTableHead from "../../common/EnhancedTableHead";
+import { IDepartmentStore, IUniqueStore, IRecord } from "../../../stores";
+import EnhancedTableHead, { IData, IOrder, IHeadRow } from "../../common/EnhancedTableHead";
 import EditModal from "../../common/EditModal";
 import DepartmentTable from "../DeptRetention/DepartmentTable";
 import DeleteModal from "../DeptRetention/DeleteModal";
@@ -85,7 +83,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore")(
 
       componentDidMount = () => {
         this.props.DepartmentStore.fetchAllRecords();
-        this.props.DepartmentStore.fetchCommonRecords();
         this.props.UniqueStore.fetchArchival();
       };
 

@@ -1,25 +1,28 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
+import { TableBody, Paper, Button, Table, Container } from "@material-ui/core";
 import {
-  TableBody,
-  Paper,
-  Button,
-  Table,
-  Container
-} from "@material-ui/core";
-import { IRecordStore } from "../../../stores/RecordStore";
-import { IDepartmentStore, IRecord } from "../../../stores/DepartmentStore";
-import { IUniqueStore } from "../../../stores/UniqueStore";
-import { IData, IOrder, IHeadRow } from "../../common/EnhancedTableHead";
-import EnhancedTableHead from "../../common/EnhancedTableHead";
+  IRecordStore,
+  IRecord,
+  IDepartmentStore,
+  IUniqueStore,
+  ICommonStore,
+  ICommonRecord
+} from "../../../stores";
+import EnhancedTableHead, {
+  IData,
+  IOrder,
+  IHeadRow
+} from "../../common/EnhancedTableHead";
 import EditModal from "../../common/EditModal";
 import MessageModal from "../../common/MessageModal";
-import RecordTable from './RecordTable'
+import RecordTable from "./RecordTable";
 
 interface IProps {
   RecordStore: IRecordStore;
   DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
+  CommonStore: ICommonStore;
   Document: Document;
 }
 
@@ -60,7 +63,12 @@ function desc<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
+const CommonRecords = inject(
+  "RecordStore",
+  "DepartmentStore",
+  "UniqueStore",
+  "CommonStore"
+)(
   observer(
     class CommonRecords extends Component<IProps, IState> {
       constructor(props: IProps) {
@@ -74,23 +82,22 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           order: "asc",
           orderBy: "recordtype",
           sortDirection: "asc",
-          selectedCommonRecords: [],
+          selectedCommonRecords: []
         };
       }
 
       componentDidMount() {
-        this.props.DepartmentStore.fetchCommonRecords();
-        this.props.RecordStore.fetchCommonRecords();
+        this.props.CommonStore.fetchCommonRecords();
       }
 
       onSelect = (e: any) => {
         // this.setState({ selectrecord:  })
-        console.log(e.target.value)
+        console.log(e.target.value);
         if (e.target.checked) {
           this.setState({
             selectrecord: [...this.state.selectrecord, e.target.value]
           });
-          console.log(this.state.selectrecord)
+          console.log(this.state.selectrecord);
         } else {
           let remove = this.state.selectrecord.indexOf(e.target.value);
           this.setState({
@@ -99,22 +106,22 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             )
           });
         }
-        console.log(this.state.selectrecord)
+        console.log(this.state.selectrecord);
       };
 
-      handleEditRecord = (editRecord: IRecord) => {
-        this.props.RecordStore.getEditRecord(editRecord);
+      handleEditRecord = (editRecord: ICommonRecord) => {
         this.setState({ editShow: true });
+        this.props.CommonStore.getEditRecord(editRecord);
         console.log(this.state.editShow);
-      }
+      };
 
       saveEdit = (e: any) => {
         this.setState({ editShow: false });
-        this.props.RecordStore.updateCommonRecord();
+        this.props.CommonStore.updateCommonRecord();
       };
 
       addRecord = (e: any) => {
-        console.log(this.state.selectrecord)
+        console.log(this.state.selectrecord);
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ modalShow: true });
         } else {
@@ -135,10 +142,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           : (a, b) => -desc(a, b, orderBy);
       }
 
-      stableSort<T>(
-        array: IRecord[],
-        cmp: (a: T, b: T) => number
-      ) {
+      stableSort<T>(array: ICommonRecord[], cmp: (a: T, b: T) => number) {
         const stabilizedThis = array.map(
           (el: any, index: any) => [el, index] as [T, number]
         );
@@ -166,7 +170,7 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
-        const { RecordStore } = this.props;
+        const { RecordStore, CommonStore } = this.props;
 
         return (
           <Container style={styles.tableStyle}>
@@ -180,21 +184,25 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   onRequestSort={this.handleRequestSort}
                 />
                 <TableBody>
-                  {
-                  this.stableSort(
-                   this.props.DepartmentStore.CommonRecords,
+                  {this.stableSort(
+                    // this.props.DepartmentStore.CommonRecords,
+                    CommonStore.commonRecords,
                     this.getSorting(this.state.order, this.state.orderBy)
-                  ).map((record: IRecord, index) => {
+                  ).map((record: ICommonRecord, index: number) => {
                     return (
-                      <RecordTable 
+                      <RecordTable
                         key={index}
                         record={record}
                         click={() => this.handleEditRecord(record)}
                         select={this.onSelect}
-                        disabled={!!this.props.DepartmentStore.selectedDepartment.commoncodes.find((x: string) => x === record.code)}
+                        disabled={
+                          !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
+                            (x: string) => x === record.code
+                          )
+                        }
                       />
                     );
-                  })}               
+                  })}
                 </TableBody>
               </Table>
             </Paper>
@@ -208,27 +216,30 @@ const CommonRecords = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             </Button>
 
             {/* edit common records */}
-            {this.props.DepartmentStore.CommonRecords.filter(
-              (x: IRecord) => x.code === this.props.RecordStore.record.code
-            ).map((postDetail: IRecord) => {
-              return (
-                <EditModal
-                  title="Edit Comment Record"
-                  record={postDetail}
-                  key={postDetail.id}
-                  open={this.state.editShow}
-                  functionList={this.props.UniqueStore.functionsDropdown}
-                  categoryList={this.props.UniqueStore.categoryDropdown}
-                  close={editClose}
-                  saveedit={this.saveEdit}
-                  disabled={false}
-                  disablecomment={true}
-                  change={RecordStore.handleChange}
-                  changecheckbox={RecordStore.handleCheckbox}
-                  disablecategory={true}
-                />
-              );
-            })}
+            {this.props.CommonStore.commonRecords
+              .filter(
+                (x: ICommonRecord) =>
+                  x.code === this.props.CommonStore.record.code
+              )
+              .map((postDetail: ICommonRecord) => {
+                return (
+                  <EditModal
+                    title="Edit Comment Record"
+                    record={postDetail}
+                    key={postDetail.id}
+                    open={this.state.editShow}
+                    functionList={this.props.UniqueStore.functionsDropdown}
+                    categoryList={this.props.UniqueStore.categoryDropdown}
+                    close={editClose}
+                    saveedit={this.saveEdit}
+                    disabled={false}
+                    disablecomment={true}
+                    change={CommonStore.handleChange}
+                    changecheckbox={RecordStore.handleCheckbox}
+                    disablecategory={true}
+                  />
+                );
+              })}
 
             <MessageModal
               open={this.state.modalShow}

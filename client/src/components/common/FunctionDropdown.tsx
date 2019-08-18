@@ -28,7 +28,7 @@ const FunctionDropdown = observer((props: IProps) => {
         onChange={change}
         disabled={disabled}
       >
-        <MenuItem>Choose...</MenuItem>
+        <MenuItem value={""}>Choose...</MenuItem>
         {dropdown.map((item: any) => (
           <MenuItem key={item.id} value={item.functiontype}>
             {item.functiontype}

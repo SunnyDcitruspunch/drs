@@ -1,26 +1,27 @@
 import { action, decorate } from "mobx";
-import { IRecord } from "./DepartmentStore";
+import { IDepartment } from "./DepartmentStore";
 
-export interface IDepartment {
-  id: string;
+export type IRecord = {
+  id?: string;
+  code: string;
   department: string;
-  departmentnumber: string;
-  commoncodes: string[];
-}
+  recordtype: string;
+  function: string;
+  recordcategoryid: string;
+  description: string;
+  comments: string;
+  classification: string;
+  status: string;
+};
 
 export interface IRecordStore {
   CommonRecords: Array<IRecord>;
   selectedDepartment: IDepartment;
   selectedCommonRecords: Array<String>;
   record: IRecord;
-  getEditRecord: (record: IRecord) => void;
-  updateCommonRecord: () => void;
   addCommonRecord: (select: string[]) => void;
-  handleChange: (e: any) => void;
   handleCheckbox: (e: any) => void;
   approveSelectedRecords: (e: any) => void;
-  // changeArchival: (e: any) => void;
-  fetchCommonRecords: () => void;
   adddepts: string[];
 }
 
@@ -50,14 +51,6 @@ class _RecordStore implements IRecordStore {
 
   handleSelected(dept: IDepartment) {
     this.selectedDepartment = dept;
-  }
-
-  async fetchCommonRecords() {
-    await fetch("http://localhost:3004/commonrecords")
-      .then(response => {
-        return response.json();
-      })
-      .then(json => (this.CommonRecords = json));
   }
 
   //add selected common records
@@ -145,45 +138,6 @@ class _RecordStore implements IRecordStore {
     }
   }
 
-  getEditRecord(record: IRecord) {
-    this.record = record;
-  }
-
-  //update common records: PATCH
-  async updateCommonRecord() {
-    console.log(this.record.id);
-    const baseUrl = "http://localhost:3004/commonrecords";
-
-    await fetch(`${baseUrl}/${this.record.id}`, {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        function: this.record.function,
-        recordcategoryid: this.record.recordcategoryid,
-        recordtype: this.record.recordtype,
-        description: this.record.description,
-        classification: this.record.classification,
-        comments: this.record.comments
-      })
-    });
-
-    fetch("http://localhost:3004/commonrecords")
-      .then(response => {
-        return response.json();
-      })
-      .then(json => (this.CommonRecords = json))
-      .then(() => console.log("updated"));
-  }
-
-  handleChange = (e: any) => {
-    const { id, value, name } = e.target;
-    this.record[id] = value;
-    this.record[name] = value;
-  };
-
   //handle multiple classification select
   handleCheckbox = (e: any) => {
     console.log("what is up???");
@@ -191,13 +145,9 @@ class _RecordStore implements IRecordStore {
 }
 
 decorate(_RecordStore, {
-  handleChange: action,
   handleCheckbox: action,
-  getEditRecord: action,
   addCommonRecord: action,
-  approveSelectedRecords: action,
-  updateCommonRecord: action,
-  fetchCommonRecords: action
+  approveSelectedRecords: action
 });
 
 export const RecordStore = new _RecordStore();

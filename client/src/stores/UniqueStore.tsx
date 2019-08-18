@@ -1,14 +1,14 @@
 import { observable, action, decorate } from "mobx";
-import { IRecord } from "./DepartmentStore";
+import { IRecord } from "./RecordStore";
 
 export interface IUniqueStore {
   uniquerecords: IRecord;
   functionsDropdown: Array<Object>;
   categoryDropdown: Array<Object>;
   archivalDropdown: Array<Object>;
-  fetchArchival: () => void
-  fetchFunctions: () => void
-  fetchCategory: () => void
+  fetchArchival: () => void;
+  fetchFunctions: () => void;
+  fetchCategory: () => void;
   submitRecords: () => void;
   handleChange: (e: any) => void;
   changeArchival: (e: any) => void;
@@ -25,7 +25,7 @@ class _UniqueStore {
     comments: "",
     classification: "",
     status: "Pending",
-    code:""
+    code: ""
   };
   functionsDropdown = [];
   categoryDropdown = [];
@@ -46,8 +46,8 @@ class _UniqueStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.functionsDropdown = json))
-      // .then(() => console.log(this.functionsDropdown))
+      .then(json => (this.functionsDropdown = json));
+    // .then(() => console.log(this.functionsDropdown))
   }
 
   async fetchCategory() {
@@ -55,7 +55,7 @@ class _UniqueStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.categoryDropdown = json))
+      .then(json => (this.categoryDropdown = json));
   }
 
   async fetchArchival() {
@@ -71,6 +71,7 @@ class _UniqueStore {
   };
 
   async submitRecords() {
+    console.log("submitting records");
     fetch("http://localhost:3004/records", {
       method: "POST",
       headers: {
@@ -80,12 +81,17 @@ class _UniqueStore {
       body: JSON.stringify(this.uniquerecords)
     });
 
-    this.uniquerecords.recordtype = ""
-    this.uniquerecords.function = ""
-    this.uniquerecords.recordcategoryid = ""
-    this.uniquerecords.description = ""
-    this.uniquerecords.classification = ""
-    this.uniquerecords.comments = ""
+    this.uniquerecords.recordtype = "";
+    this.uniquerecords.function = "";
+    this.uniquerecords.recordcategoryid = "";
+    this.uniquerecords.description = "";
+    // this.uniquerecords.classification = ""
+    this.uniquerecords.comments = "";
+
+    await fetch("http://localhost:3004/records")
+      .then(response => {
+        return response.json();
+      })
   }
 }
 

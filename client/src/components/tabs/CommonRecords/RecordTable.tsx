@@ -1,11 +1,11 @@
 import * as React from "react";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { TableCell, TableRow, Checkbox } from "@material-ui/core";
-import { IRecord } from "../../../stores/DepartmentStore";
+import { IRecord, ICommonRecord } from "../../../stores";
 import { observer } from "mobx-react";
 
 interface IProps {
-  record: IRecord;
+  record: ICommonRecord;
   click: () => void;
   select: (e: any) => void;
   disabled: boolean;
@@ -16,7 +16,7 @@ const RecordTable = observer((props: IProps) => {
   const { record, click, select, disabled } = props;
 
   return (
-    <TableRow key={record.id} {...record}>
+    <TableRow key={record.id}>
       <TableCell>
         <CreateOutlinedIcon
           // style={styles.buttonStyle}

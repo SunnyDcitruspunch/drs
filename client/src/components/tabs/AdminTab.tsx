@@ -11,8 +11,7 @@ import {
   FormLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IRecordStore } from "../../stores/RecordStore";
-import { IRecord, IDepartmentStore } from "../../stores/DepartmentStore";
+import { IRecord, IRecordStore, IDepartmentStore } from "../../stores";
 import { IData, IOrder, IHeadRow } from "../common/EnhancedTableHead";
 import Snackbar from "../common/Snackbar";
 import EnhancedTableHead from "../common/EnhancedTableHead";
@@ -71,7 +70,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore")(
       }
 
       componentDidMount() {
-        this.props.DepartmentStore.fetchAllRecords();
+        // this.props.DepartmentStore.fetchAllRecords();
       }
 
       onSelect = (e: any) => {
