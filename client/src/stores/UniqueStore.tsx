@@ -9,11 +9,14 @@ export interface IUniqueStore {
   fetchArchival: () => void;
   fetchFunctions: () => void;
   fetchCategory: () => void;
-  submitRecords: () => void;
+  submitRecords: (dept: string) => void;
   handleChange: (e: any) => void;
   changeArchival: (e: any) => void;
   getDepartmentName: (dept: string) => void;
 }
+/*
+TODO: submit classification
+*/
 
 class _UniqueStore {
   uniquerecords: IRecord = {
@@ -66,12 +69,13 @@ class _UniqueStore {
       .then(json => (this.archivalDropdown = json));
   }
 
-  getDepartmentName = (dept: string) => {
-    this.uniquerecords.department = dept;
-  };
+  // getDepartmentName = (dept: string) => {
+  //   this.uniquerecords.department = dept;
+  // };
 
-  async submitRecords() {
-    console.log("submitting records");
+  async submitRecords(dept: string) {
+    this.uniquerecords.department = dept;
+
     fetch("http://localhost:3004/records", {
       method: "POST",
       headers: {
@@ -87,11 +91,6 @@ class _UniqueStore {
     this.uniquerecords.description = "";
     // this.uniquerecords.classification = ""
     this.uniquerecords.comments = "";
-
-    await fetch("http://localhost:3004/records")
-      .then(response => {
-        return response.json();
-      })
   }
 }
 
@@ -105,7 +104,7 @@ decorate(_UniqueStore, {
   fetchCategory: action,
   changeArchival: action,
   fetchArchival: action,
-  getDepartmentName: action
+  // getDepartmentName: action
 });
 
 export const UniqueStore = new _UniqueStore();

@@ -1,4 +1,5 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
+import { IDepartment, IRecord } from '../stores'
 
 export interface ICommonRecord {
   id: string;
@@ -17,7 +18,8 @@ export interface ICommonStore {
   fetchCommonRecords: () => void;
   updateCommonRecord: () => void;
   getEditRecord: (record: ICommonRecord) => void;
-  handleChange: (e: any) => void; 
+  addCommonRecord: (selects: string[], dept: IDepartment) => void
+  handleChange: (e: any) => void;
 }
 
 class _CommonStore implements ICommonStore {
@@ -82,6 +84,71 @@ class _CommonStore implements ICommonStore {
       .then(json => (this.commonRecords = json))
       .then(() => console.log("updated"));
   }
+
+  //add selected common records
+  async addCommonRecord(selects: string[], dept: IDepartment) {
+    //initial value should not be empty... should have pre selected data.
+    let commoncodes: string[] = [];
+
+    for (let i = 0; i < selects.length; i++) {
+      let test: IRecord = {
+        department: "",
+        recordtype: "",
+        function: "",
+        recordcategoryid: "",
+        description: "",
+        comments: "",
+        classification: "",
+        status: "Approved",
+        code: ""
+      };
+      this.commonRecords.filter((x: ICommonRecord) => x.id === selects[i]).map(
+        (postDetail: IRecord) => {
+          commoncodes = dept.commoncodes;
+          console.log(commoncodes);
+
+          //post common records to records list
+          test = {
+            department: dept.department,
+            function: postDetail.function,
+            recordcategoryid: postDetail.recordcategoryid,
+            recordtype: postDetail.recordtype,
+            description: postDetail.description,
+            classification: postDetail.classification,
+            comments: "",
+            code: postDetail.code,
+            status: "Approved"
+          };
+          commoncodes.push(postDetail.code);
+        }
+      );
+
+      // add selected common records to records list
+      await fetch("http://localhost:3004/records", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(test)
+      });
+      // https://stackoverflow.com/questions/48163744/expected-to-return-a-value-in-arrow-function-array-callback-return-why/48163905
+
+      const baseUrl = "http://localhost:3004/departments";
+      await fetch(`${baseUrl}/${dept.id}`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          //post department name to selected common records
+          commoncodes: commoncodes
+        })
+      });
+      console.log("id" + dept.id);
+    }
+  }
 }
 
 decorate(_CommonStore, {
@@ -89,7 +156,8 @@ decorate(_CommonStore, {
   fetchCommonRecords: action,
   updateCommonRecord: action,
   getEditRecord: action,
-  handleChange: action
+  handleChange: action,
+  addCommonRecord: action
 });
 
 export const CommonStore = new _CommonStore();

@@ -47,22 +47,16 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore", "RecordStore")
         archivalOptions: ["Archival", "Vital", "Highly Confidential"]
       };
 
-      submitRecords = (e: any) => {
-        if (this.props.RecordStore.selectedDepartment.department === "") {
+      submitRecords =(e: any) => {
+        if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ smShow: true });
         } else if (this.props.UniqueStore.uniquerecords.recordtype === "") {
           this.setState({ needRecordType: true });
         } else {
-          this.props.UniqueStore.getDepartmentName(
-            this.props.RecordStore.selectedDepartment.department
-          );
-          this.props.UniqueStore.submitRecords();
+          this.props.UniqueStore.submitRecords(this.props.DepartmentStore.selectedDepartment.department);
           this.setState({ snackbarShow: true });
           this.setState({ needRecordType: false });
-          this.setState({
-            snackbarShow: true
-          });
-          // window.location.reload()
+          this.props.DepartmentStore.fetchAllRecords();
         }
       };
 

@@ -108,7 +108,7 @@
       "recordtype": "qWERWER",
       "function": "Finance",
       "recordcategoryid": "FIN10",
-      "description": "WWWWWWWWWWWW",
+      "description": "123",
       "comments": "WWWWWWWWWWW",
       "classification": [
         "Highly Confidential"
@@ -157,33 +157,6 @@
       "status": "Approved",
       "comments": "comments here",
       "id": "tySiQoY"
-    },
-    {
-      "department": "Marriott School",
-      "recordtype": "rt",
-      "function": "Faculty",
-      "recordcategoryid": "STU19",
-      "description": "sd",
-      "comments": "sd",
-      "classification": [
-        "Archival"
-      ],
-      "status": "Approved",
-      "id": "W5ulFkw"
-    },
-    {
-      "department": "Marriott School",
-      "recordtype": "e",
-      "function": "Financial",
-      "recordcategoryid": "ADM01",
-      "description": "e",
-      "notes": "e",
-      "classification": [
-        "Archival"
-      ],
-      "status": "Approved",
-      "id": "n61_9qS",
-      "comments": "asdf"
     },
     {
       "department": "Marriott School",
@@ -451,50 +424,78 @@
       "id": "eV7XtDe"
     },
     {
-      "department": {
-        "id": "3",
-        "department": "Computer Science",
-        "departmentnumber": "503",
-        "commoncodes": []
-      },
-      "recordtype": "123",
+      "department": "Computer Science",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1000",
+      "status": "Approved",
+      "id": "YvR9Iex"
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "q",
       "function": "Financial",
-      "recordcategoryid": "STU02",
+      "recordcategoryid": "FIN10",
+      "description": "q",
+      "comments": "q",
+      "classification": "",
+      "status": "Pending",
+      "code": "",
+      "id": "DNvYQ0L"
+    },
+    {
+      "department": "",
+      "recordtype": "q123",
+      "function": "Faculty",
+      "recordcategoryid": "STU19",
       "description": "123",
       "comments": "123",
       "classification": "",
       "status": "Approved",
       "code": "",
-      "id": "G76QH8N"
+      "id": "5QABWnh"
     },
     {
-      "department": {
-        "id": "",
-        "department": "",
-        "departmentnumber": "",
-        "commoncodes": []
-      },
-      "recordtype": "ert",
-      "function": "Faculty",
+      "department": "",
+      "recordtype": "hi",
+      "function": "Human Resource",
       "recordcategoryid": "MISC9",
-      "description": "ert",
-      "comments": "ert",
+      "description": "hi",
+      "comments": "hi",
       "classification": "",
       "status": "Approved",
       "code": "",
-      "id": "P5GNDFI"
+      "id": "AXdpoxp"
     },
     {
-      "department": "BYU Catering",
-      "recordtype": "wer123",
-      "function": "Faculty",
-      "recordcategoryid": "STU02",
-      "description": "wer",
-      "comments": "wer",
+      "department": "Honor Code Office",
+      "recordtype": "y",
+      "function": "Administrative",
+      "recordcategoryid": "FIN10",
+      "description": "y",
+      "comments": "y",
       "classification": "",
       "status": "Pending",
       "code": "",
-      "id": "HLUCsX3"
+      "id": "GcBMy2A"
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "y",
+      "function": "Administrative",
+      "recordcategoryid": "FIN10",
+      "description": "y",
+      "comments": "y",
+      "classification": "",
+      "status": "Approved",
+      "code": "",
+      "id": "B2s1n1H"
     }
   ],
   "commonrecords": [
@@ -1015,7 +1016,9 @@
       "id": "3",
       "department": "Computer Science",
       "departmentnumber": "503",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1000"
+      ]
     },
     {
       "id": "4",

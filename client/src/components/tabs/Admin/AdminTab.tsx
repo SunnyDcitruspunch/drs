@@ -89,13 +89,14 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         }
       };
 
-      approveSelect = (e: any) => {
+      approveSelect = async (e: any) => {
         this.props.RecordStore.approveSelectedRecords(
-          this.state.approvedrecords
+          this.state.approvedrecords, this.props.DepartmentStore.selectedDepartment.department
         );
 
         this.setState({ snackbar: true });
         console.log("should show the snackbar");
+        await this.props.DepartmentStore.fetchAllRecords();
       };
 
       getSorting<K extends keyof any>(

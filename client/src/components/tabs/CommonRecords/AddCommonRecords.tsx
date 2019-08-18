@@ -121,8 +121,7 @@ const CommonRecords = inject(
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ modalShow: true });
         } else {
-          this.props.RecordStore.addCommonRecord(this.state.selectrecord, this.props.DepartmentStore.selectedDepartment);
-          // window.location.reload();
+          this.props.CommonStore.addCommonRecord(this.state.selectrecord, this.props.DepartmentStore.selectedDepartment);
         }
       };
 
@@ -191,7 +190,7 @@ const CommonRecords = inject(
                         click={() => this.handleEditRecord(record)}
                         select={this.onSelect}
                         disabled={
-                          !!this.props.RecordStore.selectedDepartment.commoncodes.find(
+                          !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
                             (x: string) => x === record.code
                           )
                         }
