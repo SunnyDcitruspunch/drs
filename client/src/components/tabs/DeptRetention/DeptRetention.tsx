@@ -3,8 +3,17 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { Paper, Table, TableBody, Button, Container } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IDepartmentStore, IUniqueStore, IRecord, IRecordStore } from "../../../stores";
-import EnhancedTableHead, { IData, IOrder, IHeadRow } from "../../common/EnhancedTableHead";
+import {
+  IDepartmentStore,
+  IUniqueStore,
+  IRecord,
+  IRecordStore
+} from "../../../stores";
+import EnhancedTableHead, {
+  IData,
+  IOrder,
+  IHeadRow
+} from "../../common/EnhancedTableHead";
 import EditModal from "../../common/EditModal";
 import DepartmentTable from "../DeptRetention/DepartmentTable";
 import DeleteModal from "../DeptRetention/DeleteModal";
@@ -16,7 +25,7 @@ import DeleteModal from "../DeptRetention/DeleteModal";
 interface IProps {
   DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
-  RecordStore: IRecordStore
+  RecordStore: IRecordStore;
 }
 
 interface IState {
@@ -79,11 +88,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         };
       }
 
-      // componentDidMount = () => {
-      //   this.props.DepartmentStore.fetchAllRecords();
-      //   this.props.UniqueStore.fetchArchival();
-      // };
-
       showEditModal(postDetail: IRecord) {
         if (postDetail.recordcategoryid === "common") {
           this.setState({ onlycommentEdit: true });
@@ -140,7 +144,6 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         this.setState({ snackbar: true });
       };
 
-
       stableSort<T>(array: IRecord[], cmp: (a: T, b: T) => number) {
         const stabilizedThis = array.map(
           (el: any, index: any) => [el, index] as [T, number]
@@ -180,7 +183,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
       };
 
       render() {
-        let editClose = () => this.setState({ openEdit: false })
+        let editClose = () => this.setState({ openEdit: false });
         const { DepartmentStore, RecordStore } = this.props;
         const department = this.props.DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;

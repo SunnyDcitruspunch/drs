@@ -17,9 +17,9 @@ const RecordTable = observer((props: IProps) => {
 
   return (
     <TableRow key={record.id}>
-      <TableCell>
+      <TableCell style={{ width: 120 }}>
         <CreateOutlinedIcon
-          // style={styles.buttonStyle}
+          style={styles.buttonStyle}
           name="edit"
           onClick={click}
         />
@@ -42,3 +42,12 @@ const RecordTable = observer((props: IProps) => {
 });
 
 export default RecordTable;
+
+const styles = {
+  buttonStyle: {
+    width: 20,
+    height: 16,
+    padding: 0,
+    fontSize: 10
+  }
+};

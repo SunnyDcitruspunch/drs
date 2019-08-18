@@ -17,15 +17,18 @@ const DepartmentTable = observer((props: IProps) => {
 
   return (
     <TableRow hover key={key}>
-      <TableCell component="th" scope="row" style={{ fontSize: 10 }}>
+      <TableCell component="th" scope="row" style={{ fontSize: 10, width: 120 }}>
         <CreateOutlinedIcon
           name="edit"
           onClick={onedit}
-          //   style={styles.buttonStyle}
+            style={styles.buttonStyle}
         />
+        &nbsp;
+        &nbsp;
+        &nbsp;
         <Checkbox
           color="primary"
-          style={{ height: 1, width: 1, marginRight: 5 }}
+          style={{ height: 1, width: 1 }}
           onChange={onselect}
           value={record.id}
         />
@@ -39,3 +42,12 @@ const DepartmentTable = observer((props: IProps) => {
 });
 
 export default DepartmentTable;
+
+const styles = {  
+  buttonStyle: {
+    width: 20,
+    height: 16,
+    padding: 0,
+    fontSize: 10
+  }
+};

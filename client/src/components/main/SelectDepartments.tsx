@@ -46,7 +46,7 @@ const SelectDepartment = inject(
         this.props.UniqueStore.fetchArchival();
 
         this.setState({ selecteddept: "" });
-      }
+      };
 
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
@@ -74,15 +74,20 @@ const SelectDepartment = inject(
                   onChange={this.onSelect}
                   value={this.state.selecteddept}
                 >
-                  {DepartmentStore.allDepartments.map((dept: any) => (
-                    <MenuItem
-                      style={{ height: 30 }}
-                      key={dept.id}
-                      value={dept.department}
-                    >
-                      {dept.department}
-                    </MenuItem>
-                  ))}
+                  {DepartmentStore.allDepartments
+                    .sort(
+                      (a: IDepartment, b: IDepartment) =>
+                        parseFloat(a.department) - parseFloat(b.department)
+                    )
+                    .map((dept: any) => (
+                      <MenuItem
+                        style={{ height: 30 }}
+                        key={dept.id}
+                        value={dept.department}
+                      >
+                        {dept.department}
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormGroup>
             </Grid>

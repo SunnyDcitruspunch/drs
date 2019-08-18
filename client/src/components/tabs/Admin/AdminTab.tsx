@@ -150,7 +150,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   orderBy={this.state.orderBy}
                   onRequestSort={this.handleRequestSort}
                 />
-                <TableBody>
+                <TableBody style={{ fontSize: 11 }}>
                   {DepartmentStore._allRecords
                     // .slice()
                     .filter((x: IRecord) => x.status === "Pending")
