@@ -1,4 +1,4 @@
-import { observable, decorate, action, computed, runInAction } from "mobx";
+import { observable, decorate, action } from "mobx";
 import { IDepartment, IRecord } from '../stores'
 
 export interface ICommonRecord {
@@ -98,7 +98,7 @@ class _CommonStore implements ICommonStore {
         recordcategoryid: "",
         description: "",
         comments: "",
-        classification: "",
+        classification: [],
         status: "Approved",
         code: ""
       };

@@ -10,19 +10,16 @@ export type IRecord = {
   recordcategoryid: string;
   description: string;
   comments: string;
-  classification: string;
+  classification: string[];
   status: string;
 };
 
 export interface IRecordStore {
   CommonRecords: Array<IRecord>;
   selectedDepartment: IDepartment;
-  // selectedCommonRecords: Array<String>;
   record: IRecord;
-  // addCommonRecord: (select: string[], dept: IDepartment) => void;
   handleCheckbox: (e: any) => void;
   approveSelectedRecords: (e: any, dept: string) => void;
-  adddepts: string[];
 }
 
 class _RecordStore implements IRecordStore {
@@ -33,8 +30,6 @@ class _RecordStore implements IRecordStore {
     departmentnumber: "",
     commoncodes: []
   };
-  // selectedCommonRecords = [];
-  adddepts = [];
 
   record: IRecord = {
     id: "",
@@ -45,7 +40,7 @@ class _RecordStore implements IRecordStore {
     recordcategoryid: "",
     description: "",
     comments: "",
-    classification: "",
+    classification: [],
     status: ""
   };
 
@@ -83,7 +78,6 @@ class _RecordStore implements IRecordStore {
 
 decorate(_RecordStore, {
   handleCheckbox: action,
-  // addCommonRecord: action,
   approveSelectedRecords: action
 });
 

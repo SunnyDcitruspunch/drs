@@ -9,11 +9,10 @@ export interface IDepartmentStore {
   selectedCommonRecords: Array<IRecord>;
   deleteID: string;
   deleteRecord: () => void;
-  updateRecord: () => void;
+  updateRecord: (c: string[]) => void;
   _allRecords: Array<IRecord>;
   allRecords: Array<any>;
   allDepartments: Array<any>;
-  isLoading: boolean;
   editrecord: IRecord;
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
@@ -37,7 +36,6 @@ class _DepartmentStore implements IDepartmentStore {
   selectedCommonRecords: IRecord[] = [];
   allDepartments = [];
   _allRecords: IRecord[] = [];
-  isLoading = false;
   deleteID = "";
 
   editrecord: IRecord = {
@@ -48,7 +46,7 @@ class _DepartmentStore implements IDepartmentStore {
     recordcategoryid: "",
     description: "",
     comments: "",
-    classification: "",
+    classification: [],
     status: "",
     code: ""
   };
@@ -60,7 +58,6 @@ class _DepartmentStore implements IDepartmentStore {
 
   fetchAll = () => {
     console.log('deptstore, all departments')
-    this.isLoading = false;
     fetch("http://localhost:3004/departments")
       .then(response => {
         return response.json();
@@ -69,8 +66,6 @@ class _DepartmentStore implements IDepartmentStore {
   };
 
   async fetchAllRecords() {
-    console.log('deptstore, all records')
-    this.isLoading = false;
     await fetch("http://localhost:3004/records")
       .then(response => {
         return response.json();
@@ -90,7 +85,6 @@ class _DepartmentStore implements IDepartmentStore {
 
   setRecord(record: IRecord) {
     const i = this._allRecords.findIndex((r)=> r.id = record.id)
-    //  = records
     runInAction(() => 
     this._allRecords[i] = record
     )
@@ -124,7 +118,7 @@ class _DepartmentStore implements IDepartmentStore {
   }
 
   //PATCH request
-  async updateRecord() {
+  async updateRecord(classsification: string[]) {
     this.allRecords.find(
       r => r.id === this.editrecord.id
     ).recordtype = this.editrecord.recordtype;
@@ -142,7 +136,7 @@ class _DepartmentStore implements IDepartmentStore {
     ).comments = this.editrecord.comments;
     this.allRecords.find(
       r => r.id === this.editrecord.id
-    ).classification = this.editrecord.classification;
+    ).classification = classsification
 
     const baseUrl = "http://localhost:3004/records";
     const res = await fetch(`${baseUrl}/${this.editrecord.id}`, {
@@ -162,8 +156,7 @@ class _DepartmentStore implements IDepartmentStore {
           .description,
         comments: this.allRecords.find(r => r.id === this.editrecord.id)
           .comments,
-        classification: this.allRecords.find(r => r.id === this.editrecord.id)
-          .classification
+        classification: classsification
       })
     });
     //Tylor's code: made new record => cause double record after edit
@@ -176,7 +169,6 @@ decorate(_DepartmentStore, {
   selectedDepartment: observable,
   editrecord: observable,
   allDepartments: observable,
-  isLoading: observable,
   _allRecords: observable,
   handleChange: action,
   handleSelected: action,

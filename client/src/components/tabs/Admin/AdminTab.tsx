@@ -8,19 +8,24 @@ import {
   FormLabel
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IRecord, IRecordStore, IDepartmentStore, IUniqueStore } from "../../../stores";
+import {
+  IRecord,
+  IRecordStore,
+  IDepartmentStore,
+  IUniqueStore
+} from "../../../stores";
 import EnhancedTableHead, {
   IData,
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
 import Snackbar from "../../common/Snackbar";
-import AdminTable from './AdminTable'
-import EditModal from '../../common/EditModal'
+import AdminTable from "./AdminTable";
+import EditModal from "../../common/EditModal";
 
 interface IProps {
   RecordStore: IRecordStore;
-  UniqueStore: IUniqueStore
+  UniqueStore: IUniqueStore;
   DepartmentStore: IDepartmentStore;
 }
 
@@ -29,7 +34,8 @@ interface IState {
   snackbar: boolean;
   order: IOrder;
   orderBy: string;
-  openEdit: boolean
+  openEdit: boolean;
+  selectedclassification: string[];
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -69,7 +75,8 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           snackbar: false,
           order: "asc",
           orderBy: "recordtype",
-          openEdit: false
+          openEdit: false,
+          selectedclassification: []
         };
       }
 
@@ -91,7 +98,8 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
       approveSelect = async (e: any) => {
         this.props.RecordStore.approveSelectedRecords(
-          this.state.approvedrecords, this.props.DepartmentStore.selectedDepartment.department
+          this.state.approvedrecords,
+          this.props.DepartmentStore.selectedDepartment.department
         );
 
         this.setState({ snackbar: true });
@@ -126,18 +134,44 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       };
 
       handleEdit = (record: IRecord) => {
-        this.setState({ openEdit: true })
-        this.props.DepartmentStore.updateEditID(record)
-      }
+        this.setState({ openEdit: true });
+        this.props.DepartmentStore.updateEditID(record);
+      };
 
       editRecord: any = async () => {
-        await this.props.DepartmentStore.updateRecord();
-        this.setState({ openEdit: false })
-      }
+        await this.props.DepartmentStore.updateRecord(
+          this.state.selectedclassification
+        );
+        this.setState({ openEdit: false });
+      };
+
+      handleCheck = (e: any) => {
+        if (e.target.checked) {
+          this.setState({
+            selectedclassification: [
+              ...this.state.selectedclassification,
+              e.target.value
+            ]
+          });
+        } else {
+          let remove = this.state.selectedclassification.indexOf(
+            e.target.value
+          );
+          this.setState({
+            selectedclassification: this.state.selectedclassification.filter(
+              (_: any, i: any) => i !== remove
+            )
+          });
+        }
+        console.log(this.state.selectedclassification);
+      };
 
       render() {
-        let editClose = () => this.setState({ openEdit: false })
-        const { DepartmentStore, RecordStore, UniqueStore }: IProps = this.props;
+        let editClose = () => this.setState({ openEdit: false });
+        const {
+          DepartmentStore,
+          UniqueStore
+        }: IProps = this.props;
 
         return (
           <Container>
@@ -200,12 +234,27 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     close={editClose}
                     functionList={UniqueStore.functionsDropdown}
                     categoryList={UniqueStore.categoryDropdown}
-                    change={DepartmentStore.handleChange}
+                    change={this.handleCheck}
                     saveedit={this.editRecord}
-                    changecheckbox={RecordStore.handleCheckbox}
+                    changecheckbox={this.handleCheck}
                     disablecategory={
                       editDetail.recordcategoryid === "common" ? true : false
                     }
+                    // ifarchival={
+                    //   editDetail.classification.find(
+                    //     (x: string) => x === "Archival"
+                    //   )
+                    // }
+                    // ifvital={
+                    //   editDetail.classification.find(
+                    //     (x: string) => x === "Vital"
+                    //   )
+                    // }
+                    // ifconfidential={
+                    //   editDetail.classification.find(
+                    //     (x: string) => x === "Highly Confidential"
+                    //   )
+                    // }
                   />
                 );
               })}
@@ -217,4 +266,3 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 );
 
 export default AdminTab as any;
-

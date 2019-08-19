@@ -5,7 +5,6 @@ import {
   IRecordStore,
   IRecord,
   IDepartmentStore,
-  IDepartment,
   IUniqueStore,
   ICommonStore,
   ICommonRecord
@@ -30,7 +29,7 @@ interface IProps {
 interface IState {
   modalShow: boolean;
   editShow: boolean;
-  selectrecord: any;
+  selectrecord: string[];
   order: IOrder;
   orderBy: string;
   sortDirection: string;
@@ -96,6 +95,7 @@ const CommonRecords = inject(
           console.log(this.state.selectrecord);
         } else {
           let remove = this.state.selectrecord.indexOf(e.target.value);
+          console.log(remove)
           this.setState({
             selectrecord: this.state.selectrecord.filter(
               (_: any, i: any) => i !== remove
@@ -121,7 +121,10 @@ const CommonRecords = inject(
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ modalShow: true });
         } else {
-          this.props.CommonStore.addCommonRecord(this.state.selectrecord, this.props.DepartmentStore.selectedDepartment);
+          this.props.CommonStore.addCommonRecord(
+            this.state.selectrecord,
+            this.props.DepartmentStore.selectedDepartment
+          );
         }
       };
 
@@ -231,6 +234,21 @@ const CommonRecords = inject(
                     change={CommonStore.handleChange}
                     changecheckbox={RecordStore.handleCheckbox}
                     disablecategory={true}
+                    // ifarchival={
+                    //   !!postDetail.classification.find(
+                    //     (x: string) => x === "Archival"
+                    //   )
+                    // }
+                    // ifvital={
+                    //   !!postDetail.classification.find(
+                    //     (x: string) => x === "Vital"
+                    //   )
+                    // }
+                    // ifconfidential={
+                    //   !!postDetail.classification.find(
+                    //     (x: string) => x === "Highly Confidential"
+                    //   )
+                    // }
                   />
                 );
               })}

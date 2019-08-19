@@ -12,7 +12,6 @@ export interface IUniqueStore {
   submitRecords: (dept: string) => void;
   handleChange: (e: any) => void;
   changeArchival: (e: any) => void;
-  getDepartmentName: (dept: string) => void;
 }
 /*
 TODO: submit classification
@@ -26,7 +25,7 @@ class _UniqueStore {
     recordcategoryid: "",
     description: "",
     comments: "",
-    classification: "",
+    classification: [],
     status: "Pending",
     code: ""
   };
@@ -69,10 +68,6 @@ class _UniqueStore {
       .then(json => (this.archivalDropdown = json));
   }
 
-  // getDepartmentName = (dept: string) => {
-  //   this.uniquerecords.department = dept;
-  // };
-
   async submitRecords(dept: string) {
     this.uniquerecords.department = dept;
 
@@ -103,8 +98,7 @@ decorate(_UniqueStore, {
   submitRecords: action,
   fetchCategory: action,
   changeArchival: action,
-  fetchArchival: action,
-  // getDepartmentName: action
+  fetchArchival: action
 });
 
 export const UniqueStore = new _UniqueStore();

@@ -34,10 +34,6 @@ interface IState {
 const AddUniqueRecords = inject("UniqueStore", "DepartmentStore", "RecordStore")(
   observer(
     class AddUniqueRecords extends Component<IProps, IState> {
-      componentDidMount() {
-        this.props.UniqueStore.fetchFunctions();
-        this.props.UniqueStore.fetchCategory();
-      }
 
       state: IState = {
         smShow: false,
@@ -131,7 +127,7 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore", "RecordStore")
             <FormControl component="fieldset">
               <FormLabel component="legend">Classification</FormLabel>
               <ClassificationCheckboxes 
-                change={UniqueStore.changeArchival} 
+                changecheckbox={UniqueStore.changeArchival} 
                 disabled={false}
               />
             </FormControl>

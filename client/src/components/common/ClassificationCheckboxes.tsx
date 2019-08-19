@@ -18,26 +18,17 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-  change: (e: any) => void;
+  changecheckbox: (e: any) => void;
   disabled: boolean;
+  ifvital?: boolean
+  ifarchival?: boolean
+  ifconfidential?: boolean
 }
 
 const ClassificationCheckboxesGroup = observer((props: IProps) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    archival: true,
-    vital: false,
-    highlyconfidential: false
-  });
 
-  const handleChange = (name: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setState({ ...state, [name]: event.target.checked });
-  };
-
-  const { archival, vital, highlyconfidential } = state;
-  const { disabled } = props;
+  const { disabled, changecheckbox, ifvital, ifarchival, ifconfidential } = props;
 
   return (
     <div className={classes.root}>
@@ -47,9 +38,9 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
             control={
               <Checkbox
                 disabled={disabled}
-                checked={archival}
-                onChange={handleChange("archival")}
-                value="archival"
+                onClick={changecheckbox}
+                checked={ifarchival}
+                value=" Archival "
               />
             }
             label="Archival"
@@ -58,9 +49,9 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
             control={
               <Checkbox
                 disabled={disabled}
-                checked={vital}
-                onChange={handleChange("vital")}
-                value="vital"
+                onClick={changecheckbox}
+                checked={ifvital}
+                value=" Vital "
               />
             }
             label="Vital"
@@ -69,9 +60,9 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
             control={
               <Checkbox
                 disabled={disabled}
-                checked={highlyconfidential}
-                onChange={handleChange("highlyconfidential")}
-                value="highlyconfidential"
+                onClick={changecheckbox}
+                checked={ifconfidential}
+                value=" Highly Confidential "
               />
             }
             label="Highly Confidential"

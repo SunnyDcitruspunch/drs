@@ -11,7 +11,7 @@ interface IProps {
   pfunction: string;
   recordtype: string;
   description: string;
-  classification: string;
+  classification: string[];
   comments: string;
   status: string;
 }

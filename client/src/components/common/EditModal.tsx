@@ -11,7 +11,10 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  FormLabel
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  Checkbox
 } from "@material-ui/core";
 import { IRecord, ICommonRecord } from "../../stores";
 import ClassificationCheckboxes from "./ClassificationCheckboxes";
@@ -19,7 +22,7 @@ import FunctionDropdown from "./FunctionDropdown";
 import { observer } from "mobx-react";
 
 interface IProps {
-  record: IRecord | ICommonRecord
+  record: IRecord | ICommonRecord;
   open: boolean;
   close: () => void;
   saveedit: (e: any) => void;
@@ -28,9 +31,12 @@ interface IProps {
   change: (e: any) => void;
   changecheckbox: (e: any) => void;
   disabled: boolean;
-  title: any
-  disablecomment?: boolean
-  disablecategory?:boolean
+  title: any;
+  disablecomment?: boolean;
+  disablecategory?: boolean;
+  ifarchival?: boolean;
+  ifvital?: boolean;
+  ifconfidential?: boolean;
 }
 
 const EditModal = observer((props: IProps) => {
@@ -46,8 +52,20 @@ const EditModal = observer((props: IProps) => {
     title,
     disablecomment,
     disablecategory,
-    changecheckbox
+    changecheckbox,
+    ifarchival,
+    ifvital,
+    ifconfidential
   } = props;
+
+  const onclickCheck: (e: any) => void = (e: any) => {
+    if(e.target.checked === true){
+      record.classification.splice(record.classification.indexOf(e.target.value, 1))
+    } else {
+      record.classification.push(e.target.value)
+    }
+    console.log(record.classification)
+  };
 
   return (
     <Dialog
@@ -139,10 +157,63 @@ const EditModal = observer((props: IProps) => {
         <Grid>
           <FormControl component="fieldset">
             <FormLabel component="legend">Classification</FormLabel>
-            <ClassificationCheckboxes 
-            disabled={disabled}
-            change={changecheckbox} 
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    disabled={disabled}
+                    onClick={changecheckbox}
+                    checked={ifarchival}
+                    // checked={
+                    //   !!record.classification.find(
+                    //     (x: string) => x === " Archival "
+                    //   )
+                    // }
+                    value=" Archival "
+                  />
+                }
+                label="Archival"
               />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    disabled={disabled}
+                    onClick={changecheckbox}
+                    checked={ifvital}
+                    // checked={
+                    //   !!record.classification.find(
+                    //     (x: string) => x === " Vital "
+                    //   )
+                    // }
+                    value=" Vital "
+                  />
+                }
+                label="Vital"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    disabled={disabled}
+                    onClick={changecheckbox}
+                    checked={ifconfidential}
+                    // checked={
+                    //   !!record.classification.find(
+                    //     (x: string) => x === " Highly Confidential "
+                    //   )
+                    // }
+                    value=" Highly Confidential "
+                  />
+                }
+                label="Highly Confidential"
+              />
+            </FormGroup>
+            {/* <ClassificationCheckboxes 
+            disabled={disabled}
+            changecheckbox={changecheckbox} 
+            ifarchival={ifarchival}
+            ifvital={ifvital}
+            ifconfidential={ifconfidential}
+              /> */}
           </FormControl>
         </Grid>
       </DialogContent>

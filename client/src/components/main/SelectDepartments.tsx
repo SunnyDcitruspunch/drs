@@ -44,6 +44,8 @@ const SelectDepartment = inject(
         this.props.CommonStore.fetchCommonRecords();
         this.props.DepartmentStore.fetchAllRecords();
         this.props.UniqueStore.fetchArchival();
+        this.props.UniqueStore.fetchFunctions();
+        this.props.UniqueStore.fetchCategory();
 
         this.setState({ selecteddept: "" });
       };
@@ -75,6 +77,7 @@ const SelectDepartment = inject(
                   value={this.state.selecteddept}
                 >
                   {DepartmentStore.allDepartments
+                    .slice()
                     .sort(
                       (a: IDepartment, b: IDepartment) =>
                         parseFloat(a.department) - parseFloat(b.department)

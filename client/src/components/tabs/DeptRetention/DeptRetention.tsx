@@ -35,11 +35,12 @@ interface IState {
   confirmDelete: boolean;
   order: IOrder;
   orderBy: string;
-  sortDirection: any;
+  sortDirection: string;
   filterbyFunction: string;
   snackbar: boolean;
   disable: boolean;
   onlycommentEdit: boolean;
+  selectedclassification: string[]
 }
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
@@ -84,7 +85,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
           sortDirection: "asc",
           filterbyFunction: "",
           snackbar: false,
-          disable: false //can only edit comments if is common record
+          disable: false, //can only edit comments if is common record
+          selectedclassification: []
         };
       }
 
@@ -97,6 +99,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         }
         this.setState({ openEdit: true });
         this.props.DepartmentStore.updateEditID(postDetail);
+
+        this.setState({ selectedclassification: postDetail.classification })
       }
 
       //html2canvas + jsPDF
@@ -139,7 +143,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
       };
 
       editRecord: any = async () => {
-        await this.props.DepartmentStore.updateRecord();
+        await this.props.DepartmentStore.updateRecord(this.state.selectedclassification);
         this.setState({ openEdit: false });
         this.setState({ snackbar: true });
       };
@@ -182,9 +186,27 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         this.setState({ orderBy: property });
       };
 
+      handleCheck = (e: any) => {
+        if(e.target.checked) {
+          // e.target.checked = false
+          this.setState({
+            selectedclassification: [...this.state.selectedclassification, e.target.value]
+          })
+        } else {
+          // e.target.checke3d = true
+          let remove = this.state.selectedclassification.indexOf(e.target.value)
+          this.setState({
+            selectedclassification: this.state.selectedclassification.filter(
+              (_: any, i: any) => i !== remove
+            )
+          })
+        }
+        console.log(this.state.selectedclassification)
+      }
+
       render() {
         let editClose = () => this.setState({ openEdit: false });
-        const { DepartmentStore, RecordStore } = this.props;
+        const { DepartmentStore } = this.props;
         const department = this.props.DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
         const categories = this.props.UniqueStore.categoryDropdown;
@@ -264,10 +286,13 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                     categoryList={categories}
                     change={DepartmentStore.handleChange}
                     saveedit={this.editRecord}
-                    changecheckbox={RecordStore.handleCheckbox}
+                    changecheckbox={this.handleCheck}
                     disablecategory={
                       editDetail.recordcategoryid === "common" ? true : false
                     }
+                    ifarchival={!!this.state.selectedclassification.find((x: string) => x === ' Archival ')}
+                    ifvital={!!this.state.selectedclassification.find((x: string) => x === ' Vital ')}
+                    ifconfidential={!!this.state.selectedclassification.find((x: string) => x === ' Highly Confidential ')}                    
                   />
                 );
               })}
