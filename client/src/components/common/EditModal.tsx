@@ -58,15 +58,6 @@ const EditModal = observer((props: IProps) => {
     ifconfidential
   } = props;
 
-  const onclickCheck: (e: any) => void = (e: any) => {
-    if(e.target.checked === true){
-      record.classification.splice(record.classification.indexOf(e.target.value, 1))
-    } else {
-      record.classification.push(e.target.value)
-    }
-    console.log(record.classification)
-  };
-
   return (
     <Dialog
       key={record.id}

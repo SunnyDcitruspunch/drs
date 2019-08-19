@@ -134,6 +134,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
       };
 
       handleEdit = (record: IRecord) => {
+        this.setState({selectedclassification: record.classification})
         this.setState({ openEdit: true });
         this.props.DepartmentStore.updateEditID(record);
       };
@@ -208,10 +209,10 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
             >
               Approve selected records
             </Button>
-            <Snackbar
+            {/* <Snackbar
               _open={this.state.snackbar}
               msg="Records has been approved."
-            />
+            /> */}
 
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
@@ -240,21 +241,9 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     disablecategory={
                       editDetail.recordcategoryid === "common" ? true : false
                     }
-                    // ifarchival={
-                    //   editDetail.classification.find(
-                    //     (x: string) => x === "Archival"
-                    //   )
-                    // }
-                    // ifvital={
-                    //   editDetail.classification.find(
-                    //     (x: string) => x === "Vital"
-                    //   )
-                    // }
-                    // ifconfidential={
-                    //   editDetail.classification.find(
-                    //     (x: string) => x === "Highly Confidential"
-                    //   )
-                    // }
+                    ifarchival={!!this.state.selectedclassification.find((x: string) => x === ' Archival ')}
+                    ifvital={!!this.state.selectedclassification.find((x: string) => x === ' Vital ')}
+                    ifconfidential={!!this.state.selectedclassification.find((x: string) => x === ' Highly Confidential ')}                   
                   />
                 );
               })}

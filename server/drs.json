@@ -350,10 +350,56 @@
       "recordcategoryid": "FIN10",
       "description": "y",
       "comments": "y",
-      "classification": [],
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
       "status": "Pending",
       "code": "",
       "id": "GcBMy2A"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "ww",
+      "function": "Employment",
+      "recordcategoryid": "STU02",
+      "description": "ww",
+      "comments": "ww",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "J0MAuIj"
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "qa",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "description": "qa",
+      "comments": "qa",
+      "classification": [
+        " Highly Confidential ",
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "BMlssmN"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "oo",
+      "function": "Faculty",
+      "recordcategoryid": "MISC9",
+      "description": "oo",
+      "comments": "oo",
+      "classification": [
+        " Highly Confidential "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "VXo2PEd"
     }
   ],
   "commonrecords": [
