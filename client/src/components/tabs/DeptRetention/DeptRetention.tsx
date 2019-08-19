@@ -3,7 +3,7 @@ import axios from "axios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { saveAs } from "file-saver";
-import { Paper, Table, TableBody, Button, Container } from "@material-ui/core";
+import { Paper, Table, TableBody, Button, Container, Grid } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import {
   IDepartmentStore,
@@ -185,9 +185,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
 
         return (
           <Container>
-            <Button variant="outlined" color="primary" onClick={this.makePdf}>
-              Download as PDF
-            </Button>
+            <Grid justify="center" alignItems="center" container>
+              <Button variant="outlined" color="primary" onClick={this.makePdf}>Download as PDF</Button>
+            </Grid>
             <Paper>
               <Table id="schedule" size="small">
                 <EnhancedTableHead

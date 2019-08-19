@@ -5,7 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "mobx-react";
-import { UniqueStore, DepartmentStore, RecordStore, CommonStore } from "./stores";
+import { UniqueStore, DepartmentStore, RecordStore, CommonStore, AuthStore } from "./stores";
 
 ReactDOM.render(
   <Provider
@@ -13,6 +13,7 @@ ReactDOM.render(
     DepartmentStore={DepartmentStore}
     RecordStore={RecordStore}
     CommonStore={CommonStore}
+    AuthStore={AuthStore}
   >
     <div>
       <Router>

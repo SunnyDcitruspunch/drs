@@ -1,5 +1,5 @@
 import { observable, decorate, action } from "mobx";
-import { IDepartment, IRecord } from '../stores'
+import { IDepartment, IRecord } from '.'
 
 export interface ICommonRecord {
   id: string;

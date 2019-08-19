@@ -15,6 +15,7 @@ import { IUniqueStore, IDepartmentStore, IRecordStore } from "../../../stores";
 import Snackbar from "../../common/Snackbar";
 import MessageModal from "../../common/MessageModal";
 import FunctionDropdown from "../../common/FunctionDropdown";
+import CategoryDropdown from '../../common/CategoryDropdown'
 import ClassificationCheckboxes from "../../common/ClassificationCheckboxes";
 
 interface IProps {
@@ -28,8 +29,7 @@ interface IState {
   snackbarShow: boolean;
   needRecordType: boolean;
   open: boolean;
-  archivalOptions: Array<string>;
-  selectedclassification: string[]
+  selectedclassification: string[];
 }
 
 const AddUniqueRecords = inject(
@@ -44,7 +44,6 @@ const AddUniqueRecords = inject(
         snackbarShow: true,
         needRecordType: false,
         open: false,
-        archivalOptions: ["Archival", "Vital", "Highly Confidential"],
         selectedclassification: []
       };
 
@@ -55,7 +54,7 @@ const AddUniqueRecords = inject(
           this.setState({ needRecordType: true });
         } else {
           this.props.UniqueStore.submitRecords(
-            this.props.DepartmentStore.selectedDepartment.department, 
+            this.props.DepartmentStore.selectedDepartment.department,
             this.state.selectedclassification
           );
           this.props.DepartmentStore.fetchAllRecords();
@@ -95,7 +94,7 @@ const AddUniqueRecords = inject(
 
         return (
           <Container style={{ flexGrow: 1 }}>
-            <Grid item sm={12}>
+            <Grid container justify="center" alignItems="center">
               <TextField
                 id="recordtype"
                 name="recordtype"
@@ -106,19 +105,29 @@ const AddUniqueRecords = inject(
                 margin="normal"
               />
             </Grid>
+            <Grid container justify="center" alignItems="center">
+              <FunctionDropdown
+                title="Function Type"
+                id="function"
+                name="function"
+                disabled={false}
+                value={UniqueStore.uniquerecords.function}
+                change={UniqueStore.handleChange}
+                dropdown={UniqueStore.functionsDropdown}
+              />
+            </Grid>
 
-            <FunctionDropdown
-              title="Function Type"
-              id="function"
-              name="function"
-              disabled={false}
-              value={UniqueStore.uniquerecords.function}
-              change={UniqueStore.handleChange}
-              dropdown={this.props.UniqueStore.functionsDropdown}
-            />
-
-            <Grid item style={{ marginTop: 10 }}>
-              <InputLabel shrink htmlFor="age-label-placeholder">
+            <Grid justify="center" alignItems="center" container style={{ height: 30 }}>
+            <CategoryDropdown
+                title="Category Type"
+                id="recordcategoryid"
+                name="recordcategoryid"
+                disabled={false}
+                value={UniqueStore.uniquerecords.recordcategoryid}
+                change={UniqueStore.handleChange}
+                dropdown={UniqueStore.categoryDropdown}
+              />
+              {/* <InputLabel htmlFor="age-label-placeholder">
                 Record Category
               </InputLabel>
               <Select
@@ -139,10 +148,10 @@ const AddUniqueRecords = inject(
                       {category.recordcategoryid}
                     </MenuItem>
                   ))}
-              </Select>
+              </Select> */}
             </Grid>
 
-            <Grid item sm={12}>
+            <Grid container justify="center" alignItems="center">
               <TextField
                 multiline
                 rows="2"
@@ -156,15 +165,17 @@ const AddUniqueRecords = inject(
               />
             </Grid>
 
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Classification</FormLabel>
-              <ClassificationCheckboxes
-                changecheckbox={this.handleCheck}
-                disabled={false}
-              />
-            </FormControl>
+            <Grid container justify="center" alignItems="center">
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Classification</FormLabel>
+                <ClassificationCheckboxes
+                  changecheckbox={this.handleCheck}
+                  disabled={false}
+                />
+              </FormControl>
+            </Grid>
 
-            <Grid item sm={12}>
+            <Grid container justify="center" alignItems="center">
               <TextField
                 multiline
                 rows="4"
@@ -178,14 +189,16 @@ const AddUniqueRecords = inject(
               />
             </Grid>
 
-            <Button
-              variant="outlined"
-              color="primary"
-              style={{ marginTop: 10, fontSize: 10 }}
-              onClick={this.submitRecords}
-            >
-              Submit
-            </Button>
+            <Grid container justify="center" alignItems="center">
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ marginTop: 10, fontSize: 10 }}
+                onClick={this.submitRecords}
+              >
+                Submit
+              </Button>
+            </Grid>
 
             <MessageModal
               open={this.state.smShow}
@@ -207,10 +220,10 @@ const AddUniqueRecords = inject(
               aria-describedby="alert-dialog-description"
             />
 
-            <Snackbar
+            {/* <Snackbar
               _open={this.state.snackbarShow}
               msg="Successfully submitted the record."
-            />
+            /> */}
           </Container>
         );
       }

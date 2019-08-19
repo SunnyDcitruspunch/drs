@@ -312,7 +312,8 @@
       "comments": "",
       "code": "CADM1100",
       "status": "Approved",
-      "id": "GxQsL2L"
+      "id": "GxQsL2L",
+      "recordcategoryid": "ADM01"
     },
     {
       "department": "Computer Science",
@@ -1065,6 +1066,20 @@
     {
       "id": "2",
       "archive": "Highly Confidential"
+    }
+  ],
+  "users": [
+    {
+      "username": "hahasunny",
+      "password": "sunnyd",
+      "department": "Honor Code Office",
+      "admin": true
+    },
+    {
+      "username": "honey",
+      "password": "isadog",
+      "department": "Computer Science",
+      "admin": false
     }
   ]
 }

@@ -5,7 +5,8 @@ import {
   Table,
   TableBody,
   Button,
-  FormLabel
+  FormLabel,
+  Grid
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import {
@@ -138,7 +139,9 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         return (
           <Container>
             <Paper style={{ width: "100%", overflowX: "auto" }}>
-              <FormLabel style={{ marginTop: 5 }}>Pending Records</FormLabel>
+              <Grid container justify="center" alignItems="center">
+                <FormLabel style={{ marginTop: 5 }}>Pending Records</FormLabel>
+              </Grid>
               <Table size="small">
                 <EnhancedTableHead
                   id="tablehead"

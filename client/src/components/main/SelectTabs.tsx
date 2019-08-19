@@ -66,7 +66,7 @@ const FullWidthTabs = observer(() => {
   }
 
   return (
-    <div className={classes.root} >
+    <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -95,13 +95,13 @@ const FullWidthTabs = observer(() => {
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <AddUniqueRecords />
-        </TabPanel>
+        </TabPanel>        
         <TabPanel value={value} index={3} dir={theme.direction}>
           <AdminTab />
         </TabPanel>
       </SwipeableViews>
     </div>
   );
-})
+});
 
 export default FullWidthTabs;

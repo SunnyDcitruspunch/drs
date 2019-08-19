@@ -67,34 +67,34 @@ const SelectDepartment = inject(
         const { DepartmentStore } = this.props;
 
         return (
-          <Container>
-            <Grid item style={{ marginBottom: 50 }}>
-              <FormGroup>
-                <Select
-                  id="selectdept"
-                  style={styles.optionStyle}
-                  onChange={this.onSelect}
-                  value={this.state.selecteddept}
-                >
-                  {DepartmentStore.allDepartments
-                    .slice()
-                    .sort(
-                      (a: IDepartment, b: IDepartment) =>
-                        parseFloat(a.department) - parseFloat(b.department)
-                    )
-                    .map((dept: any) => (
-                      <MenuItem
-                        style={{ height: 30 }}
-                        key={dept.id}
-                        value={dept.department}
-                      >
-                        {dept.department}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </FormGroup>
-            </Grid>
-          </Container>
+          // <Container>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            style={{ marginBottom: 50 }}
+          >
+            <FormGroup>
+              <Select
+                id="selectdept"
+                style={styles.optionStyle}
+                onChange={this.onSelect}
+                value={this.state.selecteddept}
+              >
+                {DepartmentStore.allDepartments
+                  .slice()
+                  .sort((a: IDepartment, b: IDepartment) =>
+                    a.department < b.department ? -1 : 1
+                  )
+                  .map((dept: any) => (
+                    <MenuItem key={dept.id} value={dept.department}>
+                      {dept.department}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormGroup>
+          </Grid>
+          // </Container>
         );
       }
     }
