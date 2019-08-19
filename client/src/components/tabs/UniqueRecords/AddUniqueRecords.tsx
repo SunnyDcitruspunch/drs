@@ -61,7 +61,7 @@ const AddUniqueRecords = inject(
           this.props.DepartmentStore.fetchAllRecords();
           this.setState({ snackbarShow: true });
           this.setState({ needRecordType: false });
-          // this.props.DepartmentStore.fetchAllRecords();
+          this.props.DepartmentStore.fetchAllRecords();
         }
       };
 

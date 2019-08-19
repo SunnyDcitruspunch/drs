@@ -38,16 +38,6 @@ interface IState {
   selectedclassification: string[];
 }
 
-function desc<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
 const headrows: IHeadRow[] = [
   {
     id: "department",
@@ -107,34 +97,8 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         await this.props.DepartmentStore.fetchAllRecords();
       };
 
-      getSorting<K extends keyof any>(
-        order: IOrder,
-        orderBy: K
-      ): (
-        a: { [key in K]: number | string },
-        b: { [key in K]: number | string }
-      ) => number {
-        return order === "desc"
-          ? (a, b) => desc(a, b, orderBy)
-          : (a, b) => -desc(a, b, orderBy);
-      }
-
-      handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof IData
-      ) => {
-        const isDesc =
-          this.state.orderBy === property && this.state.order === "desc";
-        if (isDesc === true) {
-          this.setState({ order: "asc" });
-        } else {
-          this.setState({ order: "desc" });
-        }
-        this.setState({ orderBy: property });
-      };
-
       handleEdit = (record: IRecord) => {
-        this.setState({selectedclassification: record.classification})
+        this.setState({ selectedclassification: record.classification });
         this.setState({ openEdit: true });
         this.props.DepartmentStore.updateEditID(record);
       };
@@ -169,10 +133,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
       render() {
         let editClose = () => this.setState({ openEdit: false });
-        const {
-          DepartmentStore,
-          UniqueStore
-        }: IProps = this.props;
+        const { DepartmentStore, UniqueStore }: IProps = this.props;
 
         return (
           <Container>
@@ -184,7 +145,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   headrows={headrows}
                   order={this.state.order}
                   orderBy={this.state.orderBy}
-                  onRequestSort={this.handleRequestSort}
+                  // onRequestSort={this.handleRequestSort}
                 />
                 <TableBody style={{ fontSize: 11 }}>
                   {DepartmentStore._allRecords
@@ -241,9 +202,21 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     disablecategory={
                       editDetail.recordcategoryid === "common" ? true : false
                     }
-                    ifarchival={!!this.state.selectedclassification.find((x: string) => x === ' Archival ')}
-                    ifvital={!!this.state.selectedclassification.find((x: string) => x === ' Vital ')}
-                    ifconfidential={!!this.state.selectedclassification.find((x: string) => x === ' Highly Confidential ')}                   
+                    ifarchival={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Archival "
+                      )
+                    }
+                    ifvital={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Vital "
+                      )
+                    }
+                    ifconfidential={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Highly Confidential "
+                      )
+                    }
                   />
                 );
               })}

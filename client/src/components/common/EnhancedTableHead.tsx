@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel
-} from "@material-ui/core";
+import { TableCell, TableHead, TableRow } from "@material-ui/core";
 import { observer } from "mobx-react";
 
 export type IOrder = "asc" | "desc";
@@ -19,29 +14,20 @@ export interface IData {
   status?: string;
 }
 export interface IEnhancedTableProps {
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof IData
-  ) => void;
   order: IOrder;
   orderBy: string;
   rowCount?: number;
   id: string;
   headrows: any;
 }
+
 export interface IHeadRow {
   id: keyof IData;
   label: string;
 }
 
-
 const EnhancedTableHead = observer((props: IEnhancedTableProps) => {
-  const { order, orderBy, onRequestSort, id, headrows } = props;
-  const createSortHandler = (property: keyof IData) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    onRequestSort(event, property);
-  };
+  const { order, orderBy, id, headrows } = props;
 
   return (
     <TableHead id={id}>
@@ -52,13 +38,7 @@ const EnhancedTableHead = observer((props: IEnhancedTableProps) => {
             key={row.id}
             sortDirection={orderBy === row.id ? order : false}
           >
-            <TableSortLabel
-              active={orderBy === row.id}
-              direction={order}
-              onClick={createSortHandler(row.id)}
-            >
-              {row.label}
-            </TableSortLabel>
+            {row.label}
           </TableCell>
         ))}
       </TableRow>

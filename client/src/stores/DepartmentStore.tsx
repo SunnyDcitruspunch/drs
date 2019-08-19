@@ -65,8 +65,8 @@ class _DepartmentStore implements IDepartmentStore {
       .then(json => (this.allDepartments = json));
   };
 
-  async fetchAllRecords() {
-    await fetch("http://localhost:3004/records")
+ fetchAllRecords = () => {
+  fetch("http://localhost:3004/records")
       .then(response => {
         return response.json();
       })

@@ -61,7 +61,7 @@ class _UniqueStore {
 
   async submitRecords(dept: string, c: string[]) {
     this.uniquerecords.department = dept;
-    this.uniquerecords.classification = c
+    this.uniquerecords.classification = c;
 
     fetch("http://localhost:3004/records", {
       method: "POST",

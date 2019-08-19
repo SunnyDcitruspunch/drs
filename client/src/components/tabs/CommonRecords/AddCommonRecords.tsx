@@ -10,7 +10,6 @@ import {
   ICommonRecord
 } from "../../../stores";
 import EnhancedTableHead, {
-  IData,
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
@@ -53,16 +52,6 @@ const headrows: IHeadRow[] = [
   },
   { id: "classification", label: "Classification" }
 ];
-
-function desc<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
 
 const CommonRecords = inject(
   "RecordStore",
@@ -131,44 +120,6 @@ const CommonRecords = inject(
         }
       };
 
-      getSorting<K extends keyof any>(
-        order: IOrder,
-        orderBy: K
-      ): (
-        a: { [key in K]: number | string },
-        b: { [key in K]: number | string }
-      ) => number {
-        return order === "desc"
-          ? (a, b) => desc(a, b, orderBy)
-          : (a, b) => -desc(a, b, orderBy);
-      }
-
-      stableSort<T>(array: ICommonRecord[], cmp: (a: T, b: T) => number) {
-        const stabilizedThis = array.map(
-          (el: any, index: any) => [el, index] as [T, number]
-        );
-        stabilizedThis.sort((a: any, b: any) => {
-          const order = cmp(a[0], b[0]);
-          if (order !== 0) return order;
-          return a[1] - b[1];
-        });
-        return stabilizedThis.map((el: any) => el[0]);
-      }
-
-      handleRequestSort = () => (
-        event: React.MouseEvent<unknown>,
-        property: keyof IData
-      ) => {
-        const isDesc =
-          this.state.orderBy === property && this.state.order === "desc";
-        if (isDesc === true) {
-          this.setState({ order: "asc" });
-        } else {
-          this.setState({ order: "desc" });
-        }
-        this.setState({ orderBy: property });
-      };
-
       handleCheck = (e: any) => {
         if(e.target.checked) {
           // e.target.checked = false
@@ -201,13 +152,12 @@ const CommonRecords = inject(
                   headrows={headrows}
                   order={this.state.order}
                   orderBy={this.state.orderBy}
-                  onRequestSort={this.handleRequestSort}
+                  // onRequestSort={this.handleRequestSort}
                 />
                 <TableBody>
-                  {this.stableSort(
-                    CommonStore.commonRecords,
-                    this.getSorting(this.state.order, this.state.orderBy)
-                  ).map((record: ICommonRecord, index: number) => {
+                  {CommonStore.commonRecords
+                  .sort((a: ICommonRecord, b: ICommonRecord) => (a.function < b.function ? -1 : 1))                                                                     
+                  .map((record: ICommonRecord, index: number) => {
                     return (
                       <RecordTable
                         key={index}
@@ -281,7 +231,6 @@ const CommonRecords = inject(
 
 export default CommonRecords as any;
 
-/** @type {{search: React.CSSProperties}} */
 const styles = {
   tableStyle: {
     paddingTop: 14

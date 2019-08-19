@@ -16,7 +16,6 @@ export type IRecord = {
 export interface IRecordStore {
   CommonRecords: Array<IRecord>;
   record: IRecord;
-  // handleCheckbox: (e: any) => void;
   approveSelectedRecords: (e: any, dept: string) => void;
 }
 
@@ -60,15 +59,9 @@ class _RecordStore implements IRecordStore {
       })
       // .then(json => (this._allRecords = json));
   }
-
-  //handle multiple classification select
-  // handleCheckbox = (e: any) => {
-  //   console.log("what is up???");
-  // };
 }
 
 decorate(_RecordStore, {
-  // handleCheckbox: action,
   approveSelectedRecords: action
 });
 

@@ -1,6 +1,8 @@
 import * as React from "react";
+import axios from "axios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { saveAs } from "file-saver";
 import { Paper, Table, TableBody, Button, Container } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import {
@@ -40,17 +42,7 @@ interface IState {
   snackbar: boolean;
   disable: boolean;
   onlycommentEdit: boolean;
-  selectedclassification: string[]
-}
-
-function desc<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
+  selectedclassification: string[];
 }
 
 const headrows: IHeadRow[] = [
@@ -100,17 +92,18 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         this.setState({ openEdit: true });
         this.props.DepartmentStore.updateEditID(postDetail);
 
-        this.setState({ selectedclassification: postDetail.classification })
+        this.setState({ selectedclassification: postDetail.classification });
       }
 
+      //make pdf
       //html2canvas + jsPDF
       makePdf = () => {
-        const dept = this.props.DepartmentStore.selectedDepartment;
+        const dept = this.props.DepartmentStore.selectedDepartment.department;
         const schedule: any = document.getElementById("schedule");
 
         if (this.props.DepartmentStore.selectedDepartment.department !== "") {
           html2canvas(schedule, {
-            width: 2400,
+            width: 3200,
             height: 2000,
             x: 120
           }).then(function(canvas: any) {
@@ -119,8 +112,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
               orientation: "landscape"
             });
             doc.text("Department Retention Schedule: " + dept, 10, 10);
-            doc.addImage(img, "JPEG", -20, 15);
-            doc.save("retention.pdf");
+            doc.addImage(img, "JPEG", -15, 15);
+            doc.save("drs.pdf");
           });
         } else {
           this.setState({
@@ -128,6 +121,16 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
           });
         }
       };
+      // makePdf = () => {
+      //   axios.post('/create-pdf', this.props.DepartmentStore)
+      //     .then(() => axios.get('fetch-pdf', { responseType: 'blob'}))
+      //     .then((res) => {
+      //       const pdfBlob = new Blob([res.data], { type: 'application/pdf'})
+
+      //       saveAs(pdfBlob, 'retention.pdf')
+      //     })
+      //     .catch((error) => console.log(error))
+      // };
 
       //pass id to store for delete action
       handleDelete(value: any) {
@@ -143,66 +146,35 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
       };
 
       editRecord: any = async () => {
-        await this.props.DepartmentStore.updateRecord(this.state.selectedclassification);
+        await this.props.DepartmentStore.updateRecord(
+          this.state.selectedclassification
+        );
         this.setState({ openEdit: false });
         this.setState({ snackbar: true });
       };
 
-      stableSort<T>(array: IRecord[], cmp: (a: T, b: T) => number) {
-        const stabilizedThis = array.map(
-          (el: any, index: any) => [el, index] as [T, number]
-        );
-        stabilizedThis.sort((a: any, b: any) => {
-          const order = cmp(a[0], b[0]);
-          if (order !== 0) return order;
-          return a[1] - b[1];
-        });
-        return stabilizedThis.map((el: any) => el[0]);
-      }
-
-      getSorting<K extends keyof any>(
-        order: IOrder,
-        orderBy: K
-      ): (
-        a: { [key in K]: number | string },
-        b: { [key in K]: number | string }
-      ) => number {
-        return order === "desc"
-          ? (a, b) => desc(a, b, orderBy)
-          : (a, b) => -desc(a, b, orderBy);
-      }
-
-      handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof IData
-      ) => {
-        const isDesc =
-          this.state.orderBy === property && this.state.order === "desc";
-        if (isDesc === true) {
-          this.setState({ order: "asc" });
-        } else {
-          this.setState({ order: "desc" });
-        }
-        this.setState({ orderBy: property });
-      };
-
       handleCheck = (e: any) => {
-        if(e.target.checked) {
+        if (e.target.checked) {
           // e.target.checked = false
           this.setState({
-            selectedclassification: [...this.state.selectedclassification, e.target.value]
-          })
+            selectedclassification: [
+              ...this.state.selectedclassification,
+              e.target.value
+            ]
+          });
         } else {
           // e.target.checke3d = true
-          let remove = this.state.selectedclassification.indexOf(e.target.value)
+          let remove = this.state.selectedclassification.indexOf(
+            e.target.value
+          );
           this.setState({
             selectedclassification: this.state.selectedclassification.filter(
               (_: any, i: any) => i !== remove
             )
-          })
+          });
         }
-        console.log(this.state.selectedclassification)
-      }
+        console.log(this.state.selectedclassification);
+      };
 
       render() {
         let editClose = () => this.setState({ openEdit: false });
@@ -223,19 +195,18 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                   headrows={headrows}
                   order={this.state.order}
                   orderBy={this.state.orderBy}
-                  onRequestSort={this.handleRequestSort}
+                  // onRequestSort={this.handleRequestSort}
                 />
                 <TableBody style={{ fontSize: 11 }} id="tablebody">
-                  {this.stableSort(
-                    DepartmentStore.allRecords,
-                    this.getSorting(this.state.order, this.state.orderBy)
-                  )
+                  {DepartmentStore.allRecords
+                    .sort((a: IRecord, b: IRecord) =>
+                      a.function < b.function ? -1 : 1
+                    )
                     .slice()
                     .filter(
                       (x: IRecord) => x.department === department.department
                     )
                     .map((postDetail: IRecord, index) => {
-                      // console.log(DepartmentStore._allRecords)
                       return (
                         <DepartmentTable
                           key={index}
@@ -290,9 +261,21 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                     disablecategory={
                       editDetail.recordcategoryid === "common" ? true : false
                     }
-                    ifarchival={!!this.state.selectedclassification.find((x: string) => x === ' Archival ')}
-                    ifvital={!!this.state.selectedclassification.find((x: string) => x === ' Vital ')}
-                    ifconfidential={!!this.state.selectedclassification.find((x: string) => x === ' Highly Confidential ')}                    
+                    ifarchival={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Archival "
+                      )
+                    }
+                    ifvital={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Vital "
+                      )
+                    }
+                    ifconfidential={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Highly Confidential "
+                      )
+                    }
                   />
                 );
               })}
