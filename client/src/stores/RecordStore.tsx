@@ -1,5 +1,4 @@
 import { action, decorate } from "mobx";
-import { IDepartment } from "./DepartmentStore";
 
 export type IRecord = {
   id?: string;
@@ -16,21 +15,13 @@ export type IRecord = {
 
 export interface IRecordStore {
   CommonRecords: Array<IRecord>;
-  selectedDepartment: IDepartment;
   record: IRecord;
-  handleCheckbox: (e: any) => void;
+  // handleCheckbox: (e: any) => void;
   approveSelectedRecords: (e: any, dept: string) => void;
 }
 
 class _RecordStore implements IRecordStore {
   CommonRecords = [];
-  selectedDepartment: IDepartment = {
-    id: "",
-    department: "",
-    departmentnumber: "",
-    commoncodes: []
-  };
-
   record: IRecord = {
     id: "",
     code: "",
@@ -71,13 +62,13 @@ class _RecordStore implements IRecordStore {
   }
 
   //handle multiple classification select
-  handleCheckbox = (e: any) => {
-    console.log("what is up???");
-  };
+  // handleCheckbox = (e: any) => {
+  //   console.log("what is up???");
+  // };
 }
 
 decorate(_RecordStore, {
-  handleCheckbox: action,
+  // handleCheckbox: action,
   approveSelectedRecords: action
 });
 

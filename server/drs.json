@@ -400,6 +400,135 @@
       "status": "Pending",
       "code": "",
       "id": "VXo2PEd"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "xx",
+      "function": "Financial",
+      "recordcategoryid": "STU19",
+      "description": "xx",
+      "comments": "x",
+      "classification": [
+        " Archival ",
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "mTYha90"
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "vv",
+      "function": "Financial",
+      "recordcategoryid": "MISC9",
+      "description": "vv",
+      "comments": "vv",
+      "classification": [
+        " Highly Confidential "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "KdpxrSr"
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "hj",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "hj",
+      "comments": "hj",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "ThyHtlf"
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "m",
+      "function": "Administrative",
+      "recordcategoryid": "STU02",
+      "description": "mm",
+      "comments": "mm",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "d7rctH3"
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "bb",
+      "function": "Faculty",
+      "recordcategoryid": "STU19",
+      "description": "bb",
+      "comments": "bb",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "jcMvlke"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "l",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "ll",
+      "comments": "ll",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "zzDuTQC"
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "op",
+      "function": "Human Resource",
+      "recordcategoryid": "MISC9",
+      "description": "op",
+      "comments": "op",
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "dU4VTBP"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "k",
+      "function": "Administrative",
+      "recordcategoryid": "STU19",
+      "description": "j",
+      "comments": "n",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "XaXN_cG"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "hjk",
+      "function": "Human Resource",
+      "recordcategoryid": "STU19",
+      "description": "hjk",
+      "comments": "hjk",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "WO5GIek"
     }
   ],
   "commonrecords": [
@@ -411,7 +540,7 @@
       "recordtype": "Academic unit reviews / educational support unit reviews",
       "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
       "classification": [
-        "Archival"
+        " Highly Confidential "
       ]
     },
     {
@@ -422,7 +551,7 @@
       "recordtype": "Accreditation records, reports and self-evaluations.",
       "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
       "classification": [
-        "Archival"
+        " Archival "
       ]
     },
     {

@@ -16,7 +16,7 @@ export interface ICommonStore {
   record: ICommonRecord;
   commonRecords: ICommonRecord[];
   fetchCommonRecords: () => void;
-  updateCommonRecord: () => void;
+  updateCommonRecord: (c: string[]) => void;
   getEditRecord: (record: ICommonRecord) => void;
   addCommonRecord: (selects: string[], dept: IDepartment) => void
   handleChange: (e: any) => void;
@@ -58,7 +58,7 @@ class _CommonStore implements ICommonStore {
   };
 
   //update common records: PATCH
-  async updateCommonRecord() {
+  async updateCommonRecord(c: string[]) {
     console.log(this.record.id);
     const baseUrl = "http://localhost:3004/commonrecords";
 
@@ -73,7 +73,7 @@ class _CommonStore implements ICommonStore {
         recordcategoryid: this.record.recordcategoryid,
         recordtype: this.record.recordtype,
         description: this.record.description,
-        classification: this.record.classification
+        classification: c
       })
     });
 

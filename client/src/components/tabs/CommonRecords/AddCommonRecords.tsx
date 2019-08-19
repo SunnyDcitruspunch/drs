@@ -34,6 +34,7 @@ interface IState {
   orderBy: string;
   sortDirection: string;
   selectedCommonRecords: IRecord[];
+  selectedclassification: string[]
 }
 
 interface Document {
@@ -82,7 +83,8 @@ const CommonRecords = inject(
           order: "asc",
           orderBy: "recordtype",
           sortDirection: "asc",
-          selectedCommonRecords: []
+          selectedCommonRecords: [],
+          selectedclassification:[]
         };
       }
 
@@ -106,6 +108,7 @@ const CommonRecords = inject(
       };
 
       handleEditRecord = (editRecord: ICommonRecord) => {
+        this.setState({ selectedclassification: editRecord.classification })
         this.setState({ editShow: true });
         this.props.CommonStore.getEditRecord(editRecord);
         console.log(this.state.editShow);
@@ -113,7 +116,7 @@ const CommonRecords = inject(
 
       saveEdit = (e: any) => {
         this.setState({ editShow: false });
-        this.props.CommonStore.updateCommonRecord();
+        this.props.CommonStore.updateCommonRecord(this.state.selectedclassification);
       };
 
       addRecord = (e: any) => {
@@ -165,6 +168,25 @@ const CommonRecords = inject(
         }
         this.setState({ orderBy: property });
       };
+
+      handleCheck = (e: any) => {
+        if(e.target.checked) {
+          // e.target.checked = false
+          this.setState({
+            selectedclassification: [...this.state.selectedclassification, e.target.value]
+          })
+        } else {
+          // e.target.checke3d = true
+          let remove = this.state.selectedclassification.indexOf(e.target.value)
+          this.setState({
+            selectedclassification: this.state.selectedclassification.filter(
+              (_: any, i: any) => i !== remove
+            )
+          })
+        }
+        console.log(this.state.selectedclassification)
+      }
+
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
@@ -232,23 +254,11 @@ const CommonRecords = inject(
                     disabled={false}
                     disablecomment={true}
                     change={CommonStore.handleChange}
-                    changecheckbox={RecordStore.handleCheckbox}
+                    changecheckbox={this.handleCheck}
                     disablecategory={true}
-                    // ifarchival={
-                    //   !!postDetail.classification.find(
-                    //     (x: string) => x === "Archival"
-                    //   )
-                    // }
-                    // ifvital={
-                    //   !!postDetail.classification.find(
-                    //     (x: string) => x === "Vital"
-                    //   )
-                    // }
-                    // ifconfidential={
-                    //   !!postDetail.classification.find(
-                    //     (x: string) => x === "Highly Confidential"
-                    //   )
-                    // }
+                    ifarchival={!!this.state.selectedclassification.find((x: string) => x === ' Archival ')}
+                    ifvital={!!this.state.selectedclassification.find((x: string) => x === ' Vital ')}
+                    ifconfidential={!!this.state.selectedclassification.find((x: string) => x === ' Highly Confidential ')}                                 
                   />
                 );
               })}

@@ -9,13 +9,9 @@ export interface IUniqueStore {
   fetchArchival: () => void;
   fetchFunctions: () => void;
   fetchCategory: () => void;
-  submitRecords: (dept: string) => void;
+  submitRecords: (dept: string, c: string[]) => void;
   handleChange: (e: any) => void;
-  changeArchival: (e: any) => void;
 }
-/*
-TODO: submit classification
-*/
 
 class _UniqueStore {
   uniquerecords: IRecord = {
@@ -36,11 +32,6 @@ class _UniqueStore {
   handleChange = (e: any) => {
     const { value, name } = e.target;
     this.uniquerecords[name] = value;
-  };
-
-  changeArchival = (e: any) => {
-    const { value } = e.target;
-    this.uniquerecords.classification = value;
   };
 
   async fetchFunctions() {
@@ -68,8 +59,9 @@ class _UniqueStore {
       .then(json => (this.archivalDropdown = json));
   }
 
-  async submitRecords(dept: string) {
+  async submitRecords(dept: string, c: string[]) {
     this.uniquerecords.department = dept;
+    this.uniquerecords.classification = c
 
     fetch("http://localhost:3004/records", {
       method: "POST",
@@ -97,7 +89,6 @@ decorate(_UniqueStore, {
   fetchFunctions: action,
   submitRecords: action,
   fetchCategory: action,
-  changeArchival: action,
   fetchArchival: action
 });
 

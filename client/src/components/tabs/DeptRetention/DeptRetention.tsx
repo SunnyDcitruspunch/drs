@@ -105,10 +105,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
 
       //html2canvas + jsPDF
       makePdf = () => {
-        const dept = this.props.RecordStore.selectedDepartment;
+        const dept = this.props.DepartmentStore.selectedDepartment;
         const schedule: any = document.getElementById("schedule");
 
-        if (this.props.RecordStore.selectedDepartment.department !== "") {
+        if (this.props.DepartmentStore.selectedDepartment.department !== "") {
           html2canvas(schedule, {
             width: 2400,
             height: 2000,

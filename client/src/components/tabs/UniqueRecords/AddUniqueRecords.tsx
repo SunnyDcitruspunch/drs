@@ -20,7 +20,7 @@ import ClassificationCheckboxes from "../../common/ClassificationCheckboxes";
 interface IProps {
   DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
-  RecordStore: IRecordStore
+  RecordStore: IRecordStore;
 }
 
 interface IState {
@@ -29,31 +29,63 @@ interface IState {
   needRecordType: boolean;
   open: boolean;
   archivalOptions: Array<string>;
+  selectedclassification: string[]
 }
 
-const AddUniqueRecords = inject("UniqueStore", "DepartmentStore", "RecordStore")(
+const AddUniqueRecords = inject(
+  "UniqueStore",
+  "DepartmentStore",
+  "RecordStore"
+)(
   observer(
     class AddUniqueRecords extends Component<IProps, IState> {
-
       state: IState = {
         smShow: false,
         snackbarShow: true,
         needRecordType: false,
         open: false,
-        archivalOptions: ["Archival", "Vital", "Highly Confidential"]
+        archivalOptions: ["Archival", "Vital", "Highly Confidential"],
+        selectedclassification: []
       };
 
-      submitRecords =(e: any) => {
+      submitRecords = (e: any) => {
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ smShow: true });
         } else if (this.props.UniqueStore.uniquerecords.recordtype === "") {
           this.setState({ needRecordType: true });
         } else {
-          this.props.UniqueStore.submitRecords(this.props.DepartmentStore.selectedDepartment.department);
+          this.props.UniqueStore.submitRecords(
+            this.props.DepartmentStore.selectedDepartment.department, 
+            this.state.selectedclassification
+          );
+          this.props.DepartmentStore.fetchAllRecords();
           this.setState({ snackbarShow: true });
           this.setState({ needRecordType: false });
-          this.props.DepartmentStore.fetchAllRecords();
+          // this.props.DepartmentStore.fetchAllRecords();
         }
+      };
+
+      handleCheck = (e: any) => {
+        if (e.target.checked) {
+          // e.target.checked = false
+          this.setState({
+            selectedclassification: [
+              ...this.state.selectedclassification,
+              e.target.value
+            ]
+          });
+        } else {
+          // e.target.checke3d = true
+          let remove = this.state.selectedclassification.indexOf(
+            e.target.value
+          );
+          this.setState({
+            selectedclassification: this.state.selectedclassification.filter(
+              (_: any, i: any) => i !== remove
+            )
+          });
+        }
+        console.log(this.state.selectedclassification);
       };
 
       render() {
@@ -126,8 +158,8 @@ const AddUniqueRecords = inject("UniqueStore", "DepartmentStore", "RecordStore")
 
             <FormControl component="fieldset">
               <FormLabel component="legend">Classification</FormLabel>
-              <ClassificationCheckboxes 
-                changecheckbox={UniqueStore.changeArchival} 
+              <ClassificationCheckboxes
+                changecheckbox={this.handleCheck}
                 disabled={false}
               />
             </FormControl>
