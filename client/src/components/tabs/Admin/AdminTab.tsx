@@ -16,11 +16,10 @@ import {
   IUniqueStore
 } from "../../../stores";
 import EnhancedTableHead, {
-  IData,
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
-import Snackbar from "../../common/Snackbar";
+// import Snackbar from "../../common/Snackbar";
 import AdminTable from "./AdminTable";
 import EditModal from "../../common/EditModal";
 
@@ -184,7 +183,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 (x: IRecord) =>
                   x.id === this.props.DepartmentStore.editrecord.id
               )
-              .map((editDetail: IRecord) => {
+              .map((editDetail: IRecord, index) => {
                 return (
                   <EditModal
                     title={
@@ -193,7 +192,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                         : "Edit Record"
                     }
                     disabled={false}
-                    key={editDetail.id}
+                    key={index}
                     record={editDetail}
                     open={this.state.openEdit}
                     close={editClose}

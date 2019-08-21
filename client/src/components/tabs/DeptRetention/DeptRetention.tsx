@@ -149,8 +149,11 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         await this.props.DepartmentStore.updateRecord(
           this.state.selectedclassification
         );
+        // await this.props.DepartmentStore.setRecord()
         this.setState({ openEdit: false });
         this.setState({ snackbar: true });
+
+        this.props.DepartmentStore.fetchAllRecords();
       };
 
       handleCheck = (e: any) => {
@@ -199,10 +202,10 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                 />
                 <TableBody style={{ fontSize: 11 }} id="tablebody">
                   {DepartmentStore.allRecords
+                    .slice()
                     .sort((a: IRecord, b: IRecord) =>
                       a.function < b.function ? -1 : 1
                     )
-                    .slice()
                     .filter(
                       (x: IRecord) => x.department === department.department
                     )
@@ -240,7 +243,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                 (x: IRecord) =>
                   x.id === this.props.DepartmentStore.editrecord.id
               )
-              .map((editDetail: IRecord) => {
+              .map((editDetail: IRecord, index) => {
                 return (
                   <EditModal
                     title={
@@ -249,7 +252,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                         : "Edit Record"
                     }
                     disabled={this.state.onlycommentEdit}
-                    key={editDetail.id}
+                    key={index}
                     record={editDetail}
                     open={this.state.openEdit}
                     close={editClose}

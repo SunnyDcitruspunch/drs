@@ -31,54 +31,54 @@
     {
       "department": "Marriott School",
       "code": "CHUM1100",
-      "function": "Employment",
-      "recordcategoryid": "common",
-      "recordtype": "Job descriptions.",
-      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "recordtype": "Faculty",
+      "description": "importand record",
       "classification": [
         " Vital "
       ],
-      "status": "Approved",
+      "status": "Pending",
       "id": "aIomQ0d",
-      "comments": "asdf",
+      "comments": "apple pine",
       "departmentnumber": "178"
     },
     {
       "department": "Information Systems",
       "code": "CACD1000",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "today is a sunny day. ",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "recordtype": "Faculty",
+      "description": "importand record",
       "classification": [
         " Vital "
       ],
-      "comments": "yes this is fore sure a note.  ",
+      "comments": "asdf",
       "status": "Approved",
       "id": "LPX4H13",
       "departmentnumber": "238"
     },
     {
-      "recordtype": "test IS record",
+      "recordtype": "Faculty",
       "department": "Information Systems",
-      "function": "Academic",
-      "recordcategoryid": "ADM01",
-      "description": "a description for is record...",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "description": "importand record",
       "classification": [
         "Vital"
       ],
       "code": "N/A",
       "status": "Approved",
       "id": "tpRYc5g",
-      "comments": ""
+      "comments": "asdf"
     },
     {
-      "recordtype": "Academic unit reviews",
+      "recordtype": "Faculty",
       "department": "Marriott School",
       "function": "Miscellaneous",
-      "recordcategoryid": "STU19",
-      "description": "waiting for retention schedule.",
-      "comments": "here is a note.",
+      "recordcategoryid": "OIT04",
+      "description": "importand record",
+      "comments": "asdf",
       "classification": [
         " Archival "
       ],
@@ -87,12 +87,12 @@
       "id": "2gvRf1r"
     },
     {
-      "recordtype": "Challenges Exams",
+      "recordtype": "Faculty",
       "department": "Information Systems",
-      "function": "Academic",
-      "recordcategoryid": "common",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
       "code": "CHUM1400",
-      "description": "here is a retention schedule.",
+      "description": "importand record",
       "notes": "here is a note.",
       "classification": [
         " Highly Confidential "
@@ -107,7 +107,7 @@
       "function": "Finance",
       "recordcategoryid": "FIN10",
       "description": "123",
-      "comments": "WWWWWWWWWWW",
+      "comments": "WWWfgh",
       "classification": [
         " Archival "
       ],
@@ -134,7 +134,7 @@
       "function": "Miscellaneous",
       "recordcategoryid": "STU02",
       "description": "234",
-      "comments": "234",
+      "comments": "23456",
       "classification": [
         " Archival "
       ],
@@ -163,7 +163,7 @@
       "recordcategoryid": "common",
       "code": "CHUM1400",
       "description": "monthly budget report",
-      "comments": "some notes",
+      "comments": "some notes123",
       "classification": [
         " Archival "
       ],
@@ -214,16 +214,17 @@
     },
     {
       "department": "Information Systems",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Accreditation records, reports and self-evaluations.",
-      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "recordtype": "Faculty",
+      "description": "importand record",
       "classification": [
         " Archival "
       ],
       "code": "CACD1100",
       "status": "Approved",
-      "id": "lH3_e9w"
+      "id": "lH3_e9w",
+      "comments": "asdf"
     },
     {
       "department": "Information Systems",
@@ -234,21 +235,21 @@
       "classification": [
         " Archival "
       ],
-      "comments": "",
+      "comments": "45",
       "code": "CACD1000",
       "status": "Approved",
       "id": "b6HZ3S8"
     },
     {
       "department": "Information Systems",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Accreditation records, reports and self-evaluations.",
-      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "recordtype": "Faculty",
+      "description": "importand record",
       "classification": [
         " Archival "
       ],
-      "comments": "",
+      "comments": "asdf",
       "code": "CACD1100",
       "status": "Approved",
       "id": "77V-RNU"
@@ -262,7 +263,7 @@
       "classification": [
         " Archival "
       ],
-      "comments": "",
+      "comments": "12",
       "code": "CACD1000",
       "status": "Approved",
       "id": "oMMg1mJ"
@@ -272,8 +273,10 @@
       "function": "Financial",
       "recordtype": "Budget adjustments, submitted by departments.",
       "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
-      "classification": [],
-      "comments": "",
+      "classification": [
+        " Vital "
+      ],
+      "comments": "123123112",
       "code": "CFIN1200",
       "status": "Approved",
       "id": "kukZ1wc"
@@ -291,29 +294,29 @@
     },
     {
       "department": "Marriott School",
-      "function": "Administrative",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "recordtype": "Faculty",
+      "description": "importand record",
       "classification": [
         " Archival "
       ],
-      "comments": "",
+      "comments": "asdf",
       "code": "CACD1000",
       "status": "Approved",
       "id": "JqO7feg"
     },
     {
       "department": "Records",
-      "function": "Administrative",
-      "recordtype": "Annual and summary reports.",
-      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival Review, if not submitted to college/division.",
+      "function": "Miscellaneous",
+      "recordtype": "Faculty",
+      "description": "importand record",
       "classification": [],
-      "comments": "",
+      "comments": "asdf",
       "code": "CADM1100",
       "status": "Approved",
       "id": "GxQsL2L",
-      "recordcategoryid": "ADM01"
+      "recordcategoryid": "OIT04"
     },
     {
       "department": "Computer Science",
@@ -339,23 +342,23 @@
       "classification": [
         " Archival "
       ],
-      "comments": "",
+      "comments": "45",
       "code": "CACD1000",
       "status": "Approved",
       "id": "YvR9Iex"
     },
     {
       "department": "Honor Code Office",
-      "recordtype": "y",
-      "function": "Administrative",
-      "recordcategoryid": "FIN10",
-      "description": "y",
-      "comments": "y",
+      "recordtype": "Faculty",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "description": "importand record",
+      "comments": "asdf",
       "classification": [
         " Archival ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "GcBMy2A"
     },
@@ -365,26 +368,26 @@
       "function": "Employment",
       "recordcategoryid": "STU02",
       "description": "ww",
-      "comments": "ww",
+      "comments": "ww00",
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "J0MAuIj"
     },
     {
       "department": "Honor Code Office",
-      "recordtype": "qa",
-      "function": "Administrative",
-      "recordcategoryid": "common",
-      "description": "qa",
-      "comments": "qa",
+      "recordtype": "Faculty",
+      "function": "Miscellaneous",
+      "recordcategoryid": "OIT04",
+      "description": "importand record",
+      "comments": "asdf",
       "classification": [
         " Highly Confidential ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "BMlssmN"
     },
@@ -398,7 +401,7 @@
       "classification": [
         " Highly Confidential "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "VXo2PEd"
     },
@@ -414,7 +417,7 @@
         " Archival ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "mTYha90"
     },
@@ -428,7 +431,7 @@
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "zzDuTQC"
     },
@@ -438,12 +441,12 @@
       "function": "Human Resource",
       "recordcategoryid": "MISC9",
       "description": "op",
-      "comments": "op",
+      "comments": "op54",
       "classification": [
         " Archival ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "dU4VTBP"
     },
@@ -453,11 +456,11 @@
       "function": "Administrative",
       "recordcategoryid": "STU19",
       "description": "j",
-      "comments": "n",
+      "comments": "n345345",
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "XaXN_cG"
     },
@@ -471,7 +474,7 @@
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "WO5GIek"
     },
@@ -485,7 +488,7 @@
       "classification": [
         " Highly Confidential "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "YLsraq6"
     },
@@ -499,7 +502,7 @@
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "iGoitGy"
     },
@@ -514,7 +517,7 @@
         " Archival ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "iN2XAD-"
     }

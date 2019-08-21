@@ -17,7 +17,6 @@ import {
   Checkbox
 } from "@material-ui/core";
 import { IRecord, ICommonRecord } from "../../stores";
-import ClassificationCheckboxes from "./ClassificationCheckboxes";
 import FunctionDropdown from "./FunctionDropdown";
 import { observer } from "mobx-react";
 
@@ -155,11 +154,6 @@ const EditModal = observer((props: IProps) => {
                     disabled={disabled}
                     onClick={changecheckbox}
                     checked={ifarchival}
-                    // checked={
-                    //   !!record.classification.find(
-                    //     (x: string) => x === " Archival "
-                    //   )
-                    // }
                     value=" Archival "
                   />
                 }
@@ -171,11 +165,6 @@ const EditModal = observer((props: IProps) => {
                     disabled={disabled}
                     onClick={changecheckbox}
                     checked={ifvital}
-                    // checked={
-                    //   !!record.classification.find(
-                    //     (x: string) => x === " Vital "
-                    //   )
-                    // }
                     value=" Vital "
                   />
                 }
@@ -187,24 +176,12 @@ const EditModal = observer((props: IProps) => {
                     disabled={disabled}
                     onClick={changecheckbox}
                     checked={ifconfidential}
-                    // checked={
-                    //   !!record.classification.find(
-                    //     (x: string) => x === " Highly Confidential "
-                    //   )
-                    // }
                     value=" Highly Confidential "
                   />
                 }
                 label="Highly Confidential"
               />
             </FormGroup>
-            {/* <ClassificationCheckboxes 
-            disabled={disabled}
-            changecheckbox={changecheckbox} 
-            ifarchival={ifarchival}
-            ifvital={ifvital}
-            ifconfidential={ifconfidential}
-              /> */}
           </FormControl>
         </Grid>
       </DialogContent>

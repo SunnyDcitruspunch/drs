@@ -16,6 +16,7 @@ import EnhancedTableHead, {
 import EditModal from "../../common/EditModal";
 import MessageModal from "../../common/MessageModal";
 import RecordTable from "./RecordTable";
+// import Footer from "../../common/Footer";
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -33,7 +34,7 @@ interface IState {
   orderBy: string;
   sortDirection: string;
   selectedCommonRecords: IRecord[];
-  selectedclassification: string[]
+  selectedclassification: string[];
 }
 
 interface Document {
@@ -73,7 +74,7 @@ const CommonRecords = inject(
           orderBy: "recordtype",
           sortDirection: "asc",
           selectedCommonRecords: [],
-          selectedclassification:[]
+          selectedclassification: []
         };
       }
 
@@ -86,7 +87,7 @@ const CommonRecords = inject(
           console.log(this.state.selectrecord);
         } else {
           let remove = this.state.selectrecord.indexOf(e.target.value);
-          console.log(remove)
+          console.log(remove);
           this.setState({
             selectrecord: this.state.selectrecord.filter(
               (_: any, i: any) => i !== remove
@@ -97,7 +98,7 @@ const CommonRecords = inject(
       };
 
       handleEditRecord = (editRecord: ICommonRecord) => {
-        this.setState({ selectedclassification: editRecord.classification })
+        this.setState({ selectedclassification: editRecord.classification });
         this.setState({ editShow: true });
         this.props.CommonStore.getEditRecord(editRecord);
         console.log(this.state.editShow);
@@ -105,7 +106,9 @@ const CommonRecords = inject(
 
       saveEdit = (e: any) => {
         this.setState({ editShow: false });
-        this.props.CommonStore.updateCommonRecord(this.state.selectedclassification);
+        this.props.CommonStore.updateCommonRecord(
+          this.state.selectedclassification
+        );
       };
 
       addRecord = (e: any) => {
@@ -121,27 +124,32 @@ const CommonRecords = inject(
       };
 
       handleCheck = (e: any) => {
-        if(e.target.checked) {
+        if (e.target.checked) {
           // e.target.checked = false
           this.setState({
-            selectedclassification: [...this.state.selectedclassification, e.target.value]
-          })
+            selectedclassification: [
+              ...this.state.selectedclassification,
+              e.target.value
+            ]
+          });
         } else {
           // e.target.checke3d = true
-          let remove = this.state.selectedclassification.indexOf(e.target.value)
+          let remove = this.state.selectedclassification.indexOf(
+            e.target.value
+          );
           this.setState({
             selectedclassification: this.state.selectedclassification.filter(
               (_: any, i: any) => i !== remove
             )
-          })
+          });
         }
-        console.log(this.state.selectedclassification)
-      }
+        console.log(this.state.selectedclassification);
+      };
 
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
-        const { RecordStore, CommonStore } = this.props;
+        const { CommonStore } = this.props;
 
         return (
           <Container style={styles.tableStyle}>
@@ -156,23 +164,26 @@ const CommonRecords = inject(
                 />
                 <TableBody>
                   {CommonStore.commonRecords
-                  .sort((a: ICommonRecord, b: ICommonRecord) => (a.function < b.function ? -1 : 1))                                                                     
-                  .map((record: ICommonRecord, index: number) => {
-                    return (
-                      <RecordTable
-                        key={index}
-                        record={record}
-                        click={() => this.handleEditRecord(record)}
-                        select={this.onSelect}
-                        disabled={
-                          !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
-                            (x: string) => x === record.code
-                          )
-                        }
-                      />
-                    );
-                  })}
+                    .sort((a: ICommonRecord, b: ICommonRecord) =>
+                      a.function < b.function ? -1 : 1
+                    )
+                    .map((record: ICommonRecord, index: number) => {
+                      return (
+                        <RecordTable
+                          key={index}
+                          record={record}
+                          click={() => this.handleEditRecord(record)}
+                          select={this.onSelect}
+                          disabled={
+                            !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
+                              (x: string) => x === record.code
+                            )
+                          }
+                        />
+                      );
+                    })}
                 </TableBody>
+                {/* <Tooter /> */}
               </Table>
             </Paper>
             <Button
@@ -206,9 +217,21 @@ const CommonRecords = inject(
                     change={CommonStore.handleChange}
                     changecheckbox={this.handleCheck}
                     disablecategory={true}
-                    ifarchival={!!this.state.selectedclassification.find((x: string) => x === ' Archival ')}
-                    ifvital={!!this.state.selectedclassification.find((x: string) => x === ' Vital ')}
-                    ifconfidential={!!this.state.selectedclassification.find((x: string) => x === ' Highly Confidential ')}                                 
+                    ifarchival={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Archival "
+                      )
+                    }
+                    ifvital={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Vital "
+                      )
+                    }
+                    ifconfidential={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Highly Confidential "
+                      )
+                    }
                   />
                 );
               })}

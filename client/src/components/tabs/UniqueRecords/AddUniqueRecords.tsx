@@ -127,28 +127,6 @@ const AddUniqueRecords = inject(
                 change={UniqueStore.handleChange}
                 dropdown={UniqueStore.categoryDropdown}
               />
-              {/* <InputLabel htmlFor="age-label-placeholder">
-                Record Category
-              </InputLabel>
-              <Select
-                id="recordcategoryid"
-                name="recordcategoryid"
-                style={{ width: 500 }}
-                value={UniqueStore.uniquerecords.recordcategoryid}
-                onChange={UniqueStore.handleChange}
-              >
-                <MenuItem>Choose...</MenuItem>
-                {this.props.UniqueStore.categoryDropdown
-                  .slice()
-                  .map((category: any) => (
-                    <MenuItem
-                      key={category.id}
-                      value={category.recordcategoryid}
-                    >
-                      {category.recordcategoryid}
-                    </MenuItem>
-                  ))}
-              </Select> */}
             </Grid>
 
             <Grid container justify="center" alignItems="center">

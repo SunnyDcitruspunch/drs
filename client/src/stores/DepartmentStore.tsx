@@ -16,6 +16,7 @@ export interface IDepartmentStore {
   editrecord: IRecord;
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
+  editcomment: string
 }
 
 
@@ -37,6 +38,7 @@ class _DepartmentStore implements IDepartmentStore {
   allDepartments = [];
   _allRecords: IRecord[] = [];
   deleteID = "";
+  editcomment = ""
 
   editrecord: IRecord = {
     id: "",
@@ -103,6 +105,7 @@ class _DepartmentStore implements IDepartmentStore {
 
   updateEditID(postDetail: IRecord) {
     this.editrecord = postDetail;
+    this.editcomment = postDetail.comments
   }
 
   async deleteRecord() {
@@ -118,25 +121,14 @@ class _DepartmentStore implements IDepartmentStore {
   }
 
   //PATCH request
-  async updateRecord(classsification: string[]) {
-    this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).recordtype = this.editrecord.recordtype;
-    this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).function = this.editrecord.function;
-    this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).recordcategoryid = this.editrecord.recordcategoryid;
-    this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).description = this.editrecord.description;
-    this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).comments = this.editrecord.comments;
-    this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).classification = classsification
+  async updateRecord(classification: string[]) {
+    let status = "Approved"
+    const i = this._allRecords.findIndex((r)=> r.id = this.editrecord.id)
+    this.allRecords[i] = this.editrecord
+
+    if (this.editrecord.comments !== this.editcomment) {
+      status = "Pending"
+    }
 
     const baseUrl = "http://localhost:3004/records";
     const res = await fetch(`${baseUrl}/${this.editrecord.id}`, {
@@ -146,22 +138,30 @@ class _DepartmentStore implements IDepartmentStore {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        recordtype: this.allRecords.find(r => r.id === this.editrecord.id)
-          .recordtype,
-        function: this.allRecords.find(r => r.id === this.editrecord.id)
-          .function,
-        recordcategoryid: this.allRecords.find(r => r.id === this.editrecord.id)
-          .recordcategoryid,
-        description: this.allRecords.find(r => r.id === this.editrecord.id)
-          .description,
-        comments: this.allRecords.find(r => r.id === this.editrecord.id)
-          .comments,
-        classification: classsification
-      })
+        recordtype: this._allRecords[i].recordtype,
+        function: this._allRecords[i].function,
+        recordcategoryid: this._allRecords[i].recordcategoryid,
+        description: this.allRecords[i].description,
+        comments: this.allRecords[i].comments,
+        classification: classification,
+        status: status
+      })     
     });
     //Tylor's code: made new record => cause double record after edit
     // const newRecord = await res.json() 
     // this.setRecord(newRecord)
+    this.editrecord = {
+      id: "",
+      department: "", 
+      recordtype: "",
+      function: "",
+      recordcategoryid: "",
+      description: "",
+      comments: "",
+      classification: [],
+      status: "",
+      code: ""
+    };
   }
 }
 
