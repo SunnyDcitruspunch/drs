@@ -1,12 +1,13 @@
 import * as React from "react";
-import SelectTabs from "./SelectTabs";
+import AdminRoute from './AdminRoute'
 import { inject, observer } from "mobx-react";
 import {
   IDepartmentStore,
   IDepartment,
   ICommonStore,
   IUniqueStore,
-  IRecordStore
+  IRecordStore,
+  IUserStore
 } from "../../stores";
 import { FormGroup, Grid, MenuItem, Select } from "@material-ui/core";
 
@@ -17,17 +18,19 @@ interface IProps {
   RecordStore: IRecordStore;
   UniqueStore: IUniqueStore;
   selecteddept: string;
+  UserStore: IUserStore;
 }
 
 interface IState {
-  selecteddept: string;
+  selecteddept: string
 }
 
 const Main = inject(
   "DepartmentStore",
   "UniqueStore",
   "RecordStore",
-  "CommonStore"
+  "CommonStore",
+  "UserStore"
 )(
   observer(
     class Main extends React.Component<IProps, IState> {
@@ -38,6 +41,7 @@ const Main = inject(
         this.props.UniqueStore.fetchArchival();
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
+        console.log(this.props.UserStore.currentUser.admin)
 
         this.setState({ selecteddept: "" });
       };
@@ -81,7 +85,7 @@ const Main = inject(
                 </Select>
               </FormGroup>
             </Grid>
-            <SelectTabs />
+            <AdminRoute admin={this.props.UserStore.currentUser.admin} />
           </React.Fragment>
         );
       }

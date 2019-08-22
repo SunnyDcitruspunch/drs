@@ -21,7 +21,7 @@ import EnhancedTableHead, {
 } from "../../common/EnhancedTableHead";
 // import Snackbar from "../../common/Snackbar";
 import AdminTable from "./AdminTable";
-import EditModal from "../../common/EditModal";
+import EditModal from '../../common/EditModal'
 
 interface IProps {
   RecordStore: IRecordStore;

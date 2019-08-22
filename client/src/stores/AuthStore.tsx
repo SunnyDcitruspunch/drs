@@ -8,6 +8,7 @@ export interface IAuthStore {
   clearInputs: () => void;
   setUsername: (e: any) => void;
   setPassword: (e: any) => void;
+  logout: () => void
   logIn: () => void
   admin: boolean
   user: boolean
@@ -54,6 +55,10 @@ class _AuthStore implements IAuthStore {
         this.admin = false
     }
   }
+
+  logout(){
+    this.user = false
+  }
 }
 
 decorate(_AuthStore, {
@@ -63,6 +68,7 @@ decorate(_AuthStore, {
   setUsername: action,
   setPassword: action,
   logIn: action,
+  logout: action,
   admin: observable,
   user: observable
 });

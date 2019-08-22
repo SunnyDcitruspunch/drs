@@ -10,7 +10,6 @@ import { AppBar, Tabs, Tab, Typography, Box } from "@material-ui/core";
 import DeptRetention from "../tabs/DeptRetention/DeptRetention";
 import AddCommonRecords from "../tabs/CommonRecords/AddCommonRecords";
 import AddUniqueRecords from "../tabs/UniqueRecords/AddUniqueRecords";
-import AdminTab from "../tabs/Admin/AdminTab";
 import { observer } from "mobx-react";
 
 interface TabPanelProps {
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FullWidthTabs = observer(() => {
+const GeneralTabs = observer(() => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -79,7 +78,6 @@ const FullWidthTabs = observer(() => {
           <Tab label="Department Retention Schedule" {...a11yProps(0)} />
           <Tab label="Add Common Records" {...a11yProps(1)} />
           <Tab label="Add Unique Records" {...a11yProps(2)} />
-          <Tab label="Admin" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -96,12 +94,9 @@ const FullWidthTabs = observer(() => {
         <TabPanel value={value} index={2} dir={theme.direction}>
           <AddUniqueRecords />
         </TabPanel>        
-        <TabPanel value={value} index={3} dir={theme.direction}>
-          <AdminTab />
-        </TabPanel>
       </SwipeableViews>
     </div>
   );
 });
 
-export default FullWidthTabs;
+export default GeneralTabs;

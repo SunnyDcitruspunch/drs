@@ -1,37 +1,67 @@
-import * as React from "react";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
-import { observer } from "mobx-react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { observer, inject } from "mobx-react";
+import { AuthStore, IAuthStore } from "../../stores";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1
-    },
-    menuButton: {
-      marginRight: theme.spacing(2)
-    },
-    title: {
-      flexGrow: 1
+interface IProps {
+  AuthStore: IAuthStore
+}
+
+const Nav = inject("AuthStore")(
+  observer(
+    class Nav extends Component<IProps, {}> {
+      handleLogout = () => {
+        this.props.AuthStore.logout()
+      }
+
+      render() {
+        if (AuthStore.user) {
+          return (
+            <AppBar position="static" color="default">
+              <Toolbar>
+                <Typography
+                  variant="h6"
+                  color="inherit"
+                  style={{ fontSize: 16, flexGrow: 1 }}
+                >
+                  Department Retention Schedule
+                </Typography>
+                <Link to="/">
+                  <Button
+                    color="inherit"
+                    style={{
+                      float: "right",
+                      color: "black",
+                      textDecoration: "none"
+                    }}
+                    onClick={this.handleLogout}
+                  >
+                    Log Out
+                  </Button>
+                </Link>
+                <Link to="/" />
+              </Toolbar>
+            </AppBar>
+          );
+        } else {
+          return (
+            <AppBar position="static" color="default">
+              <Toolbar>
+                <Typography
+                  variant="h6"
+                  color="inherit"
+                  style={{ fontSize: 16 }}
+                >
+                  Department Retention Schedule
+                </Typography>
+              </Toolbar>
+            </AppBar>
+          );
+        }
+      }
     }
-  })
+  )
 );
-
-const Nav = observer(() => {
-  const classes = useStyles();
-
-  return (
-    <AppBar position="static" color="default">
-      <Toolbar>
-        <Typography variant="h6" color="inherit" style={{ fontSize: 16 }} className={classes.title}>
-          Department Retention Schedule
-        </Typography>
-        <Button color="inherit" style={{ float: "right" }}>
-          Login
-        </Button>
-      </Toolbar>
-    </AppBar>
-  );
-});
 
 export default Nav;
