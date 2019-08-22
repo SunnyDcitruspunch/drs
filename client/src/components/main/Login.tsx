@@ -9,7 +9,7 @@ import {
   Container
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
-import { IAuthStore, IUserStore } from '../../stores'
+import { IAuthStore, IUserStore } from "../../stores";
 
 // const useStyles = makeStyles(theme => ({
 //   "@global": {
@@ -33,45 +33,54 @@ import { IAuthStore, IUserStore } from '../../stores'
 // }));
 
 interface IProps {
-  AuthStore: IAuthStore
-  UserStore: IUserStore
-  history: any
+  AuthStore: IAuthStore;
+  UserStore: IUserStore;
+  history: any;
 }
 
 interface IState {
-  toMainpage: boolean
+  toMainpage: boolean;
 }
 
 const LogIn = inject("AuthStore", "UserStore")(
   observer(
-    class LogIn extends Component<IProps, IState>  {
+    class LogIn extends Component<IProps, IState> {
       componentWillMount = () => {
         this.props.UserStore.fetchUsers();
 
         this.setState({
           toMainpage: false
-        })
-      }
+        });
+      };
 
-      handleEmailChange = (e: any) => this.props.AuthStore.setUsername(e)
-      handlePasswordChange = (e: any) => this.props.AuthStore.setPassword(e)
+      handleEmailChange = (e: any) => this.props.AuthStore.setUsername(e);
+      handlePasswordChange = (e: any) => this.props.AuthStore.setPassword(e);
       handleSubmitForm = async (e: any) => {
         e.preventDefault();
-        this.props.AuthStore.logIn()
-        if (this.props.AuthStore.user ===true){
-          await this.setState({ toMainpage: true })
-          console.log('logged in')
+        this.props.AuthStore.logIn();
+        if (this.props.AuthStore.user === true) {
+          await this.setState({ toMainpage: true });
+          console.log("logged in");
         }
-      }
-      
+      };
+
       render() {
         // const classes = useStyles();
-        if (this.state.toMainpage === true){
-          return <Redirect to='/main' />
+        if (this.state.toMainpage === true) {
+          return <Redirect to="/main" />;
         }
 
         return (
-          <Container component="main" maxWidth="xs">
+          <Container
+            component="main"
+            maxWidth="xs"
+            style={{
+              marginTop: "50px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
             <CssBaseline />
             <div>
               <Typography component="h1" variant="h5">
@@ -104,14 +113,14 @@ const LogIn = inject("AuthStore", "UserStore")(
                 />
 
                 {/* <Link to="/main"> */}
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                  >
-                    Sign In
-                  </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                >
+                  Sign In
+                </Button>
                 {/* </Link> */}
               </form>
             </div>
