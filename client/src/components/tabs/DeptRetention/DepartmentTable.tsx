@@ -5,7 +5,7 @@ import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 import { TableCell, TableRow } from "@material-ui/core";
 
 interface IProps {
-  key: number;
+  tablekey: number;
   onedit: () => void;
   ondelete: () => void;
   pfunction: string;
@@ -18,7 +18,7 @@ interface IProps {
 
 const DepartmentTable = observer((props: IProps) => {
   const {
-    key,
+    tablekey,
     onedit,
     ondelete,
     pfunction,
@@ -30,7 +30,7 @@ const DepartmentTable = observer((props: IProps) => {
   } = props;
 
   return (
-    <TableRow hover key={key}>
+    <TableRow hover key={tablekey}>
       <TableCell style={{ width: 100 }}>
         <CreateOutlinedIcon
           name="edit"

@@ -59,7 +59,6 @@ class _DepartmentStore implements IDepartmentStore {
   }
 
   fetchAll = () => {
-    console.log('deptstore, all departments')
     fetch("http://localhost:3004/departments")
       .then(response => {
         return response.json();
@@ -123,7 +122,7 @@ class _DepartmentStore implements IDepartmentStore {
   //PATCH request
   async updateRecord(classification: string[]) {
     let status = "Approved"
-    const i = this._allRecords.findIndex((r)=> r.id = this.editrecord.id)
+    const i = this._allRecords.findIndex((r)=> r.id === this.editrecord.id)
     this.allRecords[i] = this.editrecord
 
     if (this.editrecord.comments !== this.editcomment) {
@@ -131,7 +130,7 @@ class _DepartmentStore implements IDepartmentStore {
     }
 
     const baseUrl = "http://localhost:3004/records";
-    const res = await fetch(`${baseUrl}/${this.editrecord.id}`, {
+    await fetch(`${baseUrl}/${this.editrecord.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

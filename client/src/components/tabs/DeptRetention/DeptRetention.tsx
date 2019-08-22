@@ -1,8 +1,8 @@
 import * as React from "react";
-import axios from "axios";
+// import axios from "axios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { saveAs } from "file-saver";
+// import { saveAs } from "file-saver";
 import { Paper, Table, TableBody, Button, Container, Grid } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import {
@@ -12,7 +12,6 @@ import {
   IRecordStore
 } from "../../../stores";
 import EnhancedTableHead, {
-  IData,
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
@@ -213,6 +212,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                       return (
                         <DepartmentTable
                           key={index}
+                          tablekey={index}
                           onedit={() => this.showEditModal(postDetail)}
                           ondelete={() => this.handleDelete(postDetail.id)}
                           pfunction={postDetail.function}

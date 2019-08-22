@@ -4,15 +4,12 @@ import {
   Container,
   TextField,
   Grid,
-  MenuItem,
-  Select,
-  InputLabel,
   FormLabel,
   FormControl
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { IUniqueStore, IDepartmentStore, IRecordStore } from "../../../stores";
-import Snackbar from "../../common/Snackbar";
+// import Snackbar from "../../common/Snackbar";
 import MessageModal from "../../common/MessageModal";
 import FunctionDropdown from "../../common/FunctionDropdown";
 import CategoryDropdown from '../../common/CategoryDropdown'
@@ -197,11 +194,6 @@ const AddUniqueRecords = inject(
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             />
-
-            {/* <Snackbar
-              _open={this.state.snackbarShow}
-              msg="Successfully submitted the record."
-            /> */}
           </Container>
         );
       }

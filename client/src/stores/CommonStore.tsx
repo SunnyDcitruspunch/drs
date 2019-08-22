@@ -18,7 +18,7 @@ export interface ICommonStore {
   fetchCommonRecords: () => void;
   updateCommonRecord: (c: string[]) => void;
   getEditRecord: (record: ICommonRecord) => void;
-  addCommonRecord: (selects: string[], dept: IDepartment) => void
+  addCommonRecords: (selects: string[], dept: IDepartment) => void
   handleChange: (e: any) => void;
 }
 
@@ -36,7 +36,6 @@ class _CommonStore implements ICommonStore {
   };
 
   async fetchCommonRecords() {
-    console.log("fetching common records");
     await fetch("http://localhost:3004/commonrecords")
       .then(response => {
         return response.json();
@@ -86,7 +85,7 @@ class _CommonStore implements ICommonStore {
   }
 
   //add selected common records
-  async addCommonRecord(selects: string[], dept: IDepartment) {
+  async addCommonRecords(selects: string[], dept: IDepartment) {
     //initial value should not be empty... should have pre selected data.
     let commoncodes: string[] = [];
 
@@ -157,7 +156,7 @@ decorate(_CommonStore, {
   updateCommonRecord: action,
   getEditRecord: action,
   handleChange: action,
-  addCommonRecord: action
+  addCommonRecords: action
 });
 
 export const CommonStore = new _CommonStore();

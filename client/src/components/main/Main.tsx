@@ -1,5 +1,4 @@
 import * as React from "react";
-import SelectDepartments from "./SelectDepartments";
 import SelectTabs from "./SelectTabs";
 import { inject, observer } from "mobx-react";
 import {

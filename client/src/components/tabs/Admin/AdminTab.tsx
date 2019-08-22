@@ -151,11 +151,12 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 />
                 <TableBody style={{ fontSize: 11 }}>
                   {DepartmentStore._allRecords
-                    // .slice()
+                    .slice()
                     .filter((x: IRecord) => x.status === "Pending")
                     .map((pending: IRecord, index) => (
                       <AdminTable
                         key={index}
+                        tablekey={index}
                         record={pending}
                         onedit={() => this.handleEdit(pending)}
                         onselect={this.onSelect}

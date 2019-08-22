@@ -116,7 +116,7 @@ const CommonRecords = inject(
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ modalShow: true });
         } else {
-          this.props.CommonStore.addCommonRecord(
+          this.props.CommonStore.addCommonRecords(
             this.state.selectrecord,
             this.props.DepartmentStore.selectedDepartment
           );
@@ -164,6 +164,7 @@ const CommonRecords = inject(
                 />
                 <TableBody>
                   {CommonStore.commonRecords
+                    .slice()
                     .sort((a: ICommonRecord, b: ICommonRecord) =>
                       a.function < b.function ? -1 : 1
                     )

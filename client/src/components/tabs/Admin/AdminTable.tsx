@@ -6,17 +6,17 @@ import { IRecord } from "../../../stores/RecordStore";
 
 
 interface IProps {
-  key: number;
+  tablekey: number;
   onedit: () => void;
   onselect: (e: any) => void;
   record: IRecord;
 }
 
 const DepartmentTable = observer((props: IProps) => {
-  const { key, onedit, record, onselect } = props;
+  const { tablekey, onedit, record, onselect } = props;
 
   return (
-    <TableRow hover key={key}>
+    <TableRow hover key={tablekey}>
       <TableCell component="th" scope="row" style={{ fontSize: 10, width: 120 }}>
         <CreateOutlinedIcon
           name="edit"
