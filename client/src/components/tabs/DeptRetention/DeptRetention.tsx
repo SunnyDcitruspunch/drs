@@ -1,6 +1,6 @@
 import * as React from "react";
 // import axios from "axios";
-import html2canvas from "html2canvas";
+// import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 // import { saveAs } from "file-saver";
 import { Paper, Table, TableBody, Button, Container, Grid } from "@material-ui/core";
@@ -100,25 +100,25 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         const dept = this.props.DepartmentStore.selectedDepartment.department;
         const schedule: any = document.getElementById("schedule");
 
-        if (this.props.DepartmentStore.selectedDepartment.department !== "") {
-          html2canvas(schedule, {
-            width: 3200,
-            height: 2000,
-            x: 120
-          }).then(function(canvas: any) {
-            var img = canvas.toDataURL("image/png");
-            var doc = new jsPDF({
-              orientation: "landscape"
-            });
-            doc.text("Department Retention Schedule: " + dept, 10, 10);
-            doc.addImage(img, "JPEG", -15, 15);
-            doc.save("drs.pdf");
-          });
-        } else {
-          this.setState({
-            pdfShow: true
-          });
-        }
+        // if (this.props.DepartmentStore.selectedDepartment.department !== "") {
+        //   html2canvas(schedule, {
+        //     width: 3200,
+        //     height: 2000,
+        //     x: 120
+        //   }).then(function(canvas: any) {
+        //     var img = canvas.toDataURL("image/png");
+        //     var doc = new jsPDF({
+        //       orientation: "landscape"
+        //     });
+        //     doc.text("Department Retention Schedule: " + dept, 10, 10);
+        //     doc.addImage(img, "JPEG", -15, 15);
+        //     doc.save("drs.pdf");
+        //   });
+        // } else {
+        //   this.setState({
+        //     pdfShow: true
+        //   });
+        // }
       };
       // makePdf = () => {
       //   axios.post('/create-pdf', this.props.DepartmentStore)

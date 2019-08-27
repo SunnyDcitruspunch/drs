@@ -39,12 +39,10 @@ const LogIn = inject("AuthStore", "UserStore")(
         this.props.AuthStore.logIn();
         if (this.props.AuthStore.user === true) {
           await this.setState({ toMainpage: true });
-          console.log("logged in");
         }
       };
 
       render() {
-        // const classes = useStyles();
         if (this.state.toMainpage === true) {
           return <Redirect to="/main" />;
         }
@@ -91,7 +89,6 @@ const LogIn = inject("AuthStore", "UserStore")(
                   autoComplete="current-password"
                 />
 
-                {/* <Link to="/main"> */}
                 <Button
                   type="submit"
                   fullWidth
@@ -100,7 +97,6 @@ const LogIn = inject("AuthStore", "UserStore")(
                 >
                   Sign In
                 </Button>
-                {/* </Link> */}
               </form>
             </div>
             <Box mt={8} />

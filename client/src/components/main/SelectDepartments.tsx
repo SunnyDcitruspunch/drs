@@ -34,11 +34,12 @@ const SelectDepartment = inject(
   "UniqueStore",
   "DepartmentStore",
   "RecordStore",
-  "CommonStore"
+  "CommonStore",
+  "AuthStore"
 )(
   observer(
     class SelectDepartment extends Component<IProps, IState> {
-      componentWillMount = () => {
+      componentDidMount = () => {
         this.props.DepartmentStore.fetchAll();
         this.props.CommonStore.fetchCommonRecords();
         this.props.DepartmentStore.fetchAllRecords();
@@ -46,7 +47,7 @@ const SelectDepartment = inject(
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
 
-        this.setState({ selecteddept: "" });
+        this.setState({ selecteddept: "Select a department" });
       };
 
       onSelect: any = (e: MouseEvent) => {
@@ -66,7 +67,6 @@ const SelectDepartment = inject(
         const { DepartmentStore } = this.props;
 
         return (
-          // <Container>
           <Grid
             container
             justify="center"
@@ -93,7 +93,6 @@ const SelectDepartment = inject(
               </Select>
             </FormGroup>
           </Grid>
-          // </Container>
         );
       }
     }

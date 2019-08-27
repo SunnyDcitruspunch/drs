@@ -7,7 +7,8 @@ import {
   ICommonStore,
   IUniqueStore,
   IRecordStore,
-  IUserStore
+  IUserStore,
+  IAuthStore
 } from "../../stores";
 import { FormGroup, Grid, MenuItem, Select } from "@material-ui/core";
 
@@ -19,6 +20,7 @@ interface IProps {
   UniqueStore: IUniqueStore;
   selecteddept: string;
   UserStore: IUserStore;
+  AuthStore: IAuthStore;
 }
 
 interface IState {
@@ -34,7 +36,13 @@ const Main = inject(
 )(
   observer(
     class Main extends React.Component<IProps, IState> {
-      componentWillMount = () => {
+      constructor(props: IProps) {
+        super(props)
+
+        this.state = { selecteddept: "" }
+      }
+
+      componentDidMount() {
         this.props.DepartmentStore.fetchAll();
         this.props.CommonStore.fetchCommonRecords();
         this.props.DepartmentStore.fetchAllRecords();
@@ -42,8 +50,11 @@ const Main = inject(
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
         console.log(this.props.UserStore.currentUser.admin)
+        console.log(this.props.UserStore.currentUser.department)
 
         this.setState({ selecteddept: "" });
+        console.log('ini state')
+        console.log(this.state.selecteddept)
       };
 
       onSelect: any = (e: MouseEvent) => {
@@ -56,39 +67,54 @@ const Main = inject(
       };
 
       render() {
-        const { DepartmentStore } = this.props;
-
-        return (
-          <React.Fragment>
-            <Grid container justify="center" alignItems="center" alignContent="center" style={{ marginBottom: 50 }}>
-              <FormGroup>
-                <Select
-                  id="selectdept"
-                  style={styles.optionStyle}
-                  onChange={this.onSelect}
-                  value={this.state.selecteddept}
-                >
-                  {DepartmentStore.allDepartments
-                    .slice()
-                    .sort((a: IDepartment, b: IDepartment) =>
-                      a.department < b.department ? -1 : 1
-                    )
-                    .map((dept: any) => (
-                      <MenuItem
-                        style={{ height: 30 }}
-                        key={dept.id}
-                        value={dept.department}
-                      >
-                        {dept.department}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </FormGroup>
-            </Grid>
-            <AdminRoute admin={this.props.UserStore.currentUser.admin} />
-          </React.Fragment>
-        );
-      }
+        const { DepartmentStore, UserStore } = this.props;
+     
+          if (UserStore.currentUser.admin) {
+            return (
+              <React.Fragment>
+              <Grid container justify="center" alignItems="center" alignContent="center" style={{ marginBottom: 50 }}>
+                <FormGroup>
+                  <Select
+                    id="selectdept"
+                    style={styles.optionStyle}
+                    onChange={this.onSelect}
+                    value={this.state.selecteddept}
+                    // value="here is a value"
+                  >
+                    {DepartmentStore.allDepartments
+                      .slice()
+                      .sort((a: IDepartment, b: IDepartment) =>
+                        a.department < b.department ? -1 : 1
+                      )
+                      .map((dept: any) => (
+                        <MenuItem
+                          style={{ height: 30 }}
+                          key={dept.id}
+                          value={dept.department}
+                        >
+                          {dept.department}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormGroup>
+              </Grid>
+              <AdminRoute admin={this.props.UserStore.currentUser.admin} />
+            </React.Fragment>
+            )
+          } else {
+            return (
+              <React.Fragment>
+              <Grid container justify="center" alignItems="center" alignContent="center" style={{ marginBottom: 50 }}>
+                <FormGroup>
+                  <br />
+                  <h3>{ UserStore.currentUser.department }</h3>
+                </FormGroup>
+              </Grid>
+              <AdminRoute admin={this.props.UserStore.currentUser.admin} />
+            </React.Fragment>
+            )
+          }       
+        }
     }
   )
 );

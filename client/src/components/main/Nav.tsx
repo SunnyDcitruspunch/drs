@@ -43,7 +43,7 @@ const Nav = inject("AuthStore")(
                 <Link to="/" />
               </Toolbar>
             </AppBar>
-          );
+          )
         } else {
           return (
             <AppBar position="static" color="default">

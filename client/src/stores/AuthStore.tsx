@@ -29,28 +29,31 @@ class _AuthStore implements IAuthStore {
   setUsername = (e: any) => {
     const { value } = e.target              
     this.username = value;
-    console.log(this.username)
   };
 
   setPassword(e: any) {
     const { value } = e.target
     this.password = value;
-    console.log(this.password)
   }
 
   logIn(){
     const iusername = !!UserStore.allUsers.find((u: IUser) => u.username === this.username && u.password === this.password)
+    console.log(!!UserStore.allUsers.find((u: IUser) => u.username === this.username && u.password === this.password))
 
     if (iusername){
         this.user = true
         const userIndex = UserStore.allUsers.findIndex((num: IUser) => num.username === this.username)
         UserStore.currentUser = UserStore.allUsers[userIndex]
-        if(UserStore.currentUser.admin === true) {
+        if(UserStore.currentUser.admin) {
+          console.log(UserStore.currentUser.admin)
             this.admin = true
+            console.log('user is an admin')
         } else {
             this.admin = false
+            console.log('not an admin')
         }
     } else {
+        console.log('log in failed')
         this.user = false
         this.admin = false
     }
@@ -58,6 +61,7 @@ class _AuthStore implements IAuthStore {
 
   logout(){
     this.user = false
+    this.admin = false
   }
 }
 
