@@ -1,8 +1,8 @@
 import * as React from "react";
-// import axios from "axios";
+import axios from 'axios'
 // import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-// import { saveAs } from "file-saver";
+// import jsPDF from "jspdf";
+import { saveAs } from "file-saver";
 import { Paper, Table, TableBody, Button, Container, Grid } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import {
@@ -95,41 +95,16 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
       }
 
       //make pdf
-      //html2canvas + jsPDF
       makePdf = () => {
-        const dept = this.props.DepartmentStore.selectedDepartment.department;
-        const schedule: any = document.getElementById("schedule");
+        axios.post('/create-pdf', this.state)
+          .then(() => axios.get('fetch-pdf', { responseType: 'blob'}))
+          .then((res: any) => {
+            const pdfBlob = new Blob([res.data], { type: 'application/pdf'})
 
-        // if (this.props.DepartmentStore.selectedDepartment.department !== "") {
-        //   html2canvas(schedule, {
-        //     width: 3200,
-        //     height: 2000,
-        //     x: 120
-        //   }).then(function(canvas: any) {
-        //     var img = canvas.toDataURL("image/png");
-        //     var doc = new jsPDF({
-        //       orientation: "landscape"
-        //     });
-        //     doc.text("Department Retention Schedule: " + dept, 10, 10);
-        //     doc.addImage(img, "JPEG", -15, 15);
-        //     doc.save("drs.pdf");
-        //   });
-        // } else {
-        //   this.setState({
-        //     pdfShow: true
-        //   });
-        // }
+            saveAs(pdfBlob, 'retention.pdf')
+          })
+          .catch((error: any) => console.log(error))
       };
-      // makePdf = () => {
-      //   axios.post('/create-pdf', this.props.DepartmentStore)
-      //     .then(() => axios.get('fetch-pdf', { responseType: 'blob'}))
-      //     .then((res) => {
-      //       const pdfBlob = new Blob([res.data], { type: 'application/pdf'})
-
-      //       saveAs(pdfBlob, 'retention.pdf')
-      //     })
-      //     .catch((error) => console.log(error))
-      // };
 
       //pass id to store for delete action
       handleDelete(value: any) {

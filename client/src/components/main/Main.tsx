@@ -79,7 +79,6 @@ const Main = inject(
                     style={styles.optionStyle}
                     onChange={this.onSelect}
                     value={this.state.selecteddept}
-                    // value="here is a value"
                   >
                     {DepartmentStore.allDepartments
                       .slice()
