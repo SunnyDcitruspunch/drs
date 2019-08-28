@@ -9,7 +9,8 @@ import {
   IDepartmentStore,
   IUniqueStore,
   IRecord,
-  IRecordStore
+  IRecordStore,
+  UserStore
 } from "../../../stores";
 import EnhancedTableHead, {
   IOrder,
@@ -160,8 +161,108 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         const functions = this.props.UniqueStore.functionsDropdown;
         const categories = this.props.UniqueStore.categoryDropdown;
 
-        return (
-          <Container>
+        if (UserStore.currentUser.admin) {
+          return (
+            <Container>
+              <Grid justify="center" alignItems="center" container>
+                <Button variant="outlined" color="primary" onClick={this.makePdf}>Download as PDF</Button>
+              </Grid>
+              <Paper>
+                <Table id="schedule" size="small">
+                  <EnhancedTableHead
+                    id="tablehead"
+                    headrows={headrows}
+                    order={this.state.order}
+                    orderBy={this.state.orderBy}
+                  />
+                  <TableBody style={{ fontSize: 11 }} id="tablebody">
+                    {DepartmentStore.allRecords
+                      .slice()
+                      .sort((a: IRecord, b: IRecord) =>
+                        a.function < b.function ? -1 : 1
+                      )
+                      .filter(
+                        (x: IRecord) => x.department === department.department
+                      )
+                      .map((postDetail: IRecord, index) => {
+                        return (
+                          <DepartmentTable
+                            key={index}
+                            tablekey={index}
+                            onedit={() => this.showEditModal(postDetail)}
+                            ondelete={() => this.handleDelete(postDetail.id)}
+                            pfunction={postDetail.function}
+                            recordtype={postDetail.recordtype}
+                            description={postDetail.description}
+                            classification={postDetail.classification}
+                            comments={postDetail.comments}
+                            status={postDetail.status}
+                          />
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </Paper>
+  
+              {/* delete record */}
+              <DeleteModal
+                open={this.state.confirmDelete}
+                title={"Delete Record"}
+                msg={"Are you sure you want to delete this record?"}
+                pdelete={this.onDelete}
+                click={() => this.setState({ confirmDelete: false })}
+              />
+  
+              {/* edit record */}
+              {this.props.DepartmentStore.allRecords
+                .filter(
+                  (x: IRecord) =>
+                    x.id === this.props.DepartmentStore.editrecord.id
+                )
+                .map((editDetail: IRecord, index) => {
+                  return (
+                    <EditModal
+                      title={
+                        editDetail.recordcategoryid === "common"
+                          ? "Edit Comment Only"
+                          : "Edit Record"
+                      }
+                      disabled={this.state.onlycommentEdit}
+                      key={index}
+                      record={editDetail}
+                      open={this.state.openEdit}
+                      close={editClose}
+                      functionList={functions}
+                      categoryList={categories}
+                      change={DepartmentStore.handleChange}
+                      saveedit={this.editRecord}
+                      changecheckbox={this.handleCheck}
+                      disablecategory={
+                        editDetail.recordcategoryid === "common" ? true : false
+                      }
+                      ifarchival={
+                        !!this.state.selectedclassification.find(
+                          (x: string) => x === " Archival "
+                        )
+                      }
+                      ifvital={
+                        !!this.state.selectedclassification.find(
+                          (x: string) => x === " Vital "
+                        )
+                      }
+                      ifconfidential={
+                        !!this.state.selectedclassification.find(
+                          (x: string) => x === " Highly Confidential "
+                        )
+                      }
+                    />
+                  );
+                })}
+            </Container>
+          );
+        } else {
+          return (
+            <Container>
             <Grid justify="center" alignItems="center" container>
               <Button variant="outlined" color="primary" onClick={this.makePdf}>Download as PDF</Button>
             </Grid>
@@ -181,7 +282,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                       a.function < b.function ? -1 : 1
                     )
                     .filter(
-                      (x: IRecord) => x.department === department.department
+                      (x: IRecord) => x.department === UserStore.currentUser.department
                     )
                     .map((postDetail: IRecord, index) => {
                       return (
@@ -258,7 +359,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                 );
               })}
           </Container>
-        );
+          )
+        } 
       }
     }
   )

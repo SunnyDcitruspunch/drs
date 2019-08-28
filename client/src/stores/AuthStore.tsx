@@ -1,5 +1,6 @@
 import { observable, action, decorate } from "mobx";
-import { IUser, UserStore } from './index'
+import { IUser, UserStore, DepartmentStore } from './index'
+import { IDepartment } from "./DepartmentStore";
 
 export interface IAuthStore {
   username: string;
@@ -40,6 +41,7 @@ class _AuthStore implements IAuthStore {
     const iusername = !!UserStore.allUsers.find((u: IUser) => u.username === this.username && u.password === this.password)
     console.log(!!UserStore.allUsers.find((u: IUser) => u.username === this.username && u.password === this.password))
 
+
     if (iusername){
         this.user = true
         const userIndex = UserStore.allUsers.findIndex((num: IUser) => num.username === this.username)
@@ -48,8 +50,16 @@ class _AuthStore implements IAuthStore {
           console.log(UserStore.currentUser.admin)
             this.admin = true
             console.log('user is an admin')
-        } else {
+        } else {          
+            // console.log(DepartmentStore.allDepartments)
             this.admin = false
+            DepartmentStore.selectedDepartment.department = UserStore.currentUser.department
+            const deptIndex = DepartmentStore.allDepartments.findIndex((d: IDepartment) => d.department === DepartmentStore.selectedDepartment.department)
+            console.log(deptIndex)
+            const userDepartment: IDepartment = DepartmentStore.allDepartments[deptIndex]
+            console.log(userDepartment.commoncodes)
+            DepartmentStore.selectedDepartment = userDepartment
+            console.log(DepartmentStore.selectedDepartment.commoncodes)
             console.log('not an admin')
         }
     } else {

@@ -9,9 +9,10 @@ import {
   Container
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
-import { IAuthStore, IUserStore } from "../../stores";
+import { IAuthStore, IUserStore, IDepartmentStore } from "../../stores";
 
 interface IProps {
+  DepartmentStore: IDepartmentStore
   AuthStore: IAuthStore;
   UserStore: IUserStore;
   history: any;
@@ -21,15 +22,20 @@ interface IState {
   toMainpage: boolean;
 }
 
-const LogIn = inject("AuthStore", "UserStore")(
+const LogIn = inject("AuthStore", "UserStore", "DepartmentStore")(
   observer(
     class LogIn extends Component<IProps, IState> {
-      componentWillMount = () => {
-        this.props.UserStore.fetchUsers();
+      constructor(props: IProps){
+        super(props)
 
-        this.setState({
+        this.state = {
           toMainpage: false
-        });
+        }
+      }
+
+      componentDidMount() {
+        this.props.DepartmentStore.fetchAll();
+        this.props.UserStore.fetchUsers();
       };
 
       handleEmailChange = (e: any) => this.props.AuthStore.setUsername(e);
@@ -37,13 +43,13 @@ const LogIn = inject("AuthStore", "UserStore")(
       handleSubmitForm = async (e: any) => {
         e.preventDefault();
         this.props.AuthStore.logIn();
-        if (this.props.AuthStore.user === true) {
+        if (this.props.AuthStore.user) {
           await this.setState({ toMainpage: true });
         }
       };
 
       render() {
-        if (this.state.toMainpage === true) {
+        if (this.state.toMainpage) {
           return <Redirect to="/main" />;
         }
 

@@ -49,12 +49,9 @@ const Main = inject(
         this.props.UniqueStore.fetchArchival();
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
-        console.log(this.props.UserStore.currentUser.admin)
         console.log(this.props.UserStore.currentUser.department)
 
         this.setState({ selecteddept: "" });
-        console.log('ini state')
-        console.log(this.state.selecteddept)
       };
 
       onSelect: any = (e: MouseEvent) => {

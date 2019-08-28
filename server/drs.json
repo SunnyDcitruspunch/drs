@@ -1048,7 +1048,9 @@
       "id": "4",
       "department": "BYU Catering",
       "departmentnumber": "260",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1000"
+      ]
     },
     {
       "id": "5",

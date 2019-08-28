@@ -5,7 +5,7 @@ export interface IDepartmentStore {
   fetchAllRecords: () => void;
   fetchAll: () => void;
   updateEditID: any;
-  selectedDepartment: IDepartment;
+  selectedDepartment: IDepartment 
   selectedCommonRecords: Array<IRecord>;
   deleteID: string;
   deleteRecord: () => void;
@@ -23,7 +23,7 @@ export interface IDepartmentStore {
 export interface IDepartment {
   id: string;
   department: string;
-  departmentnumber: string;
+  departmentnumber?: string;
   commoncodes: string[];
 }
 
@@ -54,8 +54,8 @@ class _DepartmentStore implements IDepartmentStore {
   };
 
   // select a department
-  handleSelected(dept: IDepartment) {
-    this.selectedDepartment = dept
+  handleSelected(dept: IDepartment) {   
+      this.selectedDepartment = dept    
   }
 
   fetchAll = () => {
