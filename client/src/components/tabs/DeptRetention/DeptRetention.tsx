@@ -111,7 +111,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
       handleDelete(value: any) {
         //show delete modal
         this.setState({ confirmDelete: true });
-        this.props.DepartmentStore.deleteID = value;
+        this.props.DepartmentStore.deleterecord = this.props.DepartmentStore.allRecords.find((r: IRecord) => r.id === value)
       }
 
       //click delete in delete modal

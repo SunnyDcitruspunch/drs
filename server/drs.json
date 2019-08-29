@@ -9,39 +9,9 @@
       "id": "VjmoFNA",
       "departmentnumber": "233",
       "function": "Miscellaneous",
-      "status": "Approved",
+      "status": "Pending",
       "classification": [],
       "comments": "asdf"
-    },
-    {
-      "department": "Records",
-      "code": "CACD1000",
-      "comments": "notes",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "classification": [
-        " Vital "
-      ],
-      "status": "Pending",
-      "id": "llBpVci",
-      "departmentnumber": "233"
-    },
-    {
-      "department": "Marriott School",
-      "code": "CHUM1100",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "recordtype": "Faculty",
-      "description": "importand record",
-      "classification": [
-        " Vital "
-      ],
-      "status": "Pending",
-      "id": "aIomQ0d",
-      "comments": "apple pine",
-      "departmentnumber": "178"
     },
     {
       "department": "Information Systems",
@@ -71,20 +41,6 @@
       "status": "Approved",
       "id": "tpRYc5g",
       "comments": "asdf"
-    },
-    {
-      "recordtype": "Faculty",
-      "department": "Marriott School",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "description": "importand record",
-      "comments": "asdf",
-      "classification": [
-        " Archival "
-      ],
-      "code": "N/A",
-      "status": "Approved",
-      "id": "2gvRf1r"
     },
     {
       "recordtype": "Faculty",
@@ -129,19 +85,6 @@
       "comments": "asdf"
     },
     {
-      "department": "Marriott School",
-      "recordtype": "C++ exam",
-      "function": "Miscellaneous",
-      "recordcategoryid": "STU02",
-      "description": "234",
-      "comments": "23456",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "id": "pzBfAk2"
-    },
-    {
       "department": "Computer Science",
       "recordtype": "C# exam",
       "function": "Employment",
@@ -155,20 +98,6 @@
       "status": "Approved",
       "comments": "comments here",
       "id": "tySiQoY"
-    },
-    {
-      "department": "Marriott School",
-      "recordtype": "Budget Reports (monthly).",
-      "function": "Financial",
-      "recordcategoryid": "common",
-      "code": "CHUM1400",
-      "description": "monthly budget report",
-      "comments": "some notes123",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "id": "9XPtRGo"
     },
     {
       "department": "Honor Code Office",
@@ -228,20 +157,6 @@
     },
     {
       "department": "Information Systems",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "classification": [
-        " Archival "
-      ],
-      "comments": "45",
-      "code": "CACD1000",
-      "status": "Approved",
-      "id": "b6HZ3S8"
-    },
-    {
-      "department": "Information Systems",
       "function": "Miscellaneous",
       "recordcategoryid": "OIT04",
       "recordtype": "Faculty",
@@ -253,58 +168,6 @@
       "code": "CACD1100",
       "status": "Approved",
       "id": "77V-RNU"
-    },
-    {
-      "department": "Information Systems",
-      "function": "Administrative",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "classification": [
-        " Archival "
-      ],
-      "comments": "12",
-      "code": "CACD1000",
-      "status": "Approved",
-      "id": "oMMg1mJ"
-    },
-    {
-      "department": "Marriott School",
-      "function": "Financial",
-      "recordtype": "Budget adjustments, submitted by departments.",
-      "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
-      "classification": [
-        " Vital "
-      ],
-      "comments": "123123112",
-      "code": "CFIN1200",
-      "status": "Approved",
-      "id": "kukZ1wc"
-    },
-    {
-      "department": "Records",
-      "function": "Financial",
-      "recordtype": "Budget adjustments, submitted by departments.",
-      "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CFIN1200",
-      "status": "Approved",
-      "id": "DQ-yBdP"
-    },
-    {
-      "department": "Marriott School",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "recordtype": "Faculty",
-      "description": "importand record",
-      "classification": [
-        " Archival "
-      ],
-      "comments": "asdf",
-      "code": "CACD1000",
-      "status": "Approved",
-      "id": "JqO7feg"
     },
     {
       "department": "Records",
@@ -332,20 +195,6 @@
       "code": "CFIN2700",
       "status": "Approved",
       "id": "eV7XtDe"
-    },
-    {
-      "department": "Computer Science",
-      "function": "Administrative",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews",
-      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
-      "classification": [
-        " Archival "
-      ],
-      "comments": "45",
-      "code": "CACD1000",
-      "status": "Approved",
-      "id": "YvR9Iex"
     },
     {
       "department": "Honor Code Office",
@@ -404,22 +253,6 @@
       "status": "Approved",
       "code": "",
       "id": "VXo2PEd"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "xx",
-      "function": "Financial",
-      "recordcategoryid": "STU19",
-      "description": "xx",
-      "comments": "x",
-      "classification": [
-        " Archival ",
-        " Archival ",
-        " Vital "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "mTYha90"
     },
     {
       "department": "BYU Catering",
@@ -520,6 +353,67 @@
       "status": "Approved",
       "code": "",
       "id": "iN2XAD-"
+    },
+    {
+      "department": "Marriott School",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1200",
+      "status": "Approved",
+      "id": "S93KJCM"
+    },
+    {
+      "department": "Marriott School",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Course materials & outlines (may include syllabi, course descriptions, and original exams.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not already retained in Learning Suite or Syllabi.byu.edu.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1400",
+      "status": "Approved",
+      "id": "ZxazbTC"
+    },
+    {
+      "department": "Marriott School",
+      "function": "Academic",
+      "recordtype": "Course/Faculty evaluations.",
+      "description": "Retain indefinitely, if not stored in online ratings system.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1600",
+      "status": "Approved",
+      "id": "ijjJXOs"
+    },
+    {
+      "department": "Marriott School",
+      "function": "Academic",
+      "recordtype": "Curriculum records (may include course proposals, course revisions, course requests, and curriculum committee minutes).",
+      "description": "Retain permanently, if not already maintained in online system, e.g. Learning Suite. Submit curriculum committee minutes to University Records Center for Archival review.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1800",
+      "status": "Approved",
+      "id": "DSfG7oa"
+    },
+    {
+      "department": "Marriott School",
+      "function": "Academic",
+      "recordtype": "Exams (administered) and coursework not returned to students.",
+      "description": "Retain 1 year after end of semester administered, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1900",
+      "status": "Approved",
+      "id": "nrmTsFr"
     }
   ],
   "commonrecords": [
@@ -1014,35 +908,33 @@
       "department": "Records",
       "departmentnumber": "200",
       "commoncodes": [
-        "CFIN1200",
         "CADM1100",
-        "CACD1100",
-        "CACD1000"
+        "CACD1100"
       ]
     },
     {
       "id": "1",
       "department": "Information Systems",
       "departmentnumber": "401",
-      "commoncodes": [
-        "CACD1000"
-      ]
+      "commoncodes": []
     },
     {
       "id": "2",
       "department": "Marriott School",
       "departmentnumber": "403",
       "commoncodes": [
-        "CACD1000"
+        "CACD1200",
+        "CACD1400",
+        "CACD1600",
+        "CACD1800",
+        "CACD1900"
       ]
     },
     {
       "id": "3",
       "department": "Computer Science",
       "departmentnumber": "503",
-      "commoncodes": [
-        "CACD1000"
-      ]
+      "commoncodes": []
     },
     {
       "id": "4",

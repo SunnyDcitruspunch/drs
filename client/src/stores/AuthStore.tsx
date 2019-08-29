@@ -49,21 +49,15 @@ class _AuthStore implements IAuthStore {
         if(UserStore.currentUser.admin) {
           console.log(UserStore.currentUser.admin)
             this.admin = true
-            console.log('user is an admin')
         } else {          
             // console.log(DepartmentStore.allDepartments)
             this.admin = false
             DepartmentStore.selectedDepartment.department = UserStore.currentUser.department
             const deptIndex = DepartmentStore.allDepartments.findIndex((d: IDepartment) => d.department === DepartmentStore.selectedDepartment.department)
-            console.log(deptIndex)
             const userDepartment: IDepartment = DepartmentStore.allDepartments[deptIndex]
-            console.log(userDepartment.commoncodes)
             DepartmentStore.selectedDepartment = userDepartment
-            console.log(DepartmentStore.selectedDepartment.commoncodes)
-            console.log('not an admin')
         }
     } else {
-        console.log('log in failed')
         this.user = false
         this.admin = false
     }

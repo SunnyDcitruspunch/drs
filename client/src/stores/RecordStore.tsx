@@ -17,7 +17,7 @@ export type IRecord = {
 export interface IRecordStore {
   CommonRecords: Array<IRecord>;
   record: IRecord;
-  approveSelectedRecords: (e: any, dept: string) => void;
+  approveSelectedRecords: (e: any) => void;
 }
 
 class _RecordStore implements IRecordStore {
@@ -37,7 +37,7 @@ class _RecordStore implements IRecordStore {
 
   //approve selected records: PATCH
   //records: array of record id
-  async approveSelectedRecords(records: string[], dept: string) {
+  async approveSelectedRecords(records: string[]) {
     const baseUrl = "http://localhost:3004/records";
 
     for (let i = 0; i < records.length; i++) {

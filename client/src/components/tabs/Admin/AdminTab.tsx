@@ -88,11 +88,9 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
       approveSelect = async (e: any) => {
         this.props.RecordStore.approveSelectedRecords(
-          this.state.approvedrecords,
-          this.props.DepartmentStore.selectedDepartment.department
+          this.state.approvedrecords
         );
 
-        this.setState({ snackbar: true });
         await this.props.DepartmentStore.fetchAllRecords();
       };
 
@@ -163,19 +161,17 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                 </TableBody>
               </Table>
             </Paper>
-            <Button
-              variant="outlined"
-              color="primary"
-              style={{ marginTop: 10, fontSize: 10 }}
-              onClick={this.approveSelect}
-            >
-              Approve selected records
-            </Button>
-            {/* <Snackbar
-              _open={this.state.snackbar}
-              msg="Records has been approved."
-            /> */}
-
+            <Grid container justify="center" alignItems="center">
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ marginTop: 10, fontSize: 10 }}
+                onClick={this.approveSelect}
+              >
+                Approve selected records
+              </Button>
+            </Grid>
+           
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
               .filter(

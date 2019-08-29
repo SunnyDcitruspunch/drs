@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { TableBody, Paper, Button, Table, Container } from "@material-ui/core";
+import { TableBody, Paper, Button, Table, Container, Grid } from "@material-ui/core";
 import {
   IRecordStore,
   IRecord,
@@ -187,14 +187,16 @@ const CommonRecords = inject(
                   </TableBody>
                 </Table>
               </Paper>
-              <Button
-                variant="outlined"
-                color="primary"
-                style={{ marginTop: 10, fontSize: 10 }}
-                onClick={this.addRecord}
-              >
-                Add selected common records
-              </Button>
+              <Grid container justify="center" alignItems="center">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  style={{ marginTop: 10, fontSize: 10 }}
+                  onClick={this.addRecord}
+                >
+                  Add selected common records
+                </Button>
+              </Grid>             
   
               {/* edit common records */}
               {this.props.CommonStore.commonRecords
@@ -283,14 +285,17 @@ const CommonRecords = inject(
                   </TableBody>
                 </Table>
               </Paper>
-              <Button
-                variant="outlined"
-                color="primary"
-                style={{ marginTop: 10, fontSize: 10 }}
-                onClick={this.addRecord}
-              >
-                Add selected common records
-              </Button>
+              <Grid container justify="center" alignItems="center">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  style={{ marginTop: 10, fontSize: 10 }}
+                  onClick={this.addRecord}
+                >
+                  Add selected common records
+                </Button>
+              </Grid>
+             
   
               {/* edit common records */}
               {this.props.CommonStore.commonRecords

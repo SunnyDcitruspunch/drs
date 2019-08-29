@@ -1,5 +1,5 @@
 import { observable, decorate, action } from "mobx";
-import { IDepartment, IRecord } from '.'
+import { IDepartment, IRecord, DepartmentStore } from '.'
 
 export interface ICommonRecord {
   id: string;
@@ -147,6 +147,8 @@ class _CommonStore implements ICommonStore {
       });
       console.log("id" + dept.id);
     }
+
+    DepartmentStore.fetchAllRecords();
   }
 }
 

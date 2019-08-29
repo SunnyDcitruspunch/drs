@@ -49,16 +49,16 @@ const Main = inject(
         this.props.UniqueStore.fetchArchival();
         this.props.UniqueStore.fetchFunctions();
         this.props.UniqueStore.fetchCategory();
-        console.log(this.props.UserStore.currentUser.department)
 
         this.setState({ selecteddept: "" });
       };
 
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
-        const dept: IDepartment = this.props.DepartmentStore.allDepartments.find(
+        const deptIndex: number = this.props.DepartmentStore.allDepartments.findIndex(
           (x: IDepartment) => x.department === value
-        );
+        )
+        const dept: IDepartment = this.props.DepartmentStore.allDepartments[deptIndex]
         this.setState({ selecteddept: value });
         this.props.DepartmentStore.handleSelected(dept);
       };

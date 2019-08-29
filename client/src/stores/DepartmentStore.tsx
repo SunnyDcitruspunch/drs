@@ -8,11 +8,12 @@ export interface IDepartmentStore {
   selectedDepartment: IDepartment 
   selectedCommonRecords: Array<IRecord>;
   deleteID: string;
+  deleterecord: IRecord
   deleteRecord: () => void;
   updateRecord: (c: string[]) => void;
   _allRecords: Array<IRecord>;
   allRecords: Array<any>;
-  allDepartments: Array<any>;
+  allDepartments: Array<IDepartment>;
   editrecord: IRecord;
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
@@ -35,9 +36,21 @@ class _DepartmentStore implements IDepartmentStore {
     commoncodes:[]
   };
   selectedCommonRecords: IRecord[] = [];
-  allDepartments = [];
+  allDepartments: IDepartment[] = [];
   _allRecords: IRecord[] = [];
   deleteID = "";
+  deleterecord: IRecord = {
+    id: "",
+    department: "",
+    recordtype: "",
+    function: "",
+    recordcategoryid: "",
+    description: "",
+    comments: "",
+    classification: [],
+    status: "",
+    code: ""
+  };
   editcomment = ""
 
   editrecord: IRecord = {
@@ -109,16 +122,29 @@ class _DepartmentStore implements IDepartmentStore {
 
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
-    let options = { method: "DELETE" };
-    await fetch(`${baseUrl}/${this.deleteID}`, options);
+    const options = { method: "DELETE" };
+    await fetch(`${baseUrl}/${this.deleterecord.id}`, options);
+
+    const deleteIndex: number = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
+    //commoncodes array without the deleted one
+    const updateCommoncodes = this.allDepartments[deleteIndex].commoncodes.filter((c: string) => c !== this.deleterecord.code )
+    console.log('clear commoncodes' + this.allDepartments[deleteIndex].commoncodes)
+
+    const index = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
+    const id = this.allDepartments[index].id
+    //patch commoncodes in departments array
+    await fetch(`http://localhost:3004/departments/${id}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        commoncodes: updateCommoncodes
+      })     
+    })
 
     this.fetchAllRecords()
-
-    // await fetch("http://localhost:3004/records")
-    //   .then(response => {
-    //     return response.json();
-    //   })
-    //   .then(json => (this._allRecords = json));
   }
 
   //PATCH request
