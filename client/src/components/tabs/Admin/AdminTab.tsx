@@ -93,7 +93,6 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         );
 
         this.setState({ snackbar: true });
-        console.log("should show the snackbar");
         await this.props.DepartmentStore.fetchAllRecords();
       };
 
@@ -147,7 +146,6 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   headrows={headrows}
                   order={this.state.order}
                   orderBy={this.state.orderBy}
-                  // onRequestSort={this.handleRequestSort}
                 />
                 <TableBody style={{ fontSize: 11 }}>
                   {DepartmentStore._allRecords

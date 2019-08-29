@@ -1,4 +1,5 @@
 import { action, decorate } from "mobx";
+import { DepartmentStore, IDepartment } from '../stores'
 
 export type IRecord = {
   id?: string;
@@ -35,11 +36,13 @@ class _RecordStore implements IRecordStore {
   };
 
   //approve selected records: PATCH
-  //records: array of id
+  //records: array of record id
   async approveSelectedRecords(records: string[], dept: string) {
     const baseUrl = "http://localhost:3004/records";
 
     for (let i = 0; i < records.length; i++) {
+
+
       await fetch(`${baseUrl}/${records[i]}`, {
         method: "PATCH",
         headers: {
@@ -47,17 +50,12 @@ class _RecordStore implements IRecordStore {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          department: dept,
           status: "Approved"
         })
       });
     }
 
-    await fetch("http://localhost:3004/records")
-      .then(response => {
-        return response.json();
-      })
-      // .then(json => (this._allRecords = json));
+    DepartmentStore.fetchAllRecords()
   }
 }
 

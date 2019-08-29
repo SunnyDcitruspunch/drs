@@ -63,7 +63,7 @@ class _DepartmentStore implements IDepartmentStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.allDepartments = json));
+      .then(json => (this.allDepartments = json))
   };
 
  fetchAllRecords = () => {
@@ -112,11 +112,13 @@ class _DepartmentStore implements IDepartmentStore {
     let options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.deleteID}`, options);
 
-    await fetch("http://localhost:3004/records")
-      .then(response => {
-        return response.json();
-      })
-      .then(json => (this._allRecords = json));
+    this.fetchAllRecords()
+
+    // await fetch("http://localhost:3004/records")
+    //   .then(response => {
+    //     return response.json();
+    //   })
+    //   .then(json => (this._allRecords = json));
   }
 
   //PATCH request
