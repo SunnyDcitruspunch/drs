@@ -1,5 +1,5 @@
 import { action, decorate } from "mobx";
-import { DepartmentStore, IDepartment } from '../stores'
+import { DepartmentStore } from '../stores'
 
 export type IRecord = {
   id?: string;

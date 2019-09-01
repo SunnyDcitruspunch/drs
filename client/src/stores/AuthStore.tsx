@@ -39,18 +39,14 @@ class _AuthStore implements IAuthStore {
 
   logIn(){
     const iusername = !!UserStore.allUsers.find((u: IUser) => u.username === this.username && u.password === this.password)
-    console.log(!!UserStore.allUsers.find((u: IUser) => u.username === this.username && u.password === this.password))
-
 
     if (iusername){
         this.user = true
         const userIndex = UserStore.allUsers.findIndex((num: IUser) => num.username === this.username)
         UserStore.currentUser = UserStore.allUsers[userIndex]
         if(UserStore.currentUser.admin) {
-          console.log(UserStore.currentUser.admin)
             this.admin = true
         } else {          
-            // console.log(DepartmentStore.allDepartments)
             this.admin = false
             DepartmentStore.selectedDepartment.department = UserStore.currentUser.department
             const deptIndex = DepartmentStore.allDepartments.findIndex((d: IDepartment) => d.department === DepartmentStore.selectedDepartment.department)

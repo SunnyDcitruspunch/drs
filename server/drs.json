@@ -9,7 +9,7 @@
       "id": "VjmoFNA",
       "departmentnumber": "233",
       "function": "Miscellaneous",
-      "status": "Pending",
+      "status": "Approved",
       "classification": [],
       "comments": "asdf"
     },
@@ -168,18 +168,6 @@
       "code": "CACD1100",
       "status": "Approved",
       "id": "77V-RNU"
-    },
-    {
-      "department": "Records",
-      "function": "Miscellaneous",
-      "recordtype": "Faculty",
-      "description": "importand record",
-      "classification": [],
-      "comments": "asdf",
-      "code": "CADM1100",
-      "status": "Approved",
-      "id": "GxQsL2L",
-      "recordcategoryid": "OIT04"
     },
     {
       "department": "Computer Science",
@@ -357,32 +345,6 @@
     {
       "department": "Marriott School",
       "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Challenge exams.",
-      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CACD1200",
-      "status": "Approved",
-      "id": "S93KJCM"
-    },
-    {
-      "department": "Marriott School",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Course materials & outlines (may include syllabi, course descriptions, and original exams.",
-      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not already retained in Learning Suite or Syllabi.byu.edu.",
-      "classification": [
-        "Archival"
-      ],
-      "comments": "",
-      "code": "CACD1400",
-      "status": "Approved",
-      "id": "ZxazbTC"
-    },
-    {
-      "department": "Marriott School",
-      "function": "Academic",
       "recordtype": "Course/Faculty evaluations.",
       "description": "Retain indefinitely, if not stored in online ratings system.",
       "classification": [],
@@ -394,26 +356,14 @@
     {
       "department": "Marriott School",
       "function": "Academic",
-      "recordtype": "Curriculum records (may include course proposals, course revisions, course requests, and curriculum committee minutes).",
-      "description": "Retain permanently, if not already maintained in online system, e.g. Learning Suite. Submit curriculum committee minutes to University Records Center for Archival review.",
-      "classification": [
-        "Archival"
-      ],
-      "comments": "",
-      "code": "CACD1800",
-      "status": "Approved",
-      "id": "DSfG7oa"
-    },
-    {
-      "department": "Marriott School",
-      "function": "Academic",
-      "recordtype": "Exams (administered) and coursework not returned to students.",
-      "description": "Retain 1 year after end of semester administered, then destroy.",
+      "recordcategoryid": "common",
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
       "classification": [],
       "comments": "",
-      "code": "CACD1900",
+      "code": "CACD1200",
       "status": "Approved",
-      "id": "nrmTsFr"
+      "id": "nC2dSko"
     }
   ],
   "commonrecords": [
@@ -908,7 +858,6 @@
       "department": "Records",
       "departmentnumber": "200",
       "commoncodes": [
-        "CADM1100",
         "CACD1100"
       ]
     },
@@ -923,11 +872,7 @@
       "department": "Marriott School",
       "departmentnumber": "403",
       "commoncodes": [
-        "CACD1200",
-        "CACD1400",
-        "CACD1600",
-        "CACD1800",
-        "CACD1900"
+        "CACD1200"
       ]
     },
     {
@@ -941,7 +886,8 @@
       "department": "BYU Catering",
       "departmentnumber": "260",
       "commoncodes": [
-        "CACD1000"
+        "CACD1000",
+        "CACD1900"
       ]
     },
     {

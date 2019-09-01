@@ -19,7 +19,6 @@ import EnhancedTableHead, {
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
-// import Snackbar from "../../common/Snackbar";
 import AdminTable from "./AdminTable";
 import EditModal from '../../common/EditModal'
 

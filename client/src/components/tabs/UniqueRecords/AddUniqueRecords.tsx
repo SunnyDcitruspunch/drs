@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { IUniqueStore, IDepartmentStore, IRecordStore } from "../../../stores";
-// import Snackbar from "../../common/Snackbar";
 import MessageModal from "../../common/MessageModal";
 import FunctionDropdown from "../../common/FunctionDropdown";
 import CategoryDropdown from '../../common/CategoryDropdown'

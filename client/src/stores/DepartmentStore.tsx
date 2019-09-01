@@ -12,7 +12,7 @@ export interface IDepartmentStore {
   deleteRecord: () => void;
   updateRecord: (c: string[]) => void;
   _allRecords: Array<IRecord>;
-  allRecords: Array<any>;
+  allRecords: Array<IRecord>;
   allDepartments: Array<IDepartment>;
   editrecord: IRecord;
   handleSelected: (edpt: IDepartment) => void;
@@ -125,13 +125,13 @@ class _DepartmentStore implements IDepartmentStore {
     const options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.deleterecord.id}`, options);
 
-    const deleteIndex: number = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
+    let deleteIndex: number = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
     //commoncodes array without the deleted one
-    const updateCommoncodes = this.allDepartments[deleteIndex].commoncodes.filter((c: string) => c !== this.deleterecord.code )
+    let updateCommoncodes: string[] = this.allDepartments[deleteIndex].commoncodes.filter((c: string) => c !== this.deleterecord.code )
     console.log('clear commoncodes' + this.allDepartments[deleteIndex].commoncodes)
 
-    const index = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
-    const id = this.allDepartments[index].id
+    let index = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
+    let id: string = this.allDepartments[index].id
     //patch commoncodes in departments array
     await fetch(`http://localhost:3004/departments/${id}`, {
       method: "PATCH",
@@ -144,6 +144,9 @@ class _DepartmentStore implements IDepartmentStore {
       })     
     })
 
+    updateCommoncodes = [""]
+    deleteIndex = 0
+    id = ""
     this.fetchAllRecords()
   }
 

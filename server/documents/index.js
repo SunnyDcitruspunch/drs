@@ -1,4 +1,4 @@
-module.exports = ({ orderBy }) => {
+module.exports = ({ selectedDepartment, allRecords }) => {
    const today = new Date();
 return `
    <!doctype html>
@@ -33,19 +33,11 @@ return `
             padding: 5px;
             vertical-align: top;
             }
-            .invoice-box table tr td:nth-child(2) {
-            text-align: right;
-            }
             .invoice-box table tr.top table td {
             padding-bottom: 20px;
             }
-            .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
-            color: #333;
-            }
             .invoice-box table tr.information table td {
-            padding-bottom: 40px;
+            text-align: center;
             }
             .invoice-box table tr.heading td {
             background: #eee;
@@ -86,40 +78,37 @@ return `
                   <td colspan="2">
                      <table>
                         <tr>
-                           <td class="title"><img  src="https://i2.wp.com/cleverlogos.co/wp-content/uploads/2018/05/reciepthound_1.jpg?fit=800%2C600&ssl=1"
-                              style="width:100%; max-width:156px;"></td>
                            <td>
-                              Datum: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
+                              Date: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
                            </td>
                         </tr>
                      </table>
                   </td>
                </tr>
                <tr class="information">
-                  <td colspan="2">
+                  <td>
                      <table>
                         <tr>
                            <td>
-                              Customer name: ${orderBy}
-                           </td>
-                           <td>
-                              // Receipt number:
+                              <h4>
+                                 ${selectedDepartment.department}
+                              </h4>                              
                            </td>
                         </tr>
                      </table>
                   </td>
                </tr>
                <tr class="heading">
-                  <td>Bought items:</td>
-                  <td>Price</td>
+                  <td>Function</td>
+                  <td>Record Type</td>
+                  <td>Retention Description</td>
+                  <td>Classification</td>
+                  <td>Comments</td>
                </tr>
                <tr class="item">
-                  <td>First item:</td>
-                  
-               </tr>
-               <tr class="item">
-                  <td>Second item:</td>
-                  
+                  <td>${_allRecords
+                     .map((r, i) => `<tr>${r.function}</tr>`)  
+                  }</td>
                </tr>
             </table>
             <br />

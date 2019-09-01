@@ -85,11 +85,11 @@ class _CommonStore implements ICommonStore {
   }
 
   //add selected common records
-  async addCommonRecords(selects: string[], dept: IDepartment) {
+  addCommonRecords(selects: string[], dept: IDepartment) {
     //initial value should not be empty... should have pre selected data.
     let commoncodes: string[] = [];
 
-    for (let i = 0; i < selects.length; i++) {
+    selects.forEach(async (s: string) => {
       let test: IRecord = {
         department: "",
         recordtype: "",
@@ -101,10 +101,9 @@ class _CommonStore implements ICommonStore {
         status: "Approved",
         code: ""
       };
-      this.commonRecords.filter((x: ICommonRecord) => x.id === selects[i]).map(
+      this.commonRecords.filter((x: ICommonRecord) => x.id === s).forEach(
         (postDetail: IRecord) => {
           commoncodes = dept.commoncodes;
-          console.log(commoncodes);
 
           //post common records to records list
           test = {
@@ -131,7 +130,6 @@ class _CommonStore implements ICommonStore {
         },
         body: JSON.stringify(test)
       });
-      // https://stackoverflow.com/questions/48163744/expected-to-return-a-value-in-arrow-function-array-callback-return-why/48163905
 
       const baseUrl = "http://localhost:3004/departments";
       await fetch(`${baseUrl}/${dept.id}`, {
@@ -146,7 +144,7 @@ class _CommonStore implements ICommonStore {
         })
       });
       console.log("id" + dept.id);
-    }
+    })
 
     DepartmentStore.fetchAllRecords();
   }

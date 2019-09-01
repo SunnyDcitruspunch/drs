@@ -134,7 +134,6 @@ const CommonRecords = inject(
             ]
           });
         } else {
-          // e.target.checke3d = true
           let remove = this.state.selectedclassification.indexOf(
             e.target.value
           );

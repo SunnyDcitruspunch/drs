@@ -1,7 +1,5 @@
 import * as React from "react";
 import axios from 'axios'
-// import html2canvas from "html2canvas";
-// import jsPDF from "jspdf";
 import { saveAs } from "file-saver";
 import { Paper, Table, TableBody, Button, Container, Grid } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
@@ -97,7 +95,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
 
       //make pdf
       makePdf = () => {
-        axios.post('/create-pdf', this.state)
+        axios.post('/create-pdf', this.props.DepartmentStore)
           .then(() => axios.get('fetch-pdf', { responseType: 'blob'}))
           .then((res: any) => {
             const pdfBlob = new Blob([res.data], { type: 'application/pdf'})
@@ -111,7 +109,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
       handleDelete(value: any) {
         //show delete modal
         this.setState({ confirmDelete: true });
-        this.props.DepartmentStore.deleterecord = this.props.DepartmentStore.allRecords.find((r: IRecord) => r.id === value)
+        const i = this.props.DepartmentStore.allRecords.findIndex((r: IRecord) => r.id === value)
+        this.props.DepartmentStore.deleterecord = this.props.DepartmentStore[i]
       }
 
       //click delete in delete modal
