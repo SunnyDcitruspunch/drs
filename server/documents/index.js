@@ -1,11 +1,10 @@
-module.exports = ({ selectedDepartment, allRecords }) => {
+module.exports = ({ selectedDepartment, _allRecords }) => {
    const today = new Date();
 return `
    <!doctype html>
    <html>
       <head>
          <meta charset="utf-8">
-         <title>PDF Result Template</title>
          <style>
             .invoice-box {
             max-width: 800px;
@@ -20,9 +19,6 @@ return `
             }
             .margin-top {
             margin-top: 50px;
-            }
-            .justify-center {
-            text-align: center;
             }
             .invoice-box table {
             width: 100%;
@@ -68,32 +64,23 @@ return `
             display: block;
             text-align: center;
             }
-            }
          </style>
       </head>
       <body>
          <div class="invoice-box">
-            <table cellpadding="0" cellspacing="0">
+            <table>
                <tr class="top">
-                  <td colspan="2">
+                  <td colspan="6">
                      <table>
                         <tr>
                            <td>
-                              Date: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
+                              Date: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}`}
                            </td>
-                        </tr>
-                     </table>
-                  </td>
-               </tr>
-               <tr class="information">
-                  <td>
-                     <table>
-                        <tr>
                            <td>
                               <h4>
-                                 ${selectedDepartment.department}
+                                 Department Retention Schedule - ${selectedDepartment.departmentnumber} &nbsp; ${selectedDepartment.department}
                               </h4>                              
-                           </td>
+                        </td>
                         </tr>
                      </table>
                   </td>
@@ -104,15 +91,22 @@ return `
                   <td>Retention Description</td>
                   <td>Classification</td>
                   <td>Comments</td>
-               </tr>
-               <tr class="item">
-                  <td>${_allRecords
-                     .map((r, i) => `<tr>${r.function}</tr>`)  
-                  }</td>
-               </tr>
-            </table>
-            <br />
-           
+               </tr>               
+                  ${_allRecords
+                     .sort((a, b) =>
+                       a.function < b.function ? -1 : 1)
+                     .filter((x) => x.department === selectedDepartment.department)
+                     .map((r) => { return `
+                     <tr class="item">
+                     <td>${r.function}</td>
+                     <td>${r.recordtype}</td>
+                     <td>${r.description}</td>
+                     <td>${r.classification}</td>
+                     <td>${r.comments}</td>
+                     </tr>
+                     `})  
+                  }               
+            </table>           
          </div>
       </body>
    </html>
