@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from 'axios'
 import { saveAs } from "file-saver";
-import { Paper, Table, TableBody, Button, Container, Grid } from "@material-ui/core";
+import { Paper, Table, TableBody, Button, Container, Grid, LinearProgress } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import {
   IDepartmentStore,
@@ -41,6 +41,7 @@ interface IState {
   disable: boolean;
   onlycommentEdit: boolean;
   selectedclassification: string[];
+  loadingPdf: boolean
 }
 
 const headrows: IHeadRow[] = [
@@ -64,6 +65,9 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
       constructor(props: IProps) {
         super(props);
 
+        this.showEditModal = this.showEditModal.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+
         this.state = {
           onlycommentEdit: false,
           smShow: false,
@@ -76,7 +80,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
           filterbyFunction: "",
           snackbar: false,
           disable: false, //can only edit comments if is common record
-          selectedclassification: []
+          selectedclassification: [],
+          loadingPdf: false
         };
       }
 
@@ -95,11 +100,13 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
 
       //make pdf
       makePdf = () => {
+        this.setState({ loadingPdf: true })
+
         axios.post('/create-pdf', this.props.DepartmentStore)
           .then(() => axios.get('fetch-pdf', { responseType: 'blob'}))
           .then((res: any) => {
+            this.setState({ loadingPdf: false })
             const pdfBlob = new Blob([res.data], { type: 'application/pdf'})
-
             saveAs(pdfBlob, 'retention.pdf')
           })
           .catch((error: any) => console.log(error))
@@ -167,7 +174,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                 <Button variant="outlined" color="primary" onClick={this.makePdf}>Download as PDF</Button>
               </Grid>
               <Paper>
-                <Table id="schedule" size="small">
+                {this.state.loadingPdf? (<LinearProgress />) : ("")}              
+                <Table id="schedule" size="small">                  
                   <EnhancedTableHead
                     id="tablehead"
                     headrows={headrows}
@@ -188,8 +196,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
                           <DepartmentTable
                             key={index}
                             tablekey={index}
-                            onedit={() => this.showEditModal(postDetail)}
-                            ondelete={() => this.handleDelete(postDetail.id)}
+                            onedit={this.showEditModal.bind(this, postDetail)}
+                            ondelete={this.handleDelete.bind(this, postDetail.id)}
                             pfunction={postDetail.function}
                             recordtype={postDetail.recordtype}
                             description={postDetail.description}
