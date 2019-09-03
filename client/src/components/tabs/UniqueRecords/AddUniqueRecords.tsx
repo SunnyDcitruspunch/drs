@@ -125,7 +125,7 @@ const AddUniqueRecords = inject(
               />
             </Grid>
 
-            <Grid container justify="center" alignItems="center">
+            <Grid container justify="center" alignItems="center" style={{ marginTop: 20 }}>
               <TextField
                 multiline
                 rows="2"
@@ -139,7 +139,7 @@ const AddUniqueRecords = inject(
               />
             </Grid>
 
-            <Grid container justify="center" alignItems="center">
+            <Grid container justify="center" alignItems="center" style={{ marginTop: 20 }}>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Classification</FormLabel>
                 <ClassificationCheckboxes

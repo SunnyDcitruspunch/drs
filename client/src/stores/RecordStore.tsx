@@ -37,13 +37,11 @@ class _RecordStore implements IRecordStore {
 
   //approve selected records: PATCH
   //records: array of record id
-  async approveSelectedRecords(records: string[]) {
+  approveSelectedRecords(records: string[]) {
     const baseUrl = "http://localhost:3004/records";
 
-    for (let i = 0; i < records.length; i++) {
-
-
-      await fetch(`${baseUrl}/${records[i]}`, {
+    records.forEach( async(r: string) => {
+      await fetch(`${baseUrl}/${records[r]}`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -52,8 +50,8 @@ class _RecordStore implements IRecordStore {
         body: JSON.stringify({
           status: "Approved"
         })
-      });
-    }
+      })
+    })  
 
     DepartmentStore.fetchAllRecords()
   }

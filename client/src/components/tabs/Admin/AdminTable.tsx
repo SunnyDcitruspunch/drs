@@ -21,7 +21,7 @@ const DepartmentTable = observer((props: IProps) => {
         <CreateOutlinedIcon
           name="edit"
           onClick={onedit}
-            style={styles.buttonStyle}
+          style={styles.buttonStyle}
         />
         &nbsp;
         &nbsp;

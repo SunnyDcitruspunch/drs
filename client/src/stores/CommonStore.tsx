@@ -46,7 +46,6 @@ class _CommonStore implements ICommonStore {
   //record waiting to be edited
   getEditRecord(record: ICommonRecord) {
     this.record = record;
-    console.log("yo");
   }
 
   //change (edit) common record
@@ -58,7 +57,6 @@ class _CommonStore implements ICommonStore {
 
   //update common records: PATCH
   async updateCommonRecord(c: string[]) {
-    console.log(this.record.id);
     const baseUrl = "http://localhost:3004/commonrecords";
 
     await fetch(`${baseUrl}/${this.record.id}`, {
@@ -81,7 +79,6 @@ class _CommonStore implements ICommonStore {
         return response.json();
       })
       .then(json => (this.commonRecords = json))
-      .then(() => console.log("updated"));
   }
 
   //add selected common records
@@ -143,7 +140,6 @@ class _CommonStore implements ICommonStore {
           commoncodes: commoncodes
         })
       });
-      console.log("id" + dept.id);
     })
 
     DepartmentStore.fetchAllRecords();

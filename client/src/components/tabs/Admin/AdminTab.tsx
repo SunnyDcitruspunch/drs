@@ -180,11 +180,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
               .map((editDetail: IRecord, index) => {
                 return (
                   <EditModal
-                    title={
-                      editDetail.recordcategoryid === "common"
-                        ? "Edit Comment Only"
-                        : "Edit Record"
-                    }
+                    title={"Edit Record"}
                     disabled={false}
                     key={index}
                     record={editDetail}
@@ -192,7 +188,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                     close={editClose}
                     functionList={UniqueStore.functionsDropdown}
                     categoryList={UniqueStore.categoryDropdown}
-                    change={this.handleCheck}
+                    change={DepartmentStore.handleChange}
                     saveedit={this.editRecord}
                     changecheckbox={this.handleCheck}
                     disablecategory={

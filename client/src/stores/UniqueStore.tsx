@@ -40,7 +40,6 @@ class _UniqueStore {
         return response.json();
       })
       .then(json => (this.functionsDropdown = json));
-    // .then(() => console.log(this.functionsDropdown))
   }
 
   async fetchCategory() {

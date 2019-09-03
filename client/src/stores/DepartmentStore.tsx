@@ -128,7 +128,6 @@ class _DepartmentStore implements IDepartmentStore {
     let deleteIndex: number = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
     //commoncodes array without the deleted one
     let updateCommoncodes: string[] = this.allDepartments[deleteIndex].commoncodes.filter((c: string) => c !== this.deleterecord.code )
-    console.log('clear commoncodes' + this.allDepartments[deleteIndex].commoncodes)
 
     let index = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
     let id: string = this.allDepartments[index].id
@@ -152,12 +151,11 @@ class _DepartmentStore implements IDepartmentStore {
 
   //PATCH request
   async updateRecord(classification: string[]) {
-    let status = "Approved"
     const i = this._allRecords.findIndex((r)=> r.id === this.editrecord.id)
     this.allRecords[i] = this.editrecord
 
     if (this.editrecord.comments !== this.editcomment) {
-      status = "Pending"
+      this.editrecord.status = "Pending"
     }
 
     const baseUrl = "http://localhost:3004/records";
@@ -174,7 +172,7 @@ class _DepartmentStore implements IDepartmentStore {
         description: this.allRecords[i].description,
         comments: this.allRecords[i].comments,
         classification: classification,
-        status: status
+        status: this.editrecord.status
       })     
     });
     //Tylor's code: made new record => cause double record after edit
