@@ -33,10 +33,10 @@ const DeleteModal = observer((props: IProps) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={click} color="primary" autoFocus>
+        <Button onClick={click} color="primary">
             Close
         </Button>
-        <Button onClick={pdelete} color="primary" autoFocus>
+        <Button onClick={pdelete} color="primary">
           Delete
         </Button>
       </DialogActions>

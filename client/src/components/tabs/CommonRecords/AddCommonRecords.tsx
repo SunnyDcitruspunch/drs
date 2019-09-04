@@ -126,7 +126,6 @@ const CommonRecords = inject(
 
       handleCheck = (e: any) => {
         if (e.target.checked) {
-          // e.target.checked = false
           this.setState({
             selectedclassification: [
               ...this.state.selectedclassification,

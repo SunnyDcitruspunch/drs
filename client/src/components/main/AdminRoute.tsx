@@ -13,6 +13,7 @@ const AdminRoute = (
 
             render(){
                 const { admin } = this.props
+                
                 if (admin) {
                     return <AdminTabs />
                 } else {

@@ -10,11 +10,11 @@ import {
 import { observer } from "mobx-react";
 
 interface IProps {
-  open: boolean,
-  click:() => void,
-  close:() => void,
-  msg: string,
-  title: string
+  open: boolean;
+  click: () => void;
+  close: () => void;
+  msg: string;
+  title: string;
 }
 
 const MessageModal = observer((props: IProps) => {
@@ -40,6 +40,6 @@ const MessageModal = observer((props: IProps) => {
       </DialogActions>
     </Dialog>
   );
-})
+});
 
 export default MessageModal;

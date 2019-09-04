@@ -10,7 +10,8 @@ import {
   IDepartmentStore,
   IDepartment,
   ICommonStore,
-  IUniqueStore
+  IUniqueStore,
+  IRecordStore
 } from "../../stores";
 
 interface IProps {
@@ -26,9 +27,9 @@ interface IState {
   selecteddept: string;
 }
 
-export interface IRecordStore {
-  handleSelected: (dept: IDepartment) => void;
-}
+// export interface IRecordStore {
+//   handleSelected: (dept: IDepartment) => void;
+// }
 
 const SelectDepartment = inject(
   "UniqueStore",

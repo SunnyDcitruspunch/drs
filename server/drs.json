@@ -71,20 +71,6 @@
       "id": "sOjFzj5"
     },
     {
-      "department": "BYU Catering",
-      "recordtype": "this is a fake record. ",
-      "function": "Finance",
-      "recordcategoryid": "FIN10",
-      "description": "s154654565656",
-      "notes": "sss",
-      "classification": [
-        " Highly Confidential "
-      ],
-      "status": "Approved",
-      "id": "ETBslY7",
-      "comments": "asdf"
-    },
-    {
       "department": "Computer Science",
       "recordtype": "C# exam",
       "function": "Employment",
@@ -200,20 +186,6 @@
       "id": "GcBMy2A"
     },
     {
-      "department": "BYU Catering",
-      "recordtype": "ww",
-      "function": "Employment",
-      "recordcategoryid": "STU02",
-      "description": "ww",
-      "comments": "ww00",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "J0MAuIj"
-    },
-    {
       "department": "Honor Code Office",
       "recordtype": "Faculty",
       "function": "Miscellaneous",
@@ -227,20 +199,6 @@
       "status": "Approved",
       "code": "",
       "id": "BMlssmN"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "oo",
-      "function": "Faculty",
-      "recordcategoryid": "MISC9",
-      "description": "oo",
-      "comments": "oo",
-      "classification": [
-        " Highly Confidential "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "VXo2PEd"
     },
     {
       "department": "BYU Catering",
@@ -270,34 +228,6 @@
       "status": "Approved",
       "code": "",
       "id": "dU4VTBP"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "k",
-      "function": "Administrative",
-      "recordcategoryid": "STU19",
-      "description": "j",
-      "comments": "n345345",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "XaXN_cG"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "hjk",
-      "function": "Human Resource",
-      "recordcategoryid": "STU19",
-      "description": "hjk",
-      "comments": "hjk",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "WO5GIek"
     },
     {
       "department": "BYU Catering",
@@ -371,14 +301,100 @@
       "function": "Human Resource",
       "recordcategoryid": "MISC9",
       "description": "testttt",
-      "comments": "friendly comments:)",
+      "comments": "ghfjdk",
       "classification": [
         " Archival ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": "K6oZI77"
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "ss2",
+      "function": "Faculty",
+      "recordcategoryid": "ADM01",
+      "description": "ss",
+      "comments": "sss",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": "f-94m30"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "www",
+      "function": "Human Resource",
+      "recordcategoryid": "OIT04",
+      "description": "www",
+      "comments": "wwww",
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": "YeBrSFi"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "www",
+      "function": "Financial",
+      "recordcategoryid": "common",
+      "description": "sss",
+      "comments": "ss",
+      "classification": [
+        " Archival ",
+        " Highly Confidential "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": "_DWqSsM"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "www",
+      "function": "Financial",
+      "recordcategoryid": "MISC9",
+      "description": "www",
+      "comments": "www",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "emm38HK"
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "sdfgsdfg",
+      "function": "Human Resource",
+      "recordcategoryid": "MISC9",
+      "description": "ww",
+      "comments": "qweqweqwe",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "vH5DuJ8"
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "sunny",
+      "function": "Administrative",
+      "recordcategoryid": "STU19",
+      "description": "sdfsdf",
+      "comments": "sdfsdfs",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": "OZfkyPS"
     }
   ],
   "commonrecords": [
@@ -930,13 +946,22 @@
     {
       "username": "hahasunny",
       "password": "sunnyd",
+      "school": "BYU",
       "department": "Honor Code Office",
       "admin": true
     },
     {
       "username": "honey",
       "password": "isadog",
+      "school": "BYUH",
       "department": "BYU Catering",
+      "admin": false
+    },
+    {
+      "username": "guava",
+      "password": "goodgood",
+      "school": "LDSBC",
+      "department": "Computer Science",
       "admin": false
     }
   ]

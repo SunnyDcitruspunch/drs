@@ -4,10 +4,10 @@ import { IRecord } from "./RecordStore";
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
   fetchAll: () => void;
-  updateEditID: any;
+  updateEditID: (r: IRecord) => void
+  updateDeleteID: (r: IRecord) => void
   selectedDepartment: IDepartment 
   selectedCommonRecords: Array<IRecord>;
-  deleteID: string;
   deleterecord: IRecord
   deleteRecord: () => void;
   updateRecord: (c: string[]) => void;
@@ -38,7 +38,6 @@ class _DepartmentStore implements IDepartmentStore {
   selectedCommonRecords: IRecord[] = [];
   allDepartments: IDepartment[] = [];
   _allRecords: IRecord[] = [];
-  deleteID = "";
   deleterecord: IRecord = {
     id: "",
     department: "",
@@ -118,6 +117,10 @@ class _DepartmentStore implements IDepartmentStore {
   updateEditID(postDetail: IRecord) {
     this.editrecord = postDetail;
     this.editcomment = postDetail.comments
+  }
+
+  updateDeleteID(r: IRecord) {
+    this.deleterecord = r
   }
 
   async deleteRecord() {
@@ -204,6 +207,7 @@ decorate(_DepartmentStore, {
   deleteRecord: action,
   updateRecord: action,
   updateEditID: action,
+  updateDeleteID: action, 
   fetchAllRecords: action,
   allRecords: computed
 });

@@ -1,5 +1,5 @@
 import { observable, action, decorate } from "mobx";
-import { IRecord } from "./RecordStore";
+import { IRecord, DepartmentStore } from "../stores";
 
 export interface IUniqueStore {
   uniquerecords: IRecord;
@@ -77,7 +77,11 @@ class _UniqueStore {
     this.uniquerecords.description = "";
     // this.uniquerecords.classification = ""
     this.uniquerecords.comments = "";
+
+    DepartmentStore.fetchAllRecords()
   }
+
+  
 }
 
 decorate(_UniqueStore, {

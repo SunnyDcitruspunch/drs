@@ -29,8 +29,7 @@ interface IProps {
 }
 
 interface IState {
-  approvedrecords: Array<Object>;
-  snackbar: boolean;
+  approvedrecords: Array<IRecord>;
   order: IOrder;
   orderBy: string;
   openEdit: boolean;
@@ -61,7 +60,6 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
 
         this.state = {
           approvedrecords: [],
-          snackbar: false,
           order: "asc",
           orderBy: "recordtype",
           openEdit: false,
@@ -79,7 +77,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           let remove = this.state.approvedrecords.indexOf(e.target.value);
           this.setState({
             approvedrecords: this.state.approvedrecords.filter(
-              (_: any, i: any) => i !== remove
+              (_: IRecord, i: number) => i !== remove
             )
           });
         }
@@ -89,8 +87,6 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         this.props.RecordStore.approveSelectedRecords(
           this.state.approvedrecords
         );
-
-        await this.props.DepartmentStore.fetchAllRecords();
       };
 
       handleEdit = (record: IRecord) => {

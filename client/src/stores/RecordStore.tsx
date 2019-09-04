@@ -1,5 +1,5 @@
 import { action, decorate } from "mobx";
-import { DepartmentStore } from '../stores'
+import { DepartmentStore } from "../stores";
 
 export type IRecord = {
   id?: string;
@@ -35,25 +35,23 @@ class _RecordStore implements IRecordStore {
     status: ""
   };
 
-  //approve selected records: PATCH
   //records: array of record id
-  approveSelectedRecords(records: string[]) {
+  async approveSelectedRecords(records: string[]) {
     const baseUrl = "http://localhost:3004/records";
 
-    records.forEach( async(r: string) => {
-      await fetch(`${baseUrl}/${records[r]}`, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          status: "Approved"
-        })
+      records.forEach(async (r: string) => {
+        await fetch(`${baseUrl}/${r}`, {
+          method: "PATCH",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            status: "Approved"
+          })
+        });
       })
-    })  
-
-    DepartmentStore.fetchAllRecords()
+    DepartmentStore.fetchAllRecords();
   }
 }
 
