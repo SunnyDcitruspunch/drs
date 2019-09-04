@@ -8,18 +8,16 @@ export interface IDepartmentStore {
   updateDeleteID: (r: IRecord) => void
   selectedDepartment: IDepartment 
   selectedCommonRecords: Array<IRecord>;
-  deleterecord: IRecord
+  record: IRecord
   deleteRecord: () => void;
   updateRecord: (c: string[]) => void;
   _allRecords: Array<IRecord>;
   allRecords: Array<IRecord>;
   allDepartments: Array<IDepartment>;
-  editrecord: IRecord;
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
   editcomment: string
 }
-
 
 export interface IDepartment {
   id: string;
@@ -38,7 +36,7 @@ class _DepartmentStore implements IDepartmentStore {
   selectedCommonRecords: IRecord[] = [];
   allDepartments: IDepartment[] = [];
   _allRecords: IRecord[] = [];
-  deleterecord: IRecord = {
+  record: IRecord = {
     id: "",
     department: "",
     recordtype: "",
@@ -51,19 +49,6 @@ class _DepartmentStore implements IDepartmentStore {
     code: ""
   };
   editcomment = ""
-
-  editrecord: IRecord = {
-    id: "",
-    department: "",
-    recordtype: "",
-    function: "",
-    recordcategoryid: "",
-    description: "",
-    comments: "",
-    classification: [],
-    status: "",
-    code: ""
-  };
 
   // select a department
   handleSelected(dept: IDepartment) {   
@@ -105,34 +90,34 @@ class _DepartmentStore implements IDepartmentStore {
 
   handleChange = (e: any) => {
     const { value, name } = e.target;
-    this.editrecord[name] = value;
+    this.record[name] = value;
     this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).function = this.editrecord.function;
+      r => r.id === this.record.id
+    ).function = this.record.function;
     this.allRecords.find(
-      r => r.id === this.editrecord.id
-    ).recordcategoryid = this.editrecord.recordcategoryid;
+      r => r.id === this.record.id
+    ).recordcategoryid = this.record.recordcategoryid;
   };
 
   updateEditID(postDetail: IRecord) {
-    this.editrecord = postDetail;
+    this.record = postDetail;
     this.editcomment = postDetail.comments
   }
 
   updateDeleteID(r: IRecord) {
-    this.deleterecord = r
+    this.record = r
   }
 
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
     const options = { method: "DELETE" };
-    await fetch(`${baseUrl}/${this.deleterecord.id}`, options);
+    await fetch(`${baseUrl}/${this.record.id}`, options);
 
-    let deleteIndex: number = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
+    let deleteIndex: number = this.allDepartments.findIndex((d: IDepartment) => d.department === this.record.department)
     //commoncodes array without the deleted one
-    let updateCommoncodes: string[] = this.allDepartments[deleteIndex].commoncodes.filter((c: string) => c !== this.deleterecord.code )
+    let updateCommoncodes: string[] = this.allDepartments[deleteIndex].commoncodes.filter((c: string) => c !== this.record.code )
 
-    let index = this.allDepartments.findIndex((d: IDepartment) => d.department === this.deleterecord.department)
+    let index = this.allDepartments.findIndex((d: IDepartment) => d.department === this.record.department)
     let id: string = this.allDepartments[index].id
     //patch commoncodes in departments array
     await fetch(`http://localhost:3004/departments/${id}`, {
@@ -145,24 +130,20 @@ class _DepartmentStore implements IDepartmentStore {
         commoncodes: updateCommoncodes
       })     
     })
-
-    updateCommoncodes = [""]
-    deleteIndex = 0
-    id = ""
     this.fetchAllRecords()
   }
 
   //PATCH request
   async updateRecord(classification: string[]) {
-    const i = this._allRecords.findIndex((r)=> r.id === this.editrecord.id)
-    this.allRecords[i] = this.editrecord
+    const i = this._allRecords.findIndex((r)=> r.id === this.record.id)
+    this.allRecords[i] = this.record
 
-    if (this.editrecord.comments !== this.editcomment) {
-      this.editrecord.status = "Pending"
+    if (this.record.comments !== this.editcomment) {
+      this.record.status = "Pending"
     }
 
     const baseUrl = "http://localhost:3004/records";
-    await fetch(`${baseUrl}/${this.editrecord.id}`, {
+    await fetch(`${baseUrl}/${this.record.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -175,13 +156,10 @@ class _DepartmentStore implements IDepartmentStore {
         description: this.allRecords[i].description,
         comments: this.allRecords[i].comments,
         classification: classification,
-        status: this.editrecord.status
+        status: this.record.status
       })     
     });
-    //Tylor's code: made new record => cause double record after edit
-    // const newRecord = await res.json() 
-    // this.setRecord(newRecord)
-    this.editrecord = {
+    this.record = {
       id: "",
       department: "", 
       recordtype: "",
@@ -198,7 +176,7 @@ class _DepartmentStore implements IDepartmentStore {
 
 decorate(_DepartmentStore, {
   selectedDepartment: observable,
-  editrecord: observable,
+  record: observable,
   allDepartments: observable,
   _allRecords: observable,
   handleChange: action,

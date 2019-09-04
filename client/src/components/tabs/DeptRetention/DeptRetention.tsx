@@ -249,7 +249,7 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
             {this.props.DepartmentStore.allRecords
               .filter(
                 (x: IRecord) =>
-                  x.id === this.props.DepartmentStore.editrecord.id
+                  x.id === this.props.DepartmentStore.record.id
               )
               .map((editDetail: IRecord, index) => {
                 return (

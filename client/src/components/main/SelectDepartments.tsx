@@ -27,10 +27,6 @@ interface IState {
   selecteddept: string;
 }
 
-// export interface IRecordStore {
-//   handleSelected: (dept: IDepartment) => void;
-// }
-
 const SelectDepartment = inject(
   "UniqueStore",
   "DepartmentStore",
@@ -78,7 +74,7 @@ const SelectDepartment = inject(
             <FormGroup>
               <Select
                 id="selectdept"
-                style={styles.optionStyle}
+                style={{ fontSize: 12, marginTop: "40px" }}
                 onChange={this.onSelect}
                 value={this.state.selecteddept}
               >
@@ -100,12 +96,5 @@ const SelectDepartment = inject(
     }
   )
 );
-
-const styles = {
-  optionStyle: {
-    fontSize: 12,
-    marginTop: "40px"
-  }
-};
 
 export default SelectDepartment;

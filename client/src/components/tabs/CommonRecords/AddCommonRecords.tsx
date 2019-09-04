@@ -292,8 +292,7 @@ const CommonRecords = inject(
                 >
                   Add selected common records
                 </Button>
-              </Grid>
-             
+              </Grid>             
   
               {/* edit common records */}
               {this.props.CommonStore.commonRecords

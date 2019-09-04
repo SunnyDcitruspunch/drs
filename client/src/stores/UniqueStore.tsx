@@ -75,7 +75,7 @@ class _UniqueStore {
     this.uniquerecords.function = "";
     this.uniquerecords.recordcategoryid = "";
     this.uniquerecords.description = "";
-    // this.uniquerecords.classification = ""
+    this.uniquerecords.classification = [""]
     this.uniquerecords.comments = "";
 
     DepartmentStore.fetchAllRecords()

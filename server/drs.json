@@ -230,34 +230,6 @@
       "id": "dU4VTBP"
     },
     {
-      "department": "BYU Catering",
-      "recordtype": "test",
-      "function": "Employment",
-      "recordcategoryid": "ADM01",
-      "description": "test",
-      "comments": "test",
-      "classification": [
-        " Highly Confidential "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "YLsraq6"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "w234234",
-      "function": "Faculty",
-      "recordcategoryid": "ADM01",
-      "description": "w",
-      "comments": "w",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "iGoitGy"
-    },
-    {
       "department": "Computer Science",
       "recordtype": "yt",
       "function": "Administrative",
@@ -398,6 +370,17 @@
     }
   ],
   "commonrecords": [
+    {
+      "id": "sd1",
+      "code": "CAsdf00",
+      "function": "test",
+      "recordcategoryid": "testcommon",
+      "recordtype": "test port unit reviews",
+      "description": "test  copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
+        " test "
+      ]
+    },
     {
       "id": "1",
       "code": "CACD1000",

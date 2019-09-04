@@ -83,7 +83,6 @@ class _CommonStore implements ICommonStore {
 
   //add selected common records
   addCommonRecords(selects: string[], dept: IDepartment) {
-    //initial value should not be empty... should have pre selected data.
     let commoncodes: string[] = [];
 
     selects.forEach(async (s: string) => {
