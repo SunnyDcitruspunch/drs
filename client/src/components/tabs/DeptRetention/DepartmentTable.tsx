@@ -16,7 +16,7 @@ interface IProps {
   status: string;
 }
 
-const DepartmentTable = observer((props: IProps) => {
+export const DepartmentTable = observer((props: IProps) => {
   const {
     tablekey,
     onedit,
@@ -53,8 +53,6 @@ const DepartmentTable = observer((props: IProps) => {
     </TableRow>
   );
 });
-
-export default DepartmentTable;
 
 const styles = {
   buttonStyle: {

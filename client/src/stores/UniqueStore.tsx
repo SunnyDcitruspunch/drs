@@ -79,9 +79,7 @@ class _UniqueStore {
     this.uniquerecords.comments = "";
 
     DepartmentStore.fetchAllRecords()
-  }
-
-  
+  }  
 }
 
 decorate(_UniqueStore, {

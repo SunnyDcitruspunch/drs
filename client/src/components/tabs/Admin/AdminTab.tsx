@@ -20,7 +20,7 @@ import EnhancedTableHead, {
   IHeadRow
 } from "../../common/EnhancedTableHead";
 import AdminTable from "./AdminTable";
-import EditModal from '../../common/EditModal'
+import { EditModal } from '../../common'
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -116,7 +116,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
           );
           this.setState({
             selectedclassification: this.state.selectedclassification.filter(
-              (_: any, i: any) => i !== remove
+              (_: string, i: number) => i !== remove
             )
           });
         }

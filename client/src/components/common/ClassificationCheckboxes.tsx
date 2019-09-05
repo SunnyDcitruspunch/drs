@@ -25,7 +25,7 @@ interface IProps {
   ifconfidential?: boolean
 }
 
-const ClassificationCheckboxesGroup = observer((props: IProps) => {
+export const ClassificationCheckboxes = observer((props: IProps) => {
   const classes = useStyles();
 
   const { disabled, changecheckbox, ifvital, ifarchival, ifconfidential } = props;
@@ -73,4 +73,4 @@ const ClassificationCheckboxesGroup = observer((props: IProps) => {
   );
 });
 
-export default ClassificationCheckboxesGroup;
+

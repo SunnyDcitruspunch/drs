@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { TableBody, Paper, Button, Table, Container, Grid } from "@material-ui/core";
+import {
+  TableBody,
+  Paper,
+  Button,
+  Table,
+  Container,
+  Grid
+} from "@material-ui/core";
 import {
   IRecordStore,
   IRecord,
@@ -8,15 +15,13 @@ import {
   IUniqueStore,
   ICommonStore,
   ICommonRecord,
-  IUserStore,
-  UserStore
+  IUserStore
 } from "../../../stores";
 import EnhancedTableHead, {
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
-import EditModal from "../../common/EditModal";
-import MessageModal from "../../common/MessageModal";
+import { EditModal, MessageModal } from "../../common";
 import RecordTable from "./RecordTable";
 
 interface IProps {
@@ -25,7 +30,7 @@ interface IProps {
   UniqueStore: IUniqueStore;
   CommonStore: ICommonStore;
   Document: Document;
-  UserStore: IUserStore
+  UserStore: IUserStore;
 }
 
 interface IState {
@@ -150,203 +155,102 @@ const CommonRecords = inject(
         let editClose = () => this.setState({ editShow: false });
         const { CommonStore } = this.props;
 
-        if (UserStore.currentUser.admin){
-          return (
-            <Container style={styles.tableStyle}>
-              <Paper style={{ width: "100%", overflowX: "auto" }}>
-                <Table size="small">
-                  <EnhancedTableHead
-                    id="tablehead"
-                    headrows={headrows}
-                    order={this.state.order}
-                    orderBy={this.state.orderBy}
-                  />
-                  <TableBody>
-                    {CommonStore.commonRecords
-                      .slice()
-                      .sort((a: ICommonRecord, b: ICommonRecord) =>
-                        a.function < b.function ? -1 : 1
+        return (
+          <Container style={styles.tableStyle}>
+            <Paper style={{ width: "100%", overflowX: "auto" }}>
+              <Table size="small">
+                <EnhancedTableHead
+                  id="tablehead"
+                  headrows={headrows}
+                  order={this.state.order}
+                  orderBy={this.state.orderBy}
+                />
+                <TableBody>
+                  {CommonStore.commonRecords
+                    .slice()
+                    .sort((a: ICommonRecord, b: ICommonRecord) =>
+                      a.function < b.function ? -1 : 1
+                    )
+                    .map((record: ICommonRecord, index: number) => {
+                      return (
+                        <RecordTable
+                          key={index}
+                          record={record}
+                          click={() => this.handleEditRecord(record)}
+                          select={this.onSelect}
+                          disabled={
+                            !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
+                              (x: string) => x === record.code
+                            )
+                          }
+                        />
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </Paper>
+            <Grid container justify="center" alignItems="center">
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ marginTop: 10, fontSize: 10 }}
+                onClick={this.addRecord}
+              >
+                Add selected common records
+              </Button>
+            </Grid>
+
+            {/* edit common records */}
+            {this.props.CommonStore.commonRecords
+              .filter(
+                (x: ICommonRecord) =>
+                  x.code === this.props.CommonStore.record.code
+              )
+              .map((postDetail: ICommonRecord) => {
+                return (
+                  <EditModal
+                    title="Edit Comment Record"
+                    record={postDetail}
+                    key={postDetail.id}
+                    open={this.state.editShow}
+                    functionList={this.props.UniqueStore.functionsDropdown}
+                    categoryList={this.props.UniqueStore.categoryDropdown}
+                    close={editClose}
+                    saveedit={this.saveEdit}
+                    disabled={false}
+                    disablecomment={true}
+                    change={CommonStore.handleChange}
+                    changecheckbox={this.handleCheck}
+                    disablecategory={true}
+                    ifarchival={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Archival "
                       )
-                      .map((record: ICommonRecord, index: number) => {
-                        return (
-                          <RecordTable
-                            key={index}
-                            record={record}
-                            click={() => this.handleEditRecord(record)}
-                            select={this.onSelect}
-                            disabled={
-                              !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
-                                (x: string) => x === record.code
-                              )
-                            }
-                          />
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </Paper>
-              <Grid container justify="center" alignItems="center">
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  style={{ marginTop: 10, fontSize: 10 }}
-                  onClick={this.addRecord}
-                >
-                  Add selected common records
-                </Button>
-              </Grid>             
-  
-              {/* edit common records */}
-              {this.props.CommonStore.commonRecords
-                .filter(
-                  (x: ICommonRecord) =>
-                    x.code === this.props.CommonStore.record.code
-                )
-                .map((postDetail: ICommonRecord) => {
-                  return (
-                    <EditModal
-                      title="Edit Comment Record"
-                      record={postDetail}
-                      key={postDetail.id}
-                      open={this.state.editShow}
-                      functionList={this.props.UniqueStore.functionsDropdown}
-                      categoryList={this.props.UniqueStore.categoryDropdown}
-                      close={editClose}
-                      saveedit={this.saveEdit}
-                      disabled={false}
-                      disablecomment={true}
-                      change={CommonStore.handleChange}
-                      changecheckbox={this.handleCheck}
-                      disablecategory={true}
-                      ifarchival={
-                        !!this.state.selectedclassification.find(
-                          (x: string) => x === " Archival "
-                        )
-                      }
-                      ifvital={
-                        !!this.state.selectedclassification.find(
-                          (x: string) => x === " Vital "
-                        )
-                      }
-                      ifconfidential={
-                        !!this.state.selectedclassification.find(
-                          (x: string) => x === " Highly Confidential "
-                        )
-                      }
-                    />
-                  );
-                })}
-  
-              <MessageModal
-                open={this.state.modalShow}
-                close={modalClose}
-                title="Cannot Add this Record"
-                msg="Please select a department."
-                click={() => this.setState({ modalShow: false })}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              />
-            </Container>
-          );
-        } else {
-          return (
-            <Container style={styles.tableStyle}>
-              <Paper style={{ width: "100%", overflowX: "auto" }}>
-                <Table size="small">
-                  <EnhancedTableHead
-                    id="tablehead"
-                    headrows={headrows}
-                    order={this.state.order}
-                    orderBy={this.state.orderBy}
-                  />
-                  <TableBody>
-                    {CommonStore.commonRecords
-                      .slice()
-                      .sort((a: ICommonRecord, b: ICommonRecord) =>
-                        a.function < b.function ? -1 : 1
+                    }
+                    ifvital={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Vital "
                       )
-                      .map((record: ICommonRecord, index: number) => {
-                        return (
-                          <RecordTable
-                            key={index}
-                            record={record}
-                            click={() => this.handleEditRecord(record)}
-                            select={this.onSelect}
-                            disabled={
-                              !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
-                                (x: string) => x === record.code
-                              )
-                            }
-                          />
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </Paper>
-              <Grid container justify="center" alignItems="center">
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  style={{ marginTop: 10, fontSize: 10 }}
-                  onClick={this.addRecord}
-                >
-                  Add selected common records
-                </Button>
-              </Grid>             
-  
-              {/* edit common records */}
-              {this.props.CommonStore.commonRecords
-                .filter(
-                  (x: ICommonRecord) =>
-                    x.code === this.props.CommonStore.record.code
-                )
-                .map((postDetail: ICommonRecord) => {
-                  return (
-                    <EditModal
-                      title="Edit Comment Record"
-                      record={postDetail}
-                      key={postDetail.id}
-                      open={this.state.editShow}
-                      functionList={this.props.UniqueStore.functionsDropdown}
-                      categoryList={this.props.UniqueStore.categoryDropdown}
-                      close={editClose}
-                      saveedit={this.saveEdit}
-                      disabled={false}
-                      disablecomment={true}
-                      change={CommonStore.handleChange}
-                      changecheckbox={this.handleCheck}
-                      disablecategory={true}
-                      ifarchival={
-                        !!this.state.selectedclassification.find(
-                          (x: string) => x === " Archival "
-                        )
-                      }
-                      ifvital={
-                        !!this.state.selectedclassification.find(
-                          (x: string) => x === " Vital "
-                        )
-                      }
-                      ifconfidential={
-                        !!this.state.selectedclassification.find(
-                          (x: string) => x === " Highly Confidential "
-                        )
-                      }
-                    />
-                  );
-                })}
-  
-              <MessageModal
-                open={this.state.modalShow}
-                close={modalClose}
-                title="Cannot Add this Record"
-                msg="Please select a department."
-                click={() => this.setState({ modalShow: false })}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              />
-            </Container>
-          );
-        }
+                    }
+                    ifconfidential={
+                      !!this.state.selectedclassification.find(
+                        (x: string) => x === " Highly Confidential "
+                      )
+                    }
+                  />
+                );
+              })}
+            <MessageModal
+              open={this.state.modalShow}
+              close={modalClose}
+              title="Cannot Add this Record"
+              msg="Please select a department."
+              click={() => this.setState({ modalShow: false })}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            />
+          </Container>
+        );
       }
     }
   )

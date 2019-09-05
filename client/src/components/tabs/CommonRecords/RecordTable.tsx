@@ -15,64 +15,38 @@ interface IProps {
 const RecordTable = inject("UserStore")(
   observer((props: IProps) => {
     const { record, click, select, disabled } = props;
-  
-    if (UserStore.currentUser.admin) {
-      return (
-        <TableRow key={record.id}>
-          <TableCell style={{ width: 150 }}>
-            <CreateOutlinedIcon
-              style={styles.buttonStyle}
-              name="edit"
-              onClick={click}
-            />
-             &nbsp;
-            <DeleteForeverSharpIcon
-              name="delete"
-              // onClick={ondelete}
-              style={styles.buttonStyle}
-            />
-            <Checkbox
-              value={record.id}
-              id={record.id}
-              name={record.id}
-              onClick={select}
-              color="primary"
-              disabled={disabled}
-            />
-          </TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.function}</TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.recordtype}</TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.description}</TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.classification}</TableCell>
-        </TableRow>
-      )  
-    } else {
-      return (
-        <TableRow key={record.id}>
-          <TableCell style={{ width: 120 }}>
-            <CreateOutlinedIcon
-              style={styles.buttonStyle}
-              name="edit"
-              onClick={click}
-            />
-            <Checkbox
-              value={record.id}
-              id={record.id}
-              name={record.id}
-              onClick={select}
-              color="primary"
-              disabled={disabled}
-            />
-          </TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.function}</TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.recordtype}</TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.description}</TableCell>
-          <TableCell style={{ fontSize: 10 }}>{record.classification}</TableCell>
-        </TableRow>
-      )  
-    }
-   
-}));
+
+    return (
+      <TableRow key={record.id}>
+        <TableCell style={{ width: 150 }}>
+          <CreateOutlinedIcon
+            style={styles.buttonStyle}
+            name="edit"
+            onClick={click}
+          />
+          &nbsp;
+          {UserStore.currentUser.admin ? (
+            <DeleteForeverSharpIcon name="delete" style={styles.buttonStyle} />
+          ) : (
+            ""
+          )}
+          <Checkbox
+            value={record.id}
+            id={record.id}
+            name={record.id}
+            onClick={select}
+            color="primary"
+            disabled={disabled}
+          />
+        </TableCell>
+        <TableCell style={{ fontSize: 10 }}>{record.function}</TableCell>
+        <TableCell style={{ fontSize: 10 }}>{record.recordtype}</TableCell>
+        <TableCell style={{ fontSize: 10 }}>{record.description}</TableCell>
+        <TableCell style={{ fontSize: 10 }}>{record.classification}</TableCell>
+      </TableRow>
+    );
+  })
+);
 
 export default RecordTable;
 

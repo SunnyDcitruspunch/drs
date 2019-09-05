@@ -1,5 +1,5 @@
 import * as React from "react";
-import AdminRoute from './AdminRoute'
+import SelectTabs from "./SelectTabs";
 import { inject, observer } from "mobx-react";
 import {
   IDepartmentStore,
@@ -24,7 +24,7 @@ interface IProps {
 }
 
 interface IState {
-  selecteddept: string
+  selecteddept: string;
 }
 
 const Main = inject(
@@ -37,9 +37,9 @@ const Main = inject(
   observer(
     class Main extends React.Component<IProps, IState> {
       constructor(props: IProps) {
-        super(props)
+        super(props);
 
-        this.state = { selecteddept: "" }
+        this.state = { selecteddept: "" };
       }
 
       componentDidMount() {
@@ -51,25 +51,33 @@ const Main = inject(
         this.props.UniqueStore.fetchCategory();
 
         this.setState({ selecteddept: "" });
-      };
+      }
 
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
         const deptIndex: number = this.props.DepartmentStore.allDepartments.findIndex(
           (x: IDepartment) => x.department === value
-        )
-        const dept: IDepartment = this.props.DepartmentStore.allDepartments[deptIndex]
+        );
+        const dept: IDepartment = this.props.DepartmentStore.allDepartments[
+          deptIndex
+        ];
         this.setState({ selecteddept: value });
         this.props.DepartmentStore.handleSelected(dept);
       };
 
       render() {
         const { DepartmentStore, UserStore } = this.props;
-     
-          if (UserStore.currentUser.admin) {
-            return (
-              <React.Fragment>
-              <Grid container justify="center" alignItems="center" alignContent="center" style={{ marginBottom: 50 }}>
+
+        return (
+          <React.Fragment>
+            <Grid
+              container
+              justify="center"
+              alignItems="center"
+              alignContent="center"
+              style={{ marginBottom: 50 }}
+            >
+              {UserStore.currentUser.admin ? (
                 <FormGroup>
                   <Select
                     id="selectdept"
@@ -93,24 +101,17 @@ const Main = inject(
                       ))}
                   </Select>
                 </FormGroup>
-              </Grid>
-              <AdminRoute admin={this.props.UserStore.currentUser.admin} />
-            </React.Fragment>
-            )
-          } else {
-            return (
-              <React.Fragment>
-              <Grid container justify="center" alignItems="center" alignContent="center" style={{ marginBottom: 50 }}>
+              ) : (
                 <FormGroup>
                   <br />
-                  <h3>{ UserStore.currentUser.department }</h3>
+                  <h3>{UserStore.currentUser.department}</h3>
                 </FormGroup>
-              </Grid>
-              <AdminRoute admin={this.props.UserStore.currentUser.admin} />
-            </React.Fragment>
-            )
-          }       
-        }
+              )}
+            </Grid>
+            <SelectTabs />
+          </React.Fragment>
+        );
+      }
     }
   )
 );

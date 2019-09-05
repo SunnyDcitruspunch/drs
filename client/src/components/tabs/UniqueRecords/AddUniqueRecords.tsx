@@ -9,10 +9,7 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { IUniqueStore, IDepartmentStore, IRecordStore } from "../../../stores";
-import MessageModal from "../../common/MessageModal";
-import FunctionDropdown from "../../common/FunctionDropdown";
-import CategoryDropdown from '../../common/CategoryDropdown'
-import ClassificationCheckboxes from "../../common/ClassificationCheckboxes";
+import { MessageModal, FunctionDropdown, CategoryDropdown, ClassificationCheckboxes } from "../../common";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;

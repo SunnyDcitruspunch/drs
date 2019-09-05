@@ -17,7 +17,7 @@ interface IProps {
   title: string;
 }
 
-const DeleteModal = observer((props: IProps) => {
+export const DeleteModal = observer((props: IProps) => {
   const { open, click, msg, title, pdelete } = props;
 
   return (
@@ -44,4 +44,3 @@ const DeleteModal = observer((props: IProps) => {
   );
 });
 
-export default DeleteModal;

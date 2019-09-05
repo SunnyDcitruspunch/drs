@@ -21,9 +21,8 @@ import EnhancedTableHead, {
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
-import EditModal from "../../common/EditModal";
-import DepartmentTable from "../DeptRetention/DepartmentTable";
-import DeleteModal from "../DeptRetention/DeleteModal";
+import { EditModal } from "../../common";
+import { DepartmentTable, DeleteModal } from "../DeptRetention";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -59,7 +58,7 @@ const headrows: IHeadRow[] = [
   { id: "status", label: "Status" }
 ];
 
-const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
+export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
   observer(
     class DeptRetnetion extends React.Component<IProps, IState> {
       constructor(props: IProps) {
@@ -98,8 +97,8 @@ const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
         this.setState({ loadingPdf: true });
 
         axios
-          .post("/create-pdf", this.props.DepartmentStore)
-          .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
+          .post("/create-retention", this.props.DepartmentStore)
+          .then(() => axios.get("fetch-retention", { responseType: "blob" }))
           .then((res: any) => {
             this.setState({ loadingPdf: false });
             const pdfBlob = new Blob([res.data], { type: "application/pdf" });

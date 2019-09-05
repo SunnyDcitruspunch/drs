@@ -12,7 +12,7 @@ interface IProps {
   disabled: boolean;
 }
 
-const CategoryDropdown = observer((props: IProps) => {
+export const CategoryDropdown = observer((props: IProps) => {
   const { value, change, id, name, dropdown, title, disabled } = props;
 
   return (
@@ -39,4 +39,3 @@ const CategoryDropdown = observer((props: IProps) => {
   );
 })
 
-export default CategoryDropdown;

@@ -17,7 +17,7 @@ interface IProps {
   title: string;
 }
 
-const MessageModal = observer((props: IProps) => {
+export const MessageModal = observer((props: IProps) => {
   const { open, close, click, msg, title } = props;
 
   return (
@@ -42,4 +42,3 @@ const MessageModal = observer((props: IProps) => {
   );
 });
 
-export default MessageModal;

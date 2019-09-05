@@ -13,7 +13,8 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-app.post('/create-pdf', (req, res) => {
+//create drs pdf
+app.post('/create-retention', (req, res) => {
     pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf', (err) => {
         if(err){
             res.send(Promise.reject())
@@ -23,7 +24,18 @@ app.post('/create-pdf', (req, res) => {
     })
 })
 
-app.get('/fetch-pdf', (req, res) => {
+//create delete common records departments pdf
+app.post('/commonrecords-departments', (req, res) => {
+    pdf.create(pdfTemplate(req.body), {}).toFile('departments.pdf', (err) => {
+        if (err) {
+            res.send(Promise.reject())
+        }
+
+        res.send(Promise.resolve())
+    })
+})
+
+app.get('/fetch-retention', (req, res) => {
     res.sendFile(`${__dirname}/result.pdf`)
 })
 

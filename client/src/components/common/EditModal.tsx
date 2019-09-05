@@ -17,7 +17,7 @@ import {
   Checkbox
 } from "@material-ui/core";
 import { IRecord, ICommonRecord } from "../../stores";
-import FunctionDropdown from "./FunctionDropdown";
+import { FunctionDropdown } from "./index";
 import { observer } from "mobx-react";
 
 interface IProps {
@@ -38,7 +38,7 @@ interface IProps {
   ifconfidential?: boolean;
 }
 
-const EditModal = observer((props: IProps) => {
+export const EditModal = observer((props: IProps) => {
   const {
     change,
     record,
@@ -198,4 +198,3 @@ const EditModal = observer((props: IProps) => {
   );
 });
 
-export default EditModal;
