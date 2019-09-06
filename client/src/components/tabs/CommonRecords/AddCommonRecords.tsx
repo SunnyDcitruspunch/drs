@@ -23,6 +23,7 @@ import EnhancedTableHead, {
 } from "../../common/EnhancedTableHead";
 import { EditModal, MessageModal } from "../../common";
 import RecordTable from "./RecordTable";
+import DeleteModal from './DeleteModal'
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -49,6 +50,7 @@ interface Document {
 }
 
 const headrows: IHeadRow[] = [
+  { id: "deptnum", label: "Used Department" },
   { id: "function", label: "Function" },
   {
     id: "recordtype",
@@ -150,10 +152,14 @@ const CommonRecords = inject(
         console.log(this.state.selectedclassification);
       };
 
+      handleDelete = () => {
+        console.log('show all departments')
+      }
+
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
-        const { CommonStore } = this.props;
+        const { CommonStore, DepartmentStore } = this.props;
 
         return (
           <Container style={styles.tableStyle}>
@@ -177,9 +183,10 @@ const CommonRecords = inject(
                           key={index}
                           record={record}
                           click={() => this.handleEditRecord(record)}
+                          showdelete={this.handleDelete}
                           select={this.onSelect}
                           disabled={
-                            !!this.props.DepartmentStore.selectedDepartment.commoncodes.find(
+                            !!DepartmentStore.selectedDepartment.commoncodes.find(
                               (x: string) => x === record.code
                             )
                           }
@@ -248,6 +255,11 @@ const CommonRecords = inject(
               click={() => this.setState({ modalShow: false })}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
+            />
+
+            {/* show depts using this common record */}
+            <DeleteModal
+              open={false}
             />
           </Container>
         );

@@ -1,5 +1,5 @@
 import { observable, decorate, action } from "mobx";
-import { IDepartment, IRecord, DepartmentStore } from '.'
+import { IDepartment, IRecord, DepartmentStore } from ".";
 
 export interface ICommonRecord {
   id: string;
@@ -10,6 +10,7 @@ export interface ICommonRecord {
   description: string;
   classification: string[];
   comments?: string;
+  useddepartment: number
 }
 
 export interface ICommonStore {
@@ -18,12 +19,12 @@ export interface ICommonStore {
   fetchCommonRecords: () => void;
   updateCommonRecord: (c: string[]) => void;
   getEditRecord: (record: ICommonRecord) => void;
-  addCommonRecords: (selects: string[], dept: IDepartment) => void
+  addCommonRecords: (selects: string[], dept: IDepartment) => void;
   handleChange: (e: any) => void;
 }
 
 class _CommonStore implements ICommonStore {
-  commonRecords = [];
+  commonRecords: ICommonRecord[] = [];
   record: ICommonRecord = {
     id: "",
     code: "",
@@ -32,7 +33,8 @@ class _CommonStore implements ICommonStore {
     recordcategoryid: "",
     description: "",
     comments: "",
-    classification: [""]
+    classification: [""],
+    useddepartment: 0
   };
 
   async fetchCommonRecords() {
@@ -41,6 +43,14 @@ class _CommonStore implements ICommonStore {
         return response.json();
       })
       .then(json => (this.commonRecords = json));
+
+      this.commonRecords.forEach((crecord: ICommonRecord) => {
+        DepartmentStore.allDepartments.forEach((d: IDepartment) => {
+          if (!!d.commoncodes.find((x: string) => x === crecord.code)) {
+            crecord.useddepartment++
+          }
+        });
+      })
   }
 
   //record waiting to be edited
@@ -78,7 +88,7 @@ class _CommonStore implements ICommonStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.commonRecords = json))
+      .then(json => (this.commonRecords = json));
   }
 
   //add selected common records
@@ -97,8 +107,9 @@ class _CommonStore implements ICommonStore {
         status: "Approved",
         code: ""
       };
-      this.commonRecords.filter((x: ICommonRecord) => x.id === s).forEach(
-        (postDetail: IRecord) => {
+      this.commonRecords
+        .filter((x: ICommonRecord) => x.id === s)
+        .forEach((postDetail: ICommonRecord) => {
           commoncodes = dept.commoncodes;
 
           //post common records to records list
@@ -114,8 +125,7 @@ class _CommonStore implements ICommonStore {
             status: "Approved"
           };
           commoncodes.push(postDetail.code);
-        }
-      );
+        });
 
       // add selected common records to records list
       await fetch("http://localhost:3004/records", {
@@ -139,7 +149,7 @@ class _CommonStore implements ICommonStore {
           commoncodes: commoncodes
         })
       });
-    })
+    });
 
     DepartmentStore.fetchAllRecords();
   }

@@ -1,5 +1,6 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
 import { IRecord } from "./RecordStore";
+import { CommonStore, ICommonRecord } from "./CommonStore";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
@@ -17,6 +18,7 @@ export interface IDepartmentStore {
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
   editcomment: string
+  // deptcommon: any
 }
 
 export interface IDepartment {
@@ -49,6 +51,8 @@ class _DepartmentStore implements IDepartmentStore {
     code: ""
   };
   editcomment = ""
+
+  // deptcommon = []
 
   // select a department
   handleSelected(dept: IDepartment) {   

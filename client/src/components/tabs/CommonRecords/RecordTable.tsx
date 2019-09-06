@@ -8,17 +8,18 @@ import { observer, inject } from "mobx-react";
 interface IProps {
   record: ICommonRecord;
   click: () => void;
+  showdelete: () => void;
   select: (e: any) => void;
   disabled: boolean;
 }
 
 const RecordTable = inject("UserStore")(
   observer((props: IProps) => {
-    const { record, click, select, disabled } = props;
+    const { record, click, select, disabled, showdelete } = props;
 
     return (
       <TableRow key={record.id}>
-        <TableCell style={{ width: 150 }}>
+        <TableCell style={{ width: 140 }}>
           <CreateOutlinedIcon
             style={styles.buttonStyle}
             name="edit"
@@ -26,7 +27,7 @@ const RecordTable = inject("UserStore")(
           />
           &nbsp;
           {UserStore.currentUser.admin ? (
-            <DeleteForeverSharpIcon name="delete" style={styles.buttonStyle} />
+            <DeleteForeverSharpIcon name="delete" style={styles.buttonStyle} onClick={showdelete} />
           ) : (
             ""
           )}
@@ -39,6 +40,8 @@ const RecordTable = inject("UserStore")(
             disabled={disabled}
           />
         </TableCell>
+        {/* <TableCell style={{ fontSize: 10 }}>{record.code}</TableCell> */}
+        <TableCell style={{ fontSize: 10 }}>{record.useddepartment}</TableCell>
         <TableCell style={{ fontSize: 10 }}>{record.function}</TableCell>
         <TableCell style={{ fontSize: 10 }}>{record.recordtype}</TableCell>
         <TableCell style={{ fontSize: 10 }}>{record.description}</TableCell>

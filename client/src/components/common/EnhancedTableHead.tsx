@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 
 export type IOrder = "asc" | "desc";
 export interface IData {
+  deptnum: string;
   department?: string;
   recordtype: string;
   description: string;
