@@ -100,34 +100,6 @@
       "id": "MmKSNKU"
     },
     {
-      "department": "Honor Code Office",
-      "code": "CHUM1100",
-      "function": "Employment",
-      "recordcategoryid": "common",
-      "recordtype": "Job descriptions.",
-      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
-      "classification": [
-        " Highly Confidential "
-      ],
-      "comments": "11common notes",
-      "status": "Approved",
-      "id": "R9iXq39"
-    },
-    {
-      "department": "Computer Science",
-      "code": "CACD1000",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "today is a sunny day :)",
-      "classification": [
-        " Highly Confidential "
-      ],
-      "comments": "common notes?",
-      "status": "Approved",
-      "id": "0z_ziao"
-    },
-    {
       "department": "Information Systems",
       "function": "Miscellaneous",
       "recordcategoryid": "OIT04",
@@ -140,20 +112,6 @@
       "status": "Approved",
       "id": "lH3_e9w",
       "comments": "asdf"
-    },
-    {
-      "department": "Information Systems",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "recordtype": "Faculty",
-      "description": "importand record",
-      "classification": [
-        " Archival "
-      ],
-      "comments": "asdf",
-      "code": "CACD1100",
-      "status": "Approved",
-      "id": "77V-RNU"
     },
     {
       "department": "Computer Science",
@@ -895,15 +853,15 @@
       "id": "0",
       "department": "Records",
       "departmentnumber": "200",
-      "commoncodes": [
-        "CACD1100"
-      ]
+      "commoncodes": []
     },
     {
       "id": "1",
       "department": "Information Systems",
       "departmentnumber": "401",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1100"
+      ]
     },
     {
       "id": "2",

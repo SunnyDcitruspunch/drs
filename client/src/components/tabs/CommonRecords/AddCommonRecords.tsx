@@ -23,7 +23,7 @@ import EnhancedTableHead, {
 } from "../../common/EnhancedTableHead";
 import { EditModal, MessageModal } from "../../common";
 import RecordTable from "./RecordTable";
-import DeleteModal from './DeleteModal'
+import DeleteModal from "./DeleteModal";
 
 interface IProps {
   RecordStore: IRecordStore;
@@ -37,6 +37,7 @@ interface IProps {
 interface IState {
   modalShow: boolean;
   editShow: boolean;
+  showDeleteModal: boolean;
   selectrecord: string[];
   order: IOrder;
   orderBy: string;
@@ -77,6 +78,7 @@ const CommonRecords = inject(
         this.state = {
           modalShow: false, //if not select a department
           editShow: false,
+          showDeleteModal: false,
           selectrecord: [],
           order: "asc",
           orderBy: "recordtype",
@@ -152,14 +154,28 @@ const CommonRecords = inject(
         console.log(this.state.selectedclassification);
       };
 
-      handleDelete = () => {
-        console.log('show all departments')
-      }
+      handleDelete = (deleterecord: ICommonRecord) => {
+        this.props.CommonStore.getEditRecord(deleterecord);
+        this.setState({
+          showDeleteModal: true
+        });
+        console.log("show delete modal");
+      };
+
+      closeEditModal = () => {
+        this.setState({
+          showDeleteModal: false
+        });
+      };
+
+      onDelete = () => {
+        this.closeEditModal();
+      };
 
       render() {
         let modalClose = () => this.setState({ modalShow: false });
         let editClose = () => this.setState({ editShow: false });
-        const { CommonStore, DepartmentStore } = this.props;
+        const { CommonStore, DepartmentStore, UniqueStore } = this.props;
 
         return (
           <Container style={styles.tableStyle}>
@@ -183,7 +199,7 @@ const CommonRecords = inject(
                           key={index}
                           record={record}
                           click={() => this.handleEditRecord(record)}
-                          showdelete={this.handleDelete}
+                          showdelete={() => this.handleDelete(record)}
                           select={this.onSelect}
                           disabled={
                             !!DepartmentStore.selectedDepartment.commoncodes.find(
@@ -208,43 +224,60 @@ const CommonRecords = inject(
             </Grid>
 
             {/* edit common records */}
-            {this.props.CommonStore.commonRecords
-              .filter(
-                (x: ICommonRecord) =>
-                  x.code === this.props.CommonStore.record.code
-              )
+            {CommonStore.commonRecords
+              .filter((x: ICommonRecord) => x.code === CommonStore.record.code)
               .map((postDetail: ICommonRecord) => {
                 return (
-                  <EditModal
-                    title="Edit Comment Record"
-                    record={postDetail}
-                    key={postDetail.id}
-                    open={this.state.editShow}
-                    functionList={this.props.UniqueStore.functionsDropdown}
-                    categoryList={this.props.UniqueStore.categoryDropdown}
-                    close={editClose}
-                    saveedit={this.saveEdit}
-                    disabled={false}
-                    disablecomment={true}
-                    change={CommonStore.handleChange}
-                    changecheckbox={this.handleCheck}
-                    disablecategory={true}
-                    ifarchival={
-                      !!this.state.selectedclassification.find(
-                        (x: string) => x === " Archival "
-                      )
-                    }
-                    ifvital={
-                      !!this.state.selectedclassification.find(
-                        (x: string) => x === " Vital "
-                      )
-                    }
-                    ifconfidential={
-                      !!this.state.selectedclassification.find(
-                        (x: string) => x === " Highly Confidential "
-                      )
-                    }
-                  />
+                  <div key={postDetail.id}>
+                    <EditModal
+                      title="Edit Comment Record"
+                      record={postDetail}
+                      open={this.state.editShow}
+                      functionList={UniqueStore.functionsDropdown}
+                      categoryList={UniqueStore.categoryDropdown}
+                      close={editClose}
+                      saveedit={this.saveEdit}
+                      disabled={false}
+                      disablecomment={true}
+                      change={CommonStore.handleChange}
+                      changecheckbox={this.handleCheck}
+                      disablecategory={true}
+                      ifarchival={
+                        !!this.state.selectedclassification.find(
+                          (x: string) => x === " Archival "
+                        )
+                      }
+                      ifvital={
+                        !!this.state.selectedclassification.find(
+                          (x: string) => x === " Vital "
+                        )
+                      }
+                      ifconfidential={
+                        !!this.state.selectedclassification.find(
+                          (x: string) => x === " Highly Confidential "
+                        )
+                      }
+                    />
+
+                    {/* show depts using this common record */}
+                    <DeleteModal
+                      open={this.state.showDeleteModal}
+                      close={this.closeEditModal}
+                      msg={"Total Departments: " + postDetail.useddepartment}
+                      depts={DepartmentStore._allRecords
+                        .filter(
+                          (r: IRecord) => r.code === CommonStore.record.code
+                        )
+                        .map((r: IRecord, index: number) => {
+                          return (
+                            <span key={index}>
+                              {r.department} <br />
+                            </span>
+                          );
+                        })}
+                      ondelete={this.onDelete}
+                    />
+                  </div>
                 );
               })}
             <MessageModal
@@ -255,11 +288,6 @@ const CommonRecords = inject(
               click={() => this.setState({ modalShow: false })}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
-            />
-
-            {/* show depts using this common record */}
-            <DeleteModal
-              open={false}
             />
           </Container>
         );

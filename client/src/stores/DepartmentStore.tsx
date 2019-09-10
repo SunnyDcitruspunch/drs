@@ -1,15 +1,15 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
 import { IRecord } from "./RecordStore";
-import { CommonStore, ICommonRecord } from "./CommonStore";
+import { CommonStore } from "./CommonStore";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
   fetchAll: () => void;
-  updateEditID: (r: IRecord) => void
-  updateDeleteID: (r: IRecord) => void
-  selectedDepartment: IDepartment 
+  updateEditID: (r: IRecord) => void;
+  updateDeleteID: (r: IRecord) => void;
+  selectedDepartment: IDepartment;
   selectedCommonRecords: Array<IRecord>;
-  record: IRecord
+  record: IRecord;
   deleteRecord: () => void;
   updateRecord: (c: string[]) => void;
   _allRecords: Array<IRecord>;
@@ -17,8 +17,7 @@ export interface IDepartmentStore {
   allDepartments: Array<IDepartment>;
   handleSelected: (edpt: IDepartment) => void;
   handleChange: (e: any) => void;
-  editcomment: string
-  // deptcommon: any
+  editcomment: string;
 }
 
 export interface IDepartment {
@@ -32,8 +31,8 @@ class _DepartmentStore implements IDepartmentStore {
   selectedDepartment: IDepartment = {
     id: "",
     department: "",
-    departmentnumber:"",
-    commoncodes:[]
+    departmentnumber: "",
+    commoncodes: []
   };
   selectedCommonRecords: IRecord[] = [];
   allDepartments: IDepartment[] = [];
@@ -50,13 +49,13 @@ class _DepartmentStore implements IDepartmentStore {
     status: "",
     code: ""
   };
-  editcomment = ""
+  editcomment = "";
 
   // deptcommon = []
 
   // select a department
-  handleSelected(dept: IDepartment) {   
-      this.selectedDepartment = dept    
+  handleSelected(dept: IDepartment) {
+    this.selectedDepartment = dept;
   }
 
   fetchAll = () => {
@@ -64,32 +63,28 @@ class _DepartmentStore implements IDepartmentStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.allDepartments = json))
+      .then(json => (this.allDepartments = json));
   };
 
- fetchAllRecords = () => {
-  fetch("http://localhost:3004/records")
+  fetchAllRecords = () => {
+    fetch("http://localhost:3004/records")
       .then(response => {
         return response.json();
       })
       .then(json => (this._allRecords = json));
-  }
+  };
 
   get allRecords(): Array<any> {
     return this._allRecords;
   }
 
   setAllRecords(records: IRecord[]) {
-    runInAction(() => 
-    this._allRecords = records
-    )
+    runInAction(() => (this._allRecords = records));
   }
 
   setRecord(record: IRecord) {
-    const i = this._allRecords.findIndex((r)=> r.id = record.id)
-    runInAction(() => 
-    this._allRecords[i] = record
-    )
+    const i = this._allRecords.findIndex(r => (r.id = record.id));
+    runInAction(() => (this._allRecords[i] = record));
   }
 
   handleChange = (e: any) => {
@@ -105,11 +100,11 @@ class _DepartmentStore implements IDepartmentStore {
 
   updateEditID(postDetail: IRecord) {
     this.record = postDetail;
-    this.editcomment = postDetail.comments
+    this.editcomment = postDetail.comments;
   }
 
   updateDeleteID(r: IRecord) {
-    this.record = r
+    this.record = r;
   }
 
   async deleteRecord() {
@@ -117,12 +112,18 @@ class _DepartmentStore implements IDepartmentStore {
     const options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.record.id}`, options);
 
-    let deleteIndex: number = this.allDepartments.findIndex((d: IDepartment) => d.department === this.record.department)
+    let deleteIndex: number = this.allDepartments.findIndex(
+      (d: IDepartment) => d.department === this.record.department
+    );
     //commoncodes array without the deleted one
-    let updateCommoncodes: string[] = this.allDepartments[deleteIndex].commoncodes.filter((c: string) => c !== this.record.code )
+    let updateCommoncodes: string[] = this.allDepartments[
+      deleteIndex
+    ].commoncodes.filter((c: string) => c !== this.record.code);
 
-    let index = this.allDepartments.findIndex((d: IDepartment) => d.department === this.record.department)
-    let id: string = this.allDepartments[index].id
+    let index = this.allDepartments.findIndex(
+      (d: IDepartment) => d.department === this.record.department
+    );
+    let id: string = this.allDepartments[index].id;
     //patch commoncodes in departments array
     await fetch(`http://localhost:3004/departments/${id}`, {
       method: "PATCH",
@@ -132,18 +133,18 @@ class _DepartmentStore implements IDepartmentStore {
       },
       body: JSON.stringify({
         commoncodes: updateCommoncodes
-      })     
-    })
-    this.fetchAllRecords()
+      })
+    });
+    this.fetchAllRecords();
   }
 
   //PATCH request
   async updateRecord(classification: string[]) {
-    const i = this._allRecords.findIndex((r)=> r.id === this.record.id)
-    this.allRecords[i] = this.record
+    const i = this._allRecords.findIndex(r => r.id === this.record.id);
+    this.allRecords[i] = this.record;
 
     if (this.record.comments !== this.editcomment) {
-      this.record.status = "Pending"
+      this.record.status = "Pending";
     }
 
     const baseUrl = "http://localhost:3004/records";
@@ -161,11 +162,11 @@ class _DepartmentStore implements IDepartmentStore {
         comments: this.allRecords[i].comments,
         classification: classification,
         status: this.record.status
-      })     
+      })
     });
     this.record = {
       id: "",
-      department: "", 
+      department: "",
       recordtype: "",
       function: "",
       recordcategoryid: "",
@@ -189,7 +190,7 @@ decorate(_DepartmentStore, {
   deleteRecord: action,
   updateRecord: action,
   updateEditID: action,
-  updateDeleteID: action, 
+  updateDeleteID: action,
   fetchAllRecords: action,
   allRecords: computed
 });

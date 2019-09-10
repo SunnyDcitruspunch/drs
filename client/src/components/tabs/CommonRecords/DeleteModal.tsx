@@ -5,21 +5,21 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogContentText
+  DialogContentText,
+  Typography
 } from "@material-ui/core";
 import { observer } from "mobx-react";
 
 interface IProps {
   open: boolean;
-//   click: () => void;
-//   pdelete: () => void;
-//   msg: string;
-//   title: string;
+  close: () => void;
+  ondelete: () => void;
+  msg: string;
+  depts: any;
 }
 
 const DeleteModal = observer((props: IProps) => {
-    // const { open, click, msg, title, pdelete } = props;
-    const { open } = props;
+  const { open, close, msg, ondelete, depts } = props;
 
   return (
     <Dialog
@@ -27,22 +27,32 @@ const DeleteModal = observer((props: IProps) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      {/* <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-      <DialogContent>
+      <DialogTitle id="alert-dialog-title">{"Delete Record"}</DialogTitle>
+      <DialogContent dividers>
         <DialogContentText id="alert-dialog-description">
           {msg}
         </DialogContentText>
+        <Button
+          variant="outlined"
+          color="primary"
+          style={{ marginTop: 10, fontSize: 10, marginBottom: 10 }}
+        >
+          Download Department List
+        </Button>
+        <Typography style={{ textAlign: "center" }} gutterBottom>
+          {depts}
+        </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={click} color="primary">
-            Close
+        <Button onClick={close} color="primary">
+          Close
         </Button>
-        <Button onClick={pdelete} color="primary">
+        <Button onClick={ondelete} color="primary">
           Delete
         </Button>
-      </DialogActions> */}
+      </DialogActions>
     </Dialog>
   );
 });
 
-export default DeleteModal
+export default DeleteModal;

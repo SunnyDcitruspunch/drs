@@ -40,7 +40,7 @@ const RecordTable = inject("UserStore")(
             disabled={disabled}
           />
         </TableCell>
-        {/* <TableCell style={{ fontSize: 10 }}>{record.code}</TableCell> */}
+        <TableCell style={{ fontSize: 10 }}>{record.code}</TableCell>
         <TableCell style={{ fontSize: 10 }}>{record.useddepartment}</TableCell>
         <TableCell style={{ fontSize: 10 }}>{record.function}</TableCell>
         <TableCell style={{ fontSize: 10 }}>{record.recordtype}</TableCell>
