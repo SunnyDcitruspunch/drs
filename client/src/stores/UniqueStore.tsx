@@ -79,6 +79,7 @@ class _UniqueStore {
     this.uniquerecords.comments = "";
 
     DepartmentStore.fetchAllRecords()
+    console.log()
   }  
 }
 

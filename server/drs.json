@@ -1,192 +1,55 @@
 {
   "records": [
     {
-      "department": "Records",
+      "department": "BYU Catering",
+      "recordtype": "test",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "test",
+      "comments": "test",
+      "classification": [
+        " Vital ",
+        " Archival "
+      ],
+      "status": "Approved",
       "code": "",
-      "recordtype": "Faculty",
-      "recordcategoryid": "OIT04",
-      "description": "importand record",
-      "id": "VjmoFNA",
-      "departmentnumber": "233",
-      "function": "Miscellaneous",
-      "status": "Approved",
-      "classification": [],
-      "comments": "asdf"
-    },
-    {
-      "department": "Information Systems",
-      "code": "CACD1000",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "recordtype": "Faculty",
-      "description": "importand record",
-      "classification": [
-        " Vital "
-      ],
-      "comments": "asdf",
-      "status": "Approved",
-      "id": "LPX4H13",
-      "departmentnumber": "238"
-    },
-    {
-      "recordtype": "Faculty",
-      "department": "Information Systems",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "description": "importand record",
-      "classification": [
-        "Vital"
-      ],
-      "code": "N/A",
-      "status": "Approved",
-      "id": "tpRYc5g",
-      "comments": "asdf"
-    },
-    {
-      "recordtype": "Faculty",
-      "department": "Information Systems",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "code": "CHUM1400",
-      "description": "importand record",
-      "notes": "here is a note.",
-      "classification": [
-        " Highly Confidential "
-      ],
-      "status": "Approved",
-      "id": "4eGiyjd",
-      "comments": "asdf"
+      "id": 1
     },
     {
       "department": "BYU Catering",
-      "recordtype": "qWERWER",
-      "function": "Finance",
-      "recordcategoryid": "FIN10",
-      "description": "123",
-      "comments": "WWWfgh",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "id": "sOjFzj5"
-    },
-    {
-      "department": "Computer Science",
-      "recordtype": "C# exam",
-      "function": "Employment",
+      "function": "Academic",
       "recordcategoryid": "common",
-      "code": "CHUM1200",
-      "description": "123",
-      "notes": "123",
-      "classification": [
-        " Highly Confidential "
-      ],
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1200",
       "status": "Approved",
-      "comments": "comments here",
-      "id": "tySiQoY"
+      "id": 2
     },
     {
-      "department": "Honor Code Office",
-      "code": "CACD1000",
-      "function": "Finance",
+      "department": "Computer Science",
+      "function": "Academic",
       "recordcategoryid": "common",
-      "recordtype": "Academic unit reviews / educational support unit reviews.",
-      "description": "today is a sunny day :)",
-      "classification": [
-        " Vital "
-      ],
-      "comments": "common notes?",
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1200",
       "status": "Approved",
-      "id": "MmKSNKU"
-    },
-    {
-      "department": "Information Systems",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "recordtype": "Faculty",
-      "description": "importand record",
-      "classification": [
-        " Archival "
-      ],
-      "code": "CACD1100",
-      "status": "Approved",
-      "id": "lH3_e9w",
-      "comments": "asdf"
+      "id": 3
     },
     {
       "department": "Computer Science",
-      "function": "Financial",
-      "recordtype": "Y-Time exceptions (missed time punches) documentation retained by department.",
-      "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
-      "classification": [
-        " Archival ",
-        " Vital ",
-        " Highly Confidential "
-      ],
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "classification": [],
       "comments": "",
-      "code": "CFIN2700",
+      "code": "CACD1200",
       "status": "Approved",
-      "id": "eV7XtDe"
-    },
-    {
-      "department": "Honor Code Office",
-      "recordtype": "Faculty",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "description": "importand record",
-      "comments": "asdf",
-      "classification": [
-        " Archival ",
-        " Vital "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "GcBMy2A"
-    },
-    {
-      "department": "Honor Code Office",
-      "recordtype": "Faculty",
-      "function": "Miscellaneous",
-      "recordcategoryid": "OIT04",
-      "description": "importand record",
-      "comments": "asdf",
-      "classification": [
-        " Highly Confidential ",
-        " Vital "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "BMlssmN"
-    },
-    {
-      "department": "Honor Code Office",
-      "recordtype": "op",
-      "function": "Human Resource",
-      "recordcategoryid": "MISC9",
-      "description": "op",
-      "comments": "op54",
-      "classification": [
-        " Archival ",
-        " Vital "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "dU4VTBP"
-    },
-    {
-      "department": "Computer Science",
-      "recordtype": "yt",
-      "function": "Administrative",
-      "recordcategoryid": "FIN10",
-      "description": "",
-      "comments": "",
-      "classification": [
-        " Archival ",
-        " Vital "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "iN2XAD-"
+      "id": 4
     },
     {
       "department": "Marriott School",
@@ -197,120 +60,150 @@
       "comments": "",
       "code": "CACD1600",
       "status": "Approved",
-      "id": "ijjJXOs"
-    },
-    {
-      "department": "Marriott School",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Challenge exams.",
-      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CACD1200",
-      "status": "Approved",
-      "id": "nC2dSko"
-    },
-    {
-      "department": "Honor Code Office",
-      "recordtype": "test",
-      "function": "Human Resource",
-      "recordcategoryid": "MISC9",
-      "description": "testttt",
-      "comments": "ghfjdk",
-      "classification": [
-        " Archival ",
-        " Vital "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": "K6oZI77"
+      "id": 5
     },
     {
       "department": "Information Systems",
-      "recordtype": "ss2",
-      "function": "Faculty",
-      "recordcategoryid": "ADM01",
-      "description": "ss",
-      "comments": "sss",
-      "classification": [
-        " Vital "
-      ],
+      "function": "Academic",
+      "recordtype": "Exams (administered) and Fcoursework not returned to students.",
+      "description": "Retain 1 year after end of semester administered, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1900",
       "status": "Approved",
-      "code": "",
-      "id": "f-94m30"
+      "id": 6
     },
     {
-      "department": "BYU Catering",
-      "recordtype": "www",
-      "function": "Human Resource",
-      "recordcategoryid": "OIT04",
-      "description": "www",
-      "comments": "wwww",
-      "classification": [
-        " Archival ",
-        " Vital "
-      ],
+      "department": "Records",
+      "function": "Academic",
+      "recordtype": "Student certifications and licensing.",
+      "description": "Retain indefinitely.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD2500",
       "status": "Approved",
-      "code": "",
-      "id": "YeBrSFi"
+      "id": 7
     },
     {
-      "department": "BYU Catering",
-      "recordtype": "www",
+      "department": "Records",
+      "function": "Academic",
+      "recordtype": "Internship Records.",
+      "description": "Retain 5 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD2200",
+      "status": "Approved",
+      "id": 8
+    },
+    {
+      "department": "Honor Code Office",
+      "function": "Administrative",
+      "recordtype": "Projects and studies.",
+      "description": "Retain for 3 years, then transfer 1 copy of final, published reports and studies to the University Records Center for Archival review.  Destroy remaining information.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CADM2100",
+      "status": "Approved",
+      "id": 9
+    },
+    {
+      "department": "Honor Code Office",
       "function": "Financial",
+      "recordtype": "Sick and vacation tracking documentation retained by department.",
+      "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CFIN2500",
+      "status": "Approved",
+      "id": 10
+    },
+    {
+      "department": "Honor Code Office",
+      "function": "Financial",
+      "recordtype": "Work orders, BYU Store orders, print & mail services, physical facilities billings, OIT billings, central stores, testing services, and other department copies of records maintained by the originating departments.",
+      "description": "Retain copies of internal billing records until no longer needed by department, then destroy. These duplicate records are normally retained no longer than 2 years.",
+      "classification": [],
+      "comments": "",
+      "code": "CFIN2600",
+      "status": "Approved",
+      "id": 11
+    },
+    {
+      "department": "Computer Science",
+      "function": "Academic",
       "recordcategoryid": "common",
-      "description": "sss",
-      "comments": "ss",
+      "recordtype": "Course materials & outlines (may include syllabi, course descriptions, and original exams.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not already retained in Learning Suite or Syllabi.byu.edu.",
       "classification": [
-        " Archival ",
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1400",
+      "status": "Approved",
+      "id": 12
+    },
+    {
+      "department": "Computer Science",
+      "function": "Academic",
+      "recordtype": "Course/Faculty evaluations.",
+      "description": "Retain indefinitely, if not stored in online ratings system.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1600",
+      "status": "Approved",
+      "id": 13
+    },
+    {
+      "department": "Records",
+      "function": "Employment",
+      "recordtype": "Recruitment files, including applications, application notes and search committee records.",
+      "description": "If hired, add to employeeâs file. If not hired, destroy initial application, resume and letters of reference in 2 years.  Retain remaining information, interview notes and committee records for 2 years, then destroy when no longer needed by department.",
+      "classification": [],
+      "comments": "",
+      "code": "CHUM1200",
+      "status": "Approved",
+      "id": 14
+    },
+    {
+      "department": "BYU Catering",
+      "function": "Academic",
+      "recordtype": "Course/Faculty evaluations.",
+      "description": "Retain indefinitely, if not stored in online ratings system.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1600",
+      "status": "Approved",
+      "id": 15
+    },
+    {
+      "department": "Information Systems",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Accreditation records, reports and self-evaluations.",
+      "description": "Retain for 1 accreditation cycle, then transfer 1 copy of self-studies, final reports and communications to the University Records Center for Archival review. Destroy remaining documentation.",
+      "classification": [
+        " Archival "
+      ],
+      "comments": "",
+      "code": "CACD1100",
+      "status": "Approved",
+      "id": 16
+    },
+    {
+      "department": "Information Systems",
+      "function": "Administrative",
+      "recordcategoryid": "common",
+      "recordtype": "Academic unit reviews / educational support unit reviews",
+      "description": "Retain for 1 review cycle (generally 7 years), then transfer 1 copy of self-studies, final reports and related communications to University Archives. Destroy remaining records.",
+      "classification": [
         " Highly Confidential "
       ],
+      "comments": "",
+      "code": "CACD1000",
       "status": "Approved",
-      "code": "CACD1900",
-      "id": "_DWqSsM"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "www",
-      "function": "Financial",
-      "recordcategoryid": "MISC9",
-      "description": "www",
-      "comments": "www",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Pending",
-      "code": "",
-      "id": "emm38HK"
-    },
-    {
-      "department": "BYU Catering",
-      "recordtype": "sdfgsdfg",
-      "function": "Human Resource",
-      "recordcategoryid": "MISC9",
-      "description": "ww",
-      "comments": "qweqweqwe",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Pending",
-      "code": "",
-      "id": "vH5DuJ8"
-    },
-    {
-      "department": "Marriott School",
-      "recordtype": "sunny",
-      "function": "Administrative",
-      "recordcategoryid": "STU19",
-      "description": "sdfsdf",
-      "comments": "sdfsdfs",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Pending",
-      "code": "",
-      "id": "OZfkyPS"
+      "id": 17
     }
   ],
   "commonrecords": [
@@ -853,14 +746,20 @@
       "id": "0",
       "department": "Records",
       "departmentnumber": "200",
-      "commoncodes": []
+      "commoncodes": [
+        "CHUM1200",
+        "CHUM1100"
+      ]
     },
     {
       "id": "1",
       "department": "Information Systems",
       "departmentnumber": "401",
       "commoncodes": [
-        "CACD1100"
+        "CACD1900",
+        "CACD2300",
+        "CACD1100",
+        "CACD1000"
       ]
     },
     {
@@ -868,29 +767,42 @@
       "department": "Marriott School",
       "departmentnumber": "403",
       "commoncodes": [
-        "CACD1200"
+        "CACD1600",
+        "CACD1800"
       ]
     },
     {
       "id": "3",
       "department": "Computer Science",
       "departmentnumber": "503",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1200",
+        "CACD1200",
+        "CFIN2600",
+        "CFIN2700"
+      ]
     },
     {
       "id": "4",
       "department": "BYU Catering",
       "departmentnumber": "260",
       "commoncodes": [
-        "CACD1000",
-        "CACD1900"
+        "CACD1200",
+        "CACD1400",
+        "CACD1600",
+        "CACD1800"
       ]
     },
     {
       "id": "5",
       "department": "Honor Code Office",
       "departmentnumber": "633",
-      "commoncodes": []
+      "commoncodes": [
+        "CADM2100",
+        "CADM2200",
+        "CFIN2500",
+        "CFIN2600"
+      ]
     }
   ],
   "archival": [

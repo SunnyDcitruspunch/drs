@@ -10,7 +10,7 @@ export interface ICommonRecord {
   description: string;
   classification: string[];
   comments?: string;
-  useddepartment: number
+  useddepartment: number;
 }
 
 export interface ICommonStore {
@@ -44,13 +44,13 @@ class _CommonStore implements ICommonStore {
       })
       .then(json => (this.commonRecords = json));
 
-      this.commonRecords.forEach((crecord: ICommonRecord) => {
-        DepartmentStore.allDepartments.forEach((d: IDepartment) => {
-          if (!!d.commoncodes.find((x: string) => x === crecord.code)) {
-            crecord.useddepartment++
-          }
-        });
-      })
+    this.commonRecords.forEach((crecord: ICommonRecord) => {
+      DepartmentStore.allDepartments.forEach((d: IDepartment) => {
+        if (!!d.commoncodes.find((x: string) => x === crecord.code)) {
+          crecord.useddepartment++;
+        }
+      });
+    });
   }
 
   //record waiting to be edited
@@ -92,10 +92,13 @@ class _CommonStore implements ICommonStore {
   }
 
   //add selected common records
-  addCommonRecords(selects: string[], dept: IDepartment) {
+  async addCommonRecords(selects: string[], dept: IDepartment) {
+    //initial value should not be empty... should have pre selected data.
     let commoncodes: string[] = [];
 
-    selects.forEach(async (s: string) => {
+    for (let i = 0; i < selects.length; i++) {
+      // selects.forEach( async(select: string) => {
+
       let test: IRecord = {
         department: "",
         recordtype: "",
@@ -108,9 +111,10 @@ class _CommonStore implements ICommonStore {
         code: ""
       };
       this.commonRecords
-        .filter((x: ICommonRecord) => x.id === s)
-        .forEach((postDetail: ICommonRecord) => {
+        .filter((x: ICommonRecord) => x.id === selects[i])
+        .map((postDetail: ICommonRecord) => {
           commoncodes = dept.commoncodes;
+          console.log(commoncodes);
 
           //post common records to records list
           test = {
@@ -136,6 +140,7 @@ class _CommonStore implements ICommonStore {
         },
         body: JSON.stringify(test)
       });
+      // https://stackoverflow.com/questions/48163744/expected-to-return-a-value-in-arrow-function-array-callback-return-why/48163905
 
       const baseUrl = "http://localhost:3004/departments";
       await fetch(`${baseUrl}/${dept.id}`, {
@@ -149,9 +154,9 @@ class _CommonStore implements ICommonStore {
           commoncodes: commoncodes
         })
       });
-    });
-
-    DepartmentStore.fetchAllRecords();
+      DepartmentStore.fetchAllRecords()
+      console.log("id" + dept.id);
+    }
   }
 }
 

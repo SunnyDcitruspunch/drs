@@ -36,16 +36,6 @@ const SelectDepartment = inject(
 )(
   observer(
     class SelectDepartment extends Component<IProps, IState> {
-      componentDidMount = () => {
-        this.props.DepartmentStore.fetchAll();
-        this.props.CommonStore.fetchCommonRecords();
-        this.props.DepartmentStore.fetchAllRecords();
-        this.props.UniqueStore.fetchArchival();
-        this.props.UniqueStore.fetchFunctions();
-        this.props.UniqueStore.fetchCategory();
-
-        this.setState({ selecteddept: "Select a department" });
-      };
 
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
