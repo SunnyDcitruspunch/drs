@@ -130,6 +130,7 @@ const CommonRecords = inject(
             this.state.selectrecord,
             this.props.DepartmentStore.selectedDepartment
           );
+          this.setState({ selectrecord: [] });
         }
       };
 

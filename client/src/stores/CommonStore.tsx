@@ -154,7 +154,7 @@ class _CommonStore implements ICommonStore {
           commoncodes: commoncodes
         })
       });
-      DepartmentStore.fetchAllRecords()
+      DepartmentStore.fetchAllRecords();
       console.log("id" + dept.id);
     }
   }
