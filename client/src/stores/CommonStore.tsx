@@ -96,8 +96,8 @@ class _CommonStore implements ICommonStore {
     //initial value should not be empty... should have pre selected data.
     let commoncodes: string[] = [];
 
-    for (let i = 0; i < selects.length; i++) {
-      // selects.forEach( async(select: string) => {
+    // for (let i = 0; i < selects.length; i++) {
+      selects.forEach( async(select: string) => {
 
       let test: IRecord = {
         department: "",
@@ -111,7 +111,7 @@ class _CommonStore implements ICommonStore {
         code: ""
       };
       this.commonRecords
-        .filter((x: ICommonRecord) => x.id === selects[i])
+        .filter((x: ICommonRecord) => x.id === select)
         .map((postDetail: ICommonRecord) => {
           commoncodes = dept.commoncodes;
           console.log(commoncodes);
@@ -156,7 +156,7 @@ class _CommonStore implements ICommonStore {
       });
       DepartmentStore.fetchAllRecords();
       console.log("id" + dept.id);
-    }
+    })
   }
 }
 

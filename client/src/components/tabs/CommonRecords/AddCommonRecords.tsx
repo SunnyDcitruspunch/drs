@@ -15,7 +15,9 @@ import {
   IUniqueStore,
   ICommonStore,
   ICommonRecord,
-  IUserStore
+  IUserStore,
+  DepartmentStore,
+  CommonStore
 } from "../../../stores";
 import EnhancedTableHead, {
   IOrder,
@@ -131,6 +133,8 @@ const CommonRecords = inject(
             this.props.DepartmentStore.selectedDepartment
           );
           this.setState({ selectrecord: [] });
+          DepartmentStore.fetchAllRecords();
+          CommonStore.fetchCommonRecords();
         }
       };
 

@@ -135,7 +135,8 @@ class _DepartmentStore implements IDepartmentStore {
         commoncodes: updateCommoncodes
       })
     });
-    this.fetchAllRecords();
+    // this.fetchAllRecords(); //update delete modal name
+    // CommonStore.fetchCommonRecords() //update delete modal number
   }
 
   //PATCH request
