@@ -97,7 +97,7 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
         this.setState({ loadingPdf: true });
 
         axios
-          .post("/create-retention", this.props.DepartmentStore)
+          .post("/create-schdeule", this.props.DepartmentStore)
           .then(() => axios.get("fetch-retention", { responseType: "blob" }))
           .then((res: any) => {
             this.setState({ loadingPdf: false });

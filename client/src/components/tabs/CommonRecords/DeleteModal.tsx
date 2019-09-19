@@ -14,12 +14,13 @@ interface IProps {
   open: boolean;
   close: () => void;
   ondelete: () => void;
+  deptpdf: () => void;
   msg: string;
   depts: any;
 }
 
 const DeleteModal = observer((props: IProps) => {
-  const { open, close, msg, ondelete, depts } = props;
+  const { open, close, msg, ondelete, depts, deptpdf } = props;
 
   return (
     <Dialog
@@ -35,6 +36,7 @@ const DeleteModal = observer((props: IProps) => {
         <Button
           variant="outlined"
           color="primary"
+          onClick={deptpdf}
           style={{ marginTop: 10, fontSize: 10, marginBottom: 10 }}
         >
           Download Department List

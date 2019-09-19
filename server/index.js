@@ -3,7 +3,9 @@ const bodyParser = require('body-parser')
 const pdf = require('html-pdf')
 const cors = require('cors')
 
-const pdfTemplate = require('./documents/index')
+const pdfSchedule = require('./documents/index')
+
+const pdfDepartment = require('./documents/departments')
 
 const app = express();
 
@@ -14,8 +16,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 //create drs pdf
-app.post('/create-retention', (req, res) => {
-    pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf', (err) => {
+app.post('/create-schedule', (req, res) => {
+    //create drs pdf
+    pdf.create(pdfSchedule(req.body), {}).toFile('result.pdf', (err) => {
         if(err){
             res.send(Promise.reject())
         }
@@ -25,8 +28,8 @@ app.post('/create-retention', (req, res) => {
 })
 
 //create delete common records departments pdf
-app.post('/commonrecords-departments', (req, res) => {
-    pdf.create(pdfTemplate(req.body), {}).toFile('departments.pdf', (err) => {
+app.post('/create-departments', (req, res) => {
+    pdf.create(pdfDepartment(req.body), {}).toFile('result.pdf', (err) => {
         if (err) {
             res.send(Promise.reject())
         }

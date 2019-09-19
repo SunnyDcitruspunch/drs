@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { saveAs } from "file-saver";
+import axios from "axios";
 import { inject, observer } from "mobx-react";
 import {
   TableBody,
@@ -37,6 +39,7 @@ interface IProps {
 }
 
 interface IState {
+  loadingPdf: boolean;
   modalShow: boolean;
   editShow: boolean;
   showDeleteModal: boolean;
@@ -86,7 +89,8 @@ const CommonRecords = inject(
           orderBy: "recordtype",
           sortDirection: "asc",
           selectedCommonRecords: [],
-          selectedclassification: []
+          selectedclassification: [],
+          loadingPdf: false
         };
       }
 
@@ -160,6 +164,7 @@ const CommonRecords = inject(
       };
 
       handleDelete = (deleterecord: ICommonRecord) => {
+        //pass clicked record
         this.props.CommonStore.getEditRecord(deleterecord);
         this.setState({
           showDeleteModal: true
@@ -175,6 +180,21 @@ const CommonRecords = inject(
 
       onDelete = () => {
         this.closeEditModal();
+      };
+
+      //make pdf
+      makePdf = () => {
+        this.setState({ loadingPdf: true });
+
+        axios
+          .post("/create-departments", this.props )
+          .then(() => axios.get("fetch-retention", { responseType: "blob" }))
+          .then((res: any) => {
+            this.setState({ loadingPdf: false });
+            const pdfBlob = new Blob([res.data], { type: "application/pdf" });
+            saveAs(pdfBlob, "departments.pdf");
+          })
+          .catch((error: any) => console.log(error));
       };
 
       render() {
@@ -266,6 +286,7 @@ const CommonRecords = inject(
 
                     {/* show depts using this common record */}
                     <DeleteModal
+                      deptpdf={this.makePdf}
                       open={this.state.showDeleteModal}
                       close={this.closeEditModal}
                       msg={"Total Departments: " + postDetail.useddepartment}
