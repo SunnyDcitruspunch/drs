@@ -1,6 +1,5 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
-import { IRecord } from "./RecordStore";
-import { CommonStore } from "./CommonStore";
+import { IRecord } from "./index";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;

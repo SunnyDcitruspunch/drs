@@ -58,7 +58,11 @@ const headrows: IHeadRow[] = [
   { id: "status", label: "Status" }
 ];
 
-export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
+export const DeptRetention = inject(
+  "DepartmentStore",
+  "UniqueStore",
+  "RecordStore"
+)(
   observer(
     class DeptRetnetion extends React.Component<IProps, IState> {
       constructor(props: IProps) {
@@ -97,8 +101,8 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
         this.setState({ loadingPdf: true });
 
         axios
-          .post("/create-schdeule", this.props.DepartmentStore)
-          .then(() => axios.get("fetch-retention", { responseType: "blob" }))
+          .post("/create-schedule", this.props.DepartmentStore)
+          .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
           .then((res: any) => {
             this.setState({ loadingPdf: false });
             const pdfBlob = new Blob([res.data], { type: "application/pdf" });
@@ -111,8 +115,8 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
       handleDelete = (deleterecord: IRecord) => {
         //show delete modal
         this.setState({ confirmDelete: true });
-       this.props.DepartmentStore.updateDeleteID(deleterecord)
-      }
+        this.props.DepartmentStore.updateDeleteID(deleterecord);
+      };
 
       //click delete in delete modal
       onDelete: any = async () => {
@@ -247,8 +251,7 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
               .filter(
-                (x: IRecord) =>
-                  x.id === this.props.DepartmentStore.record.id
+                (x: IRecord) => x.id === this.props.DepartmentStore.record.id
               )
               .map((editDetail: IRecord, index) => {
                 return (

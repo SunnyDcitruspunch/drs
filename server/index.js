@@ -38,7 +38,7 @@ app.post('/create-departments', (req, res) => {
     })
 })
 
-app.get('/fetch-retention', (req, res) => {
+app.get('/fetch-pdf', (req, res) => {
     res.sendFile(`${__dirname}/result.pdf`)
 })
 

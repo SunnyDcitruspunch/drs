@@ -63,6 +63,204 @@
       "status": "Pending",
       "code": "",
       "id": 5
+    },
+    {
+      "department": "Records",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1200",
+      "status": "Approved",
+      "id": 6
+    },
+    {
+      "department": "BYU Catering",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Course materials & outlines (may include syllabi, course descriptions, and original exams.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not already retained in Learning Suite or Syllabi.byu.edu.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CACD1400",
+      "status": "Approved",
+      "id": 7
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "test",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "test",
+      "comments": "testtest",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 8
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "test",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "test",
+      "comments": "test",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 9
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "test",
+      "function": "Financial",
+      "recordcategoryid": "MISC9",
+      "description": "test",
+      "comments": "test",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 10
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "test",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "test",
+      "comments": "testtest",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 11
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "test",
+      "function": "Financial",
+      "recordcategoryid": "MISC9",
+      "description": "test",
+      "comments": "test",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 12
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "11111111111111111",
+      "function": "Human Resource",
+      "recordcategoryid": "MISC9",
+      "description": "test",
+      "comments": "test",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 13
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "22222222222222222222",
+      "function": "Financial",
+      "recordcategoryid": "STU19",
+      "description": "2222222222222222",
+      "comments": "2222222222222222",
+      "classification": [
+        " Highly Confidential ",
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 14
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "333333333333333333",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "333333333333333333333",
+      "comments": "3333333333333333333",
+      "classification": [
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 15
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "4444444444444444444444",
+      "function": "Financial",
+      "recordcategoryid": "MISC9",
+      "description": "4444444444444444",
+      "comments": "444444444444",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 16
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "5555555555555555",
+      "function": "Financial",
+      "recordcategoryid": "MISC9",
+      "description": "555555555555555",
+      "comments": "5555555555555555",
+      "classification": [
+        " Vital ",
+        " Highly Confidential "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 17
+    },
+    {
+      "department": "Computer Science",
+      "recordtype": "77777777777777777777777",
+      "function": "Financial",
+      "recordcategoryid": "common",
+      "description": "77777777777777",
+      "comments": "77777777777777",
+      "classification": [
+        " Vital ",
+        " Highly Confidential "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 18
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "888888888888888888",
+      "function": "Administrative",
+      "recordcategoryid": "STU02",
+      "description": "8888888888888888888",
+      "comments": "888888888888888888",
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 19
     }
   ],
   "commonrecords": [
@@ -605,7 +803,9 @@
       "id": "0",
       "department": "Records",
       "departmentnumber": "200",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1200"
+      ]
     },
     {
       "id": "1",
@@ -633,7 +833,9 @@
       "id": "4",
       "department": "BYU Catering",
       "departmentnumber": "260",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1400"
+      ]
     },
     {
       "id": "5",

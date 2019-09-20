@@ -141,7 +141,7 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
                   orderBy={this.state.orderBy}
                 />
                 <TableBody style={{ fontSize: 11 }}>
-                  {DepartmentStore._allRecords
+                  {DepartmentStore.allRecords
                     .slice()
                     .filter((x: IRecord) => x.status === "Pending")
                     .map((pending: IRecord, index) => (

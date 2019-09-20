@@ -137,8 +137,6 @@ const CommonRecords = inject(
             this.props.DepartmentStore.selectedDepartment
           );
           this.setState({ selectrecord: [] });
-          DepartmentStore.fetchAllRecords();
-          CommonStore.fetchCommonRecords();
         }
       };
 
@@ -188,7 +186,7 @@ const CommonRecords = inject(
 
         axios
           .post("/create-departments", this.props )
-          .then(() => axios.get("fetch-retention", { responseType: "blob" }))
+          .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
           .then((res: any) => {
             this.setState({ loadingPdf: false });
             const pdfBlob = new Blob([res.data], { type: "application/pdf" });

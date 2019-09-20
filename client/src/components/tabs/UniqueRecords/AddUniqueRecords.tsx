@@ -8,7 +8,7 @@ import {
   FormControl
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IUniqueStore, IDepartmentStore, IRecordStore } from "../../../stores";
+import { IUniqueStore, IDepartmentStore, IRecordStore, DepartmentStore } from "../../../stores";
 import { MessageModal, FunctionDropdown, CategoryDropdown, ClassificationCheckboxes } from "../../common";
 
 interface IProps {
@@ -52,8 +52,8 @@ const AddUniqueRecords = inject(
           );
           this.setState({ snackbarShow: true });
           this.setState({ needRecordType: false });
-          this.props.DepartmentStore.fetchAllRecords();
         }
+        DepartmentStore.fetchAllRecords();
       };
 
       handleCheck = (e: any) => {

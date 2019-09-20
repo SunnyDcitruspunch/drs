@@ -6,7 +6,7 @@ module.exports = ({ CommonStore, DepartmentStore }) => {
        <head>
           <meta charset="utf-8">
           <style>
-             .invoice-box {
+             .tableform {
              max-width: 800px;
              margin: auto;
              padding: 30px;
@@ -20,46 +20,28 @@ module.exports = ({ CommonStore, DepartmentStore }) => {
              .margin-top {
              margin-top: 50px;
              }
-             .invoice-box table {
+             .tableform table {
              width: 100%;
              line-height: inherit;
              text-align: left;
              }
-             .invoice-box table td {
+             .tableform table td {
              padding: 5px;
              vertical-align: top;
              }
-             .invoice-box table tr.top table td {
+             .tableform table tr.top table td {
              padding-bottom: 20px;
              }
-             .invoice-box table tr.information table td {
+             .tableform table tr.information table td {
              text-align: center;
              }
-             .invoice-box table tr.heading td {
-             background: #eee;
-             border-bottom: 1px solid #ddd;
-             font-weight: bold;
-             }
-             .invoice-box table tr.details td {
-             padding-bottom: 20px;
-             }
-             .invoice-box table tr.item td {
-             border-bottom: 1px solid #eee;
-             }
-             .invoice-box table tr.item.last td {
-             border-bottom: none;
-             }
-             .invoice-box table tr.total td:nth-child(2) {
-             border-top: 2px solid #eee;
-             font-weight: bold;
-             }
              @media only screen and (max-width: 600px) {
-             .invoice-box table tr.top table td {
+             .tableform table tr.top table td {
              width: 100%;
              display: block;
              text-align: center;
              }
-             .invoice-box table tr.information table td {
+             .tableform table tr.information table td {
              width: 100%;
              display: block;
              text-align: center;
@@ -67,7 +49,7 @@ module.exports = ({ CommonStore, DepartmentStore }) => {
           </style>
        </head>
        <body>
-          <div class="invoice-box">
+          <div class="tableform">
              <table>
                 <tr class="top">
                    <td colspan="6">
@@ -79,9 +61,7 @@ module.exports = ({ CommonStore, DepartmentStore }) => {
                             </td>
                             <td>
                                <h4>
-                                  Common Record ${
-                                    CommonStore.record.code
-                                  } Department List 
+                                  Common Record Department List: ${ CommonStore.record.code } 
                                </h4>                              
                          </td>
                          </tr>
@@ -91,13 +71,18 @@ module.exports = ({ CommonStore, DepartmentStore }) => {
                             }</td>
                          </tr>
                          <tr>
-                            <td>Department Names: ${DepartmentStore._allRecords
+                            <td>
+                                Department Names:
+                            </td>
+                            <td> 
+                            ${DepartmentStore._allRecords
                               .filter(r => r.code === CommonStore.record.code)
                               .map(r => {
                                 return `
-                                <td>${r.department}</td>
+                                ${r.department}
                                 `;
-                              })}</td>
+                              })}
+                              </td>
                          </tr>
                       </table>
                    </td>

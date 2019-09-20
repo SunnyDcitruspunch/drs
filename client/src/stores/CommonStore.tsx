@@ -1,5 +1,5 @@
 import { observable, decorate, action } from "mobx";
-import { IDepartment, IRecord, DepartmentStore } from ".";
+import { IDepartment, IRecord, DepartmentStore } from "./index";
 
 export interface ICommonRecord {
   id: string;
@@ -97,8 +97,7 @@ class _CommonStore implements ICommonStore {
     let commoncodes: string[] = [];
 
     // for (let i = 0; i < selects.length; i++) {
-      selects.forEach( async(select: string) => {
-
+    selects.forEach(async (select: string) => {
       let test: IRecord = {
         department: "",
         recordtype: "",
@@ -155,8 +154,9 @@ class _CommonStore implements ICommonStore {
         })
       });
       DepartmentStore.fetchAllRecords();
+      this.fetchCommonRecords();
       console.log("id" + dept.id);
-    })
+    });
   }
 }
 
