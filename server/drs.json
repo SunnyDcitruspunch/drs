@@ -576,6 +576,43 @@
       "code": "CACD2500",
       "status": "Approved",
       "id": 43
+    },
+    {
+      "department": "Information Systems",
+      "function": "Administrative",
+      "recordtype": "Projects and studies.",
+      "description": "Retain for 3 years, then transfer 1 copy of final, published reports and studies to the University Records Center for Archival review.  Destroy remaining information.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CADM2100",
+      "status": "Approved",
+      "id": 44
+    },
+    {
+      "department": "Information Systems",
+      "function": "Administrative",
+      "recordtype": "Strategic planning records.",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
+      "classification": [
+        "Archival"
+      ],
+      "comments": "",
+      "code": "CADM2300",
+      "status": "Approved",
+      "id": 45
+    },
+    {
+      "department": "Information Systems",
+      "function": "Human Resource",
+      "recordtype": "Rank & Status records.",
+      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
+      "classification": [],
+      "comments": "",
+      "code": "CFAC1500",
+      "status": "Approved",
+      "id": 46
     }
   ],
   "commonrecords": [
@@ -1131,7 +1168,10 @@
       "department": "Information Systems",
       "departmentnumber": "401",
       "commoncodes": [
-        "CACD1200"
+        "CACD1200",
+        "CADM2300",
+        "CADM2100",
+        "CFAC1500"
       ]
     },
     {
