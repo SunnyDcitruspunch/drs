@@ -8,7 +8,8 @@ import {
   Button,
   Table,
   Container,
-  Grid
+  Grid,
+  Snackbar
 } from "@material-ui/core";
 import {
   IRecordStore,
@@ -17,15 +18,13 @@ import {
   IUniqueStore,
   ICommonStore,
   ICommonRecord,
-  IUserStore,
-  DepartmentStore,
-  CommonStore
+  IUserStore
 } from "../../../stores";
 import EnhancedTableHead, {
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
-import { EditModal, MessageModal } from "../../common";
+import { EditModal, MessageModal, MsgSnackbar } from "../../common";
 import RecordTable from "./RecordTable";
 import DeleteModal from "./DeleteModal";
 
@@ -185,7 +184,7 @@ const CommonRecords = inject(
         this.setState({ loadingPdf: true });
 
         axios
-          .post("/create-departments", this.props )
+          .post("/create-departments", this.props)
           .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
           .then((res: any) => {
             this.setState({ loadingPdf: false });
@@ -232,10 +231,13 @@ const CommonRecords = inject(
                         />
                       );
                     })}
+                    
                 </TableBody>
               </Table>
             </Paper>
+            <MsgSnackbar />
             <Grid container justify="center" alignItems="center">
+           
               <Button
                 variant="outlined"
                 color="primary"

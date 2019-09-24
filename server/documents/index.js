@@ -14,7 +14,7 @@ module.exports = ({ selectedDepartment, _allRecords }) => {
             font-size: 16px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica;
-            color: #555;
+            color: black;
             }
             .margin-top {
             margin-top: 50px;
@@ -27,48 +27,29 @@ module.exports = ({ selectedDepartment, _allRecords }) => {
             .tableform table td {
             padding: 5px;
             vertical-align: top;
-            }
-            .tableform table tr.top table td {
-            padding-bottom: 20px;
+            border: 1px solid black;
             }
             .tableform table tr.information table td {
             text-align: center;
             }
-            .tableform table tr.heading td {
+            .tableform table tr.heading {
             background: #eee;
-            border-bottom: 1px solid #ddd;
             font-weight: bold;
-            }
-            @media only screen and (max-width: 600px) {
-            .tableform table tr.top table td {
-            width: 100%;
-            display: block;
-            text-align: center;
             }
          </style>
       </head>
       <body>
-         <div class="tableform">
-            <table>
-               <tr class="top">
-                  <td colspan="6">
-                     <table>
-                        <tr>
-                           <td>
-                              Date: ${`${today.getDate()}. ${today.getMonth() +
-                                1}. ${today.getFullYear()}`}
-                           </td>
-                           <td>
-                              <h4>
-                                 Department Retention Schedule - ${
-                                   selectedDepartment.departmentnumber
-                                 } &nbsp; ${selectedDepartment.department}
-                              </h4>                              
-                        </td>
-                        </tr>
-                     </table>
-                  </td>
-               </tr>
+         <div class="tableform">                                     
+            <h4>
+               Date: ${`${today.getDate()}. ${today.getMonth() +
+                 1}. ${today.getFullYear()}`}
+            </h4>      
+            <h4 style="text-align: center">
+               Department Retention Schedule - ${
+                 selectedDepartment.departmentnumber
+               } &nbsp; ${selectedDepartment.department}
+            </h4>         
+               <table>
                <tr class="heading">
                   <td>Function</td>
                   <td>Record Type</td>
@@ -81,7 +62,7 @@ module.exports = ({ selectedDepartment, _allRecords }) => {
                     .filter(x => x.department === selectedDepartment.department)
                     .map(r => {
                       return `
-                     <tr class="item">
+                     <tr>
                      <td>${r.function}</td>
                      <td>${r.recordtype}</td>
                      <td>${r.description}</td>

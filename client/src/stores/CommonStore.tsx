@@ -15,6 +15,7 @@ export interface ICommonRecord {
 
 export interface ICommonStore {
   record: ICommonRecord;
+  snackbarAddCommonRecord: boolean;
   commonRecords: ICommonRecord[];
   fetchCommonRecords: () => void;
   updateCommonRecord: (c: string[]) => void;
@@ -25,6 +26,7 @@ export interface ICommonStore {
 
 class _CommonStore implements ICommonStore {
   commonRecords: ICommonRecord[] = [];
+  snackbarAddCommonRecord =  true;
   record: ICommonRecord = {
     id: "",
     code: "",
@@ -156,6 +158,7 @@ class _CommonStore implements ICommonStore {
         })
       }).then(res => {        
         DepartmentStore.fetchAll();
+        this.snackbarAddCommonRecord = true;
       })
     });
   }

@@ -613,6 +613,17 @@
       "code": "CFAC1500",
       "status": "Approved",
       "id": 46
+    },
+    {
+      "department": "Information Systems",
+      "function": "Financial",
+      "recordtype": "Journal Entry supporting documentation submitted by department.",
+      "description": "Retain supporting documentation for current year + 1, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CFIN2000",
+      "status": "Approved",
+      "id": 47
     }
   ],
   "commonrecords": [
@@ -1171,7 +1182,8 @@
         "CACD1200",
         "CADM2300",
         "CADM2100",
-        "CFAC1500"
+        "CFAC1500",
+        "CFIN2000"
       ]
     },
     {

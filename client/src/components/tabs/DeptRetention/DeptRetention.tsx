@@ -21,7 +21,7 @@ import EnhancedTableHead, {
   IOrder,
   IHeadRow
 } from "../../common/EnhancedTableHead";
-import { EditModal } from "../../common";
+import { EditModal, MsgSnackbar } from "../../common";
 import { DepartmentTable, DeleteModal } from "../DeptRetention";
 
 interface IProps {
@@ -36,7 +36,6 @@ interface IState {
   order: IOrder;
   orderBy: string;
   sortDirection: string;
-  snackbar: boolean;
   disable: boolean;
   onlycommentEdit: boolean;
   selectedclassification: string[];
@@ -77,7 +76,6 @@ export const DeptRetention = inject(
           order: "asc",
           orderBy: "recordtype",
           sortDirection: "asc",
-          snackbar: false,
           disable: false, //can only edit comments if is common record
           selectedclassification: [],
           loadingPdf: false
@@ -130,7 +128,6 @@ export const DeptRetention = inject(
         );
         // await this.props.DepartmentStore.setRecord()
         this.setState({ openEdit: false });
-        this.setState({ snackbar: true });
 
         this.props.DepartmentStore.fetchAllRecords();
       };
@@ -170,7 +167,7 @@ export const DeptRetention = inject(
                 Download as PDF
               </Button>
             </Grid>
-
+          {/* <MsgSnackbar /> */}
             <Paper>
               {this.state.loadingPdf ? <LinearProgress /> : ""}
               <Table id="schedule" size="small">

@@ -5,11 +5,23 @@ import {
   TextField,
   Grid,
   FormLabel,
-  FormControl
+  FormControl,
+  Snackbar
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { IUniqueStore, IDepartmentStore, IRecordStore, DepartmentStore } from "../../../stores";
-import { MessageModal, FunctionDropdown, CategoryDropdown, ClassificationCheckboxes } from "../../common";
+import {
+  IUniqueStore,
+  IDepartmentStore,
+  IRecordStore,
+  DepartmentStore
+} from "../../../stores";
+import {
+  MessageModal,
+  FunctionDropdown,
+  CategoryDropdown,
+  ClassificationCheckboxes,
+  MsgSnackbar
+} from "../../common";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;
@@ -37,8 +49,7 @@ const AddUniqueRecords = inject(
         snackbarShow: true,
         needRecordType: false,
         open: false,
-        selectedclassification: [],
-        
+        selectedclassification: []
       };
 
       submitRecords = (e: any) => {
@@ -86,6 +97,7 @@ const AddUniqueRecords = inject(
 
         return (
           <Container style={{ flexGrow: 1 }}>
+            {/* <MsgSnackbar /> */}
             <Grid container justify="center" alignItems="center">
               <TextField
                 id="recordtype"
@@ -109,8 +121,13 @@ const AddUniqueRecords = inject(
               />
             </Grid>
 
-            <Grid justify="center" alignItems="center" container style={{ height: 30 }}>
-            <CategoryDropdown
+            <Grid
+              justify="center"
+              alignItems="center"
+              container
+              style={{ height: 30 }}
+            >
+              <CategoryDropdown
                 title="Category Type"
                 id="recordcategoryid"
                 name="recordcategoryid"
@@ -121,7 +138,12 @@ const AddUniqueRecords = inject(
               />
             </Grid>
 
-            <Grid container justify="center" alignItems="center" style={{ marginTop: 20 }}>
+            <Grid
+              container
+              justify="center"
+              alignItems="center"
+              style={{ marginTop: 20 }}
+            >
               <TextField
                 multiline
                 rows="2"
@@ -135,7 +157,12 @@ const AddUniqueRecords = inject(
               />
             </Grid>
 
-            <Grid container justify="center" alignItems="center" style={{ marginTop: 20 }}>
+            <Grid
+              container
+              justify="center"
+              alignItems="center"
+              style={{ marginTop: 20 }}
+            >
               <FormControl component="fieldset">
                 <FormLabel component="legend">Classification</FormLabel>
                 <ClassificationCheckboxes
@@ -188,6 +215,19 @@ const AddUniqueRecords = inject(
               click={() => this.setState({ needRecordType: false })}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
+            />
+            <Snackbar
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left"
+              }}
+              open={true}
+              autoHideDuration={6000}
+              // onClose={handleClose}
+              ContentProps={{
+                "aria-describedby": "message-id"
+              }}
+              message={<span id="message-id">Note archived</span>}
             />
           </Container>
         );
