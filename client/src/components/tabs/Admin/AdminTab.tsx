@@ -87,6 +87,8 @@ const AdminTab = inject("RecordStore", "DepartmentStore", "UniqueStore")(
         this.props.RecordStore.approveSelectedRecords(
           this.state.approvedrecords
         );
+
+        this.setState({ approvedrecords: [] });
       };
 
       handleEdit = (record: IRecord) => {

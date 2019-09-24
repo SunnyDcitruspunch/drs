@@ -62,14 +62,16 @@ class _UniqueStore {
     this.uniquerecords.department = dept;
     this.uniquerecords.classification = c;
 
-    fetch("http://localhost:3004/records", {
+      await fetch("http://localhost:3004/records", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify(this.uniquerecords)
-    });
+    }).then(res => {
+      DepartmentStore.fetchAllRecords(); 
+    })
 
     this.uniquerecords.recordtype = "";
     this.uniquerecords.function = "";
@@ -77,9 +79,6 @@ class _UniqueStore {
     this.uniquerecords.description = "";
     this.uniquerecords.classification = [""];
     this.uniquerecords.comments = "";
-
-    DepartmentStore.fetchAllRecords();
-    console.log(DepartmentStore.fetchAllRecords);
   }
 }
 

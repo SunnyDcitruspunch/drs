@@ -49,9 +49,10 @@ class _RecordStore implements IRecordStore {
           body: JSON.stringify({
             status: "Approved"
           })
-        });
+        }).then(res => {
+          DepartmentStore.fetchAllRecords();
+        })
       })
-    DepartmentStore.fetchAllRecords();
   }
 }
 

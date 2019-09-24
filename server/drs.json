@@ -46,7 +46,7 @@
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 4
     },
@@ -60,7 +60,7 @@
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 5
     },
@@ -100,7 +100,7 @@
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 8
     },
@@ -114,7 +114,7 @@
       "classification": [
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 9
     },
@@ -128,7 +128,7 @@
       "classification": [
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 10
     },
@@ -142,7 +142,7 @@
       "classification": [
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 11
     },
@@ -156,7 +156,7 @@
       "classification": [
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 12
     },
@@ -170,7 +170,7 @@
       "classification": [
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 13
     },
@@ -185,7 +185,7 @@
         " Highly Confidential ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 14
     },
@@ -199,7 +199,7 @@
       "classification": [
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 15
     },
@@ -213,7 +213,7 @@
       "classification": [
         " Archival "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 16
     },
@@ -228,7 +228,7 @@
         " Vital ",
         " Highly Confidential "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 17
     },
@@ -243,7 +243,7 @@
         " Vital ",
         " Highly Confidential "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 18
     },
@@ -258,9 +258,225 @@
         " Archival ",
         " Vital "
       ],
-      "status": "Pending",
+      "status": "Approved",
       "code": "",
       "id": 19
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "test",
+      "function": "Faculty",
+      "recordcategoryid": "STU02",
+      "description": "test",
+      "comments": "test",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 20
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "dd",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "sss",
+      "comments": "ss",
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 21
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "ww",
+      "function": "Faculty",
+      "recordcategoryid": "ADM01",
+      "description": "ww",
+      "comments": "ww",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 22
+    },
+    {
+      "department": "Records",
+      "recordtype": "asdf",
+      "function": "Financial",
+      "recordcategoryid": "STU02",
+      "description": "asdf",
+      "comments": "asdf",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 23
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "asdf",
+      "function": "Financial",
+      "recordcategoryid": "ADM01",
+      "description": "asdf",
+      "comments": "asdf",
+      "classification": [
+        " Vital ",
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 24
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "ww",
+      "function": "Financial",
+      "recordcategoryid": "MISC9",
+      "description": "ww",
+      "comments": "ww",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 25
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "ww3",
+      "function": "Faculty",
+      "recordcategoryid": "ADM01",
+      "description": "er",
+      "comments": "er",
+      "classification": [
+        " Vital ",
+        " Highly Confidential "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 26
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "hh",
+      "function": "Faculty",
+      "recordcategoryid": "ADM01",
+      "description": "hrhr",
+      "comments": "hrhr",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 27
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "we",
+      "function": "Faculty",
+      "recordcategoryid": "MISC9",
+      "description": "we",
+      "comments": "we",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 28
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "we",
+      "function": "Faculty",
+      "recordcategoryid": "MISC9",
+      "description": "we",
+      "comments": "we",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 29
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "q3",
+      "function": "Human Resource",
+      "recordcategoryid": "MISC9",
+      "description": "q3",
+      "comments": "q3",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 30
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "hh",
+      "function": "Employment",
+      "recordcategoryid": "ADM01",
+      "description": "fghj",
+      "comments": "fghj",
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 31
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "gg",
+      "function": "Faculty",
+      "recordcategoryid": "STU02",
+      "description": "gg",
+      "comments": "gg",
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 32
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "iamahunter",
+      "function": "Faculty",
+      "recordcategoryid": "ADM01",
+      "description": "we",
+      "comments": "dark fate",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 33
+    },
+    {
+      "department": "Honor Code Office",
+      "recordtype": "78",
+      "function": "Faculty",
+      "recordcategoryid": "STU02",
+      "description": "78",
+      "comments": "78",
+      "classification": [
+        " Archival ",
+        " Vital "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 34
     }
   ],
   "commonrecords": [

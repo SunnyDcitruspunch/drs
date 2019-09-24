@@ -37,7 +37,8 @@ const AddUniqueRecords = inject(
         snackbarShow: true,
         needRecordType: false,
         open: false,
-        selectedclassification: []
+        selectedclassification: [],
+        
       };
 
       submitRecords = (e: any) => {
@@ -76,7 +77,6 @@ const AddUniqueRecords = inject(
             )
           });
         }
-        console.log(this.state.selectedclassification);
       };
 
       render() {
