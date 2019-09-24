@@ -138,9 +138,11 @@ class _CommonStore implements ICommonStore {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(test)
-      });
-      // https://stackoverflow.com/questions/48163744/expected-to-return-a-value-in-arrow-function-array-callback-return-why/48163905
+      }).then(res => {
+        DepartmentStore.fetchAllRecords();
+      })
 
+      //add common record code to department object
       const baseUrl = "http://localhost:3004/departments";
       await fetch(`${baseUrl}/${dept.id}`, {
         method: "PATCH",
@@ -152,10 +154,9 @@ class _CommonStore implements ICommonStore {
           //post department name to selected common records
           commoncodes: commoncodes
         })
-      });
-      DepartmentStore.fetchAllRecords();
-      this.fetchCommonRecords();
-      console.log("id" + dept.id);
+      }).then(res => {        
+        this.fetchCommonRecords();
+      })
     });
   }
 }
