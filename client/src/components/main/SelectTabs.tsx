@@ -11,7 +11,7 @@ import DeptRetention from "../tabs/DeptRetention/DeptRetention";
 import AddCommonRecords from "../tabs/CommonRecords/AddCommonRecords";
 import AddUniqueRecords from "../tabs/UniqueRecords/AddUniqueRecords";
 import AdminTab from "../tabs/Admin/AdminTab";
-import { UserStore } from "../../stores";
+import { UserStore, DepartmentStore, RecordStore, UniqueStore } from "../../stores";
 import { observer, inject } from "mobx-react";
 
 interface TabPanelProps {

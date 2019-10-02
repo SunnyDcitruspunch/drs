@@ -4,6 +4,7 @@ import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 import { TableCell, TableRow, Checkbox } from "@material-ui/core";
 import { ICommonRecord, UserStore } from "../../../stores";
 import { observer, inject } from "mobx-react";
+import { MsgSnackbar } from '../../common'
 
 interface IProps {
   record: ICommonRecord;
@@ -39,6 +40,7 @@ const RecordTable = inject("UserStore")(
             color="primary"
             disabled={disabled}
           />
+          {/* <MsgSnackbar /> */}
         </TableCell>
         {/* <TableCell style={{ fontSize: 10 }}>{record.code}</TableCell> */}
         <TableCell style={{ fontSize: 10 }}>{record.useddepartment}</TableCell>

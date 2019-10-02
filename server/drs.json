@@ -624,6 +624,20 @@
       "code": "CFIN2000",
       "status": "Approved",
       "id": 47
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "test",
+      "function": "Employment",
+      "recordcategoryid": "FIN10",
+      "description": "test",
+      "comments": "test",
+      "classification": [
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 48
     }
   ],
   "commonrecords": [

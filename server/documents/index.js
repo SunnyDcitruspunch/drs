@@ -61,7 +61,8 @@ module.exports = ({ selectedDepartment, _allRecords }) => {
                     .sort((a, b) => (a.function < b.function ? -1 : 1))
                     .filter(x => x.department === selectedDepartment.department)
                     .map(r => {
-                      return `
+                      return `  
+                      
                      <tr>
                      <td>${r.function}</td>
                      <td>${r.recordtype}</td>

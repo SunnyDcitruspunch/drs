@@ -4,7 +4,6 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { TableCell, TableRow, Checkbox } from "@material-ui/core";
 import { IRecord } from "../../../stores/RecordStore";
 
-
 interface IProps {
   tablekey: number;
   onedit: () => void;

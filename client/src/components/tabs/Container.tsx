@@ -10,7 +10,7 @@ import {
   UserStore
 } from "../../stores";
 import EnhancedTableHead from "../common/EnhancedTableHead";
-import { EditModal, IOrder, IHeadRow } from "../common";
+import { EditModal, IHeadRow } from "../common";
 import { DepartmentTable, DeleteModal } from "./DeptRetention";
 
 interface IProps {
@@ -22,7 +22,6 @@ interface IProps {
 interface IState {
   openEdit: boolean;
   confirmDelete: boolean;
-  order: IOrder;
   orderBy: string;
   sortDirection: string;
   snackbar: boolean;
@@ -60,7 +59,6 @@ const Container = (WrappedComponent: any) =>
             onlycommentEdit: false,
             openEdit: false,
             confirmDelete: false,
-            order: "asc",
             orderBy: "recordtype",
             sortDirection: "asc",
             snackbar: false,
@@ -153,7 +151,7 @@ const Container = (WrappedComponent: any) =>
             <WrappedComponent
               openedit={this.state.openEdit}
               confirmdelete={this.state.confirmDelete}
-              order={this.state.order}
+              // order={this.state.order}
               orderby={this.state.orderBy}
               sortdirection={this.state.sortDirection}
               snackbar={this.state.snackbar}

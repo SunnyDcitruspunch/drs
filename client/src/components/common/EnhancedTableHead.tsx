@@ -2,7 +2,6 @@ import * as React from "react";
 import { TableCell, TableHead, TableRow } from "@material-ui/core";
 import { observer } from "mobx-react";
 
-export type IOrder = "asc" | "desc";
 export interface IData {
   deptnum: string;
   department?: string;
@@ -15,8 +14,6 @@ export interface IData {
   status?: string;
 }
 export interface IEnhancedTableProps {
-  order: IOrder;
-  orderBy: string;
   rowCount?: number;
   id: string;
   headrows: any;
@@ -28,7 +25,7 @@ export interface IHeadRow {
 }
 
 const EnhancedTableHead = observer((props: IEnhancedTableProps) => {
-  const { order, orderBy, id, headrows } = props;
+  const { id, headrows } = props;
 
   return (
     <TableHead id={id}>
@@ -37,7 +34,6 @@ const EnhancedTableHead = observer((props: IEnhancedTableProps) => {
         {headrows.map((row: IHeadRow) => (
           <TableCell
             key={row.id}
-            sortDirection={orderBy === row.id ? order : false}
           >
             {row.label}
           </TableCell>

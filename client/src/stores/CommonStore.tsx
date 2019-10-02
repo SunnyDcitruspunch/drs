@@ -22,11 +22,12 @@ export interface ICommonStore {
   getEditRecord: (record: ICommonRecord) => void;
   addCommonRecords: (selects: string[], dept: IDepartment) => void;
   handleChange: (e: any) => void;
+  result: string;
 }
 
 class _CommonStore implements ICommonStore {
   commonRecords: ICommonRecord[] = [];
-  snackbarAddCommonRecord =  true;
+  snackbarAddCommonRecord = true;
   record: ICommonRecord = {
     id: "",
     code: "",
@@ -39,7 +40,8 @@ class _CommonStore implements ICommonStore {
     useddepartment: 0
   };
 
-  async fetchCommonRecords() {
+  result = "";
+  fetchCommonRecords = async() => {
     await fetch("http://localhost:3004/commonrecords")
       .then(response => {
         return response.json();
@@ -142,7 +144,7 @@ class _CommonStore implements ICommonStore {
         body: JSON.stringify(test)
       }).then(res => {
         DepartmentStore.fetchAllRecords();
-      })
+      });
 
       //add common record code to department object
       const baseUrl = "http://localhost:3004/departments";
@@ -156,10 +158,10 @@ class _CommonStore implements ICommonStore {
           //post department name to selected common records
           commoncodes: commoncodes
         })
-      }).then(res => {        
+      }).then(res => {
         DepartmentStore.fetchAll();
         this.snackbarAddCommonRecord = true;
-      })
+      });
     });
   }
 }
