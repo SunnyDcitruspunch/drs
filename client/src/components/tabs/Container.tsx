@@ -11,7 +11,7 @@ import {
 } from "../../stores";
 import EnhancedTableHead from "../common/EnhancedTableHead";
 import { EditModal, IHeadRow } from "../common";
-import { DepartmentTable, DeleteModal } from "./DeptRetention";
+import { DepartmentTable, DeleteMsgModal } from "./DeptRetention";
 
 interface IProps {
   DepartmentStore: IDepartmentStore;

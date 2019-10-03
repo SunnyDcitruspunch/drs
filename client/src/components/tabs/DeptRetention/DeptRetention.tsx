@@ -20,7 +20,7 @@ import EnhancedTableHead, {
   IHeadRow
 } from "../../common/EnhancedTableHead";
 import { EditModal, MsgSnackbar } from "../../common";
-import { DepartmentTable, DeleteModal } from "../DeptRetention";
+import { DepartmentTable, DeleteMsgModal } from "../DeptRetention";
 
 const headrows: IHeadRow[] = [
   { id: "function", label: "Function" },
@@ -188,12 +188,12 @@ export const DeptRetention = inject(
       </Paper>
 
       {/* delete record */}
-      <DeleteModal
+      <DeleteMsgModal
         open={deleteModal}
         title={"Delete Record"}
         msg={"Are you sure you want to delete this record?"}
         pdelete={onDelete}
-        click={() => setDeleteModal(false)}
+        close={() => setDeleteModal(false)}
       />
 
       {/* edit record */}

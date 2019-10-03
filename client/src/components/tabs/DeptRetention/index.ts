@@ -1,2 +1,2 @@
-export * from './DeleteModal'
+export * from './DeleteMsgModal'
 export * from './DepartmentTable'

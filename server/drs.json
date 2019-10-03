@@ -708,15 +708,6 @@
       "useddepartment": 0
     },
     {
-      "id": "7",
-      "code": "CACD1900",
-      "function": "Academic",
-      "recordtype": "Exams (administered) and Fcoursework not returned to students.",
-      "description": "Retain 1 year after end of semester administered, then destroy.",
-      "classification": [],
-      "useddepartment": 0
-    },
-    {
       "id": "8",
       "code": "CACD2300",
       "function": "Academic",
@@ -733,15 +724,6 @@
       "function": "Academic",
       "recordtype": "Student files retained by dept. (Academic Advisement Records) â graduate & undergrad.",
       "description": "Retain 5 years after graduation or 8 years after last enrolled, then destroy. (Retain records associated with licensing and professional certifications permanently).",
-      "classification": [],
-      "useddepartment": 0
-    },
-    {
-      "id": "10",
-      "code": "CHUM1100",
-      "function": "Employment",
-      "recordtype": "Job descriptions.",
-      "description": "Official job descriptions are retained permanently by Human Resource Services. Destroy department duplicates when no longer needed by department.",
       "classification": [],
       "useddepartment": 0
     },
@@ -781,15 +763,6 @@
       "classification": [
         "Archival"
       ],
-      "useddepartment": 0
-    },
-    {
-      "id": "15",
-      "code": "CADM1200",
-      "function": "Administrative",
-      "recordtype": "Contracts and agreements.",
-      "description": "Retain 6 years after expiration of contract or agreement, then destroy.",
-      "classification": [],
       "useddepartment": 0
     },
     {
@@ -835,15 +808,6 @@
       "useddepartment": 0
     },
     {
-      "id": "20",
-      "code": "CADM2200",
-      "function": "Administrative",
-      "recordtype": "Routine administrative support: weekly staff meeting notes, calendars, memos, mailing lists, schedules and routine correspondence.",
-      "description": "Destroy when no longer needed by department. These records are normally retained by department for 3 years.",
-      "classification": [],
-      "useddepartment": 0
-    },
-    {
       "id": "21",
       "code": "CADM2300",
       "function": "Administrative",
@@ -852,15 +816,6 @@
       "classification": [
         "Archival"
       ],
-      "useddepartment": 0
-    },
-    {
-      "id": "22",
-      "code": "CFAC1000",
-      "function": "Faculty",
-      "recordtype": "Faculty employment files (including contracts, awards, and publications).",
-      "description": "Retain Indefinitely. Awards and publications are available online.",
-      "classification": [],
       "useddepartment": 0
     },
     {
@@ -902,15 +857,6 @@
       "useddepartment": 0
     },
     {
-      "id": "27",
-      "code": "CFAC1600",
-      "function": "Faculty",
-      "recordtype": "Research data (including questionnaires and surveys).",
-      "description": "Research data is to be retained by faculty, as specified by grant or research project, normally 5 years, then destroy. Do not submit to the University Records Center.",
-      "classification": [],
-      "useddepartment": 0
-    },
-    {
       "id": "28",
       "code": "CFAC1700",
       "function": "Faculty",
@@ -934,15 +880,6 @@
       "function": "Financial",
       "recordtype": "Budget adjustments, submitted by departments.",
       "description": "Retain budget adjustment supporting documentation for current year + 1, then destroy.",
-      "classification": [],
-      "useddepartment": 0
-    },
-    {
-      "id": "31",
-      "code": "CFIN1300",
-      "function": "Financial",
-      "recordtype": "Budget planning (annual financial planning documentation).",
-      "description": "Retain for 6 years, then destroy.",
       "classification": [],
       "useddepartment": 0
     },

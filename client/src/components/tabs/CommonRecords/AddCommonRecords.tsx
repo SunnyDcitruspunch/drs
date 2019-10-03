@@ -21,7 +21,8 @@ import {
 import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
 import { EditModal, MessageModal, MsgSnackbar } from "../../common";
 import RecordTable from "./RecordTable";
-import DeleteModal from "./DeleteModal";
+import { DeleteMsgModal } from "../DeptRetention";
+import DeleteModal from '../CommonRecords/DeleteModal'
 
 const headrows: IHeadRow[] = [
   { id: "deptnum", label: "Used Department" },
@@ -47,6 +48,7 @@ const CommonRecords = inject(
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const [showDeleteMsgModal, setShowDeleteMsgModal] = useState<boolean>(false);
     const [loadPdf, setLoadPdf] = useState<boolean>(false);
     const [selectRecord, setSelectRecord] = useState<any[]>([]);
     const [selectedclassification, setSelectedClassification] = useState<
@@ -104,11 +106,22 @@ const CommonRecords = inject(
       setShowDeleteModal(true);
     };
 
+    const onDelete = () => {
+      setShowDeleteModal(false);
+      setShowDeleteMsgModal(false)
+      CommonStore.deleteCommonRecord();
+    };
+
+    const confirmDelete = () => {
+      setShowDeleteModal(false)
+      setShowDeleteMsgModal(true)
+    }
+
     const makePdf = () => {
       setLoadPdf(true);
 
       axios
-        .post("/create-departments", {CommonStore, DepartmentStore})
+        .post("/create-departments", { CommonStore, DepartmentStore })
         .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
         .then((res: any) => {
           setLoadPdf(false);
@@ -211,8 +224,8 @@ const CommonRecords = inject(
                         </span>
                       );
                     })}
-                    //add dele ajax call
-                  ondelete={() => setShowDeleteModal(false)}
+                  //add delete ajax call
+                  ondelete={confirmDelete}
                 />
               </div>
             );
@@ -225,6 +238,15 @@ const CommonRecords = inject(
           click={() => setShowModal(false)}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+        />
+
+        {/* delete record */}
+        <DeleteMsgModal
+          open={showDeleteMsgModal}
+          title={"Delete Record"}
+          msg={"Are you sure you want to delete this record?"}
+          pdelete={onDelete}
+          close={() => setShowDeleteMsgModal(false)}
         />
       </Container>
     );

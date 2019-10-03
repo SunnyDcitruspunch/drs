@@ -95,6 +95,13 @@ class _CommonStore implements ICommonStore {
       .then(json => (this.commonRecords = json));
   }
 
+  deleteCommonRecord = async() => {
+    const baseUrl = "http://localhost:3004/commonrecords";
+    const options = { method: "DELETE" }
+    await fetch(`${baseUrl}/${this.record.id}`, options);    
+    CommonStore.fetchCommonRecords();
+  }
+
   //add selected common records
   async addCommonRecords(selects: string[], dept: IDepartment) {
     //initial value should not be empty... should have pre selected data.
