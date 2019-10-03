@@ -23,10 +23,6 @@ import { EditModal, MessageModal, MsgSnackbar } from "../../common";
 import RecordTable from "./RecordTable";
 import DeleteModal from "./DeleteModal";
 
-interface Document {
-  createElement(tagName: "input"): HTMLInputElement;
-}
-
 const headrows: IHeadRow[] = [
   { id: "deptnum", label: "Used Department" },
   { id: "function", label: "Function" },
@@ -102,26 +98,17 @@ const CommonRecords = inject(
       }
     };
 
-    const closeEditModal = () => {
-      setShowEditModal(false);
-    };
-
     const handleDelete = (deleterecord: ICommonRecord) => {
       //pass clicked record
       CommonStore.getEditRecord(deleterecord);
       setShowDeleteModal(true);
     };
 
-    //why not just call closeEditModal() ?
-    const onDelete = () => {
-      closeEditModal();
-    };
-
     const makePdf = () => {
       setLoadPdf(true);
 
       axios
-        .post("/create-departments", DepartmentStore)
+        .post("/create-departments", {CommonStore, DepartmentStore})
         .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
         .then((res: any) => {
           setLoadPdf(false);
@@ -185,7 +172,7 @@ const CommonRecords = inject(
                   open={showEditModal}
                   functionList={UniqueStore.functionsDropdown}
                   categoryList={UniqueStore.categoryDropdown}
-                  close={closeEditModal}
+                  close={() => setShowEditModal(false)}
                   saveedit={saveEdit}
                   disabled={false}
                   disablecomment={true}
@@ -213,7 +200,7 @@ const CommonRecords = inject(
                 <DeleteModal
                   deptpdf={makePdf}
                   open={showDeleteModal}
-                  close={closeEditModal}
+                  close={() => setShowDeleteModal(false)}
                   msg={"Total Departments: " + postDetail.useddepartment}
                   depts={DepartmentStore._allRecords
                     .filter((r: IRecord) => r.code === CommonStore.record.code)
@@ -224,7 +211,8 @@ const CommonRecords = inject(
                         </span>
                       );
                     })}
-                  ondelete={onDelete}
+                    //add dele ajax call
+                  ondelete={() => setShowDeleteModal(false)}
                 />
               </div>
             );
