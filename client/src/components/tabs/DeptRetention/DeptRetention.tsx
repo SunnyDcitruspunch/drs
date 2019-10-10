@@ -15,7 +15,8 @@ import {
   IUniqueStore,
   IRecord,
   IRecordStore,
-  UserStore
+  UserStore,
+  IUserStore
 } from "../../../stores";
 import EnhancedTableHead, {
   IOrder,
@@ -28,6 +29,7 @@ interface IProps {
   DepartmentStore: IDepartmentStore;
   UniqueStore: IUniqueStore;
   RecordStore: IRecordStore;
+  UserStore: IUserStore;
 }
 
 interface IState {
@@ -58,7 +60,12 @@ const headrows: IHeadRow[] = [
   { id: "status", label: "Status" }
 ];
 
-export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordStore")(
+export const DeptRetention = inject(
+  "UserStore",
+  "DepartmentStore",
+  "UniqueStore",
+  "RecordStore"
+)(
   observer(
     class DeptRetnetion extends React.Component<IProps, IState> {
       constructor(props: IProps) {
@@ -111,8 +118,8 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
       handleDelete = (deleterecord: IRecord) => {
         //show delete modal
         this.setState({ confirmDelete: true });
-       this.props.DepartmentStore.updateDeleteID(deleterecord)
-      }
+        this.props.DepartmentStore.updateDeleteID(deleterecord);
+      };
 
       //click delete in delete modal
       onDelete: any = async () => {
@@ -145,7 +152,7 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
           );
           this.setState({
             selectedclassification: this.state.selectedclassification.filter(
-              (_: any, i: any) => i !== remove
+              (_: string, i: number) => i !== remove
             )
           });
         }
@@ -158,6 +165,17 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
         const department = this.props.DepartmentStore.selectedDepartment;
         const functions = this.props.UniqueStore.functionsDropdown;
         const categories = this.props.UniqueStore.categoryDropdown;
+        let records = [];
+        {
+          this.props.UserStore.currentUser.admin
+            ? (records = DepartmentStore.allRecords.filter(
+                (x: IRecord) => x.department === department.department
+              ))
+            : (records = DepartmentStore.allRecords.filter(
+                (x: IRecord) =>
+                  x.department === UserStore.currentUser.department
+              ));
+        }
 
         return (
           <React.Fragment>
@@ -176,62 +194,24 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
                   order={this.state.order}
                   orderBy={this.state.orderBy}
                 />
-                {UserStore.currentUser.admin ? (
-                  <TableBody style={{ fontSize: 11 }} id="tablebody">
-                    {DepartmentStore.allRecords
-                      .slice()
-                      .sort((a: IRecord, b: IRecord) =>
-                        a.function < b.function ? -1 : 1
-                      )
-                      .filter(
-                        (x: IRecord) => x.department === department.department
-                      )
-                      .map((postDetail: IRecord, index) => {
-                        return (
-                          <DepartmentTable
-                            key={index}
-                            tablekey={index}
-                            onedit={this.showEditModal.bind(this, postDetail)}
-                            ondelete={() => this.handleDelete(postDetail)}
-                            pfunction={postDetail.function}
-                            recordtype={postDetail.recordtype}
-                            description={postDetail.description}
-                            classification={postDetail.classification}
-                            comments={postDetail.comments}
-                            status={postDetail.status}
-                          />
-                        );
-                      })}
-                  </TableBody>
-                ) : (
-                  <TableBody style={{ fontSize: 11 }} id="tablebody">
-                    {DepartmentStore.allRecords
-                      .slice()
-                      .sort((a: IRecord, b: IRecord) =>
-                        a.function < b.function ? -1 : 1
-                      )
-                      .filter(
-                        (x: IRecord) =>
-                          x.department === UserStore.currentUser.department
-                      )
-                      .map((postDetail: IRecord, index) => {
-                        return (
-                          <DepartmentTable
-                            key={index}
-                            tablekey={index}
-                            onedit={() => this.showEditModal(postDetail)}
-                            ondelete={() => this.handleDelete(postDetail)}
-                            pfunction={postDetail.function}
-                            recordtype={postDetail.recordtype}
-                            description={postDetail.description}
-                            classification={postDetail.classification}
-                            comments={postDetail.comments}
-                            status={postDetail.status}
-                          />
-                        );
-                      })}
-                  </TableBody>
-                )}
+                <TableBody style={{ fontSize: 11 }} id="tablebody">
+                  {records.map((postDetail: IRecord, index) => {
+                    return (
+                      <DepartmentTable
+                        key={index}
+                        tablekey={index}
+                        onedit={this.showEditModal.bind(this, postDetail)}
+                        ondelete={() => this.handleDelete(postDetail)}
+                        pfunction={postDetail.function}
+                        recordtype={postDetail.recordtype}
+                        description={postDetail.description}
+                        classification={postDetail.classification}
+                        comments={postDetail.comments}
+                        status={postDetail.status}
+                      />
+                    );
+                  })}
+                </TableBody>
               </Table>
             </Paper>
 
@@ -247,8 +227,7 @@ export const DeptRetention = inject("DepartmentStore", "UniqueStore", "RecordSto
             {/* edit record */}
             {this.props.DepartmentStore.allRecords
               .filter(
-                (x: IRecord) =>
-                  x.id === this.props.DepartmentStore.record.id
+                (x: IRecord) => x.id === this.props.DepartmentStore.record.id
               )
               .map((editDetail: IRecord, index) => {
                 return (

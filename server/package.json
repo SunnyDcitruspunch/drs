@@ -17,6 +17,7 @@
     "lowdb": "^1.0.0",
     "mobx": "^5.10.1",
     "mobx-react": "^6.1.1",
+    "nodemon": "^1.19.3",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",
