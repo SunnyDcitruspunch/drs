@@ -50,8 +50,6 @@ class _DepartmentStore implements IDepartmentStore {
   };
   editcomment = "";
 
-  // deptcommon = []
-
   // select a department
   handleSelected(dept: IDepartment) {
     this.selectedDepartment = dept;
@@ -70,7 +68,14 @@ class _DepartmentStore implements IDepartmentStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this._allRecords = json));
+      .then(
+        json =>
+          (this._allRecords = json
+            .slice()
+            .sort((a: IRecord, b: IRecord) =>
+              a.function < b.function ? -1 : 1
+            ))
+      );
   };
 
   get allRecords(): Array<any> {
@@ -135,7 +140,7 @@ class _DepartmentStore implements IDepartmentStore {
       })
     }).then(res => {
       this.fetchAllRecords();
-    })
+    });
   }
 
   //PATCH request

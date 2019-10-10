@@ -1,0 +1,16 @@
+.tbcell {
+  font-size: 10px;
+  width: 120px;
+}
+
+.ckbox {
+  height: 1px;
+  width: 1px;
+  margin-left: 1vw;
+}
+
+#paper {
+  width: 100%;
+  overflow-x: auto;
+}
+/*# sourceMappingURL=Admin.css.map */

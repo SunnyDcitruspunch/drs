@@ -18,6 +18,7 @@ import {
 import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
 import AdminTable from "./AdminTable";
 import { EditModal } from "../../common";
+import "./Admin.scss";
 
 const headrows: IHeadRow[] = [
   {
@@ -55,7 +56,6 @@ const AdminTab = inject("DepartmentStore", "RecordStore", "UniqueStore")(
 
     const approveSelect = async (e: any) => {
       RecordStore.approveSelectedRecords(approvedrecord);
-
       setApprovedRecord([]);
     };
 
@@ -77,14 +77,14 @@ const AdminTab = inject("DepartmentStore", "RecordStore", "UniqueStore")(
         let remove = selectedclassification.indexOf(e.target.value);
         selectedclassification([
           ...selectedclassification,
-          selectedclassification.filter((_: any, i: any) => i !== remove)
+          selectedclassification.filter((_: string, i: number) => i !== remove)
         ]);
       }
     };
 
     return (
       <Container>
-        <Paper style={{ width: "100%", overflowX: "auto" }}>
+        <Paper id="paper">
           <Grid container justify="center" alignItems="center">
             <FormLabel style={{ marginTop: 5 }}>Pending Records</FormLabel>
           </Grid>
@@ -92,7 +92,6 @@ const AdminTab = inject("DepartmentStore", "RecordStore", "UniqueStore")(
             <EnhancedTableHead id="tablehead" headrows={headrows} />
             <TableBody style={{ fontSize: 11 }}>
               {DepartmentStore.allRecords
-                .slice()
                 .filter((x: IRecord) => x.status === "Pending")
                 .map((pending: IRecord, index: number) => (
                   <AdminTable

@@ -206,7 +206,6 @@ const AddUniqueRecords = inject(
           }}
           open={true}
           autoHideDuration={6000}
-          // onClose={handleClose}
           ContentProps={{
             "aria-describedby": "message-id"
           }}

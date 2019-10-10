@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { TableCell, TableRow, Checkbox } from "@material-ui/core";
 import { IRecord } from "../../../stores/RecordStore";
+import "./Admin.scss";
 
 interface IProps {
   tablekey: number;
@@ -16,18 +17,15 @@ const DepartmentTable = observer((props: IProps) => {
 
   return (
     <TableRow hover key={tablekey}>
-      <TableCell component="th" scope="row" style={{ fontSize: 10, width: 120 }}>
+      <TableCell component="th" scope="row" className="tbcell">
         <CreateOutlinedIcon
           name="edit"
           onClick={onedit}
           style={styles.buttonStyle}
         />
-        &nbsp;
-        &nbsp;
-        &nbsp;
         <Checkbox
           color="primary"
-          style={{ height: 1, width: 1 }}
+          className="ckbox"
           onChange={onselect}
           value={record.id}
         />
@@ -42,7 +40,7 @@ const DepartmentTable = observer((props: IProps) => {
 
 export default DepartmentTable;
 
-const styles = {  
+const styles = {
   buttonStyle: {
     width: 20,
     height: 16,

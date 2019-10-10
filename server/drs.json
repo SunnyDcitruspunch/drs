@@ -901,15 +901,6 @@
       "useddepartment": 0
     },
     {
-      "id": "28",
-      "code": "CFAC1700",
-      "function": "Faculty",
-      "recordtype": "Research proposals and grants.",
-      "description": "Retain for 6 years after close of contract (retain longer if specified by grant or research project), then destroy. Retain denied proposals for 3 years, then destroy. These records are normally retained by ORCA and the Deanâs Office.",
-      "classification": [],
-      "useddepartment": 0
-    },
-    {
       "id": "29",
       "code": "CFIN1450",
       "function": "Financial",

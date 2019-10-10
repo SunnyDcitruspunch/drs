@@ -22,7 +22,6 @@ export interface ICommonStore {
   getEditRecord: (record: ICommonRecord) => void;
   addCommonRecords: (selects: string[], dept: IDepartment) => void;
   handleChange: (e: any) => void;
-  result: string;
 }
 
 class _CommonStore implements ICommonStore {
@@ -40,13 +39,19 @@ class _CommonStore implements ICommonStore {
     useddepartment: 0
   };
 
-  result = "";
-  fetchCommonRecords = async() => {
+  fetchCommonRecords = async () => {
     await fetch("http://localhost:3004/commonrecords")
       .then(response => {
         return response.json();
       })
-      .then(json => (this.commonRecords = json));
+      .then(
+        json =>
+          (this.commonRecords = json
+            .slice()
+            .sort((a: ICommonRecord, b: ICommonRecord) =>
+              a.function < b.function ? -1 : 1
+            ))
+      );
 
     this.commonRecords.forEach((crecord: ICommonRecord) => {
       DepartmentStore.allDepartments.forEach((d: IDepartment) => {
@@ -55,7 +60,7 @@ class _CommonStore implements ICommonStore {
         }
       });
     });
-  }
+  };
 
   //record waiting to be edited
   getEditRecord(record: ICommonRecord) {
@@ -86,21 +91,17 @@ class _CommonStore implements ICommonStore {
         description: this.record.description,
         classification: c
       })
+    }).then(res => {
+      this.fetchCommonRecords();
     });
-
-    fetch("http://localhost:3004/commonrecords")
-      .then(response => {
-        return response.json();
-      })
-      .then(json => (this.commonRecords = json));
   }
 
-  deleteCommonRecord = async() => {
+  deleteCommonRecord = async () => {
     const baseUrl = "http://localhost:3004/commonrecords";
-    const options = { method: "DELETE" }
-    await fetch(`${baseUrl}/${this.record.id}`, options);    
+    const options = { method: "DELETE" };
+    await fetch(`${baseUrl}/${this.record.id}`, options);
     CommonStore.fetchCommonRecords();
-  }
+  };
 
   //add selected common records
   async addCommonRecords(selects: string[], dept: IDepartment) {

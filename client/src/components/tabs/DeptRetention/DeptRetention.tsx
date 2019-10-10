@@ -16,9 +16,7 @@ import {
   DepartmentStore,
   UniqueStore
 } from "../../../stores";
-import EnhancedTableHead, {
-  IHeadRow
-} from "../../common/EnhancedTableHead";
+import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
 import { EditModal, MsgSnackbar } from "../../common";
 import { DepartmentTable, DeleteMsgModal } from "../DeptRetention";
 
@@ -43,28 +41,29 @@ export const DeptRetention = inject(
   "RecordStore"
 )(
   observer(() => {
-    const [editComment, setEditComment] = useState<boolean>(false)
-    const [editModal, setEditModal] = useState<boolean>(false)
-    const [deleteModal, setDeleteModal] = useState<boolean>(false)
-    const [disableEdit, setDisableEdit] = useState<boolean>(false)
+    const [editComment, setEditComment] = useState<boolean>(false);
+    const [editModal, setEditModal] = useState<boolean>(false);
+    const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const [loadPdf, setLoadPdf] = useState<boolean>(false);
-    const [selectedclassification, setSelectedClassification] = useState<any>([])
+    const [selectedclassification, setSelectedClassification] = useState<any>(
+      []
+    );
 
     const showEditModal = (postDetail: IRecord) => {
       if (postDetail.recordcategoryid === "common") {
         setEditComment(true);
       } else {
-        setEditComment(false);        
+        setEditComment(false);
       }
-      setEditModal(true)
+      setEditModal(true);
       DepartmentStore.updateEditID(postDetail);
 
       setSelectedClassification(postDetail.classification);
       //something else??
-    }
+    };
 
-     //make pdf
-     const makePdf = () => {
+    //make pdf
+    const makePdf = () => {
       setLoadPdf(true);
 
       axios
@@ -77,7 +76,7 @@ export const DeptRetention = inject(
         })
         .catch((error: any) => console.log(error));
     };
-    
+
     const handleCheck = (e: any) => {
       if (e.target.checked) {
         setSelectedClassification([...selectedclassification, e.target.value]);
@@ -90,7 +89,7 @@ export const DeptRetention = inject(
       }
     };
 
-     //pass id to store for delete action
+    //pass id to store for delete action
     const handleDelete = (deleterecord: IRecord) => {
       //show delete modal
       setDeleteModal(true);
@@ -104,142 +103,128 @@ export const DeptRetention = inject(
     };
 
     const editRecord: any = async () => {
-      await DepartmentStore.updateRecord(
-        selectedclassification
-      );
+      await DepartmentStore.updateRecord(selectedclassification);
       // await this.props.DepartmentStore.setRecord()
       setEditModal(false);
     };
 
     return (
       <React.Fragment>
-      <Grid justify="center" alignItems="center" container>
-        <Button variant="outlined" color="primary" onClick={makePdf}>
-          Download as PDF
-        </Button>
-      </Grid>
-    {/* <MsgSnackbar /> */}
-      <Paper>
-        {loadPdf ? <LinearProgress /> : ""}
-        <Table id="schedule" size="small">
-          <EnhancedTableHead
-            id="tablehead"
-            headrows={headrows}
-          />
-          {UserStore.currentUser.admin ? (
-            <TableBody style={{ fontSize: 11 }} id="tablebody">
-              {DepartmentStore.allRecords
-                .slice()
-                .sort((a: IRecord, b: IRecord) =>
-                  a.function < b.function ? -1 : 1
-                )
-                .filter(
-                  (x: IRecord) => x.department === DepartmentStore.selectedDepartment.department
-                )
-                .map((postDetail: IRecord, index) => {
-                  return (
-                    <DepartmentTable
-                      key={index}
-                      tablekey={index}
-                      onedit={() => showEditModal(postDetail)}
-                      ondelete={() => handleDelete(postDetail)}
-                      pfunction={postDetail.function}
-                      recordtype={postDetail.recordtype}
-                      description={postDetail.description}
-                      classification={postDetail.classification}
-                      comments={postDetail.comments}
-                      status={postDetail.status}
-                    />
-                  );
-                })}
-            </TableBody>
-          ) : (
-            <TableBody style={{ fontSize: 11 }} id="tablebody">
-              {DepartmentStore.allRecords
-                .slice()
-                .sort((a: IRecord, b: IRecord) =>
-                  a.function < b.function ? -1 : 1
-                )
-                .filter(
-                  (x: IRecord) =>
-                    x.department === UserStore.currentUser.department
-                )
-                .map((postDetail: IRecord, index) => {
-                  return (
-                    <DepartmentTable
-                      key={index}
-                      tablekey={index}
-                      onedit={() => showEditModal(postDetail)}
-                      ondelete={() => handleDelete(postDetail)}
-                      pfunction={postDetail.function}
-                      recordtype={postDetail.recordtype}
-                      description={postDetail.description}
-                      classification={postDetail.classification}
-                      comments={postDetail.comments}
-                      status={postDetail.status}
-                    />
-                  );
-                })}
-            </TableBody>
-          )}
-        </Table>
-      </Paper>
+        <Grid justify="center" alignItems="center" container>
+          <Button variant="outlined" color="primary" onClick={makePdf}>
+            Download as PDF
+          </Button>
+        </Grid>
+        {/* <MsgSnackbar /> */}
+        <Paper>
+          {loadPdf ? <LinearProgress /> : ""}
+          <Table id="schedule" size="small">
+            <EnhancedTableHead id="tablehead" headrows={headrows} />
+            {UserStore.currentUser.admin ? (
+              <TableBody style={{ fontSize: 11 }} id="tablebody">
+                {DepartmentStore._allRecords
+                  .filter(
+                    (x: IRecord) =>
+                      x.department ===
+                      DepartmentStore.selectedDepartment.department
+                  )
+                  .map((postDetail: IRecord, index: number) => {
+                    return (
+                      <DepartmentTable
+                        key={index}
+                        tablekey={index}
+                        onedit={() => showEditModal(postDetail)}
+                        ondelete={() => handleDelete(postDetail)}
+                        pfunction={postDetail.function}
+                        recordtype={postDetail.recordtype}
+                        description={postDetail.description}
+                        classification={postDetail.classification}
+                        comments={postDetail.comments}
+                        status={postDetail.status}
+                      />
+                    );
+                  })}
+              </TableBody>
+            ) : (
+              <TableBody style={{ fontSize: 11 }} id="tablebody">
+                {DepartmentStore._allRecords
+                  .filter(
+                    (x: IRecord) =>
+                      x.department === UserStore.currentUser.department
+                  )
+                  .map((postDetail: IRecord, index: number) => {
+                    return (
+                      <DepartmentTable
+                        key={index}
+                        tablekey={index}
+                        onedit={() => showEditModal(postDetail)}
+                        ondelete={() => handleDelete(postDetail)}
+                        pfunction={postDetail.function}
+                        recordtype={postDetail.recordtype}
+                        description={postDetail.description}
+                        classification={postDetail.classification}
+                        comments={postDetail.comments}
+                        status={postDetail.status}
+                      />
+                    );
+                  })}
+              </TableBody>
+            )}
+          </Table>
+        </Paper>
 
-      {/* delete record */}
-      <DeleteMsgModal
-        open={deleteModal}
-        title={"Delete Record"}
-        msg={"Are you sure you want to delete this record?"}
-        pdelete={onDelete}
-        close={() => setDeleteModal(false)}
-      />
+        {/* delete record */}
+        <DeleteMsgModal
+          open={deleteModal}
+          title={"Delete Record"}
+          msg={"Are you sure you want to delete this record?"}
+          pdelete={onDelete}
+          close={() => setDeleteModal(false)}
+        />
 
-      {/* edit record */}
-      {DepartmentStore.allRecords
-        .filter(
-          (x: IRecord) => x.id === DepartmentStore.record.id
-        )
-        .map((editDetail: IRecord, index: number) => {
-          return (
-            <EditModal
-              title={
-                editDetail.recordcategoryid === "common"
-                  ? "Edit Comment Only"
-                  : "Edit Record"
-              }
-              disabled={editComment}
-              key={index}
-              record={editDetail}
-              open={editModal}
-              close={() => setEditModal(false)}
-              functionList={UniqueStore.functionsDropdown}
-              categoryList={UniqueStore.categoryDropdown}
-              change={DepartmentStore.handleChange}
-              saveedit={editRecord}
-              changecheckbox={handleCheck}
-              disablecategory={
-                editDetail.recordcategoryid === "common" ? true : false
-              }
-              ifarchival={
-                !!selectedclassification.find(
-                  (x: string) => x === " Archival "
-                )
-              }
-              ifvital={
-                !!selectedclassification.find(
-                  (x: string) => x === " Vital "
-                )
-              }
-              ifconfidential={
-                !!selectedclassification.find(
-                  (x: string) => x === " Highly Confidential "
-                )
-              }
-            />
-          );
-        })}
-    </React.Fragment>
-    )
-  }))
+        {/* edit record */}
+        {DepartmentStore.allRecords
+          .filter((x: IRecord) => x.id === DepartmentStore.record.id)
+          .map((editDetail: IRecord, index: number) => {
+            return (
+              <EditModal
+                title={
+                  editDetail.recordcategoryid === "common"
+                    ? "Edit Comment Only"
+                    : "Edit Record"
+                }
+                disabled={editComment}
+                key={index}
+                record={editDetail}
+                open={editModal}
+                close={() => setEditModal(false)}
+                functionList={UniqueStore.functionsDropdown}
+                categoryList={UniqueStore.categoryDropdown}
+                change={DepartmentStore.handleChange}
+                saveedit={editRecord}
+                changecheckbox={handleCheck}
+                disablecategory={
+                  editDetail.recordcategoryid === "common" ? true : false
+                }
+                ifarchival={
+                  !!selectedclassification.find(
+                    (x: string) => x === " Archival "
+                  )
+                }
+                ifvital={
+                  !!selectedclassification.find((x: string) => x === " Vital ")
+                }
+                ifconfidential={
+                  !!selectedclassification.find(
+                    (x: string) => x === " Highly Confidential "
+                  )
+                }
+              />
+            );
+          })}
+      </React.Fragment>
+    );
+  })
+);
 
 export default DeptRetention;

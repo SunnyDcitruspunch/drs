@@ -49,7 +49,9 @@ const CommonRecords = inject(
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-    const [showDeleteMsgModal, setShowDeleteMsgModal] = useState<boolean>(false);
+    const [showDeleteMsgModal, setShowDeleteMsgModal] = useState<boolean>(
+      false
+    );
     const [loadPdf, setLoadPdf] = useState<boolean>(false);
     const [selectRecord, setSelectRecord] = useState<any[]>([]);
     const [selectedclassification, setSelectedClassification] = useState<
@@ -96,7 +98,7 @@ const CommonRecords = inject(
         let remove = selectedclassification.indexOf(e.target.value);
         selectedclassification([
           ...selectedclassification,
-          selectedclassification.filter((_: any, i: any) => i !== remove)
+          selectedclassification.filter((_: string, i: number) => i !== remove)
         ]);
       }
     };
@@ -121,7 +123,11 @@ const CommonRecords = inject(
     const makePdf = () => {
       setLoadPdf(true);
       axios
-        .post("/create-departments", { CommonStore, DepartmentStore, RecordStore })
+        .post("/create-departments", {
+          CommonStore,
+          DepartmentStore,
+          RecordStore
+        })
         .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
         .then((res: any) => {
           setLoadPdf(false);
@@ -131,11 +137,8 @@ const CommonRecords = inject(
         .catch((error: any) => console.log(error));
     };
 
-    const CommonRecordList: JSX.Element[] = CommonStore.commonRecords
-      .slice()
-      .sort((a: ICommonRecord, b: ICommonRecord) =>
-        a.function < b.function ? -1 : 1
-      ).map((record: ICommonRecord, index: number) => {
+    const CommonRecordList: JSX.Element[] = CommonStore.commonRecords.map(
+      (record: ICommonRecord, index: number) => {
         return (
           <RecordTable
             key={index}
@@ -150,16 +153,15 @@ const CommonRecords = inject(
             }
           />
         );
-      })
+      }
+    );
 
     return (
       <Container style={styles.tableStyle}>
         <Paper style={{ width: "100%", overflowX: "auto" }}>
           <Table size="small">
             <EnhancedTableHead id="tablehead" headrows={headrows} />
-            <TableBody>
-              {CommonRecordList}
-            </TableBody>
+            <TableBody>{CommonRecordList}</TableBody>
           </Table>
         </Paper>
         {/* <MsgSnackbar /> */}
@@ -225,7 +227,7 @@ const CommonRecords = inject(
                         </span>
                       );
                     })}
-                  //add delete ajax call
+                  //add delete request
                   ondelete={confirmDelete}
                 />
               </div>

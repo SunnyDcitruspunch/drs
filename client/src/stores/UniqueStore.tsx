@@ -1,5 +1,6 @@
 import { observable, action, decorate } from "mobx";
 import { IRecord, DepartmentStore } from "./index";
+import { string } from "yup";
 
 export interface ICategory {
   id?: string;
@@ -58,7 +59,12 @@ class _UniqueStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.categoryDropdown = json));
+      .then(
+        json =>
+          (this.categoryDropdown = json
+            .slice()
+            .sort((a: string, b: string) => (a < b ? -1 : 1)))
+      );
   }
 
   async fetchArchival() {
@@ -66,14 +72,19 @@ class _UniqueStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.archivalDropdown = json));
+      .then(
+        json =>
+          (this.archivalDropdown = json
+            .slice()
+            .sort((a: string, b: string) => (a < b ? -1 : 1)))
+      );
   }
 
   async submitRecords(dept: string, c: string[]) {
     this.uniquerecords.department = dept;
     this.uniquerecords.classification = c;
 
-      await fetch("http://localhost:3004/records", {
+    await fetch("http://localhost:3004/records", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -81,8 +92,8 @@ class _UniqueStore {
       },
       body: JSON.stringify(this.uniquerecords)
     }).then(res => {
-      DepartmentStore.fetchAllRecords(); 
-    })
+      DepartmentStore.fetchAllRecords();
+    });
 
     this.uniquerecords.recordtype = "";
     this.uniquerecords.function = "";
