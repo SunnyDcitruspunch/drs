@@ -133,9 +133,9 @@ class _DepartmentStore implements IDepartmentStore {
       body: JSON.stringify({
         commoncodes: updateCommoncodes
       })
-    });
-    // this.fetchAllRecords(); //update delete modal name
-    // CommonStore.fetchCommonRecords() //update delete modal number
+    }).then(res => {
+      this.fetchAllRecords();
+    })
   }
 
   //PATCH request
@@ -143,7 +143,9 @@ class _DepartmentStore implements IDepartmentStore {
     const i = this._allRecords.findIndex(r => r.id === this.record.id);
     this.allRecords[i] = this.record;
 
-    if (this.record.comments !== this.editcomment) {
+    if (this.record.recordtype === this.record.recordtype) {
+      this.record.status = "Approved";
+    } else {
       this.record.status = "Pending";
     }
 
@@ -163,7 +165,11 @@ class _DepartmentStore implements IDepartmentStore {
         classification: classification,
         status: this.record.status
       })
+    }).then(res => {
+      DepartmentStore.fetchAllRecords();
     });
+
+    //how to clear an object more effectively?
     this.record = {
       id: "",
       department: "",

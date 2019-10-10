@@ -16,13 +16,14 @@ import {
   ICommonRecord,
   CommonStore,
   DepartmentStore,
-  UniqueStore
+  UniqueStore,
+  RecordStore
 } from "../../../stores";
 import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
 import { EditModal, MessageModal, MsgSnackbar } from "../../common";
 import RecordTable from "./RecordTable";
 import { DeleteMsgModal } from "../DeptRetention";
-import DeleteModal from '../CommonRecords/DeleteModal'
+import DeleteModal from "../CommonRecords/DeleteModal";
 
 const headrows: IHeadRow[] = [
   { id: "deptnum", label: "Used Department" },
@@ -108,20 +109,19 @@ const CommonRecords = inject(
 
     const onDelete = () => {
       setShowDeleteModal(false);
-      setShowDeleteMsgModal(false)
+      setShowDeleteMsgModal(false);
       CommonStore.deleteCommonRecord();
     };
 
     const confirmDelete = () => {
-      setShowDeleteModal(false)
-      setShowDeleteMsgModal(true)
-    }
+      setShowDeleteModal(false);
+      setShowDeleteMsgModal(true);
+    };
 
     const makePdf = () => {
       setLoadPdf(true);
-
       axios
-        .post("/create-departments", { CommonStore, DepartmentStore })
+        .post("/create-departments", { CommonStore, DepartmentStore, RecordStore })
         .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
         .then((res: any) => {
           setLoadPdf(false);
@@ -131,33 +131,34 @@ const CommonRecords = inject(
         .catch((error: any) => console.log(error));
     };
 
+    const CommonRecordList: JSX.Element[] = CommonStore.commonRecords
+      .slice()
+      .sort((a: ICommonRecord, b: ICommonRecord) =>
+        a.function < b.function ? -1 : 1
+      ).map((record: ICommonRecord, index: number) => {
+        return (
+          <RecordTable
+            key={index}
+            record={record}
+            click={() => handleEditRecord(record)}
+            showdelete={() => handleDelete(record)}
+            select={onSelect}
+            disabled={
+              !!DepartmentStore.selectedDepartment.commoncodes.find(
+                (x: string) => x === record.code
+              )
+            }
+          />
+        );
+      })
+
     return (
       <Container style={styles.tableStyle}>
         <Paper style={{ width: "100%", overflowX: "auto" }}>
           <Table size="small">
             <EnhancedTableHead id="tablehead" headrows={headrows} />
             <TableBody>
-              {CommonStore.commonRecords
-                .slice()
-                .sort((a: ICommonRecord, b: ICommonRecord) =>
-                  a.function < b.function ? -1 : 1
-                )
-                .map((record: ICommonRecord, index: number) => {
-                  return (
-                    <RecordTable
-                      key={index}
-                      record={record}
-                      click={() => handleEditRecord(record)}
-                      showdelete={() => handleDelete(record)}
-                      select={onSelect}
-                      disabled={
-                        !!DepartmentStore.selectedDepartment.commoncodes.find(
-                          (x: string) => x === record.code
-                        )
-                      }
-                    />
-                  );
-                })}
+              {CommonRecordList}
             </TableBody>
           </Table>
         </Paper>

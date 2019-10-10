@@ -79,7 +79,7 @@ module.exports = ({ CommonStore, DepartmentStore }) => {
                               .filter(r => r.code === CommonStore.record.code)
                               .map(r => {
                                 return `
-                                ${r.department}
+                                ${r.department} <br />
                                 `;
                               })}
                               </td>

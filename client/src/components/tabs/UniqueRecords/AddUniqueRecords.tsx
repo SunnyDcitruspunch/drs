@@ -9,10 +9,7 @@ import {
   Snackbar
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import {
-  DepartmentStore,
-  UniqueStore
-} from "../../../stores";
+import { DepartmentStore, UniqueStore, ICategory } from "../../../stores";
 import {
   MessageModal,
   FunctionDropdown,
@@ -30,6 +27,9 @@ const AddUniqueRecords = inject(
     const [msgModal, setMsgModal] = useState<boolean>(false); //smshow
     const [snackbar, setSnackbar] = useState<boolean>(false);
     const [needRecord, setNeedRecord] = useState<boolean>(false);
+    const [vital, setVital] = useState<boolean>(false);
+    const [archival, setArchival] = useState<boolean>(false);
+    const [confidential, setConfidential] = useState<boolean>(false);
     const [selectedclassification, setSelectedClassification] = useState<any>(
       []
     );
@@ -46,23 +46,34 @@ const AddUniqueRecords = inject(
         );
         setSnackbar(true);
         setNeedRecord(false);
+        setSelectedClassification([]);
+        setVital(false)
+        setArchival(false)
+        setConfidential(false)
       }
       DepartmentStore.fetchAllRecords();
     };
 
+    //something wrong with the console output...
     const handleCheck = (e: any) => {
+      console.log(selectedclassification);
       if (e.target.checked) {
         // e.target.checked = false
+        // e.target.name
         setSelectedClassification([...selectedclassification, e.target.value]);
       } else {
         // e.target.checke3d = true
         let remove = selectedclassification.indexOf(e.target.value);
-        selectedclassification([
+        setSelectedClassification([
           ...selectedclassification,
           selectedclassification.filter((_: any, i: any) => i !== remove)
         ]);
       }
     };
+
+    const categorydropdown = UniqueStore.categoryDropdown.filter(
+      (c: ICategory) => c.functiontypeid === UniqueStore.uniquerecords.id
+    );
 
     return (
       <Container style={{ flexGrow: 1 }}>
@@ -80,7 +91,7 @@ const AddUniqueRecords = inject(
         </Grid>
         <Grid container justify="center" alignItems="center">
           <FunctionDropdown
-            title="Function Type"
+            title="Function"
             id="function"
             name="function"
             disabled={false}
@@ -97,13 +108,13 @@ const AddUniqueRecords = inject(
           style={{ height: 30 }}
         >
           <CategoryDropdown
-            title="Category Type"
+            title="Record Category"
             id="recordcategoryid"
             name="recordcategoryid"
             disabled={false}
             value={UniqueStore.uniquerecords.recordcategoryid}
             change={UniqueStore.handleChange}
-            dropdown={UniqueStore.categoryDropdown}
+            dropdown={categorydropdown}
           />
         </Grid>
 
@@ -137,6 +148,9 @@ const AddUniqueRecords = inject(
             <ClassificationCheckboxes
               changecheckbox={handleCheck}
               disabled={false}
+              ifvital={vital}
+              ifarchival={archival}
+              ifconfidential={confidential}
             />
           </FormControl>
         </Grid>

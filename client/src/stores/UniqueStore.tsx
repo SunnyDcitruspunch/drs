@@ -1,10 +1,21 @@
 import { observable, action, decorate } from "mobx";
 import { IRecord, DepartmentStore } from "./index";
 
+export interface ICategory {
+  id?: string;
+  recordcategoryid: string;
+  functiontypeid: string;
+}
+
+export interface IDropdown {
+  id?: string;
+  functiontype: string;
+}
+
 export interface IUniqueStore {
   uniquerecords: IRecord;
-  functionsDropdown: Array<Object>;
-  categoryDropdown: Array<Object>;
+  functionsDropdown: Array<IDropdown>;
+  categoryDropdown: Array<ICategory>;
   archivalDropdown: Array<Object>;
   fetchArchival: () => void;
   fetchFunctions: () => void;

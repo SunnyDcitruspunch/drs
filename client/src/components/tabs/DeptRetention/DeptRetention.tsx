@@ -109,8 +109,6 @@ export const DeptRetention = inject(
       );
       // await this.props.DepartmentStore.setRecord()
       setEditModal(false);
-
-      DepartmentStore.fetchAllRecords();
     };
 
     return (

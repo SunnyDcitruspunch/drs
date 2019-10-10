@@ -7,9 +7,9 @@
       "recordtype": "Challenge exams.",
       "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
       "classification": [],
-      "comments": "",
+      "comments": "000",
       "code": "CACD1200",
-      "status": "Approved",
+      "status": "Pending",
       "id": 1
     },
     {
@@ -19,9 +19,9 @@
       "recordtype": "Challenge exams.",
       "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
       "classification": [],
-      "comments": "",
+      "comments": "added comment again.",
       "code": "CACD1200",
-      "status": "Approved",
+      "status": "Pending",
       "id": 2
     },
     {
@@ -41,7 +41,7 @@
       "recordtype": "test",
       "function": "Administrative",
       "recordcategoryid": "STU19",
-      "description": "test",
+      "description": "test this out",
       "comments": "testtest",
       "classification": [
         " Archival "
@@ -161,20 +161,6 @@
       "id": 12
     },
     {
-      "department": "Marriott School",
-      "recordtype": "11111111111111111",
-      "function": "Human Resource",
-      "recordcategoryid": "MISC9",
-      "description": "test",
-      "comments": "test",
-      "classification": [
-        " Vital "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": 13
-    },
-    {
       "department": "Honor Code Office",
       "recordtype": "22222222222222222222",
       "function": "Financial",
@@ -249,9 +235,9 @@
     },
     {
       "department": "BYU Catering",
-      "recordtype": "888888888888888888",
+      "recordtype": "555",
       "function": "Administrative",
-      "recordcategoryid": "STU02",
+      "recordcategoryid": "MISC9",
       "description": "8888888888888888888",
       "comments": "888888888888888888",
       "classification": [
@@ -293,7 +279,7 @@
     },
     {
       "department": "Information Systems",
-      "recordtype": "ww",
+      "recordtype": "hahaha",
       "function": "Faculty",
       "recordcategoryid": "ADM01",
       "description": "ww",
@@ -324,7 +310,7 @@
       "recordtype": "asdf",
       "function": "Financial",
       "recordcategoryid": "ADM01",
-      "description": "asdf",
+      "description": "asdf234",
       "comments": "asdf",
       "classification": [
         " Vital ",
@@ -407,23 +393,9 @@
     },
     {
       "department": "Marriott School",
-      "recordtype": "q3",
-      "function": "Human Resource",
-      "recordcategoryid": "MISC9",
-      "description": "q3",
-      "comments": "q3",
-      "classification": [
-        " Archival "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": 30
-    },
-    {
-      "department": "Marriott School",
       "recordtype": "hh",
       "function": "Employment",
-      "recordcategoryid": "ADM01",
+      "recordcategoryid": "STU19",
       "description": "fghj",
       "comments": "fghj",
       "classification": [
@@ -454,7 +426,7 @@
       "recordtype": "iamahunter",
       "function": "Faculty",
       "recordcategoryid": "ADM01",
-      "description": "we",
+      "description": "we are the world, we are the children so",
       "comments": "dark fate",
       "classification": [
         " Archival "
@@ -631,13 +603,85 @@
       "function": "Employment",
       "recordcategoryid": "FIN10",
       "description": "test",
-      "comments": "test",
+      "comments": "test it  out",
       "classification": [
         " Archival "
       ],
       "status": "Pending",
       "code": "",
       "id": 48
+    },
+    {
+      "department": "BYU Catering",
+      "recordtype": "fake record1",
+      "function": "Academic",
+      "recordcategoryid": "STU02",
+      "description": "fake record111",
+      "comments": "fake notes",
+      "classification": [
+        " Vital ",
+        " Highly Confidential "
+      ],
+      "status": "Approved",
+      "code": "",
+      "id": 49
+    },
+    {
+      "department": "BYU Catering",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "recordtype": "Challenge exams.",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "classification": [],
+      "comments": "",
+      "code": "CACD1200",
+      "status": "Approved",
+      "id": 50
+    },
+    {
+      "department": "Marriott School",
+      "recordtype": "wer",
+      "function": "Employment",
+      "recordcategoryid": "STU19",
+      "description": "erasdf",
+      "comments": "asdfasdf",
+      "classification": [
+        " Vital ",
+        " Archival "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 51
+    },
+    {
+      "department": "Information Systems",
+      "recordtype": "asdf",
+      "function": "",
+      "recordcategoryid": "",
+      "description": "",
+      "comments": "",
+      "classification": [
+        " Vital ",
+        " Highly Confidential "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 52
+    },
+    {
+      "department": "Records",
+      "recordtype": "asdf",
+      "function": "Administrative",
+      "recordcategoryid": "STU19",
+      "description": "a",
+      "comments": "as",
+      "classification": [
+        " Vital ",
+        " Highly Confidential "
+      ],
+      "status": "Pending",
+      "code": "",
+      "id": 53
     }
   ],
   "commonrecords": [
@@ -1080,36 +1124,55 @@
     {
       "id": "7",
       "functiontype": "Miscellaneous"
+    },
+    {
+      "id": "8",
+      "functiontype": "Finance"
+    },
+    {
+      "id": "9",
+      "functiontype": "Information Technology"
+    },
+    {
+      "id": "10",
+      "functiontype": "Student Life"
     }
   ],
   "category": [
     {
       "id": "1",
-      "recordcategoryid": "OIT04"
+      "recordcategoryid": "OIT04",
+      "functiontypeid": "9"
     },
     {
       "id": "2",
-      "recordcategoryid": "common"
+      "recordcategoryid": "common",
+      "functiontypeid": "0"
     },
     {
       "id": "3",
-      "recordcategoryid": "STU19"
+      "recordcategoryid": "STU19",
+      "functiontypeid": "10"
     },
     {
       "id": "4",
-      "recordcategoryid": "FIN10"
+      "recordcategoryid": "FIN10",
+      "functiontypeid": "8"
     },
     {
       "id": "5",
-      "recordcategoryid": "ADM01"
+      "recordcategoryid": "ADM01",
+      "functiontypeid": "2"
     },
     {
       "id": "6",
-      "recordcategoryid": "STU02"
+      "recordcategoryid": "STU02",
+      "functiontypeid": "2"
     },
     {
       "id": "7",
-      "recordcategoryid": "MISC9"
+      "recordcategoryid": "MISC9",
+      "functiontypeid": "7"
     }
   ],
   "departments": [
@@ -1161,7 +1224,11 @@
         "CFIN2700",
         "CFIN2600",
         "CHUM1600",
-        "CHUM1400"
+        "CHUM1400",
+        "CACD1200",
+        "CADM1500",
+        "CADM1900",
+        "CADM2100"
       ]
     },
     {

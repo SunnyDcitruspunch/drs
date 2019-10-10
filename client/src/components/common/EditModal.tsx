@@ -103,7 +103,7 @@ export const EditModal = observer((props: IProps) => {
             value={record.recordcategoryid}
             onChange={change}
           >
-            <MenuItem value={""}>Choose...</MenuItem>
+            <MenuItem >Choose...</MenuItem>
             {categoryList.map((category: any) => (
               <MenuItem key={category.id} value={category.recordcategoryid}>
                 {category.recordcategoryid}
