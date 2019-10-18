@@ -1,9 +1,10 @@
 import { observable, decorate, action } from "mobx";
 
+//a user might be able to access multiple departments
 export interface IUser {
     username: string
     password: string
-    department: string
+    department: Array<string>
     admin: boolean
 }
 
@@ -14,8 +15,8 @@ export interface IUserStore {
 }
 
 class _UserStore implements IUserStore {
-    allUsers: IUser[] = [{username:"", password:"", department:"", admin:false}]
-    currentUser: IUser = {username:"", password:"", department:"", admin:false};
+    allUsers: IUser[] = [{username:"", password:"", department:[], admin:false}]
+    currentUser: IUser = {username:"", password:"", department:[], admin:false};
 
   fetchUsers = () => {
     fetch("http://localhost:3004/users")

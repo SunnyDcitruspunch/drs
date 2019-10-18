@@ -20,6 +20,8 @@ export interface IRecordStore {
   approveSelectedRecords: (e: any) => void;
 }
 
+//TODO: sort all fetched data
+
 class _RecordStore implements IRecordStore {
   CommonRecords = [];
   record: IRecord = {

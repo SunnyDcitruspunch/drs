@@ -40,6 +40,7 @@ const AddUniqueRecords = inject(
         selectedclassification: []
       };
 
+      //FIXME: redirect to deptRetention after added
       submitRecords = (e: any) => {
         if (this.props.DepartmentStore.selectedDepartment.department === "") {
           this.setState({ smShow: true });

@@ -39,7 +39,7 @@ interface IState {
   orderBy: string;
   sortDirection: string;
   snackbar: boolean;
-  disable: boolean;
+  // disable: boolean;
   onlycommentEdit: boolean;
   selectedclassification: string[];
   loadingPdf: boolean;
@@ -81,7 +81,7 @@ export const DeptRetention = inject(
           orderBy: "recordtype",
           sortDirection: "asc",
           snackbar: false,
-          disable: false, //can only edit comments if is common record
+          // disable: false, //can only edit comments if is common record
           selectedclassification: [],
           loadingPdf: false
         };
@@ -99,6 +99,7 @@ export const DeptRetention = inject(
         this.setState({ selectedclassification: postDetail.classification });
       }
 
+      //FIXME: prevent user download empty pdf
       //make pdf
       makePdf = () => {
         this.setState({ loadingPdf: true });
@@ -159,23 +160,18 @@ export const DeptRetention = inject(
         console.log(this.state.selectedclassification);
       };
 
+      //FIXME: show instruction if no records for a department
       render() {
         let editClose = () => this.setState({ openEdit: false });
-        const { DepartmentStore } = this.props;
-        const department = this.props.DepartmentStore.selectedDepartment;
-        const functions = this.props.UniqueStore.functionsDropdown;
-        const categories = this.props.UniqueStore.categoryDropdown;
-        let records = [];
-        {
-          this.props.UserStore.currentUser.admin
-            ? (records = DepartmentStore.allRecords.filter(
-                (x: IRecord) => x.department === department.department
-              ))
-            : (records = DepartmentStore.allRecords.filter(
-                (x: IRecord) =>
-                  x.department === UserStore.currentUser.department
-              ));
-        }
+        const { DepartmentStore, UserStore, UniqueStore } = this.props;
+        //admin select department(will only have one)
+        const department = DepartmentStore.selectedDepartment;
+        const functions = UniqueStore.functionsDropdown;
+        const categories = UniqueStore.categoryDropdown;
+        let records = DepartmentStore.allRecords.filter(
+          (x: IRecord) =>
+            UserStore.currentUser.department.indexOf(x.department) !== -1
+        );
 
         return (
           <React.Fragment>
@@ -275,4 +271,5 @@ export const DeptRetention = inject(
   )
 );
 
+//FIXME: fix cast as any type
 export default DeptRetention as any;

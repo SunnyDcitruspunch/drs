@@ -1,6 +1,5 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
 import { IRecord } from "./RecordStore";
-import { CommonStore } from "./CommonStore";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
@@ -8,6 +7,7 @@ export interface IDepartmentStore {
   updateEditID: (r: IRecord) => void;
   updateDeleteID: (r: IRecord) => void;
   selectedDepartment: IDepartment;
+  userinDepartment: string[];
   selectedCommonRecords: Array<IRecord>;
   record: IRecord;
   deleteRecord: () => void;
@@ -27,13 +27,17 @@ export interface IDepartment {
   commoncodes: string[];
 }
 
+//TODO: sort all fetched data
+
 class _DepartmentStore implements IDepartmentStore {
+  //admin selected department(will only have one at a time)
   selectedDepartment: IDepartment = {
     id: "",
     department: "",
     departmentnumber: "",
     commoncodes: []
   };
+  userinDepartment: string[] = [];
   selectedCommonRecords: IRecord[] = [];
   allDepartments: IDepartment[] = [];
   _allRecords: IRecord[] = [];
@@ -51,8 +55,6 @@ class _DepartmentStore implements IDepartmentStore {
   };
   editcomment = "";
 
-  // deptcommon = []
-
   // select a department
   handleSelected(dept: IDepartment) {
     this.selectedDepartment = dept;
@@ -63,7 +65,10 @@ class _DepartmentStore implements IDepartmentStore {
       .then(response => {
         return response.json();
       })
-      .then(json => (this.allDepartments = json));
+      .then(json => (this.allDepartments = json))
+      .then(json => {
+        
+      })
   };
 
   fetchAllRecords = () => {
@@ -107,35 +112,43 @@ class _DepartmentStore implements IDepartmentStore {
     this.record = r;
   }
 
+  //FIXME: able to delete record and common record
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
     const options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.record.id}`, options);
 
-    let deleteIndex: number = this.allDepartments.findIndex(
-      (d: IDepartment) => d.department === this.record.department
-    );
-    //commoncodes array without the deleted one
-    let updateCommoncodes: string[] = this.allDepartments[
-      deleteIndex
-    ].commoncodes.filter((c: string) => c !== this.record.code);
+    //clear commoncode in departments only if the record is a common record
+    if (this.record.code) {
+      //find record's department in department list
+      let deleteIndex: number = this.allDepartments.findIndex(
+        (d: IDepartment) => d.department === this.record.department
+      );
 
-    let index = this.allDepartments.findIndex(
-      (d: IDepartment) => d.department === this.record.department
-    );
-    let id: string = this.allDepartments[index].id;
-    //patch commoncodes in departments array
-    await fetch(`http://localhost:3004/departments/${id}`, {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        commoncodes: updateCommoncodes
-      })
-    });
-    this.fetchAllRecords();
+      //commoncodes array without the deleted one
+      let updateCommoncodes: string[] = this.allDepartments[
+        deleteIndex
+      ].commoncodes.filter((c: string) => c !== this.record.code);
+
+      let index = this.allDepartments.findIndex(
+        (d: IDepartment) => d.department === this.record.department
+      );
+
+      let id: string = this.allDepartments[index].id;
+      //patch commoncodes in departments array
+      await fetch(`http://localhost:3004/departments/${id}`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          commoncodes: updateCommoncodes
+        })
+      }).then(res => {
+        this.fetchAllRecords();
+      });
+    }
   }
 
   //PATCH request
@@ -184,6 +197,7 @@ decorate(_DepartmentStore, {
   record: observable,
   allDepartments: observable,
   _allRecords: observable,
+  userinDepartment: observable,
   handleChange: action,
   handleSelected: action,
   fetchAll: action,

@@ -20,7 +20,7 @@ class _AuthStore implements IAuthStore {
   password = "";
   admin = false;
   user = false;
-  getUser = {username:"", password:"", department:"", admin:false, user: true}
+  getUser = {username:"", password:"", department:[], admin:false, user: true}
 
   clearInputs = () => {
     this.username = "";
@@ -48,7 +48,8 @@ class _AuthStore implements IAuthStore {
             this.admin = true
         } else {          
             this.admin = false
-            DepartmentStore.selectedDepartment.department = UserStore.currentUser.department
+            //currentUser.department only contains department name
+            DepartmentStore.userinDepartment = UserStore.currentUser.department
             const deptIndex = DepartmentStore.allDepartments.findIndex((d: IDepartment) => d.department === DepartmentStore.selectedDepartment.department)
             const userDepartment: IDepartment = DepartmentStore.allDepartments[deptIndex]
             DepartmentStore.selectedDepartment = userDepartment

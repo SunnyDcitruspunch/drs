@@ -100,7 +100,7 @@ const CommonRecords = inject(
           console.log(remove);
           this.setState({
             selectrecord: this.state.selectrecord.filter(
-              (_: any, i: any) => i !== remove
+              (_: string, i: number) => i !== remove
             )
           });
         }

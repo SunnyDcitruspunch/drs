@@ -13,6 +13,8 @@ export interface IUniqueStore {
   handleChange: (e: any) => void;
 }
 
+//TODO: sort all fetched data
+
 class _UniqueStore {
   uniquerecords: IRecord = {
     department: "",

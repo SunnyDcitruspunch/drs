@@ -912,21 +912,21 @@
       "username": "hahasunny",
       "password": "sunnyd",
       "school": "BYU",
-      "department": "Honor Code Office",
+      "department": ["Honor Code Office"],
       "admin": true
     },
     {
       "username": "honey",
       "password": "isadog",
       "school": "BYUH",
-      "department": "BYU Catering",
+      "department": ["BYU Catering"],
       "admin": false
     },
     {
       "username": "guava",
       "password": "goodgood",
       "school": "LDSBC",
-      "department": "Computer Science",
+      "department": ["Computer Science"],
       "admin": false
     }
   ]

@@ -23,6 +23,8 @@ export interface ICommonStore {
   handleChange: (e: any) => void;
 }
 
+//TODO: sort all fetched data
+
 class _CommonStore implements ICommonStore {
   commonRecords: ICommonRecord[] = [];
   record: ICommonRecord = {

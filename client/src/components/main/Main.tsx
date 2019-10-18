@@ -55,14 +55,17 @@ const Main = inject(
 
       onSelect: any = (e: MouseEvent) => {
         const { value }: any = e.target;
-        const deptIndex: number = this.props.DepartmentStore.allDepartments.findIndex(
-          (x: IDepartment) => x.department === value
-        );
-        const dept: IDepartment = this.props.DepartmentStore.allDepartments[
-          deptIndex
-        ];
-        this.setState({ selecteddept: value });
-        this.props.DepartmentStore.handleSelected(dept);
+        this.props.DepartmentStore.handleSelected(value)
+        
+        // const { value }: any = e.target;
+        // const deptIndex: number = this.props.DepartmentStore.allDepartments.findIndex(
+        //   (x: IDepartment) => x.department === value
+        // );
+        // const dept: number[] = dept.push(this.props.DepartmentStore.allDepartments[
+        //   deptIndex
+        // ])
+        // this.setState({ selecteddept: value });
+        // this.props.DepartmentStore.handleSelected(dept);
       };
 
       render() {
