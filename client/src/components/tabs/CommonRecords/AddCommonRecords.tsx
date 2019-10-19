@@ -146,7 +146,7 @@ const CommonRecords = inject(
             click={() => handleEditRecord(record)}
             showdelete={() => handleDelete(record)}
             select={onSelect}
-            disabled={
+            checked={
               !!DepartmentStore.selectedDepartment.commoncodes.find(
                 (x: string) => x === record.code
               )

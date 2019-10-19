@@ -11,12 +11,12 @@ interface IProps {
   click: () => void;
   showdelete: () => void;
   select: (e: any) => void;
-  disabled: boolean;
+  checked: boolean;
 }
 
 const RecordTable = inject("UserStore")(
   observer((props: IProps) => {
-    const { record, click, select, disabled, showdelete } = props;
+    const { record, click, select, checked, showdelete } = props;
 
     return (
       <TableRow key={record.id}>
@@ -38,7 +38,7 @@ const RecordTable = inject("UserStore")(
             name={record.id}
             onClick={select}
             color="primary"
-            disabled={disabled}
+            checked={checked}
           />
           {/* <MsgSnackbar /> */}
         </TableCell>
