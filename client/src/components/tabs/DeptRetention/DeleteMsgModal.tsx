@@ -15,10 +15,11 @@ interface IProps {
   pdelete: () => void;
   msg: string;
   title: string;
+  btn: string;
 }
 
 export const DeleteMsgModal = observer((props: IProps) => {
-  const { open, close, msg, title, pdelete } = props;
+  const { open, close, msg, title, pdelete, btn } = props;
 
   return (
     <Dialog
@@ -37,7 +38,7 @@ export const DeleteMsgModal = observer((props: IProps) => {
             Close
         </Button>
         <Button onClick={pdelete} color="primary">
-          Delete
+          {btn}
         </Button>
       </DialogActions>
     </Dialog>

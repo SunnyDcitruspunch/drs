@@ -46,9 +46,10 @@ const CommonRecords = inject(
   "CommonStore"
 )(
   observer(() => {
-    const [title, setTitle] = useState<string>("")
-    const [msg, setMsg] = useState<string>("")
-    const [snackbar, showSnackbar] = useState<boolean>(false)
+    const [title, setTitle] = useState<string>("");
+    const [msg, setMsg] = useState<string>("");
+    const [btn, setBtn] = useState<string>("Remove");
+    const [snackbar, showSnackbar] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -64,15 +65,17 @@ const CommonRecords = inject(
     /*FIXME: when click => see if target is already checked 
       => add common record if e.target.checked !== true
       => remove common record if (e.target.checked) */
-    const onSelect = (e: any) => {
-      const { value } = e.target;
-
+    const onChange = (e: any) => {
       if (e.target.checked) {
         //show modal ask if remove common record
-        setShowModal(true)
+        setShowDeleteMsgModal(true);
+        setTitle("Remove Common Record");
+        setMsg("Are you sure you want to remove this common record?");
       } else {
         //show modal ask if add common record
-        setShowModal(true)
+        setShowDeleteMsgModal(true);
+        setTitle("Add Common Record");
+        setMsg("Are you sure you want to add this common record?");
       }
     };
 
@@ -87,11 +90,13 @@ const CommonRecords = inject(
       CommonStore.updateCommonRecord(selectedclassification);
     };
 
+    //FIXME:
     const addRecord = (e: any) => {
       if (DepartmentStore.selectedDepartment.department === "") {
         setShowModal(true);
-        setTitle("Cannot Add this Record")
-        setMsg("Please select a department.")
+        setTitle("Cannot Add this Record");
+        setMsg("Please select a department.");
+        setBtn("Delete");
       } else {
         CommonStore.addCommonRecords(
           selectRecord,
@@ -119,15 +124,26 @@ const CommonRecords = inject(
       setShowDeleteModal(true);
     };
 
-    const onDelete = () => {
-      setShowDeleteModal(false);
-      setShowDeleteMsgModal(false);
-      CommonStore.deleteCommonRecord();
+    const onAction = () => {
+      if (btn == "Delete") {
+        setShowDeleteModal(false);
+        setShowDeleteMsgModal(false);
+        CommonStore.deleteCommonRecord();
+      } else if (btn == "Remove") {
+        if (title === "Remove Common Record") {
+          CommonStore.deleteCommonRecord()
+        } else if (title === "Add Common Record") {
+          //FIXME: pass only this record and current department => might need to change on CommonStore parameter
+          // CommonStore.addCommonRecords()
+        }
+      }
     };
 
     const confirmDelete = () => {
       setShowDeleteModal(false);
       setShowDeleteMsgModal(true);
+      setTitle("Delete Record");
+      setMsg("Are you sure you want to delete this record?");
     };
 
     const makePdf = () => {
@@ -176,17 +192,11 @@ const CommonRecords = inject(
             <TableBody>{CommonRecordList}</TableBody>
           </Table>
         </Paper>
-<<<<<<< HEAD
-        {/* <MsgSnackbar /> */}
-        {/* TODO: might not need this button => just click on checkbox */}
-        <Grid container justify="center" alignItems="center">
-=======
 
         {/* TODO: show snackbar  */}
         {/* FIXME: remove logic in button to every checkbox onChange  */}
 
         {/* <Grid container justify="center" alignItems="center">
->>>>>>> 1e9a4c815359eb704fb4698eaa37aa96bd213ebc
           <Button
             variant="outlined"
             color="primary"
@@ -257,20 +267,21 @@ const CommonRecords = inject(
         <MessageModal
           open={showModal}
           close={() => setShowModal(false)}
-          title={title}
-          msg={msg}
+          title="Cannot Add this Record"
+          msg="Please select a department."
           click={() => setShowModal(false)}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         />
 
-        {/* delete record */}
+        {/* FIXME: not only for delete => edit modal name */}
         <DeleteMsgModal
           open={showDeleteMsgModal}
-          title={"Delete Record"}
-          msg={"Are you sure you want to delete this record?"}
-          pdelete={onDelete}
+          title={title}
+          msg={msg}
+          pdelete={onAction}
           close={() => setShowDeleteMsgModal(false)}
+          btn={btn}
         />
       </Container>
     );

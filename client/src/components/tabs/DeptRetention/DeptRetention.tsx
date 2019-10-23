@@ -180,6 +180,7 @@ export const DeptRetention = inject(
           msg={"Are you sure you want to delete this record?"}
           pdelete={onDelete}
           close={() => setDeleteModal(false)}
+          btn={"Delete"}
         />
 
         {/* edit record */}
