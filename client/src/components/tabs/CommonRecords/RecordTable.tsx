@@ -10,13 +10,13 @@ interface IProps {
   record: ICommonRecord;
   click: () => void;
   showdelete: () => void;
-  select: (e: any) => void;
+  change: (e: any) => void;
   checked: boolean;
 }
 
 const RecordTable = inject("UserStore")(
   observer((props: IProps) => {
-    const { record, click, select, checked, showdelete } = props;
+    const { record, click, change, checked, showdelete } = props;
 
     return (
       <TableRow key={record.id}>
@@ -36,7 +36,7 @@ const RecordTable = inject("UserStore")(
             value={record.id}
             id={record.id}
             name={record.id}
-            onClick={select}
+            onClick={change}
             color="primary"
             checked={checked}
           />

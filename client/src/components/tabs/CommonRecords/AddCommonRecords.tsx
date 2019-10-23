@@ -58,9 +58,11 @@ const CommonRecords = inject(
       IRecord | any
     >([]);
 
-    const onSelect = (e: any) => {
+    //check/ uncheck common record checkbox
+    const onChange = (e: any) => {
       const { value } = e.target;
       if (e.target.checked) {
+        //ask if want to remove record from 
         setSelectRecord([...selectRecord, value]);
       } else {
         let remove = selectRecord.indexOf(value);
@@ -145,7 +147,7 @@ const CommonRecords = inject(
             record={record}
             click={() => handleEditRecord(record)}
             showdelete={() => handleDelete(record)}
-            select={onSelect}
+            change={onChange}
             checked={
               !!DepartmentStore.selectedDepartment.commoncodes.find(
                 (x: string) => x === record.code
@@ -164,8 +166,11 @@ const CommonRecords = inject(
             <TableBody>{CommonRecordList}</TableBody>
           </Table>
         </Paper>
-        {/* <MsgSnackbar /> */}
-        <Grid container justify="center" alignItems="center">
+
+        {/* TODO: show snackbar  */}
+        {/* FIXME: remove logic in button to every checkbox onChange  */}
+
+        {/* <Grid container justify="center" alignItems="center">
           <Button
             variant="outlined"
             color="primary"
@@ -174,7 +179,7 @@ const CommonRecords = inject(
           >
             Add selected common records
           </Button>
-        </Grid>
+        </Grid> */}
 
         {/* edit common records */}
         {CommonStore.commonRecords
