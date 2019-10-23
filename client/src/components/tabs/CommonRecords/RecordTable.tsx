@@ -10,13 +10,8 @@ interface IProps {
   record: ICommonRecord;
   click: () => void;
   showdelete: () => void;
-<<<<<<< HEAD
-  select: (e: any) => void;
-  checked?: boolean;
-=======
   change: (e: any) => void;
   checked: boolean;
->>>>>>> 1e9a4c815359eb704fb4698eaa37aa96bd213ebc
 }
 
 const RecordTable = inject("UserStore")(
@@ -41,11 +36,7 @@ const RecordTable = inject("UserStore")(
             value={record.id}  
             id={record.id}
             name={record.id}
-<<<<<<< HEAD
-            onChange={select}
-=======
             onClick={change}
->>>>>>> 1e9a4c815359eb704fb4698eaa37aa96bd213ebc
             color="primary"
             checked={checked}
             // onChange={console.log('remove this record')}
