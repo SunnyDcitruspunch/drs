@@ -20,7 +20,7 @@ interface IProps {
   change: (e: any) => void;
   disabled?: boolean
   defaultvalue: string
-  key: any
+  key: number
   record: IRecord
 }
 

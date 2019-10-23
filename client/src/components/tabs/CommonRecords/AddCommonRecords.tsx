@@ -46,6 +46,9 @@ const CommonRecords = inject(
   "CommonStore"
 )(
   observer(() => {
+    const [title, setTitle] = useState<string>("")
+    const [msg, setMsg] = useState<string>("")
+    const [snackbar, showSnackbar] = useState<boolean>(false)
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -58,13 +61,18 @@ const CommonRecords = inject(
       IRecord | any
     >([]);
 
+    /*FIXME: when click => see if target is already checked 
+      => add common record if e.target.checked !== true
+      => remove common record if (e.target.checked) */
     const onSelect = (e: any) => {
       const { value } = e.target;
+
       if (e.target.checked) {
-        setSelectRecord([...selectRecord, value]);
+        //show modal ask if remove common record
+        setShowModal(true)
       } else {
-        let remove = selectRecord.indexOf(value);
-        selectRecord.filter((_: IRecord, i: number) => i !== remove);
+        //show modal ask if add common record
+        setShowModal(true)
       }
     };
 
@@ -82,6 +90,8 @@ const CommonRecords = inject(
     const addRecord = (e: any) => {
       if (DepartmentStore.selectedDepartment.department === "") {
         setShowModal(true);
+        setTitle("Cannot Add this Record")
+        setMsg("Please select a department.")
       } else {
         CommonStore.addCommonRecords(
           selectRecord,
@@ -156,6 +166,8 @@ const CommonRecords = inject(
       }
     );
 
+    //TODO: disabled to checked
+
     return (
       <Container style={styles.tableStyle}>
         <Paper style={{ width: "100%", overflowX: "auto" }}>
@@ -165,6 +177,7 @@ const CommonRecords = inject(
           </Table>
         </Paper>
         {/* <MsgSnackbar /> */}
+        {/* TODO: might not need this button => just click on checkbox */}
         <Grid container justify="center" alignItems="center">
           <Button
             variant="outlined"
@@ -236,8 +249,8 @@ const CommonRecords = inject(
         <MessageModal
           open={showModal}
           close={() => setShowModal(false)}
-          title="Cannot Add this Record"
-          msg="Please select a department."
+          title={title}
+          msg={msg}
           click={() => setShowModal(false)}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"

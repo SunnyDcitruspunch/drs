@@ -11,7 +11,7 @@ interface IProps {
   click: () => void;
   showdelete: () => void;
   select: (e: any) => void;
-  checked: boolean;
+  checked?: boolean;
 }
 
 const RecordTable = inject("UserStore")(
@@ -33,12 +33,13 @@ const RecordTable = inject("UserStore")(
             ""
           )}
           <Checkbox
-            value={record.id}
+            value={record.id}  
             id={record.id}
             name={record.id}
-            onClick={select}
+            onChange={select}
             color="primary"
             checked={checked}
+            // onChange={console.log('remove this record')}
           />
           {/* <MsgSnackbar /> */}
         </TableCell>
