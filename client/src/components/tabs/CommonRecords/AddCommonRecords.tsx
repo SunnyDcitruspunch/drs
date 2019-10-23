@@ -155,7 +155,7 @@ const CommonRecords = inject(
             record={record}
             click={() => handleEditRecord(record)}
             showdelete={() => handleDelete(record)}
-            select={onSelect}
+            change={onChange}
             checked={
               !!DepartmentStore.selectedDepartment.commoncodes.find(
                 (x: string) => x === record.code
@@ -176,9 +176,17 @@ const CommonRecords = inject(
             <TableBody>{CommonRecordList}</TableBody>
           </Table>
         </Paper>
+<<<<<<< HEAD
         {/* <MsgSnackbar /> */}
         {/* TODO: might not need this button => just click on checkbox */}
         <Grid container justify="center" alignItems="center">
+=======
+
+        {/* TODO: show snackbar  */}
+        {/* FIXME: remove logic in button to every checkbox onChange  */}
+
+        {/* <Grid container justify="center" alignItems="center">
+>>>>>>> 1e9a4c815359eb704fb4698eaa37aa96bd213ebc
           <Button
             variant="outlined"
             color="primary"
@@ -187,7 +195,7 @@ const CommonRecords = inject(
           >
             Add selected common records
           </Button>
-        </Grid>
+        </Grid> */}
 
         {/* edit common records */}
         {CommonStore.commonRecords
