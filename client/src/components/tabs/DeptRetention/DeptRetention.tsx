@@ -49,7 +49,7 @@ export const DeptRetention = inject(
       []
     );
 
-    const showEditModal = (postDetail: IRecord) => {
+    const showEditModal: (i: IRecord) => void = (postDetail: IRecord) => {
       if (postDetail.recordcategoryid === "common") {
         setEditComment(true);
       } else {
@@ -63,7 +63,8 @@ export const DeptRetention = inject(
     };
 
     //make pdf
-    const makePdf = () => {
+    //TODO: to landscape
+    const makePdf: () => void = () => {
       setLoadPdf(true);
 
       axios
@@ -77,7 +78,7 @@ export const DeptRetention = inject(
         .catch((error: any) => console.log(error));
     };
 
-    const handleCheck = (e: any) => {
+    const handleCheck: (e: any) => void = (e: any) => {
       if (e.target.checked) {
         setSelectedClassification([...selectedclassification, e.target.value]);
       } else {
@@ -90,19 +91,19 @@ export const DeptRetention = inject(
     };
 
     //pass id to store for delete action
-    const handleDelete = (deleterecord: IRecord) => {
+    const handleDelete: (i: IRecord) => void = (deleterecord: IRecord) => {
       //show delete modal
       setDeleteModal(true);
       DepartmentStore.updateDeleteID(deleterecord);
     };
 
     //click delete in delete modal
-    const onDelete: any = async () => {
+    const onDelete: () => void = async () => {
       await DepartmentStore.deleteRecord();
       setDeleteModal(false);
     };
 
-    const editRecord: any = async () => {
+    const editRecord: () => void = async () => {
       await DepartmentStore.updateRecord(selectedclassification);
       // await this.props.DepartmentStore.setRecord()
       setEditModal(false);

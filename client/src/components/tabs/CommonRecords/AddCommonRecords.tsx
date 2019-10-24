@@ -5,7 +5,6 @@ import { inject, observer } from "mobx-react";
 import {
   TableBody,
   Paper,
-  Button,
   Table,
   Container,
   Grid,
@@ -62,10 +61,15 @@ const CommonRecords = inject(
       IRecord | any
     >([]);
 
-    /*FIXME: when click => see if target is already checked 
-      => add common record if e.target.checked !== true
-      => remove common record if (e.target.checked) */
-    const onChange = (e: any) => {
+    const onChange: (r: ICommonRecord, e: any) => void = (
+      cr: ICommonRecord,
+      e: any
+    ) => {
+      const index: number = DepartmentStore._allRecords.findIndex(
+        (x: IRecord) => x.code === cr.code
+      );
+      DepartmentStore.updateDeleteID(DepartmentStore._allRecords[index])
+      console.log(DepartmentStore.record);
       if (!e.target.checked) {
         //show modal ask if remove common record
         setShowDeleteMsgModal(true);
@@ -80,18 +84,20 @@ const CommonRecords = inject(
       }
     };
 
-    const handleEditRecord = (editRecord: ICommonRecord) => {
+    const handleEditRecord: (ic: ICommonRecord) => void = (
+      editRecord: ICommonRecord
+    ) => {
       setSelectedClassification([editRecord.classification]);
       setShowEditModal(true);
       CommonStore.getEditRecord(editRecord);
     };
 
-    const saveEdit = (e: any) => {
+    const saveEdit: () => void = () => {
       setShowEditModal(false);
       CommonStore.updateCommonRecord(selectedclassification);
     };
 
-    const handleCheck = (e: any) => {
+    const handleCheck: (e: any) => void = (e: any) => {
       if (e.target.checked) {
         setSelectedClassification([...selectedclassification, e.target.value]);
       } else {
@@ -103,7 +109,9 @@ const CommonRecords = inject(
       }
     };
 
-    const handleDelete = (deleterecord: ICommonRecord) => {
+    const handleDelete: (ic: ICommonRecord) => void = (
+      deleterecord: ICommonRecord
+    ) => {
       //pass clicked record
       CommonStore.getEditRecord(deleterecord);
       setShowDeleteModal(true);
@@ -132,18 +140,19 @@ const CommonRecords = inject(
         console.log("delete this");
         // CommonStore.deleteCommonRecord();
       } else {
-        if (title === "Remove Common Record") {
-          //FIXME: copy the way you delete common record in DeptRetention here!
-
-          //FIXME: got both console.log but not actually deleting the record...
-          // DepartmentStore.deleteRecord();
+        if (title === "Remove Common Record") {          
+          DepartmentStore.deleteRecord();
           console.log("remove this");
         } else if (title === "Add Common Record") {
           console.log("add this");
           //FIXME: pass only this record and current department => might need to change on CommonStore parameter
+          //TODO: add common record
           // CommonStore.addCommonRecords()
         }
       }
+
+      /*TODO: redirect after delete? How to check/uncheck immediately after modify??
+          => find prev comment on github!!!*/
       setShowDeleteMsgModal(false);
     };
 
@@ -179,7 +188,7 @@ const CommonRecords = inject(
             record={record}
             click={() => handleEditRecord(record)}
             showdelete={() => handleDelete(record)}
-            change={onChange}
+            change={e => onChange(record, e)}
             checked={
               !!DepartmentStore.selectedDepartment.commoncodes.find(
                 (x: string) => x === record.code

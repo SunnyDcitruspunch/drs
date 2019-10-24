@@ -1,5 +1,5 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
-import { IRecord, ICommonRecord } from "./index";
+import { IRecord, CommonStore } from "./index";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
@@ -8,7 +8,7 @@ export interface IDepartmentStore {
   updateDeleteID: (r: IRecord) => void;
   selectedDepartment: IDepartment;
   selectedCommonRecords: Array<IRecord>;
-  record: IRecord | undefined;
+  record: IRecord;
   deleteRecord: () => void;
   updateRecord: (c: string[]) => void;
   _allRecords: Array<IRecord>;
@@ -156,6 +156,7 @@ class _DepartmentStore implements IDepartmentStore {
       })
     }).then(res => {
       this.fetchAllRecords();
+      CommonStore.fetchCommonRecords();
       console.log("removed");
     });
   }

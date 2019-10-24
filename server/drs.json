@@ -37,20 +37,6 @@
       "id": 3
     },
     {
-      "department": "BYU Catering",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Course materials & outlines (may include syllabi, course descriptions, and original exams.",
-      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not already retained in Learning Suite or Syllabi.byu.edu.",
-      "classification": [
-        "Archival"
-      ],
-      "comments": "",
-      "code": "CACD1400",
-      "status": "Approved",
-      "id": 7
-    },
-    {
       "department": "Honor Code Office",
       "recordtype": "test",
       "function": "Financial",
@@ -376,39 +362,6 @@
       "id": 36
     },
     {
-      "department": "Records",
-      "function": "Human Resource",
-      "recordtype": "Rank & Status records.",
-      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
-      "classification": [],
-      "comments": "",
-      "code": "CFAC1500",
-      "status": "Approved",
-      "id": 37
-    },
-    {
-      "department": "Records",
-      "function": "Financial",
-      "recordtype": "Y-Time exceptions (missed time punches) documentation retained by department.",
-      "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CFIN2700",
-      "status": "Approved",
-      "id": 38
-    },
-    {
-      "department": "Records",
-      "function": "Financial",
-      "recordtype": "Sick and vacation tracking documentation retained by department.",
-      "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CFIN2500",
-      "status": "Approved",
-      "id": 39
-    },
-    {
       "department": "BYU Catering",
       "function": "Employment",
       "recordtype": "Employee files retained by department â Students.",
@@ -418,28 +371,6 @@
       "code": "CHUM1600",
       "status": "Approved",
       "id": 40
-    },
-    {
-      "department": "Honor Code Office",
-      "function": "Financial",
-      "recordtype": "Scholarships records.",
-      "description": "For records not stored in online scholarship system, retain awarded scholarships for 6 years after graduation, retain denied scholarship applications for 2 years, and retain awarded athletic scholarships for 10 years, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CFIN2200",
-      "status": "Approved",
-      "id": 41
-    },
-    {
-      "department": "Honor Code Office",
-      "function": "Financial",
-      "recordtype": "Purchasing & travel receipts, expense receipts, P-Card receipts, Fast Track documentation and Y-Expense documentation.",
-      "description": "Upload into Y-Expense, retain for 1 year, then destroy. It is recommended to save some original receipts for warranty purposes or to document foreign travel.",
-      "classification": [],
-      "comments": "",
-      "code": "CFIN2100",
-      "status": "Approved",
-      "id": 42
     },
     {
       "department": "Honor Code Office",
@@ -1029,12 +960,7 @@
       "id": "0",
       "department": "Records",
       "departmentnumber": "200",
-      "commoncodes": [
-        "CFAC1500",
-        "CFIN2700",
-        "CFIN2600",
-        "CFIN2500"
-      ]
+      "commoncodes": []
     },
     {
       "id": "1",
@@ -1067,7 +993,6 @@
       "department": "BYU Catering",
       "departmentnumber": "260",
       "commoncodes": [
-        "CACD1400",
         "CFAC1500",
         "CFIN2700",
         "CFIN2600",
@@ -1085,8 +1010,6 @@
       "departmentnumber": "633",
       "commoncodes": [
         "CACD1200",
-        "CFIN2200",
-        "CFIN2100",
         "CACD2500",
         "CACD2200"
       ]
