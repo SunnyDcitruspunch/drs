@@ -133,13 +133,10 @@ const CommonRecords = inject(
         // CommonStore.deleteCommonRecord();
       } else {
         if (title === "Remove Common Record") {
-          const target: number = DepartmentStore._allRecords.findIndex(
-            (r: IRecord) => r.code === CommonStore.record.code
-          );
+          //FIXME: copy the way you delete common record in DeptRetention here!
 
-          DepartmentStore.record = DepartmentStore._allRecords[target]
           //FIXME: got both console.log but not actually deleting the record...
-          DepartmentStore.deleteRecord();
+          // DepartmentStore.deleteRecord();
           console.log("remove this");
         } else if (title === "Add Common Record") {
           console.log("add this");

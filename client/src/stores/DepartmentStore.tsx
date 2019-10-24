@@ -63,19 +63,29 @@ class _DepartmentStore implements IDepartmentStore {
       .then(json => (this.allDepartments = json));
   };
 
+  //TODO: sort it back!
+  //FIXME: sorting allRecords here gives them new id?
+  // fetchAllRecords = () => {
+  //   fetch("http://localhost:3004/records")
+  //     .then(response => {
+  //       return response.json();
+  //     })
+  //     .then(
+  //       json =>
+  //         (this._allRecords = json
+  //           .slice()
+  //           .sort((a: IRecord, b: IRecord) =>
+  //             a.function < b.function ? -1 : 1
+  //           ))
+  //     );
+  // };
+
   fetchAllRecords = () => {
     fetch("http://localhost:3004/records")
       .then(response => {
         return response.json();
       })
-      .then(
-        json =>
-          (this._allRecords = json
-            .slice()
-            .sort((a: IRecord, b: IRecord) =>
-              a.function < b.function ? -1 : 1
-            ))
-      );
+      .then(json => (this._allRecords = json));
   };
 
   get allRecords(): Array<any> {
@@ -116,15 +126,19 @@ class _DepartmentStore implements IDepartmentStore {
     const baseUrl = "http://localhost:3004/records";
     const options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.record.id}`, options);
+    console.log(this.record.id)
+    console.log(this.record)
 
     let deleteIndex: number = this.allDepartments.findIndex(
       (d: IDepartment) => d.department === this.record.department
     );
-    
+
     //commoncodes array without the deleted one
     let updateCommoncodes: string[] = this.allDepartments[
       deleteIndex
     ].commoncodes.filter((c: string) => c !== this.record.code);
+    console.log(this.record.code)
+    console.log(updateCommoncodes)
 
     let index = this.allDepartments.findIndex(
       (d: IDepartment) => d.department === this.record.department
@@ -142,7 +156,7 @@ class _DepartmentStore implements IDepartmentStore {
       })
     }).then(res => {
       this.fetchAllRecords();
-      console.log('removed')
+      console.log("removed");
     });
   }
 
