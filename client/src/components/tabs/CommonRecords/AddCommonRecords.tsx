@@ -68,7 +68,7 @@ const CommonRecords = inject(
       const index: number = DepartmentStore._allRecords.findIndex(
         (x: IRecord) => x.code === cr.code
       );
-      DepartmentStore.updateDeleteID(DepartmentStore._allRecords[index])
+      DepartmentStore.updateDeleteID(DepartmentStore._allRecords[index]);
       console.log(DepartmentStore.record);
       if (!e.target.checked) {
         //show modal ask if remove common record
@@ -140,7 +140,7 @@ const CommonRecords = inject(
         console.log("delete this");
         // CommonStore.deleteCommonRecord();
       } else {
-        if (title === "Remove Common Record") {          
+        if (title === "Remove Common Record") {
           DepartmentStore.deleteRecord();
           console.log("remove this");
         } else if (title === "Add Common Record") {
@@ -180,7 +180,8 @@ const CommonRecords = inject(
         .catch((error: any) => console.log(error));
     };
 
-    const CommonRecordList: JSX.Element[] = CommonStore.commonRecords.map(
+    //FIXME: will change => use let instead of const
+    let CommonRecordList: JSX.Element[] = CommonStore.commonRecords.map(
       (record: ICommonRecord, index: number) => {
         return (
           <RecordTable
@@ -199,8 +200,6 @@ const CommonRecords = inject(
       }
     );
 
-    //TODO: disabled to checked
-
     return (
       <Container style={styles.tableStyle}>
         <Paper style={{ width: "100%", overflowX: "auto" }}>
@@ -211,18 +210,6 @@ const CommonRecords = inject(
         </Paper>
 
         {/* TODO: show snackbar  */}
-        {/* FIXME: remove logic in button to every checkbox onChange  */}
-
-        {/* <Grid container justify="center" alignItems="center">
-          <Button
-            variant="outlined"
-            color="primary"
-            style={{ marginTop: 10, fontSize: 10 }}
-            onClick={addRecord}
-          >
-            Add selected common records
-          </Button>
-        </Grid> */}
 
         {/* edit common records */}
         {CommonStore.commonRecords

@@ -2,42 +2,6 @@
   "records": [
     {
       "department": "Honor Code Office",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Challenge exams.",
-      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
-      "classification": [],
-      "comments": "000",
-      "code": "CACD1200",
-      "status": "Pending",
-      "id": 1
-    },
-    {
-      "department": "Information Systems",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Challenge exams.",
-      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
-      "classification": [],
-      "comments": "added comment again.",
-      "code": "CACD1200",
-      "status": "Pending",
-      "id": 2
-    },
-    {
-      "department": "Marriott School",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Challenge exams.",
-      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CACD1200",
-      "status": "Approved",
-      "id": 3
-    },
-    {
-      "department": "Honor Code Office",
       "recordtype": "test",
       "function": "Financial",
       "recordcategoryid": "MISC9",
@@ -385,32 +349,6 @@
     },
     {
       "department": "Information Systems",
-      "function": "Administrative",
-      "recordtype": "Projects and studies.",
-      "description": "Retain for 3 years, then transfer 1 copy of final, published reports and studies to the University Records Center for Archival review.  Destroy remaining information.",
-      "classification": [
-        "Archival"
-      ],
-      "comments": "",
-      "code": "CADM2100",
-      "status": "Approved",
-      "id": 44
-    },
-    {
-      "department": "Information Systems",
-      "function": "Administrative",
-      "recordtype": "Strategic planning records.",
-      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review.",
-      "classification": [
-        "Archival"
-      ],
-      "comments": "",
-      "code": "CADM2300",
-      "status": "Approved",
-      "id": 45
-    },
-    {
-      "department": "Information Systems",
       "function": "Human Resource",
       "recordtype": "Rank & Status records.",
       "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
@@ -419,17 +357,6 @@
       "code": "CFAC1500",
       "status": "Approved",
       "id": 46
-    },
-    {
-      "department": "Information Systems",
-      "function": "Financial",
-      "recordtype": "Journal Entry supporting documentation submitted by department.",
-      "description": "Retain supporting documentation for current year + 1, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CFIN2000",
-      "status": "Approved",
-      "id": 47
     },
     {
       "department": "Information Systems",
@@ -444,18 +371,6 @@
       "status": "Pending",
       "code": "",
       "id": 48
-    },
-    {
-      "department": "BYU Catering",
-      "function": "Academic",
-      "recordcategoryid": "common",
-      "recordtype": "Challenge exams.",
-      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
-      "classification": [],
-      "comments": "",
-      "code": "CACD1200",
-      "status": "Approved",
-      "id": 50
     },
     {
       "department": "Marriott School",
@@ -967,20 +882,14 @@
       "department": "Information Systems",
       "departmentnumber": "401",
       "commoncodes": [
-        "CACD1200",
-        "CADM2300",
-        "CADM2100",
-        "CFAC1500",
-        "CFIN2000"
+        "CFAC1500"
       ]
     },
     {
       "id": "2",
       "department": "Marriott School",
       "departmentnumber": "403",
-      "commoncodes": [
-        "CACD1200"
-      ]
+      "commoncodes": []
     },
     {
       "id": "3",
@@ -998,8 +907,6 @@
         "CFIN2600",
         "CHUM1600",
         "CHUM1400",
-        "CACD1200",
-        "CADM1500",
         "CADM1900",
         "CADM2100"
       ]
@@ -1009,9 +916,7 @@
       "department": "Honor Code Office",
       "departmentnumber": "633",
       "commoncodes": [
-        "CACD1200",
-        "CACD2500",
-        "CACD2200"
+        "CACD2500"
       ]
     }
   ],

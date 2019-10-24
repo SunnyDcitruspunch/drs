@@ -63,23 +63,7 @@ class _DepartmentStore implements IDepartmentStore {
       .then(json => (this.allDepartments = json));
   };
 
-  //TODO: sort it back!
-  //FIXME: sorting allRecords here gives them new id?
-  // fetchAllRecords = () => {
-  //   fetch("http://localhost:3004/records")
-  //     .then(response => {
-  //       return response.json();
-  //     })
-  //     .then(
-  //       json =>
-  //         (this._allRecords = json
-  //           .slice()
-  //           .sort((a: IRecord, b: IRecord) =>
-  //             a.function < b.function ? -1 : 1
-  //           ))
-  //     );
-  // };
-
+  //TODO: cannot sort it here => sort in component
   fetchAllRecords = () => {
     fetch("http://localhost:3004/records")
       .then(response => {
@@ -126,8 +110,8 @@ class _DepartmentStore implements IDepartmentStore {
     const baseUrl = "http://localhost:3004/records";
     const options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.record.id}`, options);
-    console.log(this.record.id)
-    console.log(this.record)
+    console.log(this.record.id);
+    console.log(this.record);
 
     let deleteIndex: number = this.allDepartments.findIndex(
       (d: IDepartment) => d.department === this.record.department
@@ -137,8 +121,8 @@ class _DepartmentStore implements IDepartmentStore {
     let updateCommoncodes: string[] = this.allDepartments[
       deleteIndex
     ].commoncodes.filter((c: string) => c !== this.record.code);
-    console.log(this.record.code)
-    console.log(updateCommoncodes)
+    console.log(this.record.code);
+    console.log(updateCommoncodes);
 
     let index = this.allDepartments.findIndex(
       (d: IDepartment) => d.department === this.record.department
@@ -155,7 +139,7 @@ class _DepartmentStore implements IDepartmentStore {
         commoncodes: updateCommoncodes
       })
     }).then(res => {
-      this.fetchAllRecords();
+      this.fetchAll();
       CommonStore.fetchCommonRecords();
       console.log("removed");
     });
