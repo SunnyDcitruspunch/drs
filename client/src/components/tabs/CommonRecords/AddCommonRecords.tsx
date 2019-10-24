@@ -66,7 +66,7 @@ const CommonRecords = inject(
       => add common record if e.target.checked !== true
       => remove common record if (e.target.checked) */
     const onChange = (e: any) => {
-      if (e.target.checked) {
+      if (!e.target.checked) {
         //show modal ask if remove common record
         setShowDeleteMsgModal(true);
         setTitle("Remove Common Record");
@@ -76,6 +76,7 @@ const CommonRecords = inject(
         setShowDeleteMsgModal(true);
         setTitle("Add Common Record");
         setMsg("Are you sure you want to add this common record?");
+        setBtn("Add");
       }
     };
 
@@ -88,22 +89,6 @@ const CommonRecords = inject(
     const saveEdit = (e: any) => {
       setShowEditModal(false);
       CommonStore.updateCommonRecord(selectedclassification);
-    };
-
-    //FIXME:
-    const addRecord = (e: any) => {
-      if (DepartmentStore.selectedDepartment.department === "") {
-        setShowModal(true);
-        setTitle("Cannot Add this Record");
-        setMsg("Please select a department.");
-        setBtn("Delete");
-      } else {
-        CommonStore.addCommonRecords(
-          selectRecord,
-          DepartmentStore.selectedDepartment
-        );
-        setSelectRecord([]);
-      }
     };
 
     const handleCheck = (e: any) => {
@@ -124,19 +109,45 @@ const CommonRecords = inject(
       setShowDeleteModal(true);
     };
 
+    //probably don't need this since there's onAction
+    // const addRecord = (e: any) => {
+    //   if (DepartmentStore.selectedDepartment.department === "") {
+    //     setShowModal(true);
+    //     setTitle("Cannot Add this Record");
+    //     setMsg("Please select a department.");
+    //     setBtn("Delete");
+    //   } else {
+    //     CommonStore.addCommonRecords(
+    //       selectRecord,
+    //       DepartmentStore.selectedDepartment
+    //     );
+    //     setSelectRecord([]);
+    //   }
+    // };
+
     const onAction = () => {
       if (btn == "Delete") {
         setShowDeleteModal(false);
         setShowDeleteMsgModal(false);
-        CommonStore.deleteCommonRecord();
-      } else if (btn == "Remove") {
+        console.log("delete this");
+        // CommonStore.deleteCommonRecord();
+      } else {
         if (title === "Remove Common Record") {
-          CommonStore.deleteCommonRecord()
+          const target: number = DepartmentStore._allRecords.findIndex(
+            (r: IRecord) => r.code === CommonStore.record.code
+          );
+
+          DepartmentStore.record = DepartmentStore._allRecords[target]
+          //FIXME: got both console.log but not actually deleting the record...
+          DepartmentStore.deleteRecord();
+          console.log("remove this");
         } else if (title === "Add Common Record") {
+          console.log("add this");
           //FIXME: pass only this record and current department => might need to change on CommonStore parameter
           // CommonStore.addCommonRecords()
         }
       }
+      setShowDeleteMsgModal(false);
     };
 
     const confirmDelete = () => {

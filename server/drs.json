@@ -613,21 +613,6 @@
     },
     {
       "department": "BYU Catering",
-      "recordtype": "fake record1",
-      "function": "Academic",
-      "recordcategoryid": "STU02",
-      "description": "fake record111",
-      "comments": "fake notes",
-      "classification": [
-        " Vital ",
-        " Highly Confidential "
-      ],
-      "status": "Approved",
-      "code": "",
-      "id": 49
-    },
-    {
-      "department": "BYU Catering",
       "function": "Academic",
       "recordcategoryid": "common",
       "recordtype": "Challenge exams.",
@@ -652,21 +637,6 @@
       "status": "Pending",
       "code": "",
       "id": 51
-    },
-    {
-      "department": "Information Systems",
-      "recordtype": "asdf",
-      "function": "",
-      "recordcategoryid": "",
-      "description": "",
-      "comments": "",
-      "classification": [
-        " Vital ",
-        " Highly Confidential "
-      ],
-      "status": "Pending",
-      "code": "",
-      "id": 52
     },
     {
       "department": "Records",

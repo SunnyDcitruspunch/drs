@@ -96,6 +96,7 @@ class _CommonStore implements ICommonStore {
     });
   }
 
+  //remove a common record from common record list
   deleteCommonRecord = async () => {
     const baseUrl = "http://localhost:3004/commonrecords";
     const options = { method: "DELETE" };

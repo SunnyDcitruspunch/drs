@@ -1,5 +1,5 @@
 import { observable, decorate, action, computed, runInAction } from "mobx";
-import { IRecord } from "./index";
+import { IRecord, ICommonRecord } from "./index";
 
 export interface IDepartmentStore {
   fetchAllRecords: () => void;
@@ -8,7 +8,7 @@ export interface IDepartmentStore {
   updateDeleteID: (r: IRecord) => void;
   selectedDepartment: IDepartment;
   selectedCommonRecords: Array<IRecord>;
-  record: IRecord;
+  record: IRecord | undefined;
   deleteRecord: () => void;
   updateRecord: (c: string[]) => void;
   _allRecords: Array<IRecord>;
@@ -111,6 +111,7 @@ class _DepartmentStore implements IDepartmentStore {
     this.record = r;
   }
 
+  //remove a record from a department
   async deleteRecord() {
     const baseUrl = "http://localhost:3004/records";
     const options = { method: "DELETE" };
@@ -119,6 +120,7 @@ class _DepartmentStore implements IDepartmentStore {
     let deleteIndex: number = this.allDepartments.findIndex(
       (d: IDepartment) => d.department === this.record.department
     );
+    
     //commoncodes array without the deleted one
     let updateCommoncodes: string[] = this.allDepartments[
       deleteIndex
@@ -140,6 +142,7 @@ class _DepartmentStore implements IDepartmentStore {
       })
     }).then(res => {
       this.fetchAllRecords();
+      console.log('removed')
     });
   }
 
