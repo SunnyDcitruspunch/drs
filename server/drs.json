@@ -791,15 +791,6 @@
         "Archival"
       ],
       "useddepartment": 0
-    },
-    {
-      "id": "49",
-      "code": "CADM2350",
-      "function": "Administrative",
-      "recordtype": "Waivers (Risk Management waivers).",
-      "description": "Retain permanently.",
-      "classification": [],
-      "useddepartment": 0
     }
   ],
   "functions": [

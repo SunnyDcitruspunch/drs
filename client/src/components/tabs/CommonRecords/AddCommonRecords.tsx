@@ -111,11 +111,10 @@ const CommonRecords = inject(
     };
 
     const onAction: () => void = () => {
-      if (btn == "Delete") {
+      if (title == "Delete Record") {
         setShowDeleteModal(false);
         setShowDeleteMsgModal(false);
-        //TODO: delete common record
-        // CommonStore.deleteCommonRecord();
+        CommonStore.deleteCommonRecord();
       } else {
         if (title === "Remove Common Record") {
           DepartmentStore.deleteRecord();
@@ -137,6 +136,7 @@ const CommonRecords = inject(
       setShowDeleteMsgModal(true);
       setTitle("Delete Record");
       setMsg("Are you sure you want to delete this record?");
+      setBtn("Delete");
     };
 
     const makePdf: () => void = () => {

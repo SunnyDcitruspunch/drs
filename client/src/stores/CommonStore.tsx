@@ -100,8 +100,10 @@ class _CommonStore implements ICommonStore {
   deleteCommonRecord = async () => {
     const baseUrl = "http://localhost:3004/commonrecords";
     const options = { method: "DELETE" };
-    await fetch(`${baseUrl}/${this.record.id}`, options);
-    CommonStore.fetchCommonRecords();
+    await fetch(`${baseUrl}/${this.record.id}`, options).then(res => {
+      CommonStore.fetchCommonRecords();
+      console.log('common record deleted')
+    });
   };
 
   //add selected common records
