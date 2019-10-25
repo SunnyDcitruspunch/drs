@@ -397,6 +397,43 @@
       ],
       "status": "Approved",
       "id": 52
+    },
+    {
+      "department": "BYU Catering",
+      "code": "CACD1200",
+      "recordtype": "Challenge exams.",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "comments": "",
+      "classification": [],
+      "status": "Approved",
+      "id": 53
+    },
+    {
+      "department": "BYU Catering",
+      "code": "CACD1400",
+      "recordtype": "Course materials & outlines (may include syllabi, course descriptions, and original exams.",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "description": "Permanent. Transfer 1 copy to the University Records Center for Archival review, if not already retained in Learning Suite or Syllabi.byu.edu.",
+      "comments": "",
+      "classification": [
+        "Archival"
+      ],
+      "status": "Approved",
+      "id": 54
+    },
+    {
+      "department": "BYU Catering",
+      "code": "CACD1600",
+      "recordtype": "Course/Faculty evaluations.",
+      "function": "Academic",
+      "description": "Retain indefinitely, if not stored in online ratings system.",
+      "comments": "",
+      "classification": [],
+      "status": "Approved",
+      "id": 55
     }
   ],
   "commonrecords": [
@@ -911,7 +948,10 @@
         "CHUM1200",
         "CFAC1100",
         "CACD1800",
-        "CACD2300"
+        "CACD2300",
+        "CACD1200",
+        "CACD1400",
+        "CACD1600"
       ]
     },
     {

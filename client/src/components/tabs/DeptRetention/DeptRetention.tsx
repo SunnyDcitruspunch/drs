@@ -84,7 +84,7 @@ export const DeptRetention = inject(
         let remove = selectedclassification.indexOf(e.target.value);
         selectedclassification([
           ...selectedclassification,
-          selectedclassification.filter((_: any, i: any) => i !== remove)
+          selectedclassification.filter((_: string, i: number) => i !== remove)
         ]);
       }
     };

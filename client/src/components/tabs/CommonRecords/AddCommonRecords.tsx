@@ -16,6 +16,7 @@ import { EditModal, MessageModal, MsgSnackbar } from "../../common";
 import RecordTable from "./RecordTable";
 import { ActionModal } from "../../common/ActionModal";
 import DeleteModal from "../CommonRecords/DeleteModal";
+import { Redirect } from "react-router-dom";
 
 const headrows: IHeadRow[] = [
   { id: "deptnum", label: "Used Department" },
@@ -48,13 +49,12 @@ const CommonRecords = inject(
       false
     );
     const [loadPdf, setLoadPdf] = useState<boolean>(false);
-    const [selectRecord, setSelectRecord] = useState<any[]>([]);
     const [selectedclassification, setSelectedClassification] = useState<
       IRecord | any
     >([]);
 
     const onChange = (record: ICommonRecord, e: any) => {
-      CommonStore.getEditRecord(record);
+      CommonStore.getRecord(record);
       const index: number = DepartmentStore._allRecords.findIndex(
         (x: IRecord) => x.code === record.code
       );
@@ -82,7 +82,7 @@ const CommonRecords = inject(
     ) => {
       setSelectedClassification([editRecord.classification]);
       setShowEditModal(true);
-      CommonStore.getEditRecord(editRecord);
+      CommonStore.getRecord(editRecord);
     };
 
     const saveEdit: () => void = () => {
@@ -106,7 +106,7 @@ const CommonRecords = inject(
       deleterecord: ICommonRecord
     ) => {
       //pass clicked record
-      CommonStore.getEditRecord(deleterecord);
+      CommonStore.getRecord(deleterecord);
       setShowDeleteModal(true);
     };
 
@@ -118,18 +118,13 @@ const CommonRecords = inject(
       } else {
         if (title === "Remove Common Record") {
           DepartmentStore.deleteRecord();
-          // redirect();
         } else if (title === "Add Common Record") {
           CommonStore.addCommonRecords();
         }
       }
       setShowDeleteMsgModal(false);
+      return <Redirect to="/deptretention" />;
     };
-
-    //FIXME: error => render fewer hooks
-    // const redirect:() => void = () => {
-    //   return <Redirect to="/main" />
-    // }
 
     const confirmDelete = () => {
       setShowDeleteModal(false);
@@ -164,7 +159,6 @@ const CommonRecords = inject(
             record={record}
             click={() => handleEditRecord(record)}
             showdelete={() => handleDelete(record)}
-            // change={(e) => onChange(record, e)}
             change={e => onChange(record, e)}
             checked={
               !!DepartmentStore.selectedDepartment.commoncodes.find(

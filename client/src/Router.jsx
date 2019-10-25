@@ -5,7 +5,7 @@ import AddUniqueRecords from "./components/tabs/CommonRecords/AddCommonRecords";
 import AdminTab from "./components/tabs/Admin/AdminTab";
 import LogIn from './components/main/Login'
 import Main from './components/main/Main'
-// import Home from './components/main/Home'
+import DeptRetention from './components/tabs/DeptRetention/DeptRetention'
 
 class Router extends Component {
   render() {
@@ -13,6 +13,7 @@ class Router extends Component {
         <Switch>
           <Route exact path="/" component={LogIn} />
           <Route exact path="/main" component={Main} />
+          <Route exact path="/deptretention" component={DeptRetention} />
           <Route exact path="/commonrecords" component={AddCommonRecords} />
           <Route exact path="/uniquerecords" component={AddUniqueRecords} />
           <Route exact path="/admin" component={AdminTab} />

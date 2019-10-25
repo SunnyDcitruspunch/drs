@@ -15,18 +15,16 @@ export interface ICommonRecord {
 
 export interface ICommonStore {
   record: ICommonRecord;
-  snackbarAddCommonRecord: boolean;
   commonRecords: ICommonRecord[];
   fetchCommonRecords: () => void;
   updateCommonRecord: (c: string[]) => void;
-  getEditRecord: (record: ICommonRecord) => void;
+  getRecord: (record: ICommonRecord) => void;
   addCommonRecords: (id: string, dept: IDepartment) => void;
   handleChange: (e: any) => void;
 }
 
 class _CommonStore implements ICommonStore {
   commonRecords: ICommonRecord[] = [];
-  snackbarAddCommonRecord = true;
   record: ICommonRecord = {
     id: "",
     code: "",
@@ -62,8 +60,8 @@ class _CommonStore implements ICommonStore {
     });
   };
 
-  //record waiting to be edited
-  getEditRecord(record: ICommonRecord) {
+  //record waiting to be edited/ deleted
+  getRecord(record: ICommonRecord) {
     this.record = record;
   }
 
@@ -152,8 +150,6 @@ class _CommonStore implements ICommonStore {
     }).then(res => {
       DepartmentStore.fetchAll();
       this.fetchCommonRecords();
-      console.log("added common record code");
-      // this.snackbarAddCommonRecord = true;
     });
   };
 }
@@ -162,7 +158,7 @@ decorate(_CommonStore, {
   commonRecords: observable,
   fetchCommonRecords: action,
   updateCommonRecord: action,
-  getEditRecord: action,
+  getRecord: action,
   handleChange: action,
   addCommonRecords: action
 });
