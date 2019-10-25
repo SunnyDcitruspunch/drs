@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import { saveAs } from "file-saver";
 import axios from "axios";
 import { inject, observer } from "mobx-react";
-import {
-  TableBody,
-  Paper,
-  Table,
-  Container,
-  Grid,
-  Snackbar
-} from "@material-ui/core";
+import { TableBody, Paper, Table, Container } from "@material-ui/core";
 import {
   IRecord,
   ICommonRecord,
@@ -21,7 +14,7 @@ import {
 import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
 import { EditModal, MessageModal, MsgSnackbar } from "../../common";
 import RecordTable from "./RecordTable";
-import { DeleteMsgModal } from "../DeptRetention";
+import { ActionModal } from "../../common/ActionModal";
 import DeleteModal from "../CommonRecords/DeleteModal";
 
 const headrows: IHeadRow[] = [
@@ -48,7 +41,6 @@ const CommonRecords = inject(
     const [title, setTitle] = useState<string>("");
     const [msg, setMsg] = useState<string>("");
     const [btn, setBtn] = useState<string>("Remove");
-    const [snackbar, showSnackbar] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -61,15 +53,16 @@ const CommonRecords = inject(
       IRecord | any
     >([]);
 
-    const onChange: (r: ICommonRecord, e: any) => void = (
-      cr: ICommonRecord,
-      e: any
-    ) => {
+    const onChange = (record: ICommonRecord, e: any) => {
+      CommonStore.getEditRecord(record);
       const index: number = DepartmentStore._allRecords.findIndex(
-        (x: IRecord) => x.code === cr.code
+        (x: IRecord) => x.code === record.code
       );
-      DepartmentStore.updateDeleteID(DepartmentStore._allRecords[index]);
-      console.log(DepartmentStore.record);
+
+      if (index > 0) {
+        DepartmentStore.updateDeleteID(DepartmentStore._allRecords[index]);
+      }
+
       if (!e.target.checked) {
         //show modal ask if remove common record
         setShowDeleteMsgModal(true);
@@ -117,44 +110,27 @@ const CommonRecords = inject(
       setShowDeleteModal(true);
     };
 
-    //probably don't need this since there's onAction
-    // const addRecord = (e: any) => {
-    //   if (DepartmentStore.selectedDepartment.department === "") {
-    //     setShowModal(true);
-    //     setTitle("Cannot Add this Record");
-    //     setMsg("Please select a department.");
-    //     setBtn("Delete");
-    //   } else {
-    //     CommonStore.addCommonRecords(
-    //       selectRecord,
-    //       DepartmentStore.selectedDepartment
-    //     );
-    //     setSelectRecord([]);
-    //   }
-    // };
-
-    const onAction = () => {
+    const onAction: () => void = () => {
       if (btn == "Delete") {
         setShowDeleteModal(false);
         setShowDeleteMsgModal(false);
-        console.log("delete this");
+        //TODO: delete common record
         // CommonStore.deleteCommonRecord();
       } else {
         if (title === "Remove Common Record") {
           DepartmentStore.deleteRecord();
-          console.log("remove this");
+          // redirect();
         } else if (title === "Add Common Record") {
-          console.log("add this");
-          //FIXME: pass only this record and current department => might need to change on CommonStore parameter
-          //TODO: add common record
-          // CommonStore.addCommonRecords()
+          CommonStore.addCommonRecords();
         }
       }
-
-      /*TODO: redirect after delete? How to check/uncheck immediately after modify??
-          => find prev comment on github!!!*/
       setShowDeleteMsgModal(false);
     };
+
+    //FIXME: error => render fewer hooks
+    // const redirect:() => void = () => {
+    //   return <Redirect to="/main" />
+    // }
 
     const confirmDelete = () => {
       setShowDeleteModal(false);
@@ -163,7 +139,7 @@ const CommonRecords = inject(
       setMsg("Are you sure you want to delete this record?");
     };
 
-    const makePdf = () => {
+    const makePdf: () => void = () => {
       setLoadPdf(true);
       axios
         .post("/create-departments", {
@@ -180,7 +156,6 @@ const CommonRecords = inject(
         .catch((error: any) => console.log(error));
     };
 
-    //FIXME: will change => use let instead of const
     let CommonRecordList: JSX.Element[] = CommonStore.commonRecords.map(
       (record: ICommonRecord, index: number) => {
         return (
@@ -189,6 +164,7 @@ const CommonRecords = inject(
             record={record}
             click={() => handleEditRecord(record)}
             showdelete={() => handleDelete(record)}
+            // change={(e) => onChange(record, e)}
             change={e => onChange(record, e)}
             checked={
               !!DepartmentStore.selectedDepartment.commoncodes.find(
@@ -278,12 +254,11 @@ const CommonRecords = inject(
           aria-describedby="alert-dialog-description"
         />
 
-        {/* FIXME: not only for delete => edit modal name */}
-        <DeleteMsgModal
+        <ActionModal
           open={showDeleteMsgModal}
           title={title}
           msg={msg}
-          pdelete={onAction}
+          action={onAction}
           close={() => setShowDeleteMsgModal(false)}
           btn={btn}
         />

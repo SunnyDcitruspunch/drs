@@ -12,14 +12,14 @@ import { observer } from "mobx-react";
 interface IProps {
   open: boolean;
   close: () => void;
-  pdelete: () => void;
+  action: () => void;
   msg: string;
   title: string;
   btn: string;
 }
 
-export const DeleteMsgModal = observer((props: IProps) => {
-  const { open, close, msg, title, pdelete, btn } = props;
+export const ActionModal = observer((props: IProps) => {
+  const { open, close, msg, title, action, btn } = props;
 
   return (
     <Dialog
@@ -37,7 +37,7 @@ export const DeleteMsgModal = observer((props: IProps) => {
         <Button onClick={close} color="primary">
             Close
         </Button>
-        <Button onClick={pdelete} color="primary">
+        <Button onClick={action} color="primary">
           {btn}
         </Button>
       </DialogActions>

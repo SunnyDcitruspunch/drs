@@ -305,17 +305,6 @@
     },
     {
       "department": "BYU Catering",
-      "function": "Human Resource",
-      "recordtype": "Rank & Status records.",
-      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
-      "classification": [],
-      "comments": "",
-      "code": "CFAC1500",
-      "status": "Approved",
-      "id": 35
-    },
-    {
-      "department": "BYU Catering",
       "function": "Financial",
       "recordtype": "Y-Time exceptions (missed time punches) documentation retained by department.",
       "description": "Retain department copies of supporting documentation for 2 years, then destroy.",
@@ -349,17 +338,6 @@
     },
     {
       "department": "Information Systems",
-      "function": "Human Resource",
-      "recordtype": "Rank & Status records.",
-      "description": "Digital copies from the Rank and Status system are retained indefinitely by the Faculty Personnel Office. âPaper Onlyâ copies should be retained by department indefinitely.",
-      "classification": [],
-      "comments": "",
-      "code": "CFAC1500",
-      "status": "Approved",
-      "id": 46
-    },
-    {
-      "department": "Information Systems",
       "recordtype": "test",
       "function": "Employment",
       "recordcategoryid": "FIN10",
@@ -386,6 +364,39 @@
       "status": "Pending",
       "code": "",
       "id": 51
+    },
+    {
+      "id": "23",
+      "code": "CFAC1100",
+      "function": "Faculty",
+      "recordtype": "Faculty annual reviews (Faculty Performance Development Plans).",
+      "description": "Retain Indefinitely.",
+      "classification": [],
+      "useddepartment": 0
+    },
+    {
+      "id": "6",
+      "code": "CACD1800",
+      "function": "Academic",
+      "recordtype": "Curriculum records (may include course proposals, course revisions, course requests, and curriculum committee minutes).",
+      "description": "Retain permanently, if not already maintained in online system, e.g. Learning Suite. Submit curriculum committee minutes to University Records Center for Archival review.",
+      "classification": [
+        "Archival"
+      ],
+      "useddepartment": 0
+    },
+    {
+      "department": "BYU Catering",
+      "code": "CACD2300",
+      "recordtype": "Senior surveys & summaries (Graduating Student Exit Interviews).",
+      "function": "Academic",
+      "description": "Retain surveys for 5 years, if not stored online by senior survey system, then destroy.  Transfer 1 copy of summaries to the University Records Center for Archival review.",
+      "comments": "",
+      "classification": [
+        "Archival"
+      ],
+      "status": "Approved",
+      "id": 52
     }
   ],
   "commonrecords": [
@@ -881,9 +892,7 @@
       "id": "1",
       "department": "Information Systems",
       "departmentnumber": "401",
-      "commoncodes": [
-        "CFAC1500"
-      ]
+      "commoncodes": []
     },
     {
       "id": "2",
@@ -902,13 +911,16 @@
       "department": "BYU Catering",
       "departmentnumber": "260",
       "commoncodes": [
-        "CFAC1500",
         "CFIN2700",
         "CFIN2600",
         "CHUM1600",
         "CHUM1400",
         "CADM1900",
-        "CADM2100"
+        "CADM2100",
+        "CHUM1200",
+        "CFAC1100",
+        "CACD1800",
+        "CACD2300"
       ]
     },
     {

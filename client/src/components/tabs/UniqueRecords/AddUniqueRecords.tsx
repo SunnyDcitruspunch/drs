@@ -14,9 +14,9 @@ import {
   MessageModal,
   FunctionDropdown,
   CategoryDropdown,
-  ClassificationCheckboxes,
-  MsgSnackbar
+  ClassificationCheckboxes
 } from "../../common";
+import { Link } from 'react-router-dom'
 
 const AddUniqueRecords = inject(
   "UniqueStore",
@@ -47,9 +47,9 @@ const AddUniqueRecords = inject(
         setSnackbar(true);
         setNeedRecord(false);
         setSelectedClassification([]);
-        setVital(false)
-        setArchival(false)
-        setConfidential(false)
+        setVital(false);
+        setArchival(false);
+        setConfidential(false);
       }
       DepartmentStore.fetchAllRecords();
     };
@@ -58,15 +58,12 @@ const AddUniqueRecords = inject(
     const handleCheck = (e: any) => {
       console.log(selectedclassification);
       if (e.target.checked) {
-        // e.target.checked = false
-        // e.target.name
         setSelectedClassification([...selectedclassification, e.target.value]);
       } else {
-        // e.target.checke3d = true
         let remove = selectedclassification.indexOf(e.target.value);
         setSelectedClassification([
           ...selectedclassification,
-          selectedclassification.filter((_: any, i: any) => i !== remove)
+          selectedclassification.filter((_: string, i: number) => i !== remove)
         ]);
       }
     };
@@ -176,7 +173,7 @@ const AddUniqueRecords = inject(
             style={{ marginTop: 10, fontSize: 10 }}
             onClick={submitRecords}
           >
-            Submit
+            <Link to="/DeptRetention">Submit</Link>
           </Button>
         </Grid>
 

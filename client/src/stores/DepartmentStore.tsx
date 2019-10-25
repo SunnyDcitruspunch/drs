@@ -63,7 +63,6 @@ class _DepartmentStore implements IDepartmentStore {
       .then(json => (this.allDepartments = json));
   };
 
-  //TODO: cannot sort it here => sort in component
   fetchAllRecords = () => {
     fetch("http://localhost:3004/records")
       .then(response => {
@@ -110,8 +109,6 @@ class _DepartmentStore implements IDepartmentStore {
     const baseUrl = "http://localhost:3004/records";
     const options = { method: "DELETE" };
     await fetch(`${baseUrl}/${this.record.id}`, options);
-    console.log(this.record.id);
-    console.log(this.record);
 
     let deleteIndex: number = this.allDepartments.findIndex(
       (d: IDepartment) => d.department === this.record.department
@@ -141,6 +138,7 @@ class _DepartmentStore implements IDepartmentStore {
     }).then(res => {
       this.fetchAll();
       CommonStore.fetchCommonRecords();
+      this.fetchAll();
       console.log("removed");
     });
   }

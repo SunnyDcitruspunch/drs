@@ -17,8 +17,8 @@ import {
   UniqueStore
 } from "../../../stores";
 import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
-import { EditModal, MsgSnackbar } from "../../common";
-import { DepartmentTable, DeleteMsgModal } from "../DeptRetention";
+import { EditModal, MsgSnackbar, ActionModal } from "../../common";
+import { DepartmentTable } from "../DeptRetention";
 
 const headrows: IHeadRow[] = [
   { id: "function", label: "Function" },
@@ -66,7 +66,6 @@ export const DeptRetention = inject(
     //TODO: to landscape
     const makePdf: () => void = () => {
       setLoadPdf(true);
-
       axios
         .post("/create-schedule", DepartmentStore)
         .then(() => axios.get("fetch-pdf", { responseType: "blob" }))
@@ -124,6 +123,11 @@ export const DeptRetention = inject(
             {UserStore.currentUser.admin ? (
               <TableBody style={{ fontSize: 11 }} id="tablebody">
                 {DepartmentStore._allRecords
+                  .slice()
+                  .sort((a: IRecord, b: IRecord) =>
+                    a.recordtype > b.recordtype? -1 : 1 &&
+                      a.function > b.function? -1 : 1    
+                  )
                   .filter(
                     (x: IRecord) =>
                       x.department ===
@@ -175,11 +179,11 @@ export const DeptRetention = inject(
         </Paper>
 
         {/* delete record */}
-        <DeleteMsgModal
+        <ActionModal
           open={deleteModal}
           title={"Delete Record"}
           msg={"Are you sure you want to delete this record?"}
-          pdelete={onDelete}
+          action={onDelete}
           close={() => setDeleteModal(false)}
           btn={"Delete"}
         />

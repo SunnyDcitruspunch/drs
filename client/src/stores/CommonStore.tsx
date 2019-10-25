@@ -20,7 +20,7 @@ export interface ICommonStore {
   fetchCommonRecords: () => void;
   updateCommonRecord: (c: string[]) => void;
   getEditRecord: (record: ICommonRecord) => void;
-  addCommonRecords: (selects: string[], dept: IDepartment) => void;
+  addCommonRecords: (id: string, dept: IDepartment) => void;
   handleChange: (e: any) => void;
 }
 
@@ -105,74 +105,55 @@ class _CommonStore implements ICommonStore {
   };
 
   //add selected common records
-  async addCommonRecords(selects: string[], dept: IDepartment) {
-    //initial value should not be empty... should have pre selected data.
-    let commoncodes: string[] = [];
+  addCommonRecords = async () => {
+    let commoncodes: any = DepartmentStore.selectedDepartment.commoncodes.filter(
+      (x: string) => x !== this.record.code
+    );
+    commoncodes.push(this.record.code);
 
-    // for (let i = 0; i < selects.length; i++) {
-    selects.forEach(async (select: string) => {
-      let test: IRecord = {
-        department: "",
-        recordtype: "",
-        function: "",
-        recordcategoryid: "",
-        description: "",
-        comments: "",
-        classification: [],
-        status: "Approved",
-        code: ""
-      };
-      this.commonRecords
-        .filter((x: ICommonRecord) => x.id === select)
-        .map((postDetail: ICommonRecord) => {
-          commoncodes = dept.commoncodes;
-          console.log(commoncodes);
+    const newRecord: IRecord = {
+      department: DepartmentStore.selectedDepartment.department,
+      code: this.record.code,
+      recordtype: this.record.recordtype,
+      function: this.record.function,
+      recordcategoryid: this.record.recordcategoryid,
+      description: this.record.description,
+      comments: "",
+      classification: this.record.classification,
+      status: "Approved"
+    };
 
-          //post common records to records list
-          test = {
-            department: dept.department,
-            function: postDetail.function,
-            recordcategoryid: postDetail.recordcategoryid,
-            recordtype: postDetail.recordtype,
-            description: postDetail.description,
-            classification: postDetail.classification,
-            comments: "",
-            code: postDetail.code,
-            status: "Approved"
-          };
-          commoncodes.push(postDetail.code);
-        });
-
-      // add selected common records to records list
-      await fetch("http://localhost:3004/records", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(test)
-      }).then(res => {
-        DepartmentStore.fetchAllRecords();
-      });
-
-      //add common record code to department object
-      const baseUrl = "http://localhost:3004/departments";
-      await fetch(`${baseUrl}/${dept.id}`, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          //post department name to selected common records
-          commoncodes: commoncodes
-        })
-      }).then(res => {
-        DepartmentStore.fetchAll();
-        this.snackbarAddCommonRecord = true;
-      });
+    //add selected common records to record list
+    await fetch("http://localhost:3004/records", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newRecord)
+    }).then(res => {
+      DepartmentStore.fetchAllRecords();
     });
-  }
+
+    //add common record code to department object
+    const baseUrl = "http://localhost:3004/departments";
+    await fetch(`${baseUrl}/${DepartmentStore.selectedDepartment.id}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        //post department name to selected common records
+        commoncodes: commoncodes
+      })
+    }).then(res => {
+      DepartmentStore.fetchAll();
+      this.fetchCommonRecords();
+      console.log("added common record code");
+      // this.snackbarAddCommonRecord = true;
+    });
+  };
 }
 
 decorate(_CommonStore, {
