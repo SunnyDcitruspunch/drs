@@ -434,6 +434,40 @@
       "classification": [],
       "status": "Approved",
       "id": 55
+    },
+    {
+      "department": "BYU Catering",
+      "code": "CACD2400",
+      "recordtype": "Student files retained by dept. (Academic Advisement Records) â graduate & undergrad.",
+      "function": "Academic",
+      "description": "Retain 5 years after graduation or 8 years after last enrolled, then destroy. (Retain records associated with licensing and professional certifications permanently).",
+      "comments": "",
+      "classification": [],
+      "status": "Approved",
+      "id": 56
+    },
+    {
+      "department": "BYU Catering",
+      "code": "CACD2500",
+      "recordtype": "Student certifications and licensing.",
+      "function": "Academic",
+      "description": "Retain indefinitely.",
+      "comments": "",
+      "classification": [],
+      "status": "Approved",
+      "id": 57
+    },
+    {
+      "department": "Information Systems",
+      "code": "CACD1200",
+      "recordtype": "Challenge exams.",
+      "function": "Academic",
+      "recordcategoryid": "common",
+      "description": "For records not retained in online system, destroy department copies of completed exams after 2 years; retain incomplete exam results for 5 years, then destroy.",
+      "comments": "",
+      "classification": [],
+      "status": "Approved",
+      "id": 58
     }
   ],
   "commonrecords": [
@@ -920,7 +954,9 @@
       "id": "1",
       "department": "Information Systems",
       "departmentnumber": "401",
-      "commoncodes": []
+      "commoncodes": [
+        "CACD1200"
+      ]
     },
     {
       "id": "2",
@@ -951,7 +987,9 @@
         "CACD2300",
         "CACD1200",
         "CACD1400",
-        "CACD1600"
+        "CACD1600",
+        "CACD2400",
+        "CACD2500"
       ]
     },
     {

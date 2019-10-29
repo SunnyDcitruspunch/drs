@@ -59,11 +59,11 @@ const AdminTabs = inject("UserStore")(
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
 
-    function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
+    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
       setValue(newValue);
     }
 
-    function handleChangeIndex(index: number) {
+    const handleChangeIndex = (index: number) => {
       setValue(index);
     }
 

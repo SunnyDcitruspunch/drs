@@ -4,13 +4,12 @@ import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { observer, inject } from "mobx-react";
 import {
   AuthStore,
-  IAuthStore,
-  DepartmentStore,
-  IDepartmentStore
+  DepartmentStore
 } from "../../stores";
 
 const Nav = inject("AuthStore", "DepartmentStore")(
   observer(() => {
+
     const handleLogout = () => {
       DepartmentStore.selectedDepartment = {
         department: "",
@@ -24,6 +23,7 @@ const Nav = inject("AuthStore", "DepartmentStore")(
       return (
         <AppBar position="static" color="default">
           <Toolbar>
+            {/* FIXME: fix inline style */}
             <Typography
               variant="h6"
               color="inherit"

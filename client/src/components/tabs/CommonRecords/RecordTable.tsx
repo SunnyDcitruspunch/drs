@@ -4,7 +4,6 @@ import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 import { TableCell, TableRow, Checkbox } from "@material-ui/core";
 import { ICommonRecord, UserStore } from "../../../stores";
 import { observer, inject } from "mobx-react";
-import { MsgSnackbar } from '../../common'
 
 interface IProps {
   record: ICommonRecord;

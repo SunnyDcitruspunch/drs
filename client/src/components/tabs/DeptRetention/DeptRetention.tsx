@@ -17,7 +17,7 @@ import {
   UniqueStore
 } from "../../../stores";
 import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
-import { EditModal, MsgSnackbar, ActionModal } from "../../common";
+import { EditModal, ActionModal } from "../../common";
 import { DepartmentTable } from "../DeptRetention";
 
 const headrows: IHeadRow[] = [

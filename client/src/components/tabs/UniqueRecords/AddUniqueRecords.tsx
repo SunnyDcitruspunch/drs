@@ -25,7 +25,7 @@ const AddUniqueRecords = inject(
 )(
   observer(() => {
     const [msgModal, setMsgModal] = useState<boolean>(false); //smshow
-    const [snackbar, setSnackbar] = useState<boolean>(false);
+    const [, setSnackbar] = useState<boolean>(false);
     const [needRecord, setNeedRecord] = useState<boolean>(false);
     const [vital, setVital] = useState<boolean>(false);
     const [archival, setArchival] = useState<boolean>(false);
@@ -177,6 +177,7 @@ const AddUniqueRecords = inject(
           </Button>
         </Grid>
 
+      {/* TODO: reuse MessageModal */}
         <MessageModal
           open={msgModal}
           close={() => setMsgModal(false)}
@@ -196,6 +197,7 @@ const AddUniqueRecords = inject(
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         />
+
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",

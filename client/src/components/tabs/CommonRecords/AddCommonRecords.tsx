@@ -12,7 +12,7 @@ import {
   RecordStore
 } from "../../../stores";
 import EnhancedTableHead, { IHeadRow } from "../../common/EnhancedTableHead";
-import { EditModal, MessageModal, MsgSnackbar } from "../../common";
+import { EditModal, MessageModal } from "../../common";
 import RecordTable from "./RecordTable";
 import { ActionModal } from "../../common/ActionModal";
 import DeleteModal from "../CommonRecords/DeleteModal";
@@ -48,7 +48,7 @@ const CommonRecords = inject(
     const [showDeleteMsgModal, setShowDeleteMsgModal] = useState<boolean>(
       false
     );
-    const [loadPdf, setLoadPdf] = useState<boolean>(false);
+    const [, setLoadPdf] = useState<boolean>(false);
     const [selectedclassification, setSelectedClassification] = useState<
       IRecord | any
     >([]);
@@ -134,6 +134,7 @@ const CommonRecords = inject(
       setBtn("Delete");
     };
 
+    //make a pdf file of a list of departments
     const makePdf: () => void = () => {
       setLoadPdf(true);
       axios

@@ -1,18 +1,18 @@
 import { observable, action, decorate } from "mobx";
-import { IUser, UserStore, DepartmentStore } from './index'
+import { IUser, UserStore, DepartmentStore } from "./index";
 import { IDepartment } from "./DepartmentStore";
 
 export interface IAuthStore {
   username: string;
   password: string;
-  getUser: IUser 
+  getUser: IUser;
   clearInputs: () => void;
   setUsername: (e: any) => void;
   setPassword: (e: any) => void;
-  logout: () => void
-  logIn: () => void
-  admin: boolean
-  user: boolean
+  logout: () => void;
+  logIn: () => void;
+  admin: boolean;
+  user: boolean;
 }
 
 class _AuthStore implements IAuthStore {
@@ -20,7 +20,13 @@ class _AuthStore implements IAuthStore {
   password = "";
   admin = false;
   user = false;
-  getUser = {username:"", password:"", department:"", admin:false, user: true}
+  getUser = {
+    username: "",
+    password: "",
+    department: "",
+    admin: false,
+    user: true
+  };
 
   clearInputs = () => {
     this.username = "";
@@ -28,40 +34,49 @@ class _AuthStore implements IAuthStore {
   };
 
   setUsername = (e: any) => {
-    const { value } = e.target              
+    const { value } = e.target;
     this.username = value;
   };
 
   setPassword(e: any) {
-    const { value } = e.target
+    const { value } = e.target;
     this.password = value;
   }
 
-  logIn(){
-    const iusername = !!UserStore.allUsers.find((u: IUser) => u.username === this.username && u.password === this.password)
+  logIn() {
+    const iusername = !!UserStore.allUsers.find(
+      (u: IUser) => u.username === this.username && u.password === this.password
+    );
 
-    if (iusername){
-        this.user = true
-        const userIndex = UserStore.allUsers.findIndex((num: IUser) => num.username === this.username)
-        UserStore.currentUser = UserStore.allUsers[userIndex]
-        if(UserStore.currentUser.admin) {
-            this.admin = true
-        } else {          
-            this.admin = false
-            DepartmentStore.selectedDepartment.department = UserStore.currentUser.department
-            const deptIndex = DepartmentStore.allDepartments.findIndex((d: IDepartment) => d.department === DepartmentStore.selectedDepartment.department)
-            const userDepartment: IDepartment = DepartmentStore.allDepartments[deptIndex]
-            DepartmentStore.selectedDepartment = userDepartment
-        }
+    if (iusername) {
+      this.user = true;
+      const userIndex = UserStore.allUsers.findIndex(
+        (num: IUser) => num.username === this.username
+      );
+      UserStore.currentUser = UserStore.allUsers[userIndex];
+      if (UserStore.currentUser.admin) {
+        this.admin = true;
+      } else {
+        this.admin = false;
+        DepartmentStore.selectedDepartment.department =
+          UserStore.currentUser.department;
+        const deptIndex = DepartmentStore.allDepartments.findIndex(
+          (d: IDepartment) =>
+            d.department === DepartmentStore.selectedDepartment.department
+        );
+        const userDepartment: IDepartment =
+          DepartmentStore.allDepartments[deptIndex];
+        DepartmentStore.selectedDepartment = userDepartment;
+      }
     } else {
-        this.user = false
-        this.admin = false
+      this.user = false;
+      this.admin = false;
     }
   }
 
-  logout(){
-    this.user = false
-    this.admin = false
+  logout() {
+    this.user = false;
+    this.admin = false;
   }
 }
 

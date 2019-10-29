@@ -16,7 +16,7 @@ interface IProps {
   ondelete: () => void;
   deptpdf: () => void;
   msg: string;
-  depts: any;
+  depts: JSX.Element[];
 }
 
 const DeleteModal = observer((props: IProps) => {
