@@ -111,7 +111,7 @@ const CommonRecords = inject(
     };
 
     const onAction: () => void = () => {
-      if (title == "Delete Record") {
+      if (title === "Delete Record") {
         setShowDeleteModal(false);
         setShowDeleteMsgModal(false);
         CommonStore.deleteCommonRecord();
@@ -152,6 +152,7 @@ const CommonRecords = inject(
         .catch((error: any) => console.log(error));
     };
 
+    //TODO: checkbox does not check after update
     let CommonRecordList: JSX.Element[] = CommonStore.commonRecords.map(
       (record: ICommonRecord, index: number) => {
         return (

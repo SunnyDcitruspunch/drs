@@ -104,7 +104,6 @@ export const DeptRetention = inject(
 
     const editRecord: () => void = async () => {
       await DepartmentStore.updateRecord(selectedclassification);
-      // await this.props.DepartmentStore.setRecord()
       setEditModal(false);
     };
 

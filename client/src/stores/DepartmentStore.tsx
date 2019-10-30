@@ -118,8 +118,6 @@ class _DepartmentStore implements IDepartmentStore {
     let updateCommoncodes: string[] = this.allDepartments[
       deleteIndex
     ].commoncodes.filter((c: string) => c !== this.record.code);
-    console.log(this.record.code);
-    console.log(updateCommoncodes);
 
     let index = this.allDepartments.findIndex(
       (d: IDepartment) => d.department === this.record.department
@@ -146,9 +144,9 @@ class _DepartmentStore implements IDepartmentStore {
   //PATCH request
   async updateRecord(classification: string[]) {
     const i = this._allRecords.findIndex(r => r.id === this.record.id);
-    this.allRecords[i] = this.record;
+    // this.allRecords[i] = this.record;
 
-    if (this.record.recordtype === this.record.recordtype) {
+    if (this.record.recordtype === this.allRecords[i].recordtype) {
       this.record.status = "Approved";
     } else {
       this.record.status = "Pending";
@@ -174,7 +172,7 @@ class _DepartmentStore implements IDepartmentStore {
       DepartmentStore.fetchAllRecords();
     });
 
-    //how to clear an object more effectively?
+    //clear up this.record
     this.record = {
       id: "",
       department: "",
