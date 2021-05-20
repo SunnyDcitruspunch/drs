@@ -18,7 +18,7 @@
     "file-saver": "^2.0.2",
     "file-server": "^2.1.0",
     "formik": "^1.5.8",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "mobx": "^5.13.1",
